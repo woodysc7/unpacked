@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Tajikistan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="tajikistan-label">
+      TAJIKISTAN
+      <img class="flag-icon" src="https://flagcdn.com/tj.svg" alt="Tajikistan flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/18484300/pexels-photo-18484300.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Monument of Lenin with Soviet symbolism in Khujand, Tajikistan." data-title="Monument of Lenin with Soviet symbolism in Khujand, Tajikistan." data-meta="Photographer: Ehsan Haque" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/30769311/pexels-photo-30769311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of a vintage style globe with a focus on Asia and surrounding regions." data-title="Close-up of a vintage style globe with a focus on Asia and surrounding regions." data-meta="Photographer: UMA media" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/32725861/pexels-photo-32725861.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" data-title="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" data-meta="Photographer: Anh Nguyen" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/32729243/pexels-photo-32729243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Indian Man Wearing a Headscarf or Traditional Cloth" data-title="Indian Man Wearing a Headscarf or Traditional Cloth" data-meta="Photographer: Mahmut Yılmaz" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Monument of Lenin with Soviet symbolism in Khujand, Tajikistan.</div>
+    <div class="art-info-meta">Photographer: Ehsan Haque</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Tajikistan News</div>
+          
+    <a href="https://simpleflying.com/tajikistan-somon-air-boeing-737-max-8-mulls-london-flights/" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">Tajikistan’s Somon Air Buys 2 Boeing 737 MAX 8s & Mulls Direct London Flights</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-02-03T02:25:05Z &middot; Simple Flying</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">The main airline of Tajikistan is looking to expand its route network with the addition of two Boeing MAX aircraft to its fleet next year.</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://en.trend.az/casia/tajikistan/4063541"  class="blog-post" target="_blank">
+            <div class="blog-title">Tajikistan reports significant increase in agricultural planting</div>
+            <div class="blog-meta">As of June 1, 2025, Tajikistan saw a significant increase in agricultural planting, nearly doubling the area sown compared to last year. Major crops include cereals, cotton, potatoes, and vegetables.</div>
+        </a>
+        
+        <a href="https://en.trend.az/casia/tajikistan/4063518"  class="blog-post" target="_blank">
+            <div class="blog-title">Tajikistan's coal production sees growth in January-May 2025</div>
+            <div class="blog-meta">Coal production in Tajikistan increased in early 2025, highlighting steady growth in the energy sector. While hard coal output rose, brown coal production declined slightly. Despite the mixed performance in coal types, overall extraction activity supported the country’s broader industrial development.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Tajikistan</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/18484300/pexels-photo-18484300.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Monument of Lenin with Soviet symbolism in Khujand, Tajikistan." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/30769311/pexels-photo-30769311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of a vintage style globe with a focus on Asia and surrounding regions." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/32725861/pexels-photo-32725861.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/32729243/pexels-photo-32729243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Indian Man Wearing a Headscarf or Traditional Cloth" style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Ancient Civilizations and Silk Road Influence (3000 BCE–500 CE)</h3>
+<p>
+Tajikistan’s history is intertwined with ancient civilizations that inhabited the region, such as the Bactrians, Sogdians, and Scythians. Positioned along the Silk Road, Tajikistan became a crucial hub for trade and cultural exchange between East and West. Cities like Panjakent and Khujand flourished, showcasing the diverse influences of Greek, Persian, and Chinese civilizations.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Islamic Conquest and Persian Influence (700–1500)</h3>
+<p>
+In the 8th century, Arab armies brought Islam to the region, shaping Tajikistan’s religious and cultural landscape. The Samanid Empire, centered in Bukhara, played a significant role in promoting Persian language and culture, leaving a lasting impact on Tajik identity. The region thrived as part of the Persianate world, with art, literature, and architecture flourishing.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Mongol Invasions and Timurid Rule (1200s–1500s)</h3>
+<p>
+Tajikistan endured the tumultuous period of Mongol invasions, leading to the fragmentation of the region. The Timurid Empire, established by the Central Asian conqueror Timur (Tamerlane), briefly brought stability and grandeur to Tajik lands. Samarkand, under Timur’s rule, became a center of art, science, and architecture, showcasing the region’s rich cultural heritage.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Russian Imperialism and Soviet Era (1800s–1991)</h3>
+<p>
+By the 19th century, Tajikistan fell under Russian influence as the Russian Empire expanded into Central Asia. After the Bolshevik Revolution, Tajikistan became a Soviet republic, undergoing rapid industrialization and collectivization. The Soviet era brought significant social and economic changes but also led to tensions and challenges as traditional Tajik culture clashed with Soviet ideology.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Independence and Civil War (1991–1997)</h3>
+<p>
+Following the dissolution of the Soviet Union in 1991, Tajikistan declared independence. However, internal conflicts between regional and political factions escalated into a devastating civil war. The war, fueled by ethnic, religious, and political tensions, left a deep impact on the country’s social fabric and infrastructure, hindering its early years of independence.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Post-War Reconstruction and Modernization (Late 1990s–Present)</h3>
+<p>
+Since the end of the civil war in 1997, Tajikistan has focused on rebuilding and modernizing its infrastructure and economy. The country has sought to strengthen its ties with neighboring nations and international partners while grappling with challenges such as poverty, corruption, and political stability. Despite these obstacles, Tajikistan continues to preserve its rich cultural heritage and traditions, welcoming visitors to explore its history and natural beauty.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Tajikistan</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Tajikistan</h3>
+<p>
+Tajikistan's official language is Tajik, a Persian-influenced language closely related to Farsi. Russian is also widely spoken, especially in urban areas and among older generations due to historical ties with the Soviet Union. In addition, minority languages such as Uzbek and Kyrgyz are spoken in certain regions.
+</p>
+
+<h3 style="font-weight:bold;">English in Tajikistan</h3>
+<p>
+English proficiency in Tajikistan is still developing, with only about 1-2% of the population reported to speak English fluently. In major cities and tourist areas, you may find some people who know basic English, but overall, it is not widely spoken. Learning a few key phrases in Tajik or Russian can greatly enhance your travel experience here.
+</p>
+
+<h3 style="font-weight:bold;">Useful Tajik Phrases</h3>
+<ul>
+<li><b>Салом</b> – <b>Hello</b></li>
+<li><b>Худофиз</b> – <b>Goodbye</b></li>
+<li><b>Лутфан</b> – <b>Please</b></li>
+<li><b>Раҳмат</b> – <b>Thank you</b></li>
+<li><b>Шумо забони англисиро медонед?</b> – <b>Do you speak English?</b></li>
+<li><b>Ман забони точики намедонам</b> – <b>I don’t speak Tajik</b></li>
+<li><b>Ҳамён кучои хоҳед?</b> – <b>Where is the bus station?</b></li>
+<li><b>Қандай ҳамаишаҳо кафед?</b> – <b>How much is it always?</b></li>
+<li><b>Боз ба ман пардози мехоҳед</b> – <b>Excuse me, can you help me?</b></li>
+<li><b>Миз миз барои ду нафар, лутфан
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Tajikistan Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Tajik cuisine reflects a blend of Persian, Russian, and Central Asian influences, offering a unique culinary experience for adventurous foodies. While not as well-known globally as some other cuisines in the region, Tajik dishes are hearty, flavorful, and often centered around rice, meat, and vegetables. The use of aromatic spices like cumin, coriander, and paprika adds depth to many traditional dishes, making them a delightful exploration of flavors and textures.
+</p>
+<ul>
+<li><b>Plov</b> – A fragrant rice pilaf cooked with carrots, onions, and a choice of meat like lamb, beef, or chicken, often considered the national dish.</li>
+<li><b>Lagman</b> – A noodle dish with stir-fried vegetables and your choice of meat, seasoned with a rich tomato-based sauce and a hint of cumin.</li>
+<li><b>Somsa</b> – Savory pastry filled with minced meat, onions, and spices, similar to a samosa.</li>
+<li><b>Osh</b> – A hearty soup typically made with meat, legumes, and various vegetables, perfect for warming up on cold days.</li>
+<li><b>Manti</b> – Steamed dumplings filled with minced meat and onions, often served with yogurt or sour cream.</li>
+<li><b>Shashlik</b> – Grilled skewers of marinated meat, usually lamb or beef, a popular street food and barbecue option.</li>
+<li><b>Non</b> – Traditional Tajik bread, often baked in clay ovens and served with every meal.</li>
+<li><b>Chakka</b> – A creamy, fermented dairy product similar to yogurt, sometimes enjoyed with honey or sugar.</li>
+</ul>
+<h3 style="font-weight:bold;">Tea Culture</h3>
+<p>
+Tajikistan has a rich tea-drinking culture, with green tea being the beverage of choice for most occasions. Tea ceremonies are an integral part of social gatherings, where guests are welcomed with a steaming cup of tea served with sweets and dried fruits. The warmth of the tea and the hospitality of the hosts create a cozy and inviting atmosphere.
+</p>
+<h3 style="font-weight:bold;">Influence of Silk Road</h3>
+<p>
+As a
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Tajikistan Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Tajikistan’s most famous festivals?</h3>
+<p>
+Tajikistan’s festivals are steeped in tradition and reflect the rich cultural heritage of this Central Asian country. While there are numerous celebrations throughout the year, a few standout festivals are not to be missed:
+</p>
+<ul>
+<li><b>Navruz (Nationwide, March 21)</b> – Celebrated on the Persian New Year, Navruz marks the beginning of spring with vibrant street performances, traditional music, and delicious feasts. It’s a time of renewal and joy for families and communities across Tajikistan.</li>
+<li><b>Pamiri Roof of the World Festival (Gorno-Badakhshan, July)</b> – Held in the stunning Pamir Mountains, this festival showcases Pamiri culture through music, dance, handicrafts, and traditional games. Visitors can immerse themselves in the warm hospitality and unique customs of the Pamiri people.</li>
+<li><b>Sarazm Festival (Sarazm, June)</b> – Celebrating the ancient archaeological site of Sarazm, this festival brings together archaeologists, historians, and locals to honor Tajikistan’s rich history. Visitors can witness cultural performances, exhibitions, and learn about the country’s fascinating past.</li>
+<li><b>Independence Day (Dushanbe, September 9)</b> – Tajikistan’s Independence Day is a national holiday filled with patriotic events, including parades, concerts, and fireworks. It’s a great opportunity to experience the country’s pride and unity.</li>
+<li><b>Rumi Festival (Kulob, October)</b> – Dedicated to the renowned Persian poet Rumi, this festival features poetry readings, music concerts, and artistic displays inspired by Rumi’s works. It’s a spiritual and creative celebration that attracts artists and thinkers from around the world.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Tajikistan, remember to respect local customs and traditions. It is advisable to dress modestly and be mindful of cultural sensitivities. Keep in mind that some festivals may have specific rituals or ceremonies that you can participate in respectfully. Don’t forget to try the delicious local cuisine and interact with the friendly locals to truly immerse yourself in the festive spirit of Tajikistan.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+For a deeper dive into Tajikistan, there are various engaging resources that can enhance your understanding of this unique country.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Tajikistan Beyond Borders</b> - Explore the rich history, diverse culture, and stunning landscapes of Tajikistan through personal stories and expert interviews.</li>
+<li><b>Tales of the Silk Road</b> - Delve into the ancient trade routes that passed through Tajikistan, uncovering tales of adventure, trade, and cultural exchange
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/tajikistan/tajikistanhome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/tajikistan/tajikistanmore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/tajikistan/tajikistancityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

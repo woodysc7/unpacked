@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Anguilla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas " class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="anguilla-label">
+      ANGUILLA
+      <img class="flag-icon" src="https://flagcdn.com/ai.svg" alt="Anguilla flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/11482766/pexels-photo-11482766.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stone sculptures with ocean view in Anguilla, offering serene and artistic ambiance." data-title="Stone sculptures with ocean view in Anguilla, offering serene and artistic ambiance." data-meta="Photographer: Sebastian Angarita" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32753087/pexels-photo-32753087.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" data-title="" data-meta="Photographer: Bobby Dimas" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32731473/pexels-photo-32731473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-title="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-meta="Photographer: Diana Reyes" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32762553/pexels-photo-32762553.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" data-title="" data-meta="Photographer: Neko" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title">Stone sculptures with ocean view in Anguilla, offering serene and artistic ambiance.</div>
+          <div class="art-info-meta">Photographer: Sebastian Angarita</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Anguilla News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.thestar.com.my/aseanplus/aseanplus-news/2025/06/28/six-endangered-fish-species-found-in-fish-maw-from-singapore-and-malaysias-stores-study" class="blog-post" target="_blank">
+            <div class="blog-title">Six endangered fish species found in fish maw from Singapore and Malaysia’s stores: Study</div>
+            <div class="blog-meta">The DNA of six endangered fish species was found in fish maw products from stores in Singapore and Malaysia, a new study found. Read full story</div>
+        </a>
+        
+        <a href="https://ca.style.yahoo.com/10-dreamy-caribbean-resorts-family-090212589 " class="blog-post" target="_blank">
+            <div class="blog-title">These 10 dreamy Caribbean resorts make family travel feel effortless</div>
+            <div class="blog-meta">From kid-friendly pools to gourmet dining, these luxury Caribbean resorts deliver everything families need.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of Anguilla</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Indigenous Peoples and Colonization (Pre-1650s)</h3>
+<p>
+Before European arrival, Anguilla was inhabited by Arawak and Carib peoples who lived off fishing and farming. In 1650, English settlers established plantations on the island, introducing African slaves to work the sugarcane fields. Over the next century, Anguilla changed hands between the British and French, with the Treaty of Paris in 1763 finally ceding the island to Great Britain.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Slavery, Emancipation, and Plantation Economy (1650s–1834)</h3>
+<p>
+The plantation economy of Anguilla relied heavily on slave labor, leading to a majority Black population. The abolition of slavery in the British Empire in 1834 brought about significant social changes, with many former slaves staying on the plantations as sharecroppers or seeking work in the salt industry, which became a major economic activity on the island.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Political Turmoil and Annexation (1834–1967)</h3>
+<p>
+Throughout the 19th and early 20th centuries, Anguilla faced political instability, including periods of governance from nearby islands like St. Kitts. In 1967, Anguilla seceded from the associated state of St. Kitts-Nevis-Anguilla, declaring itself an independent republic. However, this self-declared independence was short-lived as British forces intervened and Anguilla was re-annexed to the British Crown in 1971.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Modern Development and Self-Governance (1967–Present)</h3>
+<p>
+Since gaining a measure of self-governance in 1980, Anguilla has made significant strides in developing its tourism industry, becoming known for its pristine beaches and luxury resorts. The island has maintained a stable political environment as a British Overseas Territory, with a parliamentary system of government and a focus on sustainable development and environmental conservation.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of Anguilla</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Languages Spoken in Anguilla</h3>
+<p>
+Anguilla's official language is English, reflecting its status as a British overseas territory. English is widely used for government affairs, education, and business transactions. However, you may also hear other languages spoken on the island due to its diverse population and tourism influences.
+</p>
+
+<h3 style="font-weight:bold;">Local Dialects and Influence</h3>
+<p>
+While English is the primary language, you may encounter a unique local dialect known as “Anguillian English.” This dialect may include elements of Caribbean English and Anguillian Creole, reflecting the island's cultural heritage and influences from neighboring Caribbean nations.
+</p>
+
+<h3 style="font-weight:bold;">Respecting Language and Culture</h3>
+<p>
+When visiting Anguilla, it is appreciated when travelers make an effort to learn a few basic phrases in English or the local dialect. This shows respect for the local culture and enhances your overall experience on the island. Locals are usually friendly and willing to assist with language barriers.
+</p>
+
+<h3 style="font-weight:bold;">Helpful English Phrases</h3>
+<ul>
+<li><b>Hello</b> – <b>Hello</b></li>
+<li><b>Goodbye</b> – <b>Goodbye</b></li>
+<li><b>Please</b> – <b>Please</b></li>
+<li><b>Thank you</b> – <b>Thank you</b></li>
+<li><b>Excuse me</b> – <b>Excuse me</b></li>
+<li><b>Where is the beach?</b> – <b>Where is the beach?</b></li>
+<li><b>Can you recommend a local restaurant?</b> – <b>Can you recommend a local restaurant?</b></li>
+<li><b>How much does this cost?</b> – <b>How much does this cost?</b></li>
+<li><b>I need help, please</b> – <b>I need help, please</b></li>
+<li><b>Is there a pharmacy nearby?</b> – <b>Is there a pharmacy nearby?</b></li>
+<li><b>Do you accept credit cards?</b> – <b>Do you accept credit cards?</b></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Anguilla Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Anguilla may be a small island, but its culinary scene is mighty. Influenced by African, Caribbean, and British flavors, Anguillan cuisine offers a delightful fusion of tastes and ingredients. While the dishes may seem simple at first glance, the magic lies in the freshness of the ingredients and the skillful preparation that brings out the natural flavors. Seafood takes center stage in Anguillan cooking, with dishes that celebrate the bounties of the surrounding waters.
+</p>
+<ul>
+<li><b>Grilled Lobster</b> – Freshly caught lobster grilled to perfection, a must-try for seafood lovers.</li>
+<li><b>Cracked Conch</b> – Tender conch meat marinated and fried, a popular appetizer in Anguilla.</li>
+<li><b>Johnnycakes</b> – Fried cornmeal bread, a staple side dish in Anguillan cuisine.</li>
+<li><b>Rice and Peas</b> – A flavorful dish of rice cooked with pigeon peas and coconut milk.</li>
+<li><b>Barbecue Ribs</b> – Succulent ribs marinated in local spices and slow-cooked to perfection.</li>
+<li><b>Mahi Mahi</b> – Freshly caught mahi-mahi prepared in various styles, showcasing the island's seafood prowess.</li>
+<li><b>Ackee and Saltfish</b> – A classic Caribbean dish of salted codfish with ackee fruit, often enjoyed at breakfast.</li>
+<li><b>Mango Tango</b> – A refreshing cocktail blending local mangoes with rum, a favorite among visitors.</li>
+<li><b>Banana Bread Pudding</b> – A delectable dessert combining ripe bananas and sweet bread, a taste of Anguillan comfort food.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Local Dining Experience</h3>
+<p>
+Dining in Anguilla is a laid-back affair, with many restaurants offering beachfront settings for a truly tropical experience. The island's charming beach bars, known as "shacks," serve up delicious grilled seafood and refreshing cocktails, creating a relaxed and friendly atmosphere that captures the essence of island life.
+</p>
+
+<h3 style="font-weight:bold;">Beverages to Try</h3>
+<p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Anguilla Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are Anguilla’s most famous festivals?</h3>
+<p>
+Anguilla, a small Caribbean gem known for its pristine beaches and warm hospitality, also boasts vibrant and lively festivals that showcase the island's rich cultural heritage. While the island's festivities may be smaller in scale compared to other destinations, they are filled with genuine charm and a sense of community.
+</p>
+<ul>
+<li><b>Summer Festival (The Valley, August)</b> – Held annually in August, this festival celebrates Anguilla's culture with lively parades, vibrant music, traditional dances, and delicious local cuisine. It's a time when locals and visitors come together to enjoy the island's spirit of unity and joy.</li>
+<li><b>Moonsplash Music Festival (Rendezvous Bay, March)</b> – A must-visit for music lovers, this festival in March features a lineup of local and international artists performing against the backdrop of the stunning Rendezvous Bay beach. Enjoy a mix of reggae, soca, calypso, and other genres under the Caribbean stars.</li>
+<li><b>Festival Del Mar (Island Harbour, April)</b> – Celebrating Anguilla's deep connection to the sea, this festival in April showcases the island's maritime heritage with boat races, fishing competitions, seafood tastings, and beachside festivities. It's a feast for the senses and a true reflection of Anguilla's coastal culture.</li>
+<li><b>Anguilla Lit Fest (Various locations, May)</b> – Book enthusiasts will delight in this literary festival held in May, featuring local and international authors, book signings, panel discussions, and workshops. Dive into the world of words amidst the island's tranquil setting.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Anguilla, embrace the laid-back island pace and immerse yourself in the local customs. Plan your trip well in advance, as accommodation options may be limited during festival times. Don't miss the opportunity to savor traditional Anguillian dishes and interact with friendly locals. Remember to pack sunscreen, beachwear, and a camera to capture the colorful moments. Respect the island's culture and traditions, and you'll create unforgettable memories during your festival experience in Anguilla.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+If you're looking to delve deeper into the vibrant culture and history of Anguilla, here are some recommended podcasts, books, and movies to enhance your understanding of this beautiful Caribbean island.
+</p>
+
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Uncover Anguilla</b> - A fascinating podcast exploring the hidden gems, local stories, and unique experiences that make Anguilla a must-visit destination.</li>
+<li><b>Island Chat</b> - Get a taste of everyday life in Anguilla
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/anguilla/anguillahome " class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/anguilla/anguillamore " class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/anguilla/anguillacityguide " class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

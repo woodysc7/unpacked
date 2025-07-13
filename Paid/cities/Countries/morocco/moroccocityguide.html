@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Morocco City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas ">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Morocco</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/casablancamorocco "><img src="https://images.unsplash.com/photo-1743513508292-3fc6f66d3f9b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxIYXNzYW4lMjBJSSUyME1vc3F1ZSUyMENhc2FibGFuY2ElMjBNb3JvY2NvfGVufDB8fHx8MTc1MTAxODE0N3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Hassan II Mosque: Stunning architecture, largest mosque in Morocco."></a>
+        <div class="citycard-caption">Hassan II Mosque: Stunning architecture, largest mosque in Morocco.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/casablancamorocco ">Casablanca</a>
+        <div class="citycard-about">Casablanca, a bustling metropolis on Morocco&#x27;s coast, is a vibrant blend of old-world charm and modern sophistication. Lose yourself in the labyrinthine streets of the medina, where fragrant spices mingle with the call to prayer, or sip mint tea in a chic café overlooking the Atlantic Ocean. From the iconic Hassan II Mosque to the bustling markets of Habous, Casablanca offers a sensory feast for the adventurous traveler. Soak up the cosmopolitan atmosphere, savor traditional tagine dishes, and discover the magic of this city that has captured hearts for generations.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/rabatmorocco "><img src="https://images.unsplash.com/photo-1706203644201-67b62fbd62c6?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLYXNiYWglMjBvZiUyMHRoZSUyMFVkYXlhcyUyMFJhYmF0JTIwTW9yb2Njb3xlbnwwfHx8fDE3NTEwNzMxODZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Kasbah of the Udayas: Ancient fortress overlooking the Bou Regreg river."></a>
+        <div class="citycard-caption">Kasbah of the Udayas: Ancient fortress overlooking the Bou Regreg river.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/rabatmorocco ">Rabat</a>
+        <div class="citycard-about">Rabat, the charming capital of Morocco, effortlessly weaves together ancient traditions and modern vibes. Stroll through the narrow alleys of the medina to haggle for colorful treasures in the bustling souks, then escape to the peaceful Andalusian Gardens for a moment of serenity. Don&#x27;t miss the impressive Hassan Tower and the majestic Kasbah of the Udayas overlooking the Atlantic Ocean. Indulge in mouthwatering tagines and refreshing mint tea at local cafes, and embrace the warm hospitality of the friendly locals. Rabat is a delightful blend of history, culture, and hospitality that will leave you enchanted and eager to return.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/fesmorocco "><img src="https://images.unsplash.com/photo-1697549799018-c62ef4692db0?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCYWIlMjBCb3UlMjBKZWxvdWQlMjBGZXMlMjBNb3JvY2NvfGVufDB8fHx8MTc1MTEzOTQxNnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Bab Bou Jeloud: Ornate blue gate marking the entrance to Fes el-Bali."></a>
+        <div class="citycard-caption">Bab Bou Jeloud: Ornate blue gate marking the entrance to Fes el-Bali.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/fesmorocco ">Fes</a>
+        <div class="citycard-about">Immerse yourself in the vibrant and chaotic alleyways of Fes, Morocco&#x27;s oldest imperial city. Lose yourself in the maze of medieval souks, where the scent of exotic spices and the sound of artisans crafting traditional goods fill the air. Visit the iconic tanneries to witness the intricate process of leather-making or explore the stunning Madrasa Bou Inania for a glimpse into the city&#x27;s rich history. Indulge in flavorful tagines and sip on sweet mint tea at a cozy rooftop cafe while overlooking the bustling city below. Fes is a sensory overload, a delightful assault on all your senses that will leave you craving more of its colorful charm.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/tangermorocco "><img src="https://images.unsplash.com/photo-1737210236835-7f27b8b77384?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLYXNiYWglMjBNdXNldW0lMjBUYW5nZXIlMjBNb3JvY2NvfGVufDB8fHx8MTc1MTEzOTU2OHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Kasbah Museum: Former sultan&#x27;s palace showcasing Moroccan artifacts and art."></a>
+        <div class="citycard-caption">Kasbah Museum: Former sultan&#x27;s palace showcasing Moroccan artifacts and art.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/tangermorocco ">Tanger</a>
+        <div class="citycard-about">Tangier, the vibrant gateway to Africa, is a tantalizing blend of exotic allure and bohemian charm. From sipping mint tea in bustling souks to getting lost in the narrow, winding alleys of the Kasbah, every corner of this coastal gem tells a story of its multicultural past. Embrace the city&#x27;s artistic spirit at the Caves of Hercules or unwind at the pristine beaches along the Mediterranean coast. With a fascinating history, delectable cuisine, and stunning vistas across the Strait of Gibraltar, Tangier promises an unforgettable adventure that will captivate your senses and leave you craving more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/marrakechmorocco "><img src="https://images.unsplash.com/photo-1525980061034-0ae884f8357a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxKYXJkaW4lMjBNYWpvcmVsbGUlMjBNYXJyYWtlY2glMjBNb3JvY2NvfGVufDB8fHx8MTc1MTE4NjQ1Mnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Jardin Majorelle: Vibrant garden with exotic plants and cobalt blue villa."></a>
+        <div class="citycard-caption">Jardin Majorelle: Vibrant garden with exotic plants and cobalt blue villa.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/marrakechmorocco ">Marrakech</a>
+        <div class="citycard-about">Immerse yourself in the vibrant chaos of Marrakech, where every alleyway holds a new adventure waiting to be discovered. Lose yourself in the bustling souks, where the scent of spices mingles with the calls of eager vendors. Haggle for treasures in the maze-like streets of the medina, then find tranquility in the serene beauty of the Jardin Majorelle. Indulge in aromatic tagines, sip sweet mint tea, and let the vibrant colors and rich history of this enchanting city whisk you away on a magical journey through time. Marrakech is a feast for the senses, a place where old-world charm and modern excitement collide in an unforgettable blend that will leave you yearning to return before you even say goodbye.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/agadirmorocco "><img src="https://images.unsplash.com/photo-1709468001339-15abc2ed950e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBZ2FkaXIlMjBCZWFjaCUyMEFnYWRpciUyME1vcm9jY298ZW58MHx8fHwxNzUxMjA1OTIzfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Agadir Beach: Sandy stretch with promenade, cafes, and water sports."></a>
+        <div class="citycard-caption">Agadir Beach: Sandy stretch with promenade, cafes, and water sports.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/agadirmorocco ">Agadir</a>
+        <div class="citycard-about">Agadir, Morocco is a lively seaside city that effortlessly blends laid-back beach vibes with traditional Moroccan charm. With its pristine sandy beaches, vibrant street markets, and mouthwatering fresh seafood, Agadir is a perfect destination for sun-seekers and food enthusiasts alike. Whether you&#x27;re strolling along the palm-lined promenade, surfing the Atlantic waves, or exploring the historic Kasbah perched high above the city, Agadir offers a delightful mix of relaxation and adventure. Embrace the warm hospitality, soak up the breathtaking ocean views, and savor every moment in this enchanting coastal gem.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/morocco/moroccohome ">Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/morocco/moroccomore ">More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/morocco/moroccocityguide ">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([33.24618888333333, -7.143231883333333], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([33.5950627,-7.6187768]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/casablancamorocco ">Casablanca</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/casablancamorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.022405,-6.834543]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/rabatmorocco ">Rabat</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/rabatmorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.0346534,-5.0161926]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/fesmorocco ">Fes</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/fesmorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([35.777103,-5.803792]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/tangermorocco ">Tanger</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/tangermorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([31.6267948,-8.0030243]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/marrakechmorocco ">Marrakech</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/marrakechmorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([30.4211144,-9.5830626]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/agadirmorocco ">Agadir</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/agadirmorocco "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

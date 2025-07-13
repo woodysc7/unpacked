@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Puerto Rico</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="puertorico-label">
+      PUERTO RICO
+      <img class="flag-icon" src="https://flagcdn.com/pr.svg" alt="Puerto Rico flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/2927021/pexels-photo-2927021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning aerial view of a tropical beach with turquoise waters and palm trees in Puerto Rico." data-title="Stunning aerial view of a tropical beach with turquoise waters and palm trees in Puerto Rico." data-meta="Photographer: Caleb Oquendo" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/15305935/pexels-photo-15305935.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A vibrant view of the colorful La Perla neighborhood against historic San Juan fortifications." data-title="A vibrant view of the colorful La Perla neighborhood against historic San Juan fortifications." data-meta="Photographer: Diego F. Parra" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/6833926/pexels-photo-6833926.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sunlit historical fortification against a clear blue sky in San Juan, Puerto Rico." data-title="Sunlit historical fortification against a clear blue sky in San Juan, Puerto Rico." data-meta="Photographer: Leah Newhouse" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/10588043/pexels-photo-10588043.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A picturesque view of the iconic El Morro watchtower in San Juan, Puerto Rico, under a bright sky." data-title="A picturesque view of the iconic El Morro watchtower in San Juan, Puerto Rico, under a bright sky." data-meta="Photographer: Abdullah Almutairi" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Stunning aerial view of a tropical beach with turquoise waters and palm trees in Puerto Rico.</div>
+    <div class="art-info-meta">Photographer: Caleb Oquendo</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Puerto Rico News</div>
+          
+    <a href="https://nypost.com/2025/06/18/media/bad-bunny-rips-ice-agents-as-sons-of-bitches-after-filming-operations-in-puerto-rico/" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">Bad Bunny rips ICE agents as 'sons of bitches' after filming operations in Puerto Rico</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-06-19T00:34:56Z &middot; New York Post</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">Latin music mega-star Bad Bunny expressed outrage while witnessing Immigration and Customs Enforcement (ICE) operations in Puerto Rico on Tuesday.</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Puerto Rico</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/2927021/pexels-photo-2927021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning aerial view of a tropical beach with turquoise waters and palm trees in Puerto Rico." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/15305935/pexels-photo-15305935.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A vibrant view of the colorful La Perla neighborhood against historic San Juan fortifications." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/6833926/pexels-photo-6833926.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Sunlit historical fortification against a clear blue sky in San Juan, Puerto Rico." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/10588043/pexels-photo-10588043.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A picturesque view of the iconic El Morro watchtower in San Juan, Puerto Rico, under a bright sky." style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Era (Before 1493)</h3>
+<p>
+Before the arrival of Christopher Columbus, the island of Puerto Rico was inhabited by the Taíno people. They lived in small communities, practiced agriculture, and had a complex social structure. The Taínos called their island" Borikén," which means" land of the valiant lord."
+</p>
+<h3 style="text-align:center;font-weight:bold;">Spanish Colonial Period (1493–1898)</h3>
+<p>
+In 1493, Columbus claimed Puerto Rico for Spain during his second voyage to the Americas. The Spanish colonization brought disease, forced labor, and significant changes to the indigenous way of life. Over the centuries, Puerto Rico became an important Spanish military outpost and a center for sugar production, with African slaves brought in to work on the plantations. The island's culture evolved as a blend of Spanish, African, and Taíno influences.
+</p>
+<h3 style="text-align:center;font-weight:bold;">American Rule (1898–Present)</h3>
+<p>
+Following the Spanish-American War in 1898, Puerto Rico was ceded to the United States. The island became a territory of the U.S., and its residents were granted American citizenship in 1917. Over the years, Puerto Ricans have debated their political status, with some advocating for statehood, independence, or maintaining the current territorial arrangement. The island's unique blend of Spanish, African, and American influences continues to shape its culture, language, and identity today.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Puerto Rico</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Puerto Rico</h3>
+<p>
+Puerto Rico is officially bilingual, with both Spanish and English recognized as official languages. Spanish is the most widely spoken language, used in everyday interactions, government, and media. English is also prevalent, especially in tourist areas and among the younger population. The island's linguistic heritage reflects its diverse cultural influences.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in Puerto Rico</h3>
+<p>
+English proficiency is relatively high in Puerto Rico compared to other Spanish-speaking regions. Around 80% of the population reports being able to hold a conversation in English, with a significant portion being fluent speakers. In popular tourist destinations like San Juan and Ponce, English is commonly spoken and understood.
+</p>
+
+<h3 style="font-weight:bold;">Useful Spanish Phrases for Travelers</h3>
+<ul>
+<li><b>Hola</b> – <b>Hello</b></li>
+<li><b>Adiós</b> – <b>Goodbye</b></li>
+<li><b>Por favor</b> – <b>Please</b></li>
+<li><b>Gracias</b> – <b>Thank you</b></li>
+<li><b>¿Habla inglés?</b> – <b>Do you speak English?</b></li>
+<li><b>No hablo español</b> – <b>I don’t speak Spanish</b></li>
+<li><b>¿Dónde está la playa?</b> – <b>Where is the beach?</b></li>
+<li><b>¿Cuánto cuesta?</b> – <b>How much is it?</b></li>
+<li><b>Disculpe, ¿dónde está el restaurante?</b> – <b>Excuse me, where is the restaurant?</b></li>
+<li><b>¿Puede recomendarme un buen lugar para comer?</b> – <b>Can you recommend a good place to eat?</b></li>
+<li><b>¿Cuál es el plato típico de la región?</b> – <b>What is the typical dish of the region?</b></li>
+</ul>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Puerto Rico Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Puerto Rican cuisine is a vibrant reflection of the island's history and cultural influences, blending indigenous Taíno, Spanish, African, and American flavors. The food is hearty, flavorful, and often centered around staples like plantains, rice, beans, and a variety of tropical fruits. While some dishes may appear simple, the depth of flavors and unique seasoning combinations make Puerto Rican cuisine a true culinary delight.
+</p>
+<ul>
+<li><b>Mofongo</b> – Mashed plantains mixed with garlic, pork cracklings, and olive oil, often served with a protein like shrimp or chicken.</li>
+<li><b>Arroz con Gandules</b> – Rice with pigeon peas, cooked in sofrito for a flavorful side dish or main course.</li>
+<li><b>Lechón</b> – Slow-roasted whole pig, a staple at festive occasions like Christmas and special events.</li>
+<li><b>Piña Colada</b> – A refreshing tropical drink made with coconut cream, pineapple juice, and rum.</li>
+<li><b>Alcapurrias</b> – Deep-fried fritters stuffed with a mixture of meat, usually beef or crab, and root vegetables.</li>
+<li><b>Pasteles</b> – Similar to tamales, these are made with a masa of green plantains and stuffed with meat, then wrapped in banana leaves and boiled or steamed.</li>
+<li><b>Chillo Frito</b> – Whole fried snapper, a popular seafood dish often served with tostones (fried plantains).</li>
+<li><b>Flan de Queso</b> – A creamy custard dessert made with cream cheese, eggs, and caramel sauce.</li>
+<li><b>Coquito</b> – A traditional holiday drink similar to eggnog, made with coconut milk, rum, and spices.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Puerto Rico, mealtimes are a social affair, with emphasis on family gatherings and sharing delicious food. Breakfast is often light, with coffee and pastries, while lunch is the main meal of the day, enjoyed leisurely in the early afternoon. Dinner is typically lighter and served later in the evening, allowing for a relaxed dining experience.
+</
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Puerto Rico Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Puerto Rico’s most famous festivals?</h3>
+<p>
+Puerto Rico is a vibrant island with a rich cultural heritage that comes alive through its colorful and lively festivals. From traditional celebrations to modern events, here are some of the most iconic festivals to experience in Puerto Rico:
+</p>
+<ul>
+<li><b>San Sebastián Street Festival (San Juan, January)</b> – A lively celebration honoring the city's patron saint with music, dance, food, and art filling the streets of Old San Juan.</li>
+<li><b>Carnaval de Ponce (Ponce, February-March)</b> – One of the largest carnivals in the Caribbean, featuring parades, masquerade balls, live music, and vibrant costumes.</li>
+<li><b>Three Kings Day (Día de los Reyes, January 6)</b> – A traditional holiday with parades, music, and the reenactment of the journey of the Three Wise Men, followed by gift-giving and festive gatherings.</li>
+<li><b>Heineken Jazz Fest (San Juan, March)</b> – A world-class jazz festival attracting renowned musicians and jazz enthusiasts from around the globe for a weekend of unforgettable performances.</li>
+<li><b>Festival de la Calle San Sebastián (San Juan, January)</b> – A four-day street festival featuring live music, dance performances, arts and crafts, and culinary delights, drawing locals and tourists alike.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Puerto Rico, embrace the lively atmosphere and immerse yourself in the local culture. Dress comfortably for warm weather, stay hydrated, and be prepared for large crowds. Sample the delicious traditional foods and drinks offered during the festivities, and don’t miss the chance to interact with locals to learn more about the island’s rich heritage. Respect the customs and traditions of the celebrations, and above all, enjoy the unforgettable experiences that Puerto Rico’s festivals have to offer.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+For those intrigued by Puerto Rico, <b>Explore Puerto Rico</b> podcast delivers fascinating insights into the island's history, culture, and hidden gems, making it a perfect companion for your journey. If you're looking for more immersive storytelling, <b>Voices of Borinquen</b> offers personal accounts and diverse perspectives on Puerto Rican life and heritage.<br>
+For a historical perspective intertwined with modern-day issues, <b>Latino USA</b> episodes focusing on Puerto Rico's complexities are both enlightening and thought-provoking.
+</p>
+<h3
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/puertorico/puertoricohome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/puertorico/puertoricomore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/puertorico/puertoricocityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Barbados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="barbados-label">
+      BARBADOS
+      <img class="flag-icon" src="https://flagcdn.com/bb.svg" alt="Barbados flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/20818055/pexels-photo-20818055.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stylish portrait featuring bold jewelry, piercings, and sunglasses epitomizing edgy fashion." data-title="Stylish portrait featuring bold jewelry, piercings, and sunglasses epitomizing edgy fashion." data-meta="Photographer: Chad Montplaisir" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32753087/pexels-photo-32753087.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" data-title="" data-meta="Photographer: Bobby Dimas" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32731473/pexels-photo-32731473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-title="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-meta="Photographer: Diana Reyes" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32115340/pexels-photo-32115340.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Downtown Bridgetown waterfront with iconic architecture on a sunny day." data-title="Downtown Bridgetown waterfront with iconic architecture on a sunny day." data-meta="Photographer: Rashad Browne" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title">Stylish portrait featuring bold jewelry, piercings, and sunglasses epitomizing edgy fashion.</div>
+          <div class="art-info-meta">Photographer: Chad Montplaisir</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Barbados News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://nationnews.com/2025/06/28/flash-flood-watch-issued-for-the-island-2/" class="blog-post" target="_blank">
+            <div class="blog-title">Flash Flood Watch issued for the island</div>
+            <div class="blog-meta">The Barbados Meteorological Services (BMS) has issued a flash flood watch for the Barbados due to a tropical wave affecting the island today. The system, which has already delivered just under an inch of rain, is forecast to peak between late morning and afternoon, with improvements expected around 6 p.m. today. Rainfall totals of 1 [...]The post Flash Flood Watch issued for the island appeared first on nationnews.com.</div>
+        </a>
+        
+        <a href="https://nationnews.com/2025/06/28/guns-and-ammo-seized-in-joint-police-and-bdf-operations/" class="blog-post" target="_blank">
+            <div class="blog-title">Guns and ammo seized in joint Police and BDF operations</div>
+            <div class="blog-meta">Police have seized four firearms and a quantity of ammunition as part of ongoing investigations into recent murders and robberies across the island. According to a release from the Barbados Police Service, the discoveries came during a series of targeted operations carried out in collaboration with the Barbados Defence Force in recent days. Several individuals [...]The post Guns and ammo seized in joint Police and BDF operations appeared first on nationnews.com.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of Barbados</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Barbados (Before 1492)</h3>
+<p>
+Before the arrival of European colonizers, Barbados was inhabited by the Arawak and Carib peoples. These indigenous communities lived in harmony with the island's lush landscape, relying on fishing, agriculture, and trade to sustain their societies. Their cultural practices and traditions shaped the early identity of Barbados.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Colonial Era and Sugar Plantations (1627–1834)</h3>
+<p>
+In 1627, the English settled Barbados and established a profitable sugar industry fueled by African slave labor. The island became known as a major sugar producer in the Caribbean, leading to significant economic growth but also a dark history of slavery and exploitation. The legacy of this period continues to influence Barbados' demographics and cultural heritage.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Emancipation and Post-Slavery Society (1834–1966)</h3>
+<p>
+The abolition of slavery in 1834 marked a turning point in Barbados' history, leading to the emergence of a free but deeply unequal society. The island underwent social and economic changes as former slaves sought to build lives outside of plantation labor. Over the following decades, Barbadians worked towards greater autonomy and self-governance.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Independence and Modern Barbados (1966–Present)</h3>
+<p>
+Barbados gained independence from British colonial rule in 1966, becoming a sovereign nation within the Commonwealth. Since then, the country has developed into a stable democracy known for its strong sense of national identity, vibrant culture, and focus on education and social welfare. Today, Barbados is a popular tourist destination, blending its rich history with modern amenities and a warm, welcoming spirit.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of Barbados</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Languages Spoken in Barbados</h3>
+<p>
+Barbados is an English-speaking country, with English being the official language used for communication, business, and education. The Barbadian English dialect, often referred to as Bajan, features a unique blend of British English and West African influences, reflecting the island's history.
+</p>
+
+<h3 style="font-weight:bold;">Local Dialect and Phrases</h3>
+<p>
+In addition to English, you may encounter Bajan Creole, a colorful and expressive dialect spoken informally among locals. While English is widely understood, learning a few Bajan phrases can enhance your cultural experience and interactions with Barbadians.
+</p>
+
+<h3 style="font-weight:bold;">Useful Bajan Phrases</h3>
+<ul>
+<li><b>Wuh yuh saying?</b> – <b>What are you saying? (How are you?)</b></li>
+<li><b>Lime</b> – <b>Hang out, relax</b></li>
+<li><b>Wha gine on?</b> – <b>What's going on? (What's happening?)</b></li>
+<li><b>Tank yuh</b> – <b>Thank you</b></li>
+<li><b>Cheese on bread!</b> – <b>Expression of surprise or disbelief</b></li>
+<li><b>De ting sweet</b> – <b>The thing is great (It's fantastic)</b></li>
+<li><b>Uh gine down de road</b> – <b>I'm going down the road</b></li>
+<li><b>Leh we go beach</b> – <b>Let's go to the beach</b></li>
+<li><b>Yuh feelin' fuh a fish cutter?</b> – <b>Are you in the mood for a fish sandwich?</b></li>
+<li><b>Wukkin up</b> – <b>Dancing energetically</b></li>
+<li><b>De food real good</b> – <b>The food is really good</b></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Barbados Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Barbadian cuisine, also known as Bajan cuisine, reflects the island's rich history and diverse cultural influences. While the food may not always be overly complex or spicy, it is deeply flavorful and hearty, showcasing a mix of African, Caribbean, and British culinary traditions. Expect fresh ingredients like fish, tropical fruits, root vegetables, and spices to take center stage in traditional Bajan dishes.
+</p>
+<ul>
+<li><b>Flying Fish and Cou-Cou</b> – The national dish of Barbados, featuring seasoned flying fish served alongside a cornmeal and okra dish.</li>
+<li><b>Macaroni Pie</b> – A savory baked macaroni and cheese dish with a Bajan twist, often served at gatherings and Sunday dinners.</li>
+<li><b>Pepperpot</b> – A hearty stew made with a variety of meats, okra, and spices, simmered to perfection.</li>
+<li><b>Conkies</b> – Sweet steamed dumplings made from cornmeal, sweet potato, coconut, and spices, often enjoyed during the Crop Over festival.</li>
+<li><b>Cou-Cou and Flying Fish</b> – A popular combination of cornmeal and okra served with the national fish, flying fish, cooked in a tomato-based sauce.</li>
+<li><b>Breadfruit</b> – A starchy tropical fruit that is often roasted, fried, or boiled and served as a side dish.</li>
+<li><b>Coconut Bread</b> – A sweet bread made with coconut milk and shredded coconut, perfect for breakfast or a snack.</li>
+<li><b>Rum Cake</b> – A moist, rich cake infused with Barbados' famous rum, a decadent dessert enjoyed on special occasions.</li>
+<li><b>Seafood</b> – Freshly caught fish like mahi-mahi, swordfish, and tuna are staples in Bajan cuisine, often grilled or fried to perfection.</li>
+</ul>
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Barbados, mealtimes follow a laid-back Caribbean rhythm. Breakfast is typically light, with options like fried plantains, saltfish, and bakes. Lunch is the main meal of the day, often featuring hearty dishes like stewed meats, rice and
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Barbados Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are Barbados’s most famous festivals?</h3>
+<p>
+Barbados is a vibrant island known for its lively festivals that showcase the rich culture and heritage of the Caribbean. From colorful parades to musical celebrations, here are some of the most iconic festivals to experience:
+</p>
+<ul>
+<li><b>Holders Season (Holders, March)</b> – A cultural festival featuring theater, music, art, and culinary delights set in the historic Holders House, offering a unique blend of performances and elegance.</li>
+<li><b>Crop Over Festival (Nationwide, July-August)</b> – Barbados's biggest and most colorful festival marking the end of the sugarcane season with energetic calypso music, elaborate costumes, street parties, and the crowning of the Crop Over King and Queen.</li>
+<li><b>Oistins Fish Festival (Oistins, Easter Weekend)</b> – A celebration of Barbados's fishing heritage with fresh seafood, music, local crafts, and traditional Bajan games, attracting both locals and visitors alike.</li>
+<li><b>Holders Season (Holders, March)</b> – A cultural festival featuring theater, music, art, and culinary delights set in the historic Holders House, offering a unique blend of performances and elegance.</li>
+<li><b>Holetown Festival (Holetown, February)</b> – Celebrating the anniversary of the first English settlement in Barbados, this festival includes street fairs, historical reenactments, live music, and a vibrant parade.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Barbados, remember that the island can get busy, so plan your accommodations in advance. Embrace the local culture and traditions by trying Bajan cuisine, joining in the dancing, and interacting with friendly locals. Stay hydrated, wear sunscreen, and be prepared for warm weather. Respect the environment and local customs during your festival experience, and soak up the festive atmosphere with a spirit of joy and openness.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+For a deeper dive into Barbadian culture and history, consider exploring these podcasts, books, and movies that offer unique insights and perspectives on this vibrant Caribbean nation.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Barbados Beyond Boundaries</b> – An exploration of the island's rich history, culture, and current events, providing a comprehensive look at Barbados today.</li>
+<li><b>Real Bajan Talk</b> – Engaging conversations with locals sharing personal stories, traditions, and experiences, offering
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/barbados/barbadoshome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/barbados/barbadosmore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/barbados/barbadoscityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Egypt City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas" >← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Egypt</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/cairoegypt" ><img src="https://images.unsplash.com/photo-1667852976103-54718f19d453?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQeXJhbWlkcyUyMG9mJTIwR2l6YSUyMENhaXJvJTIwRWd5cHR8ZW58MHx8fHwxNzUwOTY2Nzk3fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Pyramids of Giza: Ancient wonders with Sphinx, camel rides, and light shows."></a>
+        <div class="citycard-caption">Pyramids of Giza: Ancient wonders with Sphinx, camel rides, and light shows.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/cairoegypt" >Cairo</a>
+        <div class="citycard-about">Discover the mesmerizing chaos and charm of Cairo, Egypt&#x27;s vibrant capital that effortlessly blends ancient wonders with modern energy. Dive into the swirling streets of Khan el-Khalili market, where the scent of spices and the sound of bargaining fill the air. Marvel at the timeless majesty of the Pyramids of Giza, standing stoically against the backdrop of the bustling city. Indulge in delectable Egyptian cuisine, from sizzling kebabs to flaky baklava, and sip on sweet mint tea while watching the Nile flow lazily by. Embrace the bustling intensity of Cairo, where every corner holds a story waiting to be discovered.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/alexandriaegypt" ><img src="https://images.unsplash.com/photo-1638367915999-8d559b61bd43?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCaWJsaW90aGVjYSUyMEFsZXhhbmRyaW5hJTIwQWxleGFuZHJpYSUyMEVneXB0fGVufDB8fHx8MTc1MTAwMjUwNHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Bibliotheca Alexandrina: Modern library and cultural center with vast collections."></a>
+        <div class="citycard-caption">Bibliotheca Alexandrina: Modern library and cultural center with vast collections.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/alexandriaegypt" >Alexandria</a>
+        <div class="citycard-about">Alexandria, Egypt, where ancient history meets vibrant modernity in a city bursting with energy and charm. From the iconic Bibliotheca Alexandrina to the bustling streets of the Montazah Palace district, this coastal gem offers a sensory feast for travelers seeking a blend of cultural immersion and relaxation. Stroll along the Corniche at sunset, savoring the salty breeze and the tantalizing aromas of street food vendors, or delve into the city&#x27;s rich past at the Catacombs of Kom el Shoqafa and Pompey&#x27;s Pillar. With its captivating mix of Mediterranean allure and historical wonders, Alexandria beckons adventurers to uncover its treasures and create memories that will last a lifetime.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Bur Sa'idEgypt" ><img src="https://images.unsplash.com/photo-1631383668957-97a42fd6640a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTdWV6JTIwQ2FuYWwlMjBCdXIlMjBTYSUyN2lkJTIwRWd5cHR8ZW58MHx8fHwxNzUxMjYwOTI4fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Suez Canal: Historic waterway connecting Mediterranean and Red Seas."></a>
+        <div class="citycard-caption">Suez Canal: Historic waterway connecting Mediterranean and Red Seas.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Bur Sa'idEgypt" >Bur Sa&#x27;id</a>
+        <div class="citycard-about">Known as the &quot;Paris of the East,&quot; Bur Sa&#x27;id in Egypt is a vibrant and eclectic city that offers a unique blend of history and modern charm. From its colorful buildings adorned with intricate wooden balconies to its lively waterfront promenade buzzing with cafes and street vendors, Bur Sa&#x27;id is a feast for the senses. Wander through the bustling souks, savor traditional Egyptian cuisine, and soak in the stunning views of the Suez Canal from the iconic lighthouse. Whether you&#x27;re exploring the city&#x27;s rich maritime heritage or simply people-watching in one of its quaint squares, Bur Sa&#x27;id promises an unforgettable adventure filled with warmth, culture, and endless surprises.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/As-SuwaysEgypt" ><img src="https://images.unsplash.com/photo-1670776182537-54a7c7fb2d2d?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFN1ZXolMjBDYW5hbCUyMEFzLVN1d2F5cyUyMEVneXB0fGVufDB8fHx8MTc1MTMxNjMzNnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Suez Canal: Historic waterway connecting the Mediterranean and Red Seas."></a>
+        <div class="citycard-caption">1. Suez Canal: Historic waterway connecting the Mediterranean and Red Seas.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/As-SuwaysEgypt" >As-Suways</a>
+        <div class="citycard-about">As-Suways, Egypt, also known as Suez, offers a fascinating blend of history and modern-day charm. From marveling at the engineering wonder of the Suez Canal to wandering through bustling local markets, this city promises a delightful mix of past and present. Indulge in delectable Egyptian cuisine, witness stunning sunsets over the Red Sea, and immerse yourself in the vibrant culture of As-Suways. Whether you&#x27;re a history buff, a foodie, or a sun-seeker, this city has something special to offer every traveler. Get ready to be captivated by the enchanting allure of As-Suways.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/egypt/egypthome" >Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/egypt/egyptmore" >More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/egypt/egyptcityguide" >Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([26.457234725, 34.172148924999995], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([30.0443879,31.2357257]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/cairoegypt" >Cairo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/cairoegypt" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([31.199004,29.894378]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/alexandriaegypt" >Alexandria</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/alexandriaegypt" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([31.263235,32.305505]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Bur Sa&#x27;idEgypt" >Bur Sa&#x27;id</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Bur Sa'idEgypt" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([13.322312,43.252987]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/As-SuwaysEgypt" >As-Suways</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/As-SuwaysEgypt" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ?" " :" none";
+      }
+    }
+  </script>
+</body>
+</html>

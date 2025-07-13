@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Belgium City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas ">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Belgium</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/brusselsbelgium "><img src="https://images.unsplash.com/photo-1696515559428-627d07149a48?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBdG9taXVtJTIwQnJ1c3NlbHMlMjBCZWxnaXVtfGVufDB8fHx8MTc1MTA2NTI1OXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Atomium: Futuristic building with spheres offering city views and exhibitions."></a>
+        <div class="citycard-caption">Atomium: Futuristic building with spheres offering city views and exhibitions.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/brusselsbelgium ">Brussels</a>
+        <div class="citycard-about">Welcome to Brussels, where medieval charm meets modern sophistication. Stroll through the picturesque cobblestone streets of the historic center and marvel at the stunning architecture of the Grand Place. Indulge in mouthwatering Belgian waffles and decadent chocolates before washing them down with a refreshing glass of local beer. Explore the quirky comic book murals scattered throughout the city or pay a visit to the iconic Atomium for a unique glimpse into Brussels&#x27; futuristic side. With its blend of culture, cuisine, and creativity, Brussels is sure to captivate your senses and leave you craving more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/antwerpbelgium "><img src="https://images.unsplash.com/photo-1625224817827-18e9988f8dfa?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBbnR3ZXJwJTIwQ2VudHJhbCUyMFN0YXRpb24lMjBBbnR3ZXJwJTIwQmVsZ2l1bXxlbnwwfHx8fDE3NTExNzg3MDB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Antwerp Central Station: Stunning, ornate railway station with impressive architecture."></a>
+        <div class="citycard-caption">Antwerp Central Station: Stunning, ornate railway station with impressive architecture.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/antwerpbelgium ">Antwerp</a>
+        <div class="citycard-about">Antwerp, a vibrant city in Belgium, is a hidden gem waiting to be explored. This port city is a delightful mix of old-world charm and modern energy, with its stunning architecture, cozy cafes, and lively markets. Don&#x27;t miss the chance to wander through the historic center, marvel at the majestic Cathedral of Our Lady, and indulge in mouthwatering Belgian chocolates. Antwerp&#x27;s fashion scene is a feast for the eyes, and the local beer is a treat for the taste buds. Whether you&#x27;re a culture vulture, foodie, or fashionista, Antwerp has something special to offer every type of traveler.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/liegebelgium "><img src="https://images.unsplash.com/photo-1696436392889-d6520968a826?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDdXJ0aXVzJTIwTXVzZXVtJTIwTGllZ2UlMjBCZWxnaXVtfGVufDB8fHx8MTc1MTMwMDUwMHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Curtius Museum: Displays archaeology, decorative arts, and weaponry collections."></a>
+        <div class="citycard-caption">Curtius Museum: Displays archaeology, decorative arts, and weaponry collections.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/liegebelgium ">Liege</a>
+        <div class="citycard-about">Nestled in the heart of Wallonia, Liege is a hidden gem waiting to be discovered by curious travelers. From its historic streets lined with charming cafes and boutique shops to its vibrant cultural scene, this city offers a delightful blend of old-world charm and modern flair. Indulge in savory waffles smothered in decadent Belgian chocolate, explore the impressive architecture of the Prince-Bishops&#x27; Palace, or simply soak in the laid-back atmosphere of the bustling markets. With its welcoming locals and rich tapestry of experiences, Liege promises a memorable adventure for those willing to explore off the beaten path.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/belgium/belgiumhome ">Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/belgium/belgiummore ">More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/belgium/belgiumcityguide ">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([50.90426836666666, 4.7749418], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([50.8465573,4.351697]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/brusselsbelgium ">Brussels</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/brusselsbelgium "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([51.2211097,4.3997081]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/antwerpbelgium ">Antwerp</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/antwerpbelgium "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([50.6451381,5.5734203]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/liegebelgium ">Liege</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/liegebelgium "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

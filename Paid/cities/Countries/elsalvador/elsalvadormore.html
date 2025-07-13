@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas El Salvador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas " class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="elsalvador-label">
+      EL SALVADOR
+      <img class="flag-icon" src="https://flagcdn.com/sv.svg" alt="El Salvador flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/32730680/pexels-photo-32730680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Equestrian statue at Plaza Gerardo Barrios with backdrop of modern architecture in San Salvador." data-title="Equestrian statue at Plaza Gerardo Barrios with backdrop of modern architecture in San Salvador." data-meta="Photographer: Fabrizzio Portillo" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32730674/pexels-photo-32730674.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Dramatic statue of Gerardo Barrios in San Salvador with modern architecture backdrop." data-title="Dramatic statue of Gerardo Barrios in San Salvador with modern architecture backdrop." data-meta="Photographer: Fabrizzio Portillo" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32730672/pexels-photo-32730672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Colorful colonial-style arches at Portal Sagrera in San Salvador's bustling center capture vibrant city life." data-title="Colorful colonial-style arches at Portal Sagrera in San Salvador's bustling center capture vibrant city life." data-meta="Photographer: Fabrizzio Portillo" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32730670/pexels-photo-32730670.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A captivating view of the dome of San Salvador Cathedral with vibrant architectural details." data-title="A captivating view of the dome of San Salvador Cathedral with vibrant architectural details." data-meta="Photographer: Fabrizzio Portillo" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title">Equestrian statue at Plaza Gerardo Barrios with backdrop of modern architecture in San Salvador.</div>
+          <div class="art-info-meta">Photographer: Fabrizzio Portillo</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">El Salvador News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://lethbridgenewsnow.com/2025/06/28/canada-coach-picks-dayne-st-clair-to-start-in-goal-in-gold-cup-quarterfinal/" class="blog-post" target="_blank">
+            <div class="blog-title">Canada coach picks Dayne St. Clair to start in goal in Gold Cup quarterfinal</div>
+            <div class="blog-meta">MINNEAPOLIS - Dayne St. Clair has earned the starting job in goal for 30th-ranked Canada against No. 106 Guatemala in Sunday's quarterfinal at the CON...</div>
+        </a>
+        
+        <a href="https://panow.com/2025/06/28/canada-coach-picks-dayne-st-clair-to-start-in-goal-in-gold-cup-quarterfinal/" class="blog-post" target="_blank">
+            <div class="blog-title">Canada coach picks Dayne St. Clair to start in goal in Gold Cup quarterfinal</div>
+            <div class="blog-meta">MINNEAPOLIS - Dayne St. Clair has earned the starting job in goal for 30th-ranked Canada against No. 106 Guatemala in Sunday's quarterfinal at the CON...</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of El Salvador</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Civilizations (Before 1524)</h3>
+<p>
+Long before the arrival of the Spanish, the land now known as El Salvador was inhabited by several indigenous groups, notably the Pipil people. These civilizations developed advanced agricultural techniques, intricate art, and complex social structures. The region was part of the vibrant Mesoamerican cultural sphere, with influences from the Maya to the north and the Toltec to the west.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Spanish Conquest and Colonial Era (1524–1821)</h3>
+<p>
+In 1524, Spanish conquistadors under Pedro de Alvarado arrived in El Salvador, subjugating the indigenous population and establishing colonial rule. The Spanish exploited the land for its resources, primarily indigo and later coffee, leading to the forced labor of indigenous peoples and African slaves. The Catholic Church played a significant role in shaping the cultural and religious landscape of the region.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Independence and Early Challenges (1821–1900)</h3>
+<p>
+El Salvador, along with other Central American nations, gained independence from Spain in 1821. The new nation initially joined the United Provinces of Central America but soon seceded to form a separate republic. The 19th century was marked by political instability, economic struggles, and social inequality, with a few powerful families controlling much of the land and wealth.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Military Dictatorships and Civil War (1900–1992)</h3>
+<p>
+The 20th century saw a series of military dictatorships in El Salvador, marked by repression, human rights abuses, and social unrest. In the late 20th century, tensions erupted into a brutal civil war between the government and leftist guerrilla groups, leading to widespread violence and human suffering. The conflict, fueled by Cold War politics, finally ended in 1992 with the signing of the Chapultepec Peace Accords.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Post-Civil War Recovery and Challenges (1992–Present)</h3>
+<p>
+Since the end of the civil war, El Salvador has made strides in rebuilding its society and economy. Efforts have been made to address social inequalities, promote reconciliation, and strengthen democratic institutions. However, the country continues to face challenges such as gang violence, political corruption, and economic disparities. Despite these obstacles, El Salvador remains a country with a rich cultural heritage and resilient people striving for a better future.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of El Salvador</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Languages Spoken in El Salvador</h3>
+<p>
+El Salvador's official language is Spanish, spoken by the majority of the population. In addition to Spanish, there are indigenous languages such as Nahuatl and Lenca spoken by small communities, particularly in rural areas. The use of indigenous languages is a significant part of the cultural heritage of El Salvador.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in El Salvador</h3>
+<p>
+English is not as widely spoken in El Salvador as Spanish. While you may find some English speakers in tourist areas, especially in hotels and restaurants, it's always helpful to know a few basic Spanish phrases to enhance your travel experience. Locals appreciate visitors who make an effort to communicate in their language.
+</p>
+
+<h3 style="font-weight:bold;">Useful Spanish Phrases for Travelers</h3>
+<ul>
+<li><b>Hola</b> – <b>Hello</b></li>
+<li><b>Adiós</b> – <b>Goodbye</b></li>
+<li><b>Por favor</b> – <b>Please</b></li>
+<li><b>Gracias</b> – <b>Thank you</b></li>
+<li><b>¿Habla inglés?</b> – <b>Do you speak English?</b></li>
+<li><b>No hablo español</b> – <b>I don’t speak Spanish</b></li>
+<li><b>¿Dónde está el mercado?</b> – <b>Where is the market?</b></li>
+<li><b>¿Cuánto cuesta?</b> – <b>How much is it?</b></li>
+<li><b>Perdón/Disculpe</b> – <b>Excuse me / Sorry</b></li>
+<li><b>Una mesa para dos, por favor</b> – <b>A table for two, please</b></li>
+<li><b>La cuenta, por favor</b> – <b>The bill, please</b></li>
+<li><b>¿Puede ayudarme?</b> – <b>Can you help me?</b></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">El Salvador Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+El Salvadoran cuisine is a hidden gem in Central America, often overshadowed by its more famous neighbors. The food here is a delightful mix of indigenous, Spanish, and other influences, resulting in flavorful dishes that are hearty and satisfying. While the cuisine may not be as well-known globally, it offers a unique culinary experience that is worth exploring.
+</p>
+<ul>
+<li><b>Pupusas</b> – Thick corn tortillas stuffed with cheese, beans, pork, or a combination of fillings, often served with curtido (pickled cabbage) and salsa.</li>
+<li><b>Yuca frita</b> – Crispy fried yuca (cassava) served as a popular side dish or snack.</li>
+<li><b>Sopa de Pata</b> – A rich soup made with cow's feet, vegetables, and spices, offering a unique and savory taste.</li>
+<li><b>Platanos Fritos</b> – Fried plantains, a common side dish that can be sweet or savory depending on the preparation.</li>
+<li><b>Ceviche</b> – Fresh seafood marinated in lime juice, often mixed with onions, tomatoes, and cilantro, creating a zesty and refreshing dish.</li>
+<li><b>Quesadilla Salvadoreña</b> – A sweet cheese-filled dessert bread, different from the Mexican version, usually enjoyed with coffee.</li>
+<li><b>Atol de Elote</b> – A warm, creamy corn drink flavored with cinnamon and sugar, a popular traditional beverage.</li>
+<li><b>Carne Asada</b> – Grilled meat, typically beef, marinated in local spices and served with rice, beans, and tortillas.</li>
+<li><b>Tamales</b> – Corn dough filled with meat, vegetables, or cheese, wrapped in banana leaves, and steamed to perfection.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+El Salvadorans enjoy a similar meal schedule to many Latin American countries. Breakfast is typically light, consisting of items like tamales or beans with tortillas. Lunch is the main meal of the day, usually eaten around midday and featuring a variety of dishes. Dinner is lighter and served later in the evening,
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">El Salvador Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are El Salvador's most famous festivals?</h3>
+<p>
+El Salvador's festivals are a vibrant celebration of its rich culture and heritage, offering a glimpse into the country's colorful traditions and lively spirit. Some of the most famous festivals in El Salvador include:
+</p>
+<ul>
+<li><b>Fiesta de las Flores (Ahuachapán, November)</b> – Known as the Flower Festival, this event showcases elaborate floral displays, parades, and traditional dances, celebrating the beauty of nature.</li>
+<li><b>El Salvador del Mundo (San Salvador, August 6)</b> – Celebrating the country's patron saint, this festival features vibrant street processions, music, and traditional food, drawing crowds from all over the country.</li>
+<li><b>Carnival de San Miguel (San Miguel, November)</b> – A lively carnival with colorful costumes, music, dance performances, and street parties, embodying the infectious joy of Salvadoran culture.</li>
+<li><b>Day of the Dead (November 1-2, nationwide)</b> – El Salvador's unique take on the traditional Latin American celebration, honoring deceased loved ones with colorful altars, food offerings, and cultural events.</li>
+<li><b>Pupusa Festival (Olocuilta, November)</b> – A delicious celebration of El Salvador's iconic dish, the pupusa, featuring competitions, tastings, and cultural performances centered around this beloved culinary tradition.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in El Salvador, embrace the lively atmosphere and immerse yourself in the local culture. Be prepared for warm weather and occasional rain showers, so pack accordingly. Respect local customs and traditions, and don't hesitate to try traditional foods and drinks offered during the festivities. Engage with locals, learn about the significance of each celebration, and create lasting memories of your cultural experience in El Salvador.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+If you're intrigued by the rich history and vibrant culture of El Salvador, there are some fantastic resources to deepen your understanding before your trip. Whether you're interested in podcasts, books, or movies, these recommendations will offer valuable insights and perspectives on this captivating country.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Salvi Voices</b> – A podcast that shares personal stories and experiences of Salvadorans, offering a unique and authentic look into the lives and culture of the country.</li>
+<li><b>El Salvador
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/elsalvador/elsalvadorhome " class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/elsalvador/elsalvadormore " class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/elsalvador/elsalvadorcityguide " class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

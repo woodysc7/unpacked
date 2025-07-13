@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Italy City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas ">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Italy</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/romeitaly "><img src="https://images.unsplash.com/photo-1662898290891-a6c7f022e851?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDb2xvc3NldW0lMjBSb21lJTIwSXRhbHl8ZW58MHx8fHwxNzUxMDEwNDE2fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Colosseum: Ancient amphitheater for gladiator contests, chariot races, and shows."></a>
+        <div class="citycard-caption">Colosseum: Ancient amphitheater for gladiator contests, chariot races, and shows.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/romeitaly ">Rome</a>
+        <div class="citycard-about">Rome, the Eternal City, where ancient history meets vibrant street life, will sweep you off your feet from the moment you step onto its cobblestone streets. Marvel at the iconic Colosseum standing tall, whispering tales of gladiator battles, while tossing a coin into the Trevi Fountain guarantees a return trip. Indulge in mouthwatering pasta dishes at cozy trattorias, sip on espresso at charming cafes, and savor creamy gelato as you wander through picturesque piazzas. Let yourself get lost among Baroque fountains, Renaissance art, and the grandeur of Vatican City. Rome will captivate you with its warm chaos and timeless beauty, leaving you longing for more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/milanitaly "><img src="https://images.unsplash.com/photo-1710543505538-0f37ec81d484?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxEdW9tbyUyMGRpJTIwTWlsYW5vJTIwTWlsYW4lMjBJdGFseXxlbnwwfHx8fDE3NTEwMzAxMjN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Duomo di Milano: Gothic cathedral with ornate architecture and stunning views."></a>
+        <div class="citycard-caption">Duomo di Milano: Gothic cathedral with ornate architecture and stunning views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/milanitaly ">Milan</a>
+        <div class="citycard-about">Immerse yourself in the stylish heart of Milan, where fashion, history, and culture intertwine effortlessly. From wandering down the chic streets of Quadrilatero della Moda to marveling at the stunning architecture of the Duomo di Milano, the city offers a blend of old-world charm and modern vibes. Indulge in delectable risotto alla Milanese and sip on an Aperol Spritz in a bustling café as you watch the fashionable locals pass by. Whether exploring world-class galleries like Pinacoteca di Brera or simply enjoying people-watching in trendy Brera, Milan will captivate you with its unique charisma and vibrant energy.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/naplesitaly "><img src="https://images.unsplash.com/photo-1728913830550-70c68ed0aaef?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQb21wZWlpJTIwTmFwbGVzJTIwSXRhbHl8ZW58MHx8fHwxNzUxMDYxMzg1fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Pompeii: Ancient Roman city preserved in volcanic ash."></a>
+        <div class="citycard-caption">Pompeii: Ancient Roman city preserved in volcanic ash.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/naplesitaly ">Naples</a>
+        <div class="citycard-about">Naples, Italy, is a vibrant city that tantalizes the senses with its rich history, mouthwatering cuisine, and captivating chaos. From the bustling streets lined with colorful buildings to the serene views of Mount Vesuvius looming in the distance, Naples is a city of contradictions that effortlessly blend together. Indulge in the city&#x27;s famous pizza, explore the ancient ruins of Pompeii nearby, or simply get lost in the labyrinthine alleys of the historic center. With its lively atmosphere and genuine charm, Naples will leave you both breathless and hungry for more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/turinitaly "><img src="https://images.unsplash.com/photo-1664112742251-e7f7ce41616e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNb2xlJTIwQW50b25lbGxpYW5hJTIwVHVyaW4lMjBJdGFseXxlbnwwfHx8fDE3NTEwODA3ODR8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Mole Antonelliana: Iconic tower housing National Museum of Cinema."></a>
+        <div class="citycard-caption">Mole Antonelliana: Iconic tower housing National Museum of Cinema.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/turinitaly ">Turin</a>
+        <div class="citycard-about">Nestled in the picturesque Piedmont region, Turin is a vibrant city that seamlessly blends cosmopolitan charm with rich history. From sipping espresso in grand cafes to exploring the majestic Turin Cathedral and the iconic Mole Antonelliana, there is no shortage of awe-inspiring sights to behold. Renowned for its fine chocolates and delectable cuisine, Turin is a food lover&#x27;s paradise, offering a tantalizing journey for your taste buds. Whether you&#x27;re marveling at the awe-inspiring architecture or strolling through the charming streets lined with boutique shops, Turin is a hidden gem just waiting to be discovered.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/bergamoitaly "><img src="https://images.unsplash.com/photo-1659618655022-b290d75a7c92?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDaXR0JUMzJUEwJTIwQWx0YSUyMEJlcmdhbW8lMjBJdGFseXxlbnwwfHx8fDE3NTEyMTc4ODB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Città Alta: Historic upper town with medieval architecture and views."></a>
+        <div class="citycard-caption">Città Alta: Historic upper town with medieval architecture and views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/bergamoitaly ">Bergamo</a>
+        <div class="citycard-about">Nestled in the scenic Lombardy region, Bergamo effortlessly blends medieval charm with modern sophistication. Wander through the narrow cobblestone streets of the Città Alta to discover historic treasures like the majestic Basilica di Santa Maria Maggiore and the imposing Rocca fortress. Indulge in delicious local cuisine at family-run trattorias, where the aroma of freshly baked focaccia fills the air. For breathtaking views, take the funicular to the Città Bassa and gaze out over the rolling hills of the surrounding countryside. Bergamo is a hidden gem just waiting to be explored, offering a perfect mix of culture, cuisine, and captivating beauty.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/palermoitaly "><img src="https://images.unsplash.com/photo-1664480178859-f0395ee922d7?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMENhdHRlZHJhbGUlMjBkaSUyMFBhbGVybW8lMjBQYWxlcm1vJTIwSXRhbHl8ZW58MHx8fHwxNzUxMjMzNTI2fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Cattedrale di Palermo: Historic cathedral showcasing diverse architectural styles."></a>
+        <div class="citycard-caption">1. Cattedrale di Palermo: Historic cathedral showcasing diverse architectural styles.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/palermoitaly ">Palermo</a>
+        <div class="citycard-about">Nestled on the picturesque island of Sicily, Palermo is a vibrant city that seamlessly blends a rich history with modern charm. Lose yourself in the bustling markets of Ballarò and Vucciria, where the tantalizing scents of arancini and fresh seafood fill the air. Admire the stunning architecture of the Cathedral and the Royal Palace, then escape the city&#x27;s hustle and bustle with a leisurely stroll through the peaceful Botanical Gardens. Palermo&#x27;s eclectic mix of cultures is reflected in its colorful street art, lively festivals, and lively locals who are always ready to share a smile and a story. Whether you&#x27;re sipping a refreshing granita by the sea or exploring the ancient ruins of nearby Segesta, Palermo will capture your heart and leave you craving more of its unique and unforgettable charm.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/bolognaitaly "><img src="https://images.unsplash.com/photo-1698036486130-71ed3d22bef8?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFBpYXp6YSUyME1hZ2dpb3JlJTIwQm9sb2duYSUyMEl0YWx5fGVufDB8fHx8MTc1MTI0NTA5MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Piazza Maggiore: Historic square with Basilica of San Petronio and Neptune Fountain."></a>
+        <div class="citycard-caption">1. Piazza Maggiore: Historic square with Basilica of San Petronio and Neptune Fountain.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/bolognaitaly ">Bologna</a>
+        <div class="citycard-about">Nestled in the heart of Italy&#x27;s Emilia-Romagna region, Bologna is a vibrant and charming city that serves up a feast for the senses. Known for its rich culinary traditions, Bologna is a paradise for food lovers with its abundance of local markets, authentic trattorias, and of course, the world-famous Bolognese sauce. Beyond the gastronomic delights, the city boasts a stunning medieval architecture, including the iconic Two Towers that offer panoramic views of the terracotta rooftops below. Lose yourself in the winding streets of the historic center, where hidden gems and centuries of history await around every corner. Whether you&#x27;re strolling through the picturesque Piazza Maggiore, exploring the fascinating museums, or simply indulging in the laid-back Italian lifestyle, Bologna is a true gem that will capture your heart and leave you craving for more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/florenceitaly "><img src="https://images.unsplash.com/photo-1670890076016-af515fda22a5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEZsb3JlbmNlJTIwQ2F0aGVkcmFsJTIwJTI4RHVvbW8lMjklMjBGbG9yZW5jZSUyMEl0YWx5fGVufDB8fHx8MTc1MTI4NDQ3MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Florence Cathedral (Duomo): Stunning Gothic cathedral with famous dome and bell tower."></a>
+        <div class="citycard-caption">1. Florence Cathedral (Duomo): Stunning Gothic cathedral with famous dome and bell tower.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/florenceitaly ">Florence</a>
+        <div class="citycard-about">Florence, Italy is a Renaissance masterpiece come to life, where every cobblestone street whispers tales of art, history, and gelato-filled adventures. Lose yourself in the labyrinth of narrow alleys lined with charming cafes, discover world-renowned artworks at the Uffizi Gallery, and marvel at the grandeur of the Duomo rising above the city skyline. Indulge in exquisite Tuscan cuisine, sip on Chianti in sun-soaked piazzas, and embrace the dolce far niente lifestyle. Whether you&#x27;re admiring Michelangelo&#x27;s David or simply getting lost in the enchanting beauty of the Arno River at sunset, Florence will capture your heart and leave you forever yearning for its timeless charm.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/padovaitaly "><img src="https://images.unsplash.com/photo-1690123440063-9cafb65586e3?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCYXNpbGljYSUyMG9mJTIwU2FpbnQlMjBBbnRob255JTIwUGFkb3ZhJTIwSXRhbHl8ZW58MHx8fHwxNzUxMjk2NTMyfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Basilica of Saint Anthony: Famous pilgrimage site with impressive architecture and art."></a>
+        <div class="citycard-caption">Basilica of Saint Anthony: Famous pilgrimage site with impressive architecture and art.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/padovaitaly ">Padova</a>
+        <div class="citycard-about">Padova, a hidden gem in the Veneto region of Italy, offers a delightful mix of history, art, and local charm. Stroll through the enchanting streets adorned with vibrant frescoes and elegant palaces, then relax in one of the many picturesque cafes and trattorias. Don&#x27;t miss the breathtaking Scrovegni Chapel, adorned with Giotto&#x27;s stunning frescoes, or the lively markets offering an abundance of fresh produce and gourmet delights. Whether you&#x27;re exploring ancient Roman ruins, wandering through lush botanical gardens, or simply savoring a velvety espresso in the lively Piazza delle Erbe, Padova is sure to captivate you with its authentic Italian allure.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/genoaitaly "><img src="https://images.unsplash.com/photo-1654161747167-e821293f8493?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBcXVhcml1bSUyMG9mJTIwR2Vub2ElMjBHZW5vYSUyMEl0YWx5fGVufDB8fHx8MTc1MTMwNDI3MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Aquarium of Genoa: Largest aquarium in Italy with diverse marine life exhibits."></a>
+        <div class="citycard-caption">Aquarium of Genoa: Largest aquarium in Italy with diverse marine life exhibits.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/genoaitaly ">Genoa</a>
+        <div class="citycard-about">Genoa, Italy, a hidden gem along the Italian Riviera, is a vibrant city full of surprises waiting to be discovered. Dive into its narrow cobblestone streets lined with colorful buildings, where the aroma of freshly baked focaccia fills the air. Explore the majestic Palazzi dei Rolli, now a UNESCO World Heritage Site, and lose yourself in the charm of the old town&#x27;s bustling piazzas. Indulge in the local cuisine with a plate of trofie al pesto or savor a creamy gelato along the promenade as you take in the stunning sea views. Genoa may not be on everyone&#x27;s itinerary, but those who venture here are rewarded with an authentic Italian experience that will leave a lasting impression.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Busto ArsizioItaly "><img src="https://images.unsplash.com/photo-1729672453584-104e5fb70fea?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFNhbmN0dWFyeSUyMG9mJTIwU2FudGElMjBNYXJpYSUyMGRpJTIwUGlhenphJTIwQnVzdG8lMjBBcnNpemlvJTIwSXRhbHl8ZW58MHx8fHwxNzUxMzEyNDEwfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Sanctuary of Santa Maria di Piazza: Romanesque church with medieval frescoes."></a>
+        <div class="citycard-caption">1. Sanctuary of Santa Maria di Piazza: Romanesque church with medieval frescoes.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Busto ArsizioItaly ">Busto Arsizio</a>
+        <div class="citycard-about">Discover the charming town of Busto Arsizio, where medieval architecture meets modern Italian flair. Stroll along cobblestone streets lined with historic buildings, stop at local cafes for a shot of espresso, and immerse yourself in the vibrant atmosphere of this hidden gem. From browsing bustling markets to sampling authentic Italian cuisine, Busto Arsizio offers a delightful mix of tradition and contemporary culture that will captivate every traveler&#x27;s heart. Soak up the laid-back vibes, embrace the warmth of the locals, and let the magic of Busto Arsizio sweep you off your feet in true Italian style.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/veneziaitaly "><img src="https://images.unsplash.com/photo-1506437655018-dd8ec8371702?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTdC4lMjBNYXJrJTI3cyUyMEJhc2lsaWNhJTIwVmVuZXppYSUyMEl0YWx5fGVufDB8fHx8MTc1MTMyNDE0OXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="St. Mark&#x27;s Basilica: Ornate cathedral with Byzantine mosaics and marble columns."></a>
+        <div class="citycard-caption">St. Mark&#x27;s Basilica: Ornate cathedral with Byzantine mosaics and marble columns.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/veneziaitaly ">Venezia</a>
+        <div class="citycard-about">Get ready to be swept off your feet in the enchanting floating city of Venezia, Italy. Lose yourself in a labyrinth of narrow cobblestone streets lined with charming cafes and artisan shops, where every corner reveals a picture-perfect canal scene complete with gondolas gliding by. Indulge in traditional Venetian cuisine like freshly caught seafood risotto or cicchetti (small snacks) paired with a glass of local prosecco. Don&#x27;t miss iconic sights like the grandeur of St. Mark&#x27;s Basilica or the vibrant Rialto Market bustling with locals. Venezia is a living, breathing masterpiece that will capture your heart and imagination from the moment you arrive.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/veronaitaly "><img src="https://images.unsplash.com/photo-1663344640813-1705e6d5f04b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBcmVuYSUyMGRpJTIwVmVyb25hJTIwVmVyb25hJTIwSXRhbHl8ZW58MHx8fHwxNzUxMzI4MDUxfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Arena di Verona: Ancient Roman amphitheater hosting concerts and operas."></a>
+        <div class="citycard-caption">Arena di Verona: Ancient Roman amphitheater hosting concerts and operas.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/veronaitaly ">Verona</a>
+        <div class="citycard-about">Nestled in the heart of the Veneto region, Verona effortlessly blends historic charm with a vibrant and modern feel. This romantic city, famously immortalized in Shakespeare&#x27;s &quot;Romeo and Juliet,&quot; invites visitors to stroll through its cobblestone streets, admire the beautifully preserved Roman amphitheater, and savor delicious regional wines and cuisine. From the stunning views of the Adige River to the enchanting balconies and courtyards, Verona is a true feast for the senses, offering a perfect blend of culture, history, and gastronomy that will leave you falling in love at every turn.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/seregnoitaly "><img src="https://images.unsplash.com/photo-1571079520814-c2840ce6ec7b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFZpbGxhJTIwU2lyb25pJTIwU2VyZWdubyUyMEl0YWx5fGVufDB8fHx8MTc1MTMzMTg5NHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Villa Sironi: Beautiful historic villa with well-maintained gardens."></a>
+        <div class="citycard-caption">1. Villa Sironi: Beautiful historic villa with well-maintained gardens.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/seregnoitaly ">Seregno</a>
+        <div class="citycard-about">Nestled in the heart of the Lombardy region, Seregno is a charming Italian town waiting to be discovered. Wander through its picturesque streets lined with quaint cafes and gelaterias, where the scent of freshly baked bread and espresso fills the air. Don&#x27;t miss the chance to explore the historic Villa Splendore, a stunning neoclassical villa surrounded by lush gardens, or indulge in the local culinary delights at the bustling food market. Whether you&#x27;re sipping on aperitivo in a lively piazza or admiring the stunning architecture, Seregno offers a delightful taste of authentic Italian charm that will leave you coming back for more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/bariitaly "><img src="https://images.unsplash.com/photo-1656511345260-f4bc9be3453a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCYXNpbGljYSUyMFNhbiUyME5pY29sYSUyMEJhcmklMjBJdGFseXxlbnwwfHx8fDE3NTEzMzIwMjB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Basilica San Nicola: Stunning Romanesque church housing St. Nicholas&#x27; relics."></a>
+        <div class="citycard-caption">Basilica San Nicola: Stunning Romanesque church housing St. Nicholas&#x27; relics.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/bariitaly ">Bari</a>
+        <div class="citycard-about">Nestled on the Adriatic coast, Bari effortlessly blends historic charm with a vibrant, modern energy. Explore the maze-like streets of the Old Town, where laundry flutters overhead and locals gather in bustling piazzas for animated conversations. Indulge in the region&#x27;s culinary delights at family-run trattorias, savoring freshly caught seafood and local wines. Don&#x27;t miss the stunning Basilica di San Nicola, a pilgrimage site with a glittering crypt that houses the relics of Saint Nicholas. Whether you&#x27;re soaking up the sun on the sandy beaches, wandering through the colorful markets, or simply people-watching with a gelato in hand, Bari promises an authentic taste of Italy that will linger in your heart long after you&#x27;ve left.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/cataniaitaly "><img src="https://images.unsplash.com/photo-1641051395370-171834e9b7cb?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyME1vdW50JTIwRXRuYSUyMENhdGFuaWElMjBJdGFseXxlbnwwfHx8fDE3NTEzNTU1OTV8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Mount Etna: Active volcano with hiking trails and panoramic views."></a>
+        <div class="citycard-caption">1. Mount Etna: Active volcano with hiking trails and panoramic views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/cataniaitaly ">Catania</a>
+        <div class="citycard-about">Get ready to soak in the vibrant energy of Catania, Italy! This bustling city on the east coast of Sicily will captivate you with its mix of ancient history and modern charm. Lose yourself in the chaotic beauty of the famous fish market, La Pescheria, where locals haggle over the freshest catches of the day. Climb up to the top of Mount Etna, Europe&#x27;s highest active volcano, for panoramic views that will take your breath away. And don&#x27;t forget to indulge in the city&#x27;s culinary delights, from arancini to granita, every bite will transport you to a foodie paradise. Catania is a whirlwind of excitement just waiting to be explored!</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/italy/italyhome ">Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/italy/italymore ">More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/italy/italycityguide ">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([43.49832595624999, 11.465616537499997], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([41.8933203,12.4829321]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/romeitaly ">Rome</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/romeitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.4641943,9.1896346]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/milanitaly ">Milan</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/milanitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([40.8359336,14.2487826]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/naplesitaly ">Naples</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/naplesitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.0677551,7.6824892]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/turinitaly ">Turin</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/turinitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.7566557,9.7542192]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/bergamoitaly ">Bergamo</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/bergamoitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([38.1112268,13.3524434]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/palermoitaly ">Palermo</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/palermoitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([44.4938203,11.3426327]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/bolognaitaly ">Bologna</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/bolognaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([43.7698712,11.2555757]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/florenceitaly ">Florence</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/florenceitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.4077172,11.8734455]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/padovaitaly ">Padova</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/padovaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([44.40726,8.9338624]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/genoaitaly ">Genoa</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/genoaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.6119057,8.8520522]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Busto ArsizioItaly ">Busto Arsizio</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/Busto ArsizioItaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.4371908,12.3345898]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/veneziaitaly ">Venezia</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/veneziaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.4384958,10.9924122]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/veronaitaly ">Verona</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/veronaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([45.649723,9.2053919]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/seregnoitaly ">Seregno</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/seregnoitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([41.1257843,16.8620293]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/bariitaly ">Bari</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/bariitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([37.5023612,15.0873718]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/cataniaitaly ">Catania</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/cataniaitaly "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

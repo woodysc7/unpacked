@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Jamaica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="jamaica-label">
+      JAMAICA
+      <img class="flag-icon" src="https://flagcdn.com/jm.svg" alt="Jamaica flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/32725861/pexels-photo-32725861.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" data-title="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" data-meta="Photographer: Anh Nguyen" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/32729243/pexels-photo-32729243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Indian Man Wearing a Headscarf or Traditional Cloth" data-title="Indian Man Wearing a Headscarf or Traditional Cloth" data-meta="Photographer: Mahmut Yılmaz" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/11994113/pexels-photo-11994113.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore a vibrant vintage record store in Orlando, FL with posters of iconic musicians and a wide selection of vinyl records." data-title="Explore a vibrant vintage record store in Orlando, FL with posters of iconic musicians and a wide selection of vinyl records." data-meta="Photographer: Connor McManus" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/32771667/pexels-photo-32771667.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Kapalı  Maraş’ta  bir fotoğrafçı dükkanı" data-title="Kapalı  Maraş’ta  bir fotoğrafçı dükkanı" data-meta="Photographer: Besra Akar" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge</div>
+    <div class="art-info-meta">Photographer: Anh Nguyen</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Jamaica News</div>
+          
+    <a href="https://www.nydailynews.com/2025/06/24/teen-arrested-in-fatal-queens-shooting-of-aspiring-drill-rapper-attacked-as-he-got-off-bus/" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">Teen arrested in fatal Queens shooting of aspiring drill rapper attacked as he got off bus</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-06-25T00:32:26Z &middot; New York Daily News</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">The 16-year-old boy was charged with murder and criminal possession of a weapon for the March 27 attack on Sincere Jazmin, 16, after he got off a Q83 bus near Liberty Ave. and 172nd St, in South Jamaica — in front of Detective Keith L. Williams Park, cops said.</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.jamaicaobserver.com/2025/06/29/mixed-race-egg-hunt/" class="blog-post" target="_blank">
+            <div class="blog-title">Mixed-race egg hunt</div>
+            <div class="blog-meta">AMID talks of the country’s declining birth rate and exhortations for people to reproduce, a local fertility firm is on the hunt for egg donors and is looking overseas — specifically in the Caribbean — to meet the high demand in Jamaica for eggs from women of diverse ethnic backgrounds.Dr Sharifa Frederick, clinical director at Caribbean Fertility Centre, disclosed to the Jamaica Observer that currently, 70 per cent of her clients are requesting donors of mixed race, with an additional 20 per cent requesting African or African Caribbean donors. The remaining 10 per cent are requesting donors of Asian or Indian ethnic backgrounds.She noted that in previous egg donation drives, her fertility firm received 40 to 50 per cent of donors who were not mixed race and, therefore, did not meet the demand.“We’re targeting countries such as Trinidad, Guyana, and Barbados, so that we can get a wider diversity of the population. We have people who want Caribbean eggs, not necessarily Jamaican, and, of course, if we put it out to the Caribbean, we get a wider diversity in terms of ethnicity of egg donors because we have a market now,” Dr Frederick said.“Caribbean people have a very diverse ethnicity and so we don’t want to just confine it to Jamaica. We want to put it out there so that we have a better variety of egg donors to choose from, where we would have a mix of donors. We have a lot of mixed clients who are mixed with Chinese, Indian, black, Caucasian, and so we have to be able to, or our egg pool has to also reflect this variety of what exists in the population,” she told the Sunday Observer after the centre’s call for egg donors sparked conversation on social media, amassing more than 40,000 likes and shares on TikTok up to Saturday morning.It has been two weeks since Dr Frederick’s company posted about its drive for regional donors. The response, she said, has been overwhelming.So far, 829 women have offered to become donors.The women are mainly from Trinidad, Guyana, and Jamaica, with a few from the African continent. However, Dr Frederick said they had to decline African applicants based on their compensation package.The target donors are women 20 to 30 years old who, preferably, graduated from a tertiary institution and have viable eggs for donation. The process will include medical and psychological screenings to determine if a candidate is viable. If successful, donors outside of Jamaica will receive an all-expense paid round-trip flight to Jamaica, inclusive of accommodation and transportation. Donors will also receive compensation of US$2,000 to US$2,500 per donation cycle.For each donation, a minimum of 12 eggs are retrieved. Women are only allowed to donate up to three times and must take at least a one-month break before they can again donate.According to the Hugh Wynter Institute for Reproductive Healthcare & Endoscopic Surgery, which operates on the grounds of University Hospital of the West Indies, Mona, egg donation is the process of collecting eggs from a donor that are fertilised using the sperm of the intended male parent. The fertilised egg, now called an embryo, is then transferred to the recipient woman to achieve a pregnancy.The practice was developed in the 1980s, initially for women with ovarian failure or premature menopause. Later it was extended to women who carried a genetic disease, ovulating women who appeared to have issues with their eggs, and couples who failed to conceive after multiple in vitro fertilisation (IVF) attempts. Jamaica adopted the practice in 2007.“I have linkage with a lot of doctors in the different Caribbean countries, so it’s easier for me to reach out to them and ask for their assistance in working up the donors as gynaecologists. In terms of Africa, it’s very expensive to be able to pay the airfare to bring them in from Africa, and then I wouldn’t be able to liaise with anyone over there, so it’s just impossible,” said Dr Frederick, as she provided her reason for opting not to go with potential African donors.She added that the fertility centre has also chosen not to enter the United States market for other donors because that country already offers the service at a competitive rate.According to Egg Bank America, egg donors are compensated US$5,000 per cycle, inclusive of an all-expense paid trip to donate. Compensation packages across the country range from US$2,000 to US$50,000, but can be higher for exceptional cases or experienced donors.With a population of three million, Jamaica has fallen below the internationally accepted 2.1 fertility rate required for maintaining the population. The downward trend has been attributed to many factors, including women waiting until they are more established in their careers to conceive. As a woman ages, her eggs become less viable for fertilisation, making conception at a younger age easier.As Jamaicans seek alternative fertility treatments to make their dreams of having children possible, Dr Frederick has invited young women to be a part of the process.“You’re helping families, and that’s... foremost of it all. You’re helping women who, if it weren’t for these donors, they would not have the opportunity of fulfilling a dream of a family, and I think that’s the way to think about it,” she told the Sunday Observer.“There’s no amount of money that we can compensate them [donors] for what they’re doing. They’re helping someone fulfil the dream of a family, and what could be better than that? What could be more satisfying than that?” Dr Frederick reasoned.</div>
+        </a>
+        
+        <a href="https://jamaica-gleaner.com/article/commentary/20250629/editorial-bring-back-ombudsman" class="blog-post" target="_blank">
+            <div class="blog-title">Editorial | Bring back the ombudsman</div>
+            <div class="blog-meta">At this point, it could only be hubris and/or obduracy, rather than good sense, why the Government continues to resist the reinstitution of an independent political ombudsman.Over 70 per cent of adult Jamaicans don’t agree with the administration’s position. And even if it clamoured for its best interpretation of the data, the figure would be over 60 per cent.Neither can the Government, using the argument of the pending general election, claim it to be too late to reinstate an ombudsman, unless Prime Minister Andrew Holness intends to announce the date of the poll and dissolve Parliament before Tuesday, when the House of Representatives sits, or on Friday, when the Senate should be in session.Which seems unlikely, since Prime Minister Holness is committed to hosting the annual mid-year summit of Caribbean Community (CARICOM) leaders in Montego Bay on July 6-8 and wouldn’t want to be entertaining his fellow heads of government in the midst of a full-blown political campaign.In any event, the formal removal of the independent political ombudsman and legislatively turning that office’s functions over to the Electoral Commission of Jamaica (ECJ) happened not long before the February 2024 municipal elections. Headlines Delivered to Your Inbox Sign up for The Gleaner’s morning and evening newsletters. So, the sensible thing for the Government to do now is to have Delroy Chuck, the justice minister, go to the House at its sitting on Tuesday with a bill to repeal last year’s amendments to the Political Ombudsman (Interim) Act, and to reinstate the provisions that were previously removed. The Standing Orders would be suspended to allow the bill to go through all its readings and passage at the sitting, which wouldn’t be unusual for Jamaica’s legislature.The Senate would approve the old/new bill at its sitting on Friday, having it ready for assent by the governor general, Sir Patrick Allen, by sunset that same day. Or, the Senate could be called to a sitting on an earlier day. SECONDED TO THE POST If there are concerns that there isn’t a sitting, stand-alone, independent political ombudsman to assume the reconstituted chair, the person at the electoral office, who has been assigned by the ECJ commissioners to receive, and presumably lead investigations of, complaints of breaches of the Political Code of Conduct, could be seconded to the post temporarily.Conversely, a Jamaican of high integrity, with the appropriate temperament – of which there are many – could be tapped for the post on an interim basis. This person wouldn’t need, as it were, to reinvent the wheel. It is assumed that during the hiatus, when the ombudsman’s chair was left vacant, the entire office wasn’t dismantled and any investigator in its staff let go. Further, the systems and staff established at the electoral office could be subsumed by the independent ombudsman.Jamaica finds itself in this dilemma over the status of the political ombudsman, with the public’s resentment that the office no longer stands independently on its own being the result of an unforced and clearly predictable folly on the part of the Government.The political ombudsman was an important element of Jamaica’s political architecture; one of the institutions that had its genesis in the search for solutions to the island’s political turbulence of the 1970s and 1980s. It played a mostly unobtrusive, and largely underrated role, in helping to build confidence in Jamaica’s elections.Primarily, the political ombudsman policed adherence to a code of conduct signed between the island’s two major political parties and their candidates, committing them to avoid the kinds of speech or actions that lead to tensions or incite tension between their supporters, which was an almost default feature of Jamaica’s elections in 1970s and ’80s.The office can act on complaints or institute investigations at its own behest, with the power to operate in a quasi-judicial fashion, including compelling witnesses to attend its hearings and facing the potential legal peril of perjury for failing to tell the truth. PAPER TIGER But while the Political Ombudsman can issue censure statements, the office has no power to enforce its recommendations or findings, leading some critics to brand it a paper tiger. This was one of the arguments used by the Government when it initially failed to appoint a successor to the previous stand-alone ombudsman, Donna Parchment-Brown, when her seven-year tenure ended in November, 2022.That perceived weakness notwithstanding, it is this newspaper’s view that the voice of the Office of the Political Ombudsman carried moral weight, acting as a restraint on the worst impulses of politicians.In the face of complaints, the Government, after more than a year, brought back the political ombudsman – in fashion.Ignoring the advice of a wide range of civic organisations and influential individuals, the Government decided to collapse the political ombudsman, which essentially deals with the moral and ethical issues of politics, into the ECJ, whose primary focus is the nuts-and-bolts of elections.Notably, it is the ECJ, that acts “indivisibly” as the ombudsman, although four of the nine voting members directly represent the political parties and are likely to have sharply divergent interests when disputes arise.The structure is clearly unwieldy and inefficient, which perhaps contributed to the slow pace at which the ECJ put in place a mechanism merely to register complaints. It is not clear whether the members have sat as yet as a tribunal of the ombudsman – a prospect the public obviously doesn’t relish.A May/June Don Anderson poll for the RJRGLEANER Communications Group found that 71 per cent of Jamaicans felt that there should be an independent ombudsman to monitor political misbehaviour.When the question was shifted to whether the ECJ should be the ombudsman, over 63 per cent of the respondents were negative. Significantly, only 12 per cent agreed with the ombudsman being subsumed by the ECJ.The message to the Government is clear: bring back the ombudsman.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Jamaica</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/32725861/pexels-photo-32725861.png?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Free stock photo of naturpark zittauer gebirge, zittau, zittauer gebirge" style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/32729243/pexels-photo-32729243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Indian Man Wearing a Headscarf or Traditional Cloth" style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/11994113/pexels-photo-11994113.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore a vibrant vintage record store in Orlando, FL with posters of iconic musicians and a wide selection of vinyl records." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/32771667/pexels-photo-32771667.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Kapalı  Maraş’ta  bir fotoğrafçı dükkanı" style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Jamaica (Before 1494)</h3>
+<p>
+Jamaica's history begins with the indigenous Taino people, who called the island" Xaymaca," meaning" land of wood and water." The Taino established villages, practiced agriculture, and crafted intricate pottery and tools. Christopher Columbus arrived in 1494 during his second voyage to the Americas, leading to the eventual colonization of Jamaica by the Spanish.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Spanish Colonization (1494–1655)</h3>
+<p>
+The Spanish established the first European settlement in Jamaica in 1509, using the island as a base for expeditions to the mainland. They enslaved the Taino people and later imported African slaves to work on plantations. The Spanish presence lasted until 1655 when the English captured Jamaica.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">British Rule and Plantation Economy (1655–1838)</h3>
+<p>
+Under British rule, Jamaica became a major center of the Atlantic slave trade and sugar production. Enslaved Africans toiled on the plantations under harsh conditions, shaping the island's demographics and culture. Maroons, escaped slaves who formed independent communities, resisted British control in the mountainous interior.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Emancipation and Post-Emancipation (1838–1962)</h3>
+<p>
+The abolition of slavery in 1838 led to significant social changes in Jamaica. Former slaves became wage laborers on plantations or small-scale farmers. The island's rich cultural heritage, including reggae music and Rastafarianism, emerged from this period. Jamaica gained independence from Britain in 1962, becoming a sovereign nation within the Commonwealth.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Modern Jamaica (1962–Present)</h3>
+<p>
+Since independence, Jamaica has faced challenges such as political instability, economic inequality, and crime. The country has also made significant contributions to global culture through music, sports, and literature. Tourism plays a vital role in the economy, attracting visitors to the island's beautiful beaches and vibrant cultural scene.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Jamaica</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Jamaica</h3>
+<p>
+Jamaica's official language is English, reflecting its colonial history under British rule. However, the language spoken by most Jamaicans on a daily basis is Jamaican Patois, also known as Patwa or Creole. This vibrant and expressive language is a mix of English, West African languages, and Spanish, reflecting the island's diverse cultural heritage.
+</p>
+
+<h3 style="font-weight:bold;">English in Jamaica</h3>
+<p>
+English proficiency in Jamaica is relatively high compared to many other Caribbean nations. Approximately 80% of the population speaks English, with varying degrees of fluency. English is commonly used in government, education, business, and the media. Tourist areas, hotels, and attractions are likely to have English-speaking staff to assist visitors.
+</p>
+
+<h3 style="font-weight:bold;">Useful Jamaican Patois Phrases</h3>
+<ul>
+<li><b>Waah gwaan</b> – <b>What's going on? / How are you?</b></li>
+<li><b>Mi deh yah</b> – <b>I'm here</b></li>
+<li><b>Likkle more</b> – <b>See you later</b></li>
+<li><b>Tank yuh</b> – <b>Thank you</b></li>
+<li><b>Wa yuh name?</b> – <b>What is your name?</b></li>
+<li><b>Wah yuh seh?</b> – <b>What are you saying?</b></li>
+<li><b>Irie</b> – <b>Cool / Everything is alright</b></li>
+<li><b>No problem</b> – <b>No worries / You're welcome</b></li>
+<li><b>Weh yuh come from?</b> – <b>Where are you from?</b></li>
+<li><b>Bless up</b> – <b>Goodbye / Take care</b></li>
+<li><b>Wh'appen</b> – <b>What's happening?</b></li>
+</ul>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Jamaica Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Jamaican cuisine is a vibrant fusion of flavors influenced by the island's rich history and diverse cultural heritage. Known for its bold spices and tropical ingredients, Jamaican dishes often pack a punch in terms of taste. The cuisine reflects a mix of African, Spanish, British, Indian, and Chinese culinary traditions, resulting in a unique and dynamic food culture that is sure to delight adventurous foodies.
+</p>
+<ul>
+<li><b>Jerk Chicken</b> – Marinated chicken grilled to perfection with a fiery blend of spices, including Scotch bonnet peppers.</li>
+<li><b>Ackee and Saltfish</b> – The national dish of Jamaica, a savory combination of salted codfish and ackee fruit, often served with fried dumplings.</li>
+<li><b>Curried Goat</b> – Tender goat meat slow-cooked in a fragrant curry sauce, a popular dish with Indian influences.</li>
+<li><b>Festival</b> – Sweet, fried cornmeal dough often served alongside savory dishes, a delightful balance of flavors and textures.</li>
+<li><b>Pepper Pot Soup</b> – A hearty soup made with callaloo (amaranth leaves), okra, and various meats or seafood, spiced with Scotch bonnet peppers.</li>
+<li><b>Bammy</b> – A traditional Jamaican flatbread made from cassava, often served with fish or fried plantains.</li>
+<li><b>Rice and Peas</b> – A staple side dish featuring rice cooked in coconut milk with kidney beans, thyme, and Scotch bonnet peppers.</li>
+<li><b>Gizzada</b> – Sweet coconut-filled pastries with a hint of nutmeg, popular as a dessert or snack.</li>
+<li><b>Sorrel Drink</b> – A refreshing beverage made from hibiscus flowers, often enjoyed during the festive season.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Jamaica, mealtimes are a social affair, often centered around family gatherings and celebrations. Breakfast typically includes dishes like fried dumplings, plantains, and saltfish. Lunch is the main meal of the day, enjoyed around midday and featuring hearty dishes like jerk chicken or curry goat. Dinner is lighter and may consist of leftovers or simpler
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Jamaica Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Jamaica’s most famous festivals?</h3>
+<p>
+Jamaica is known for its lively and colorful festivals that showcase the island's rich culture, music, and vibrant spirit. From reggae celebrations to traditional events, here are some of the most iconic festivals in Jamaica:
+</p>
+<ul>
+<li><b>Reggae Sumfest (Montego Bay, July)</b> – Held annually in Montego Bay, this world-renowned music festival features top reggae and dancehall artists, attracting music lovers from around the globe.</li>
+<li><b>Bob Marley Birthday Celebration (Nine Mile, February)</b> – Commemorating the legendary reggae icon Bob Marley, this festival includes music performances, cultural events, and tours of his birthplace and mausoleum.</li>
+<li><b>Jamaica Carnival (Kingston, April)</b> – A colorful and energetic celebration with vibrant costumes, music, dancing, and street parades, bringing together locals and visitors in a festive atmosphere.</li>
+<li><b>Trelawny Yam Festival (Trelawny Parish, October)</b> – Honoring Jamaica's staple crop, this festival showcases yam dishes, cooking competitions, cultural performances, and traditional rituals in a lively rural setting.</li>
+<li><b>Jamaica Independence Day (Nationwide, August 6)</b> – Celebrating the country's independence, this national holiday features parades, concerts, street parties, and cultural displays highlighting Jamaica's history and heritage.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Jamaica, embrace the laid-back island vibe and immerse yourself in the local culture. Stay hydrated, wear sunscreen, and be prepared for warm weather. Respect local customs and traditions, and interact with the friendly locals to get a true taste of Jamaican hospitality. Don't miss the opportunity to try traditional Jamaican cuisine and dance to the infectious rhythms of reggae music.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+For a deeper dive into Jamaican culture, <b>Jamaica: The Land of Wood and Water</b> podcast is a must-listen. Explore the island's rich history, vibrant music scene, and local stories that will transport you to the heart of Jamaica. Another great choice is <b>Jamaica Journeys</b>, offering insightful discussions on Jamaican cuisine, traditions, and hidden gems off the beaten path.
+</p>
+<h3 style="font-weight:bold;">Books</h3>
+<b>Fiction:</b>
+<ul>
+<li><b>A Brief History
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/jamaica/jamaicahome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/jamaica/jamaicamore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/jamaica/jamaicacityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>
