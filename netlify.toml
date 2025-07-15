@@ -1,14 +1,20 @@
 # Allow free content access
 [[redirects]]
-  from = "/Free/*"
-  to = "/Free/:splat"
+  from = "/Atlas/Free/*"
+  to = "/Atlas/Free/:splat"
   status = 200
 
-# Redirect root access to signup for first-time users
+# Redirect root access to signup for first-time users  
 [[redirects]]
   from = "/"
-  to = "/Free/signup.html"
+  to = "/Atlas/Free/signup.html"
   status = 200
+
+# Block access to paid content directory
+[[redirects]]
+  from = "/netlify/functions/_Paid/*"
+  to = "/Atlas/Free/blocked.html"
+  status = 404
 
 [build]
   functions = "netlify/functions"

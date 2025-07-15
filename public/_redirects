@@ -3,4 +3,4 @@
 /paid/*  /.netlify/functions/servePaidContent?page=:splat  200!
 
 # Root redirect to signup
-/  /Free/signup.html  200
+/  /Atlas/Free/signup.html  200
