@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Premium Atlas - Unpacked</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script>
+    // Authentication check - redirect unauthorized users
+    function checkPremiumAccess() {
+      const cookies = document.cookie;
+      
+      // Check for valid authentication cookies
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+          cookies.includes('authToken=whitelist_token') ||
+          cookies.includes('authToken=test_token_woodysc7')) {
+        // User is authorized, continue loading page
+        return true;
+      }
+      
+      // User is not authorized, redirect to signup
+      window.location.href = '/Atlas/Free/signup.html';
+      return false;
+    }
+    
+    // Run authentication check immediately
+    if (!checkPremiumAccess()) {
+      // Stop page loading if not authorized
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.innerHTML = '<p style="text-align:center;margin-top:100px;">Redirecting to signup...</p>';
+      });
+    }
+  </script>
+  <style>
+    html, body {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      color: #4B3425;
+    }
+    html, body, #map { height: 100%; margin: 0; padding: 0; width: 100vw; }
+    #map { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; }
+
+    .leaflet-interactive:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* --- TOP RIGHT OVERLAY ICON BAR --- */
+    .atlas-topright-icons {
+      position: fixed;
+      top: 18px;
+      right: 28px;
+      z-index: 1100;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 18px;
+      user-select: none;
+    }
+    .atlas-topright-btn {
+      background: #fefaf7;
+      border: 2px solid #dec9b8;
+      border-radius: 13px;
+      box-shadow: 0 4px 14px #6B42262a;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #6B4226;
+      cursor: pointer;
+      padding: 6px 16px 6px 12px;
+      font-size: 1.07em;
+      transition: background .13s, border .13s;
+      outline: none;
+    }
+    .atlas-topright-btn:focus,
+    .atlas-topright-btn:hover {
+      background: #ebdfd4;
+      border-color: #bca185;
+    }
+    .atlas-topright-btn svg {
+      display: block;
+      height: 23px;
+      width: 23px;
+      fill: #a17160;
+      margin-right: 2px;
+    }
+    @media (max-width: 600px) {
+      .atlas-topright-icons { right: 6px; top: 6px; gap: 6px; }
+      .atlas-topright-btn { font-size: 1em; padding: 6px 8px 6px 7px; gap: 4px; }
+      .atlas-topright-btn svg { height: 19px; width: 19px; }
+    }
+    /* --- END TOP RIGHT OVERLAY ICON BAR --- */
+
+    /* --- POPUP/MODAL STYLES --- */
+    .atlas-popup-overlay {
+      display: none;
+      position: fixed;
+      top:0; left:0; width:100vw; height:100vh;
+      background: rgba(0,0,0,0.15);
+      z-index: 1001; /* Less than .country-bar (1002) so bar always on top */
+      align-items: flex-start;
+      justify-content: flex-start;
+      pointer-events: auto;
+      padding-left: 50px;
+    }
+    .atlas-popup-overlay.show { display: flex; }
+    .atlas-popup-modal {
+      margin-top: 70px;
+      margin-right: 30px;
+      background: #fff;
+      border-radius: 13px;
+      box-shadow: 0 8px 34px #6B42262a;
+      min-width: 330px;
+      max-width: 92vw;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 26px 28px 22px 28px;
+      position: relative;
+      z-index: 2;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      color: #4B3425;
+      transition: box-shadow 0.19s;
+      outline: none;
+    }
+    .atlas-popup-modal h2 {
+      margin-top: 0;
+      font-size: 1.27em;
+      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+    .atlas-popup-close {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-size: 1.7em;
+      background: none;
+      border: none;
+      color: #b7774e;
+      cursor: pointer;
+      border-radius: 7px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+      transition: background 0.12s;
+    }
+    .atlas-popup-close:hover {
+      background: #e8e1d1;
+    }
+    .atlas-popup-modal input[type="text"] {
+      width: 90%;
+      font-size:1.14em;
+      padding: 7px 12px;
+      margin-bottom: 16px;
+      border: 1.5px solid #dec9b8;
+      border-radius: 6px;
+      outline: none;
+      font-family: inherit;
+      margin-top: 4px;
+      background: #f7f2ec;
+      color: #4B3425;
+    }
+    .atlas-popup-modal ul {
+      padding-left: 0;
+      list-style: none;
+      margin-bottom: 0;
+    }
+    .atlas-popup-modal ul li {
+      padding: 6px 0;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.09s;
+      font-size: 1.08em;
+    }
+    .atlas-popup-modal ul li:hover {
+      background: #f2e5d3;
+    }
+    .atlas-popup-modal .country-badge-bar {
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .atlas-popup-modal .country-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #f6e3b4;
+      border-radius: 6px;
+      padding: 2px 11px 2px 7px;
+      font-size: 1em;
+      margin-bottom: 2px;
+      font-weight: 700;
+      border: 2px solid #e2d3c2;
+      color: #4B3425;
+      cursor: pointer;
+      transition: background 0.11s;
+    }
+    .atlas-popup-modal .country-badge.visited { background: #71bf69; color: #fff; border-color: #3ca23c;}
+    .atlas-popup-modal .country-badge.lived { background: #4e8aff; color: #fff; border-color: #276bd6;}
+    .atlas-popup-modal .country-badge.wanted { background: #ffd95c; color: #6B4226; border-color: #c2a144;}
+    /* Travel tips: allow scroll if needed */
+    #travel-bible-modal .atlas-popup-modal {
+      max-width: 440px;
+      min-width: 220px;
+    }
+    @media (max-width: 600px) {
+      .atlas-popup-modal { margin-right: 3vw; padding: 14px 7vw 16px 7vw; min-width: 140px; }
+      #travel-bible-modal .atlas-popup-modal { max-width: 97vw; }
+    }
+    /* --- END POPUP/MODAL STYLES --- */
+
+    .country-bar {
+      display: none;
+      position: fixed; top:0; left:0; width:100vw; min-height:58px;
+      background: rgba(107, 66, 38, 0.20);
+      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(15px);
+      border-bottom: 2px solid #e2d3c2;
+      z-index:1002;
+      padding: 0 22px;
+      font-size:1.14em; color: #4B3425;
+      flex-direction: row; align-items: center; justify-content: flex-start;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    }
+    .country-bar.show { display: flex; }
+
+    .country-bar-left { display: flex; align-items: center; min-width: 220px; }
+    .country-flag { width:60px;height:40px; border-radius:7px; border:2px solid #e2d3c2; background:#eee; margin-right: 10px; object-fit: cover; }
+    .country-flag.hidden { display: none; }
+    .country-name { font-weight:bold; letter-spacing:0.02em; background: #f6e3b4; padding: 3px 18px; border-radius: 5px; font-size: 1.17em; margin-right: 12px; }
+
+    .country-btns {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
+      margin: 0;
+      gap: 18px;
+      position: relative;
+      padding-left: 20px;
+    }
+    .country-btn {
+      background: #e8e1d1;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-weight: 600;
+      color: #A9746E;
+      padding: 9px 34px;
+      cursor: pointer;
+      font-size: 1.1em;
+      min-width: 70px;
+      transition: background .15s, color .15s, border .12s;
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 1;
+    }
+    .country-btn.lived { order: 2; z-index: 2; }
+    .country-btn.been { order: 1; }
+    .country-btn.want { order: 3; }
+    .country-btn.been.active { background: #71bf69; color: #fff; border: 2px solid #3ca23c; }
+    .country-btn.lived.active { background: #4e8aff; color: #fff; border: 2px solid #276bd6; }
+    .country-btn.want.active { background: #ffd95c; color: #6B4226; border: 2px solid #c2a144; }
+    .country-btn:not(.active):hover { background: #e2d3c2; }
+    .country-btn:active { outline: none; }
+
+    .bottomnav {
+      display: none;
+      position:fixed;
+      left:0; right:0; bottom:0;
+      width:100vw;
+      height:60px;
+      background: rgba(107, 66, 38, 0.18);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      color: #6B4226;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1002;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid #E3D8C8;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      box-shadow: none;
+    }
+    .bottomnav.show { display: flex; }
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #6B4226;
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+      background: none;
+      border: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+      outline: none;
+    }
+
+    @media (max-width: 600px) {
+      .atlas-topright-icons { right: 2px; top: 2px; gap: 4px; }
+      .atlas-topright-btn { font-size: 0.97em; padding: 6px 7px 6px 5px; }
+      .atlas-topright-btn svg { height: 15px; width: 15px; }
+      .country-bar { font-size: 0.99em; }
+      .country-btn { padding: 7px 17px; font-size: 1em; min-width: 54px; }
+      .bottomnav { font-size: 1em; height: 46px; }
+      .nav-btn { padding: 0.1em 1em; font-size: 1em;}
+      .country-name { padding: 3px 9px; font-size: 1em; }
+      .country-bar-left { min-width: 120px; }
+      .country-flag { width: 79px; height: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top right icons (search, countries, tips) -->
+  <div class="atlas-topright-icons">
+    <button class="atlas-topright-btn" id="atlasSearchBtn" title="Search">
+      <svg viewBox="0 0 22 22"><circle cx="10" cy="10" r="7" stroke="#a17160" stroke-width="2" fill="none"/><line x1="16" y1="16" x2="20.5" y2="20.5" stroke="#a17160" stroke-width="2" stroke-linecap="round"/></svg>
+      Search
+    </button>
+    <button class="atlas-topright-btn" id="atlasCountriesBtn" title="Countries">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="#e3d8c8" stroke="#a17160" stroke-width="2"/><text x="12" y="16" text-anchor="middle" alignment-baseline="middle" font-size="10" font-family="Montserrat" fill="#a17160">Countries</text></svg>
+      Countries
+    </button>
+    <button class="atlas-topright-btn" id="atlasTipsBtn" title="Travel Tips">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="#e3d8c8" stroke="#a17160" stroke-width="2"/><polyline points="7,8 12,12 17,8" fill="none" stroke="#a17160" stroke-width="2"/><rect x="7" y="15" width="10" height="2" rx="1" fill="#a17160"/></svg>
+      Travel Tips
+    </button>
+  </div>
+  
+  <!-- Popups for Search / Countries / Travel Tips -->
+  <div id="atlas-search-modal" class="atlas-popup-overlay" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="atlas-popup-modal" role="document">
+      <button class="atlas-popup-close" id="atlas-search-close" aria-label="Close Search">&times;</button>
+      <h2>Search Countries</h2>
+      <input type="text" id="atlas-search-input" placeholder="Type a country name..." autocomplete="off" />
+      <ul id="atlas-search-results"></ul>
+    </div>
+  </div>
+  <div id="atlas-countries-modal" class="atlas-popup-overlay" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="atlas-popup-modal" role="document">
+      <button class="atlas-popup-close" id="atlas-countries-close" aria-label="Close Country List">&times;</button>
+      <h2>Countries</h2>
+      <div id="atlas-countries-badges"></div>
+      <ul id="atlas-countries-list"></ul>
+    </div>
+  </div>
+  <div id="travel-bible-modal" class="atlas-popup-overlay" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="atlas-popup-modal" id="travel-bible-popup" role="document">
+      <button class="atlas-popup-close" id="travel-bible-close" aria-label="Close Travel Tips">&times;</button>
+      <h2>Travel Tips</h2>
+      <ol style="font-size:1.13em; line-height:1.6;">
+        <li><strong>There's no perfect trip — only your trip.</strong> Travel is one of the best ways to learn about yourself, but only if you're honest about what you actually want. Don't let other people's ideas of a 'perfect' experience cloud what matters to you. Plan the trip you want, not the one you think you're supposed to want.</li>
+        <li><strong>Behave yourself.</strong> If it's illegal or inappropriate at home, it's no more acceptable just because you're in another country. The country you are in has laws that you are subject to. Don't forget it.</li>
+        <li><strong>Experiences over views.</strong> We live in a beautiful world, and you will see amazing things while you travel. That being said, the more you can interact with people and the culture of the country you visit, the better time you will have. I hardly remember my trip to the Trevi fountain but I remember every moment of the solo flamenco class I took. A hands-on cultural experience is usually more meaningful than a quick stop at a tourist landmark.</li>
+        <li><strong>You don't always need an 'authentic' experience.</strong> In the travel community, there is a push for a more 'authentic' experience as opposed to a touristy one. This stems from an elitist fantasy many travelers have that wherever they go, they can integrate with the locals better than their first-world counterparts. When planning a trip, try to ignore the travelers telling you to be more authentic. Unless you completely speak the language and are willing to move there long term, you will not integrate on your three-day trip to Singapore. That's ok. There's no shame in visiting popular sites or buying the things that help you feel grounded..</li>
+        <li><strong>Study up.</strong> Some travelers avoid it, but I strongly recommend learning a bit of local history and language before you go. Before going somewhere, learn a little about the local history and language. There is a stark contrast in the interactions you will have when speaking to a local in their own language (even badly) as opposed to assuming they speak English. In some places, like parts of Eastern Europe or East Asia, you'll often find excellent English speakers — but don't count on it everywhere. If you can, before you go, read a book on where you're going or listen to a podcast or two. I promise you, historical context before the trip will make your visit much more interesting.</li>
+        <li><strong>Be honest about what you can do.</strong> Not every place is a good destination for everyone. There are places that I would go as a young, able-bodied person that I would not take my elderly grandmother to. When you pick a destination, consider your own needs and limitations: Will I be able to communicate with them? Are there accessibility needs I have that might not be available here? Is this place safe? Some places are best left for experts and don't lend themselves to tourism.</li>
+        <li><strong>Talk to strangers.</strong> Hostels, walking tours, and tourist sites are great places to meet strangers. They are almost always interesting and friendly. Be smart: avoid sharing your lodging details, and it's usually better not to mention you're traveling alone. But a conversation with a stranger will be nearly always be an interesting and rewarding experience. I have learned more from a ten-minute conversation with a foreigner than I did in two hours in a museum.</li>
+        <li><strong>Museums and cathedrals will all start to feel the same after a while.</strong> I almost always avoid them now. Unless you have a strong personal interest in history or religion, you might find that many museums and cathedrals start to blur together. It's okay to skip them.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="country-bar" id="countryBar">
+    <div class="country-bar-left">
+      <img class="country-flag" id="countryFlag" src="" alt="" />
+      <span class="country-name" id="countryName">No country selected</span>
+    </div>
+    <div class="country-btns">
+      <button class="country-btn been" id="beenBtn">Been</button>
+      <button class="country-btn lived" id="livedBtn">Lived</button>
+      <button class="country-btn want" id="wantBtn">Want</button>
+    </div>
+  </div>
+  <nav class="bottomnav" id="bottomNav">
+    <button class="nav-btn" id="countryHomeBtn">Home</button>
+    <button class="nav-btn" id="countryMoreBtn">More</button>
+    <button class="nav-btn" id="countryCityBtn">Cityguide</button>
+  </nav>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    function iso2ToFlag(iso2) {
+      return /^[A-Z]{2}$/.test(iso2) ? `https://flagcdn.com/w40/${iso2.toLowerCase()}.png` : null;
+    }
+
+    // --- Mapping for mismatched country names ---
+    const countryNameOverrides = {
+      "American Samoa": "americansamoa",
+      "Antigua and Barbuda": "antiguaandbarbuda",
+      "Bosnia and Herzegovina": "bosniaandherzegovina",
+      "British Indian Ocean Territory": "britishindianoceanterritory",
+      "Burkina Faso": "burkinafaso",
+      "Cape Verde": "capeverde",
+      "Cayman Islands": "caymanislands",
+      "Central African Republic": "centralafricanrepublic",
+      "Cocos (Keeling) Islands": "cocoskeelingislands",
+      "Cook Islands": "cookislands",
+      "Costa Rica": "costarica",
+      "Côte d'Ivoire": "ctedivoire",
+      "Ivory Coast": "ctedivoire",
+      "Dominican Republic": "dominicanrepublic",
+      "Equatorial Guinea": "equatorialguinea",
+      "Falkland Islands (Malvinas)": "falklandislandsmalvinas",
+      "Faroe Islands": "faroeislands",
+      "French Guiana": "frenchguiana",
+      "French Polynesia": "frenchpolynesia",
+      "French Southern Territories": "frenchsouthernterritories",
+      "Guinea-Bissau": "guineabissau",
+      "Holy See (Vatican City State)": "holyseevaticancitystate",
+      "Vatican City": "holyseevaticancitystate",
+      "Hong Kong": "hongkong",
+      "Hong Kong SAR": "hongkong",
+      "Marshall Islands": "marshallislands",
+      "Micronesia, Federated States of": "micronesiafederatedstatesof",
+      "Federated States of Micronesia": "micronesiafederatedstatesof",
+      "New Caledonia": "newcaledonia",
+      "New Zealand": "newzealand",
+      "Northern Mariana Islands": "northernmarianaislands",
+      "Papua New Guinea": "papuanewguinea",
+      "Puerto Rico": "puertorico",
+      "Réunion": "runion",
+      "Reunion": "runion",
+      "Russian Federation": "russianfederation",
+      "Russia": "russianfederation",
+      "Saint Barthélemy": "saintbarthlemy",
+      "Saint Helena, Ascension and Tristan da Cunha": "sainthelenaascensionandtristandacunha",
+      "Saint Kitts and Nevis": "saintkittsandnevis",
+      "Saint Lucia": "saintlucia",
+      "Saint Martin (French part)": "saintmartinfrenchpart",
+      "Saint Pierre and Miquelon": "saintpierreandmiquelon",
+      "Saint Vincent and the Grenadines": "saintvincentandthegrenadines",
+      "San Marino": "sanmarino",
+      "Sao Tome and Principe": "saotomeandprincipe",
+      "São Tomé and Príncipe": "saotomeandprincipe",
+      "Saudi Arabia": "saudiarabia",
+      "Sierra Leone": "sierraleone",
+      "Solomon Islands": "solomonislands",
+      "South Africa": "southafrica",
+      "South Georgia and the South Sandwich Islands": "southgeorgiaandthesouthsandwichislands",
+      "South Sudan": "southsudan",
+      "Sri Lanka": "srilanka",
+      "Svalbard and Jan Mayen": "svalbardandjanmayen",
+      "Syrian Arab Republic": "syrianarabrepublic",
+      "Taiwan, Province of China": "taiwanprovinceofchina",
+      "Taiwan": "taiwanprovinceofchina",
+      "Tanzania, United Republic of": "tanzaniaunitedrepublicof",
+      "United Republic of Tanzania": "tanzaniaunitedrepublicof",
+      "Timor-Leste": "timorleste",
+      "East Timor": "timorleste",
+      "Trinidad and Tobago": "trinidadandtobago",
+      "Turks and Caicos Islands": "turksandcaicosislands",
+      "United Arab Emirates": "unitedarabemirates",
+      "United Kingdom": "unitedkingdom",
+      "United States": "unitedstates",
+      "United States of America": "unitedstates",
+      "United States Minor Outlying Islands": "unitedstatesminoroutlyingislands",
+      "Virgin Islands, British": "virginislandsbritish",
+      "British Virgin Islands": "virginislandsbritish",
+      "Virgin Islands, U.S.": "virginislandsus",
+      "U.S. Virgin Islands": "virginislandsus",
+      "Wallis and Futuna": "wallisandfutuna",
+      "Western Sahara": "westernsahara"
+    };
+    // Function to slugify country names for consistent URL slugs// --- Country display name prettify list ---
+const countryDisplayNames = {
+  "americansamoa": "American Samoa",
+  "antiguaandbarbuda": "Antigua and Barbuda",
+  "bosniaandherzegovina": "Bosnia and Herzegovina",
+  "bouvetisland": "Bouvet Island",
+  "britishindianoceanterritory": "British Indian Ocean Territory",
+  "capeverde": "Cape Verde",
+  "caymanislands": "Cayman Islands",
+  "centralafricanrepublic": "Central African Republic",
+  "christmasisland": "Christmas Island",
+  "cocoskeelingislands": "Cocos (Keeling) Islands",
+  "cookislands": "Cook Islands",
+  "costarica": "Costa Rica",
+  "cotedivoire": "Côte d'Ivoire",
+  "czechrepublic": "Czech Republic",
+  "palestinestateof": "Palestine",
+  "stateofpalestine": "Palestine",
+  "palestine": "Palestine",
+  "dominicanrepublic": "Dominican Republic",
+  "equatorialguinea": "Equatorial Guinea",
+  "falklandislandsmalvinas": "Falkland Islands (Malvinas)",
+  "faroeislands": "Faroe Islands",
+  "frenchguiana": "French Guiana",
+  "frenchpolynesia": "French Polynesia",
+  "frenchsouthernterritories": "French Southern Territories",
+  "guineabissau": "Guinea-Bissau",
+  "holyseevaticancitystate": "Holy See (Vatican City State)",
+  "isleofman": "Isle of Man",
+  "koreademocraticpeoplesrepublicof": "Korea (Democratic People's Republic of)",
+  "korearepublicof": "Korea (Republic of)",
+  "laopeoplesdemocraticrepublic": "Lao People's Democratic Republic",
+  "marshallislands": "Marshall Islands",
+  "micronesiafederatedstatesof": "Micronesia (Federated States of)",
+  "moldovarepublicof": "Moldova (Republic of)",
+  "newcaledonia": "New Caledonia",
+  "newzealand": "New Zealand",
+  "northernmarianaislands": "Northern Mariana Islands",
+  "papuanewguinea": "Papua New Guinea",
+  "puertorico": "Puerto Rico",
+  "russianfederation": "Russian Federation",
+  "saintbarthelemy": "Saint Barthélemy",
+  "sainthelenaascensionandtristandacunha": "Saint Helena, Ascension and Tristan da Cunha",
+  "saintkittsandnevis": "Saint Kitts and Nevis",
+  "saintlucia": "Saint Lucia",
+  "saintmartinfrenchpart": "Saint Martin (French part)",
+  "saintpierreandmiquelon": "Saint Pierre and Miquelon",
+  "saintvincentandthegrenadines": "Saint Vincent and the Grenadines",
+  "sanmarino": "San Marino",
+  "saotomeandprincipe": "Sao Tome and Principe",
+  "saudiarabia": "Saudi Arabia",
+  "serranillabank": "Serranilla Bank",
+  "sierraleone": "Sierra Leone",
+  "singapore": "Singapore",
+  "solomonislands": "Solomon Islands",
+  "southafrica": "South Africa",
+  "southgeorgiaandthesouthsandwichislands": "South Georgia and the South Sandwich Islands",
+  "southsudan": "South Sudan",
+  "srilanka": "Sri Lanka",
+  "svalbardandjanmayen": "Svalbard and Jan Mayen",
+  "syrianarabrepublic": "Syrian Arab Republic",
+  "taiwanprovinceofchina": "Taiwan, Province of China",
+  "tajikistan": "Tajikistan",
+  "tanzaniaunitedrepublicof": "Tanzania, United Republic of",
+  "timorleste": "Timor-Leste",
+  "trinidadandtobago": "Trinidad and Tobago",
+  "turksandcaicosislands": "Turks and Caicos Islands",
+  "unitedarabemirates": "United Arab Emirates",
+  "unitedkingdom": "United Kingdom",
+  "unitedstates": "United States",
+  "unitedstatesminoroutlyingislands": "United States Minor Outlying Islands",
+  "venezuelabolivarianrepublicof": "Venezuela (Bolivarian Republic of)",
+  "virginislandsbritish": "Virgin Islands (British)",
+  "virginislandsus": "Virgin Islands (U.S.)",
+  "wallisandfutuna": "Wallis and Futuna",
+  "westernsahara": "Western Sahara"
+};
+
+// --- City display name prettify list ---
+const cityDisplayNames = {
+  "saopaulo": "Sao Paulo",
+  "mexicocity": "Mexico City",
+  "riodejaneiro": "Rio de Janeiro",
+  "hochiminhcity": "Ho Chi Minh City",
+  "newyorkcity": "New York City",
+  "kualalumpur": "Kuala Lumpur",
+  "saintpetersburg": "Saint Petersburg",
+  "losangeles": "Los Angeles",
+  "taiyuanshanxi": "Taiyuan Shanxi",
+  "fuzhoufujian": "Fuzhou Fujian",
+  "jinanshandong": "Ji-nan Shandong",
+  "thrissur": "Thrissur",
+  "kochi": "Kochi",
+  "kuwaitcity": "Kuwait City",
+  "portharcourt": "Port Harcourt",
+  "capetown": "Cape Town",
+  "belohorizonte": "Belo Horizonte",
+  "addisababa": "Addis Ababa",
+  "portoalegre": "Porto Alegre",
+  "fortaleza": "Fortaleza",
+  "santodomingo": "Santo Domingo",
+  "grandevitoria": "Grande Vitoria",
+  "vijayawada": "Vijayawada",
+  "baixadasantista": "Baixada Santista",
+  "yanchengjiangsu": "Yancheng Jiangsu",
+  "westyorkshire": "West Yorkshire",
+  "panamacity": "Panama City",
+  "lapaz": "La Paz",
+  "davaocity": "Davao City",
+  "leondelosaldamas": "Leon de los Aldamas",
+  "taizhouzhejiang": "Taizhou Zhejiang",
+  "linyishandong": "Linyi Shandong",
+  "wuhuanhui": "Wuhu Anhui",
+  "grandesãoluis": "Grande Sao Luis",
+  "sanjun": "San Juan",
+  "portauprince": "Port-au-Prince",
+  "santacruz": "Santa Cruz",
+  "ciudadjuarez": "Ciudad Juarez",
+  "sanantonio": "San Antonio",
+  "thehague": "The Hague",
+  "sandiego": "San Diego",
+  "sanjose": "San Jose",
+  "chonburi": "Chon Buri",
+  "ciudadguayana": "Ciudad Guayana",
+  "zamboangacity": "Zamboanga City",
+  "sanpedrosula": "San Pedro Sula",
+  "pathumthani": "Pathum Thani",
+  "lalaguna": "La Laguna",
+  "barcelona-puertolacruz": "Barcelona-Puerto La Cruz",
+  "portelizabeth": "Port Elizabeth",
+  "abudhabi": "Abu Dhabi",
+  "elpaso": "El Paso",
+  "tuxtlagutierrez": "Tuxtla Gutierrez",
+  "ashgabat": "Ashgabat",
+  "sanmigueldetucuman": "San Miguel de Tucuman",
+  "cebucity": "Cebu City",
+  "acapulcodejuarez": "Acapulco de Juarez",
+  "sansalvador": "San Salvador",
+  "generalsantoscity": "General Santos City",
+  "oklahomacity": "Oklahoma City",
+  "sanjosedelmonte": "San Jose del Monte",
+  "bokarosteelcity": "Bokaro Steel City",
+  "naypyitaw": "Nay Pyi Taw",
+  "beersheva": "Be'er Sheva",
+  "juizdefora": "Juiz De Fora",
+  "feiradesantana": "Feira De Santana"
+};
+
+// --- Prettify function ---
+function prettifyName(str, isCity = false) {
+  if (!str) return '';
+  const slug = String(str).toLowerCase().replace(/[^a-z]/g, '');
+  if (isCity && cityDisplayNames[slug]) return cityDisplayNames[slug];
+  if (!isCity && countryDisplayNames[slug]) return countryDisplayNames[slug];
+  return String(str)
+    .replace(/[_-]/g, ' ')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .replace(/([a-z])([0-9])/g, '$1 $2')
+    .replace(/([0-9])([a-zA-Z])/g, '$1 $2')
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+    .replace(/\b\w/g, c => c.toUpperCase())
+    .trim();
+}
+    function slugify(str) {
+      return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function getCountrySlug(name) {
+      return countryNameOverrides[name] || slugify(name);
+    }
+
+    // ---- PREMIUM VERSION - ALL CONTENT ACCESSIBLE ----
+    // No access restrictions in premium version
+
+    const STATUS_COLOR = {
+      been: "#71bf69",
+      lived: "#4e8aff",
+      want: "#ffd95c",
+      null: "#fff"
+    };
+    let countryStatus = {};
+    try { countryStatus = JSON.parse(localStorage.getItem("countryStatus") || '{}'); }
+    catch(e) { countryStatus = {}; }
+    let countryLayers = {};
+    let selectedISO = null;
+    let selectedLayer = null;
+    let geojson = null;
+    let allCountries = [];
+    let countryByName = {};
+
+    const bar = document.getElementById('countryBar');
+    const flag = document.getElementById('countryFlag');
+    const cname = document.getElementById('countryName');
+    const bottomNav = document.getElementById('bottomNav');
+    const beenBtn = document.getElementById('beenBtn');
+    const livedBtn = document.getElementById('livedBtn');
+    const wantBtn = document.getElementById('wantBtn');
+    const countryHomeBtn = document.getElementById('countryHomeBtn');
+    const countryMoreBtn = document.getElementById('countryMoreBtn');
+    const countryCityBtn = document.getElementById('countryCityBtn');
+
+    // Popup DOM
+    const searchBtn = document.getElementById('atlasSearchBtn');
+    const countriesBtn = document.getElementById('atlasCountriesBtn');
+    const tipsBtn = document.getElementById('atlasTipsBtn');
+    const searchModal = document.getElementById('atlas-search-modal');
+    const countriesModal = document.getElementById('atlas-countries-modal');
+    const tipsModal = document.getElementById('travel-bible-modal');
+    const searchClose = document.getElementById('atlas-search-close');
+    const countriesClose = document.getElementById('atlas-countries-close');
+    const tipsClose = document.getElementById('travel-bible-close');
+    const searchInput = document.getElementById('atlas-search-input');
+    const searchResults = document.getElementById('atlas-search-results');
+    const countriesBadges = document.getElementById('atlas-countries-badges');
+    const countriesList = document.getElementById('atlas-countries-list');
+
+    let currentSelectedCountrySlug = null;
+
+    function setBarActive(status) {
+      beenBtn.classList.toggle('active', status === 'been');
+      livedBtn.classList.toggle('active', status === 'lived');
+      wantBtn.classList.toggle('active', status === 'want');
+    }
+
+    function updateCountryFill(iso) {
+      const st = countryStatus[iso] || null;
+      if (countryLayers[iso]) countryLayers[iso].setStyle({
+        fillColor: STATUS_COLOR[st],
+        fillOpacity: 0.9
+      });
+    }
+
+    function highlightSelectedLayer(layer, iso) {
+      if (selectedLayer && geojson) {
+        geojson.resetStyle(selectedLayer);
+        if (selectedISO) updateCountryFill(selectedISO);
+      }
+      if (layer) {
+        layer.setStyle({
+          color: "black",
+          weight: 2
+        });
+        selectedLayer = layer;
+        selectedISO = iso;
+      }
+    }
+
+    function clearSelectedLayer() {
+      if (selectedLayer && geojson) {
+        geojson.resetStyle(selectedLayer);
+        if (selectedISO) updateCountryFill(selectedISO);
+        selectedLayer = null;
+        selectedISO = null;
+      }
+      currentSelectedCountrySlug = null;
+    }
+
+    function showBar(iso, name, iso2, layer) {
+      closeAllPopups();
+      const flagUrl = iso2ToFlag(iso2);
+      if (flagUrl) {
+        flag.src = flagUrl;
+        flag.alt = name + " flag";
+        flag.classList.remove("hidden");
+      } else {
+        flag.src = "";
+        flag.alt = "";
+        flag.classList.add("hidden");
+      }
+      cname.textContent = prettifyName(name);
+      setBarActive(countryStatus[iso] || null);
+      bar.classList.add('show');
+      bottomNav.classList.add('show');
+      highlightSelectedLayer(layer, iso);
+
+      currentSelectedCountrySlug = getCountrySlug(name);
+
+      // Premium version: All countries accessible
+      countryHomeBtn.onclick = function() {
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}home.html`;
+        }
+      };
+      countryMoreBtn.onclick = function() {
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}more.html`;
+        }
+      };
+      countryCityBtn.onclick = function() {
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}cityguide.html`;
+        }
+      };
+    }
+
+    var southWest = L.latLng(-89.98155760646617, -180),
+    northEast = L.latLng(89.99346179538875, 180);
+    var bounds = L.latLngBounds(southWest, northEast);
+
+    var map = L.map('map', {
+      maxBounds: bounds,
+      maxBoundsViscosity: 1.0,
+      minZoom: 2,
+      maxZoom: 18
+    }).setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    axios.get('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
+      .then(function(response) {
+        geojson = L.geoJSON(response.data, {
+          style: function(feature) {
+            const iso = feature.properties["ISO3166-1-Alpha-3"];
+            const st = countryStatus[iso] || null;
+            return {
+              color: "#444",
+              fillColor: STATUS_COLOR[st],
+              fillOpacity: 0.9,
+              weight: 1
+            };
+          },
+          onEachFeature: function(feature, layer) {
+            const iso3 = feature.properties["ISO3166-1-Alpha-3"];
+            const iso2 = feature.properties["ISO3166-1-Alpha-2"];
+            const name = feature.properties.name;
+            countryLayers[iso3] = layer;
+            allCountries.push({name, iso2, iso3});
+            countryByName[name] = {iso2, iso3};
+            layer.on('click', function(e) {
+              L.DomEvent.stopPropagation(e);
+              showBar(iso3, name, iso2, layer);
+            });
+            layer.bindTooltip(name);
+          }
+        }).addTo(map);
+
+        allCountries.sort((a, b) => a.name.localeCompare(b.name));
+        renderCountriesList();
+      });
+
+    function handleStatusClick(status) {
+      if (!selectedISO) return;
+      if (countryStatus[selectedISO] === status) {
+        return;
+      }
+      countryStatus[selectedISO] = status;
+      localStorage.setItem("countryStatus", JSON.stringify(countryStatus));
+      setBarActive(status);
+      updateCountryFill(selectedISO);
+      if (selectedLayer) {
+        selectedLayer.setStyle({ color: "black", weight: 2 });
+      }
+    }
+    function handleStatusDoubleClick(status) {
+      if (!selectedISO) return;
+      if (countryStatus[selectedISO] === status) {
+        delete countryStatus[selectedISO];
+        localStorage.setItem("countryStatus", JSON.stringify(countryStatus));
+        setBarActive(null);
+        updateCountryFill(selectedISO);
+        if (selectedLayer) {
+          selectedLayer.setStyle({ color: "black", weight: 2 });
+        }
+      }
+    }
+    beenBtn.onclick = function() { handleStatusClick("been"); };
+    livedBtn.onclick = function() { handleStatusClick("lived"); };
+    wantBtn.onclick = function() { handleStatusClick("want"); };
+    beenBtn.ondblclick = function() { handleStatusDoubleClick("been"); };
+    livedBtn.ondblclick = function() { handleStatusDoubleClick("lived"); };
+    wantBtn.ondblclick = function() { handleStatusDoubleClick("want"); };
+
+    map.on('click', function(e) {
+      bar.classList.remove('show');
+      bottomNav.classList.remove('show');
+      clearSelectedLayer();
+    });
+    bar.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+
+    window.addEventListener('load', function() {
+      for (const iso in countryLayers) updateCountryFill(iso);
+      bar.classList.remove('show');
+      bottomNav.classList.remove('show');
+    });
+
+    function closeAllPopups() {
+      [searchModal, countriesModal, tipsModal].forEach(m => m.classList.remove('show'));
+      document.body.style.overflow = "";
+    }
+    function openPopup(modal) {
+      closeAllPopups();
+      modal.classList.add('show');
+      document.body.style.overflow = "hidden";
+      if (modal === searchModal) setTimeout(()=>searchInput.focus(), 100);
+    }
+
+    (function overrideShowBar() {
+      const origShowBar = showBar;
+      window.showBar = function(...args) {
+        closeAllPopups();
+        origShowBar.apply(this, args);
+      }
+    })();
+
+    beenBtn.addEventListener('click', renderCountriesList);
+    livedBtn.addEventListener('click', renderCountriesList);
+    wantBtn.addEventListener('click', renderCountriesList);
+    beenBtn.addEventListener('dblclick', renderCountriesList);
+    livedBtn.addEventListener('dblclick', renderCountriesList);
+    wantBtn.addEventListener('dblclick', renderCountriesList);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
+
+    // ===== SEARCH AND COUNTRY LIST MODALS =====
+    searchBtn.addEventListener('click', ()=>openPopup(searchModal));
+    searchClose.addEventListener('click', closeAllPopups);
+    searchModal.addEventListener('mousedown', function(e) {
+      if (e.target === searchModal) closeAllPopups();
+    });
+    searchModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
+
+    searchInput.addEventListener('input', function() {
+      updateSearchResults(this.value);
+    });
+
+    function updateSearchResults(query) {
+      searchResults.innerHTML = "";
+      if (!query) return;
+      const q = query.trim().toLowerCase();
+      const countryMatches = allCountries.filter(c => c.name.toLowerCase().includes(q));
+      const cityMatches = allCities.filter(c => c.name.toLowerCase().includes(q));
+
+      if (countryMatches.length === 0 && cityMatches.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = "No countries or cities found";
+        searchResults.appendChild(li);
+        return;
+      }
+      for (const c of countryMatches.slice(0, 10)) {
+        const li = document.createElement('li');
+        li.textContent = prettifyName(c.name);
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=>{
+          let slug = getCountrySlug(c.name);
+          // Premium: All countries accessible
+          window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+        });
+        li.addEventListener('keydown', (e)=>{
+          if(e.key==="Enter"){
+            let slug = getCountrySlug(c.name);
+            // Premium: All countries accessible
+            window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+          }
+        });
+        searchResults.appendChild(li);
+      }
+      for (const c of cityMatches.slice(0, 10)) {
+        const li = document.createElement('li');
+        li.textContent = `${prettifyName(c.name, true)} (${prettifyName(c.country)})`;
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=>{
+          // Premium: All cities accessible
+          window.location.href = `/PaidContent/cities/${c.name}${c.country}.html`;
+        });
+        li.addEventListener('keydown', (e)=>{
+          if(e.key==="Enter"){
+            // Premium: All cities accessible
+            window.location.href = `/PaidContent/cities/${c.name}${c.country}.html`;
+          }
+        });
+        searchResults.appendChild(li);
+      }
+    }
+
+    function gotoCountryHome(name) {
+      let slug = getCountrySlug(name);
+      // Premium: All countries accessible
+      window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+    }
+
+    countriesBtn.addEventListener('click', ()=>openPopup(countriesModal));
+    countriesClose.addEventListener('click', closeAllPopups);
+    countriesModal.addEventListener('mousedown', function(e) {
+      if (e.target === countriesModal) closeAllPopups();
+    });
+    countriesModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
+
+    function renderCountriesList() {
+      let badgesHTML = '';
+      const visited = [], lived = [], wanted = [];
+      for (const country of allCountries) {
+        const st = countryStatus[country.iso3];
+        if (st === "been") visited.push(country);
+        if (st === "lived") lived.push(country);
+        if (st === "want") wanted.push(country);
+      }
+      for (const c of visited) {
+        badgesHTML += `<span class="country-badge visited" data-country="${c.name}">${prettifyName(c.name)}</span>`;
+      }
+      for (const c of lived) {
+        badgesHTML += `<span class="country-badge lived" data-country="${c.name}">${prettifyName(c.name)}</span>`;
+      }
+      for (const c of wanted) {
+        badgesHTML += `<span class="country-badge wanted" data-country="${c.name}">${prettifyName(c.name)}</span>`;
+      }
+      countriesBadges.innerHTML = `<div class="country-badge-bar">${badgesHTML||'<span style="font-size:0.98em;opacity:0.65;">No countries marked yet.</span>'}</div>`;
+      countriesBadges.querySelectorAll('.country-badge').forEach(el => {
+        el.addEventListener('click', ()=>gotoCountryHome(el.getAttribute('data-country')));
+      });
+      let listHTML = '';
+      for (const c of allCountries) {
+        listHTML += `<li tabindex="0" data-country="${c.name}">${prettifyName(c.name)}</li>`;
+      }
+      countriesList.innerHTML = listHTML;
+      countriesList.querySelectorAll("li").forEach(li => {
+        li.addEventListener('click', ()=>gotoCountryHome(li.getAttribute('data-country')));
+        li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ gotoCountryHome(li.getAttribute('data-country')); } });
+      });
+    }
+
+    // --- Travel Tips Modal ---
+    tipsBtn.addEventListener('click', ()=>openPopup(tipsModal));
+    tipsClose.addEventListener('click', closeAllPopups);
+    tipsModal.addEventListener('mousedown', function(e) {
+      if (e.target === tipsModal) closeAllPopups();
+    });
+    tipsModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
+
+    // ===== CITY MARKERS AND SEARCH INTEGRATION =====
+    let allCities = [];
+    let cityMarkers = [];
+
+    function removeCityMarkers() {
+      for (const m of cityMarkers) map.removeLayer(m);
+      cityMarkers = [];
+    }
+
+    function showCityMarkers() {
+      removeCityMarkers();
+      for (const city of allCities) {
+        // Premium version: All cities show at zoom 4+, all are accessible
+        if (map.getZoom() >= 4) {
+          const cityDisp = prettifyName(city.name, true);
+          const countryDisp = prettifyName(city.country);
+
+          const marker = L.circleMarker([city.lat, city.lon], {
+            radius: 8,
+            color: '#4e8aff',
+            fillColor: '#4e8aff',
+            fillOpacity: 0.85,
+            weight: 3
+          })
+          .bindTooltip(`${cityDisp}, ${countryDisp}`, { direction: 'top', offset: [0, -8] })
+          .addTo(map)
+          .on('click', function() {
+            // Premium: All cities accessible
+            window.location.href = `/PaidContent/cities/${city.name}${city.country}.html`;
+          });
+          cityMarkers.push(marker);
+        }
+      }
+    }
+
+    axios.get('/PaidContent/cities/cities.json').then(function(response) {
+      allCities = response.data;
+      showCityMarkers();
+    });
+
+    map.on('zoomend', showCityMarkers);
+  </script>
+</body>
+</html>
