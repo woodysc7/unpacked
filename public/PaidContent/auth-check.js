@@ -12,15 +12,34 @@ function checkPremiumAccess() {
     return true;
   }
   
-  // User is not authorized, redirect to signup
-  window.location.href = '/Atlas/Free/signup.html';
+  // Check for valid authentication token
+  const authToken = getCookie('authToken');
+  const userEmail = getCookie('userEmail');
+  
+  if (!authToken || !userEmail) {
+    return false;
+  }
+  
+  // For Firebase tokens, we'll do basic validation
+  if (authToken.length > 20 && userEmail.includes('@')) {
+    return true; // Likely valid Firebase token
+  }
+  
   return false;
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
 }
 
 // Run authentication check immediately when script loads
 if (!checkPremiumAccess()) {
-  // Stop page loading if not authorized
-  document.addEventListener('DOMContentLoaded', function() {
-    document.body.innerHTML = '<div style="text-align:center;margin-top:100px;font-family:Montserrat,Arial,sans-serif;color:#4B3425;"><p>Access denied. Redirecting to signup...</p></div>';
-  });
+  // User is not authorized, redirect to signup
+  window.location.href = '/Atlas/Free/signup.html';
+} else {
+  // User is authorized - set a flag to prevent multiple checks
+  window.premiumAccessVerified = true;
 }

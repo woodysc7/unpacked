@@ -863,10 +863,13 @@ var map = L.map('map', {
   maxBounds: bounds,
   maxBoundsViscosity: 1.0,
   minZoom: 2,
-  maxZoom: 18
+  maxZoom: 20
 }).setView([20, 0], 2);
+    // Use higher quality tiles for premium version
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 20,
+      subdomains: ['a', 'b', 'c']
     }).addTo(map);
 
     axios.get('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
@@ -874,8 +877,21 @@ var map = L.map('map', {
         geojson = L.geoJSON(response.data, {
           style: function(feature) {
   const iso = feature.properties["ISO3166-1-Alpha-3"];
+  const name = feature.properties.name;
+  const slug = getCountrySlug(name);
   const st = countryStatus[iso] || null;
-  return { color: "#444", fillColor: STATUS_COLOR[st], fillOpacity: 0.9, weight: 1 };
+  let borderColor = "#444";
+  let borderWeight = 1;
+  if (slug === "unitedstates" || slug === "spain") {
+    borderColor = "#4e8aff";
+    borderWeight = 3;
+  }
+  return {
+    color: borderColor,
+    fillColor: STATUS_COLOR[st],
+    fillOpacity: 0.9,
+    weight: borderWeight
+  };
 },
           onEachFeature: function(feature, layer) {
             const iso3 = feature.properties["ISO3166-1-Alpha-3"];
@@ -1110,15 +1126,15 @@ function removeCityMarkers() {
 
 function showCityMarkers() {
   removeCityMarkers();
-  if (map.getZoom() >= 4) {  // Show when zoomed in (zoom 4+)
-    for (const city of allCities) {
+  for (const city of allCities) {
+    if (map.getZoom() >= 4) {  // Show when zoomed in (zoom 4+)
       const cityDisp = prettifyName(city.name, true);
       const countryDisp = prettifyName(city.country);
 
       const marker = L.circleMarker([city.lat, city.lon], {
         radius: 8,
-        color: '#888',
-        fillColor: '#888',
+        color: '#4e8aff',
+        fillColor: '#4e8aff',
         fillOpacity: 0.85,
         weight: 3
       })
