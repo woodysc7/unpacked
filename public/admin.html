@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Grant Access</title>
+  <style>
+    body { font-family: Montserrat, Arial, sans-serif; background: #faf9f6; color: #4B3425; padding: 40px; }
+    .admin-container { max-width: 500px; margin: 0 auto; background: #fff; padding: 2em; border-radius: 18px; box-shadow: 0 2px 12px #0001; }
+    input, button { font-size: 1.1em; margin: 0.4em 0; padding: 0.6em; width: 100%; border-radius: 8px; border: 1px solid #E3D8C8;}
+    button { background: #6B4226; color: #fff; font-weight: 700; border: none; cursor: pointer; margin-top: 1em;}
+    button:hover { background: #A9746E;}
+    .result { margin-top: 1em; padding: 1em; border-radius: 8px; }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <h2>Admin - Grant Premium Access</h2>
+    <form id="grantForm">
+      <input type="email" id="email" placeholder="Email Address" value="woodysc7@gmail.com" required />
+      <input type="password" id="adminKey" placeholder="Admin Key" value="admin_secret_2024" required />
+      <button type="submit">Grant Premium Access</button>
+      <div id="result"></div>
+    </form>
+    
+    <hr style="margin: 2em 0;">
+    
+    <h3>Test Authentication</h3>
+    <button onclick="testAccess()">Test Premium Access</button>
+    <div id="testResult"></div>
+  </div>
+
+  <script>
+    document.getElementById('grantForm').onsubmit = async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const adminKey = document.getElementById('adminKey').value;
+      const resultDiv = document.getElementById('result');
+      
+      try {
+        const response = await fetch('/.netlify/functions/markPaid', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, adminKey })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          resultDiv.className = 'result success';
+          resultDiv.innerHTML = `✅ Success: ${data.message || 'User granted premium access'}`;
+        } else {
+          resultDiv.className = 'result error';
+          resultDiv.innerHTML = `❌ Error: ${data.error}`;
+        }
+      } catch (error) {
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `❌ Error: ${error.message}`;
+      }
+    };
+    
+    function testAccess() {
+      const testResultDiv = document.getElementById('testResult');
+      testResultDiv.innerHTML = 'Testing...';
+      
+      // Test access with current cookies
+      fetch('/Paid/Atlas.html')
+        .then(response => {
+          if (response.status === 302) {
+            testResultDiv.className = 'result success';
+            testResultDiv.innerHTML = '✅ Access granted! You should be redirected to premium content.';
+          } else if (response.status === 403) {
+            testResultDiv.className = 'result error';
+            testResultDiv.innerHTML = '❌ Access denied. You need to log in first.';
+          } else {
+            testResultDiv.className = 'result error';
+            testResultDiv.innerHTML = `❌ Unexpected response: ${response.status}`;
+          }
+        })
+        .catch(error => {
+          testResultDiv.className = 'result error';
+          testResultDiv.innerHTML = `❌ Error: ${error.message}`;
+        });
+    }
+  </script>
+</body>
+</html>
