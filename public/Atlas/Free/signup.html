@@ -33,100 +33,8 @@
       <div class="success" id="successMsg"></div>
     </form>
     <button id="pay-btn" style="display:none;">Upgrade to Premium</button>
-    <button id="free-btn" onclick="window.location.href='Atlas.html'">Continue to Free Atlas</button>
+    <button id="free-btn">Continue to Free Atlas</button>
   </div>
-  <script>
-    // Login and Signup handlers
-    const authForm = document.getElementById('authForm');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const loginBtn = document.getElementById('loginBtn');
-    const signupBtn = document.getElementById('signupBtn');
-    const errorMsg = document.getElementById('errorMsg');
-    const successMsg = document.getElementById('successMsg');
-    const payBtn = document.getElementById('pay-btn');
-
-    // Helper: Show/Hide Pay button depending on auth state
-    function updatePayButton() {
-      if (firebase.auth().currentUser) {
-        payBtn.style.display = 'block';
-      } else {
-        payBtn.style.display = 'none';
-      }
-    }
-
-    // Listen for real-time auth state changes
-    firebase.auth().onAuthStateChanged(user => {
-      updatePayButton();
-    });
-
-    // Login
-    authForm.onsubmit = function(e) {
-      e.preventDefault();
-      errorMsg.textContent = "";
-      successMsg.textContent = "";
-      loginBtn.disabled = true;
-      signupBtn.disabled = true;
-      firebase.auth().signInWithEmailAndPassword(emailInput.value, passwordInput.value)
-        .then(() => {
-          successMsg.textContent = "Logged in successfully!";
-          updatePayButton();
-        })
-        .catch(error => {
-          errorMsg.textContent = error.message;
-        })
-        .finally(() => {
-          loginBtn.disabled = false;
-          signupBtn.disabled = false;
-        });
-    };
-
-    // Signup
-    signupBtn.onclick = function(e) {
-      e.preventDefault();
-      errorMsg.textContent = "";
-      successMsg.textContent = "";
-      loginBtn.disabled = true;
-      signupBtn.disabled = true;
-      firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
-        .then(() => {
-          successMsg.textContent = "Account created & signed in!";
-          updatePayButton();
-        })
-        .catch(error => {
-          errorMsg.textContent = error.message;
-        })
-        .finally(() => {
-          loginBtn.disabled = false;
-          signupBtn.disabled = false;
-        });
-    };
-
-    // Payment (Upgrade) Button
-    payBtn.onclick = async function() {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        alert("Please sign in first!");
-        return;
-      }
-      payBtn.disabled = true;
-      payBtn.textContent = "Redirecting...";
-      try {
-        const token = await user.getIdToken();
-        const response = await fetch('/.netlify/functions/create-checkout-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            uid: user.uid,
-            email: user.email,
-            token
-          })
-        });
-        const data = await response.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          errorMsg.textContent = data.error || "Could not create checkout session.";
   <script>
     // Firebase configuration
     const firebaseConfig = {
@@ -144,7 +52,10 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
+    // Get elements
     const authForm = document.getElementById('authForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('loginBtn');
     const signupBtn = document.getElementById('signupBtn');
     const errorMsg = document.getElementById('errorMsg');
@@ -152,94 +63,113 @@
     const payBtn = document.getElementById('pay-btn');
     const freeBtn = document.getElementById('free-btn');
 
-    loginBtn.onclick = async (e) => {
+    // Login form submission
+    authForm.onsubmit = async function(e) {
       e.preventDefault();
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+      loginBtn.disabled = true;
+      signupBtn.disabled = true;
+
       try {
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const userCredential = await auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value);
         const user = userCredential.user;
         
         // Check if user has paid status
         const userDoc = await db.collection('users').doc(user.uid).get();
         if (userDoc.exists() && userDoc.data().paid) {
           successMsg.textContent = 'Login successful! Redirecting to paid content...';
-          // Get Firebase ID token and redirect with authentication
-          const token = await user.getIdToken();
           setTimeout(() => {
-            window.location.href = `/.netlify/functions/servePaidContent?page=Atlas&token=${token}`;
+            window.location.href = `/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7`;
           }, 1000);
         } else {
           successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
           payBtn.style.display = 'block';
         }
-      } catch (err) {
-        errorMsg.textContent = err.message;
+      } catch (error) {
+        errorMsg.textContent = error.message;
+      } finally {
+        loginBtn.disabled = false;
+        signupBtn.disabled = false;
       }
     };
 
-    signupBtn.onclick = async (e) => {
+    // Signup button
+    signupBtn.onclick = async function(e) {
       e.preventDefault();
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+      loginBtn.disabled = true;
+      signupBtn.disabled = true;
+
       try {
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        // Create user record in Firestore (mark as not paid yet)
+        const userCredential = await auth.createUserWithEmailAndPassword(emailInput.value, passwordInput.value);
+        
+        // Create user record in Firestore
         await db.collection('users').doc(userCredential.user.uid).set({
-          email: email,
+          email: emailInput.value,
           paid: false,
           createdAt: new Date()
         });
-        successMsg.textContent = 'Sign up successful! Please log in.';
-      } catch (err) {
-        errorMsg.textContent = err.message;
+        
+        successMsg.textContent = 'Account created successfully! You can now purchase premium access.';
+        payBtn.style.display = 'block';
+      } catch (error) {
+        errorMsg.textContent = error.message;
+      } finally {
+        loginBtn.disabled = false;
+        signupBtn.disabled = false;
       }
     };
 
-    freeBtn.onclick = (e) => {
-      e.preventDefault();
-      window.location.href = 'Atlas.html';
-    };
-
-    payBtn.onclick = async (e) => {
-      e.preventDefault();
-      errorMsg.textContent = '';
-      successMsg.textContent = '';
+    // Payment button
+    payBtn.onclick = async function() {
+      const user = auth.currentUser;
+      if (!user) {
+        errorMsg.textContent = "Please sign in first!";
+        return;
+      }
+      
+      payBtn.disabled = true;
+      payBtn.textContent = "Processing...";
       
       try {
-        payBtn.disabled = true;
-        payBtn.textContent = "Processing...";
-        
-        const user = auth.currentUser;
-        if (!user) {
-          errorMsg.textContent = "Please log in first";
-          payBtn.disabled = false;
-          payBtn.textContent = "Upgrade to Premium";
-          return;
-        }
-
         const response = await fetch('/.netlify/functions/create-checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uid: user.uid, email: user.email })
+          body: JSON.stringify({
+            uid: user.uid,
+            email: user.email
+          })
         });
-
-        if (response.ok) {
-          const { url } = await response.json();
-          window.location.href = url;
+        
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
         } else {
-          throw new Error('Failed to create checkout session');
+          errorMsg.textContent = data.error || "Could not create checkout session.";
         }
-      } catch (err) {
-        errorMsg.textContent = err.message;
+      } catch (error) {
+        errorMsg.textContent = "Payment system error: " + error.message;
+      } finally {
         payBtn.disabled = false;
         payBtn.textContent = "Upgrade to Premium";
       }
     };
+
+    // Free Atlas button
+    freeBtn.onclick = function() {
+      window.location.href = 'Atlas.html';
+    };
+
+    // Listen for auth state changes
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        payBtn.style.display = 'block';
+      } else {
+        payBtn.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
