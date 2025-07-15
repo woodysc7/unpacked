@@ -1,6 +1,6 @@
 # Protect paid content - redirect all paid access to function  
-/Paid/*  /.netlify/functions/testRedirect  200
-/paid/*  /.netlify/functions/testRedirect  200
+/Paid/*  /.netlify/functions/servePaidContentNew  200
+/paid/*  /.netlify/functions/servePaidContentNew  200
 
 # Root redirect to signup
 /  /Atlas/Free/signup.html  200
