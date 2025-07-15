@@ -1,0 +1,21 @@
+{
+  "name": "unpacked-travel-atlas",
+  "version": "1.0.0",
+  "description": "Travel atlas with free and paid content protection",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/woodysc7/unpacked.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
