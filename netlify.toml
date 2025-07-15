@@ -11,12 +11,13 @@
   to = "/index.html"
   status = 200
 
-[[redirects]]
-  from = "/Paid/*"
-  to = "/.netlify/functions/servePaidContentNew?page=:splat"
-  status = 200
-
-[[redirects]]
-  from = "/paid/*"
-  to = "/.netlify/functions/servePaidContentNew?page=:splat"
-  status = 200
+# TEMPORARILY DISABLED FOR DEBUGGING
+# [[redirects]]
+#   from = "/Paid/*"
+#   to = "/.netlify/functions/servePaidContentNew?page=:splat"
+#   status = 200
+# 
+# [[redirects]]
+#   from = "/paid/*"
+#   to = "/.netlify/functions/servePaidContentNew?page=:splat"
+#   status = 200
