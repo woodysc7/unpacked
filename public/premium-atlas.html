@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Premium World Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
+  <style>
+    html, body {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      color: #4B3425;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .atlas-header {
+      text-align: center;
+      background: linear-gradient(135deg, #6B4226, #A9746E);
+      color: white;
+      padding: 40px 20px;
+      margin: -20px -20px 40px -20px;
+      border-radius: 0 0 20px 20px;
+    }
+    .premium-badge {
+      background: #ffd700;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9em;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    .card {
+      background: #f8f6f4;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+    }
+    .nav-link {
+      display: inline-block;
+      background: #6B4226;
+      color: white;
+      padding: 8px 16px;
+      margin: 4px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9em;
+      transition: background 0.2s;
+    }
+    .nav-link:hover {
+      background: #8B5635;
+    }
+    .success-msg {
+      background: #e8f5e8;
+      border: 1px solid #4caf50;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="atlas-header">
+      <div class="premium-badge">⭐ PREMIUM ACCESS</div>
+      <h1>🌍 Complete World Atlas</h1>
+      <p>Exclusive premium travel content</p>
+    </div>
+
+    <div class="success-msg">
+      <h3>✅ Welcome to Premium Content!</h3>
+      <p>You now have access to <strong>thousands</strong> of detailed travel destinations worldwide.</p>
+      <p>This is your premium Atlas with exclusive travel guides, detailed city information, and insider tips.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>🌎 North America</h3>
+        <p>Explore detailed guides for US, Canada, and Mexico with insider travel tips.</p>
+        <a href="#" class="nav-link">🗽 New York Guide</a>
+        <a href="#" class="nav-link">🌴 Los Angeles Guide</a>
+        <a href="#" class="nav-link">🍁 Toronto Guide</a>
+      </div>
+      
+      <div class="card">
+        <h3>🌍 Europe</h3>
+        <p>Discover European capitals, cultural sites, and hidden gems.</p>
+        <a href="#" class="nav-link">🏛️ London Guide</a>
+        <a href="#" class="nav-link">🗼 Paris Guide</a>
+        <a href="#" class="nav-link">🍝 Rome Guide</a>
+      </div>
+      
+      <div class="card">
+        <h3>🌏 Asia</h3>
+        <p>Journey through diverse Asian cultures and bustling cities.</p>
+        <a href="#" class="nav-link">🏯 Tokyo Guide</a>
+        <a href="#" class="nav-link">🏮 Shanghai Guide</a>
+        <a href="#" class="nav-link">🕌 Bangkok Guide</a>
+      </div>
+
+      <div class="card">
+        <h3>🌍 Africa</h3>
+        <p>Explore the diverse landscapes and rich cultures of Africa.</p>
+        <a href="#" class="nav-link">🦁 Safari Guide</a>
+        <a href="#" class="nav-link">🏺 Egypt Guide</a>
+        <a href="#" class="nav-link">🌍 Morocco Guide</a>
+      </div>
+
+      <div class="card">
+        <h3>🌎 South America</h3>
+        <p>Discover the natural wonders and vibrant cultures of South America.</p>
+        <a href="#" class="nav-link">🏔️ Peru Guide</a>
+        <a href="#" class="nav-link">🕺 Brazil Guide</a>
+        <a href="#" class="nav-link">🥘 Argentina Guide</a>
+      </div>
+
+      <div class="card">
+        <h3>🏝️ Oceania</h3>
+        <p>Explore Australia, New Zealand, and Pacific Island paradises.</p>
+        <a href="#" class="nav-link">🦘 Australia Guide</a>
+        <a href="#" class="nav-link">🥝 New Zealand Guide</a>
+        <a href="#" class="nav-link">🏝️ Fiji Guide</a>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;">
+      <p><strong>Premium Features:</strong></p>
+      <p>✅ Detailed city guides • ✅ Insider travel tips • ✅ Offline maps • ✅ Premium support</p>
+      <p><a href="/Atlas/Free/Atlas.html" style="color: #6B4226;">← Back to Free Atlas</a></p>
+    </div>
+  </div>
+</body>
+</html>
