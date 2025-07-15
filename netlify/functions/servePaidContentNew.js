@@ -138,10 +138,10 @@ exports.handler = async (event, context) => {
   if (!page && event.path) {
     const pathParts = event.path.split('/');
     if (pathParts.includes('Paid') || pathParts.includes('paid')) {
-      // Get the file name after /Paid/ or /paid/
+      // Get everything after /Paid/ or /paid/
       const paidIndex = pathParts.findIndex(part => part.toLowerCase() === 'paid');
       if (paidIndex >= 0 && paidIndex < pathParts.length - 1) {
-        page = pathParts[paidIndex + 1];
+        page = pathParts.slice(paidIndex + 1).join('/');
       }
     }
   }
@@ -195,7 +195,16 @@ exports.handler = async (event, context) => {
       
       if (!fs.existsSync(filePath)) {
         // File not found in function directory, redirect to static version
-        const staticUrl = `/paidcontent/${page.toLowerCase().replace('.html', '')}`;
+        let staticUrl = `/paidcontent/${page.toLowerCase()}`;
+        if (staticUrl.endsWith('.html')) {
+          staticUrl = staticUrl.replace('.html', '');
+        }
+        
+        // Preserve query parameters in redirect
+        if (event.rawQuery) {
+          staticUrl += `?${event.rawQuery}`;
+        }
+        
         return {
           statusCode: 302,
           headers: { 'Location': staticUrl },
@@ -227,7 +236,16 @@ exports.handler = async (event, context) => {
       console.error('Error reading file:', fileError);
       
       // Fallback to static content redirect
-      const staticUrl = `/paidcontent/${page.toLowerCase().replace('.html', '')}`;
+      let staticUrl = `/paidcontent/${page.toLowerCase()}`;
+      if (staticUrl.endsWith('.html')) {
+        staticUrl = staticUrl.replace('.html', '');
+      }
+      
+      // Preserve query parameters in redirect
+      if (event.rawQuery) {
+        staticUrl += `?${event.rawQuery}`;
+      }
+      
       return {
         statusCode: 302,
         headers: { 'Location': staticUrl },
