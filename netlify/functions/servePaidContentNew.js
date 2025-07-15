@@ -131,34 +131,30 @@ function getAccessDeniedPage() {
 }
 
 exports.handler = async (event, context) => {
-  let { page } = event.queryStringParameters || {};
-
-  console.log('servePaidContentNew called with page:', page);
-  console.log('All query parameters:', event.queryStringParameters);
-
-  // Handle case where page parameter contains query string (from redirect)
-  if (page && page.includes('?')) {
-    const parts = page.split('?');
-    page = parts[0];
-    
-    // Parse additional parameters from page string
-    const additionalParams = parts[1];
-    if (additionalParams) {
-      const paramPairs = additionalParams.split('&');
-      paramPairs.forEach(pair => {
-        const [key, value] = pair.split('=');
-        if (key && value && !event.queryStringParameters[key]) {
-          event.queryStringParameters[key] = decodeURIComponent(value);
-        }
-      });
+  // Extract page from path or query parameter
+  let page = event.queryStringParameters?.page;
+  
+  // If no page parameter, extract from path
+  if (!page && event.path) {
+    const pathParts = event.path.split('/');
+    if (pathParts.includes('Paid') || pathParts.includes('paid')) {
+      // Get the file name after /Paid/ or /paid/
+      const paidIndex = pathParts.findIndex(part => part.toLowerCase() === 'paid');
+      if (paidIndex >= 0 && paidIndex < pathParts.length - 1) {
+        page = pathParts[paidIndex + 1];
+      }
     }
   }
+
+  console.log('servePaidContentNew called with page:', page);
+  console.log('Event path:', event.path);
+  console.log('All query parameters:', event.queryStringParameters);
 
   if (!page) {
     return {
       statusCode: 400,
       headers: { 'Content-Type': 'text/plain' },
-      body: "Missing page parameter"
+      body: "Missing page parameter or unable to extract from path"
     };
   }
 
