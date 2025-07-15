@@ -1,0 +1,32 @@
+# Protect Paid folder from direct access
+[[redirects]]
+  from = "/Paid/*"
+  to = "/.netlify/functions/servePaidContent?page=:splat"
+  status = 200
+  force = true
+
+# Allow free content access
+[[redirects]]
+  from = "/Free/*"
+  to = "/Free/:splat"
+  status = 200
+
+# Redirect root access to main site
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[headers]]
+  for = "/Paid/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

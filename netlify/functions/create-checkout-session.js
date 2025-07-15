@@ -1,6 +1,13 @@
-const stripe = require('stripe')(process.env.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);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const admin = require("firebase-admin");
 
-exports.handler = async (event) => {
+// Initialize Firebase Admin SDK
+if (!admin.apps.length) {
+  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+}
+
+exports.handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return {
@@ -9,26 +16,34 @@ exports.handler = async (event) => {
     };
   }
 
+  let body = {};
   try {
-    const { email, uid } = JSON.parse(event.body);
+    body = JSON.parse(event.body || '{}');
+  } catch (e) {
+    return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON" }) };
+  }
 
-    // OPTIONAL: Add logic here to check if this user (by uid) has already paid.
-    // If so, return a redirect URL to premium directly.
+  const { uid, email } = body;
+  if (!uid || !email) {
+    return { statusCode: 400, body: JSON.stringify({ error: "Missing uid or email" }) };
+  }
 
+  try {
+    // Create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       customer_email: email,
       line_items: [
         {
-          price: process.env.prod_SeqPg4SL3aTRoS, // Stripe Price ID from env variable
+          price: process.env.STRIPE_PRICE_ID, // Your Stripe Price ID
           quantity: 1,
         },
       ],
       mode: 'payment',
       success_url: 'https://unpacked.today/Paid/Atlas.html?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://unpacked.today/index.html',
+      cancel_url: 'https://unpacked.today/Free/signup.html',
       metadata: {
-        firebase_uid: uid,
+        uid: uid, // Pass Firebase UID to webhook
       },
     });
 
