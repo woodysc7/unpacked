@@ -1,3 +1,11 @@
+# Protect all paid content with catch-all rules
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/servePaidContent?page=:splat"
+  status = 200
+  force = true
+  conditions = {path = ["/Paid/*", "/paid/*"]}
+
 # Protect Paid folder from direct access (both cases)
 [[redirects]]
   from = "/Paid/*"

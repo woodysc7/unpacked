@@ -1,0 +1,9 @@
+# Protect paid content - redirect all paid access to function
+/Paid/*  /.netlify/functions/servePaidContent?page=:splat  200!
+/paid/*  /.netlify/functions/servePaidContent?page=:splat  200!
+
+# Allow free content
+/Free/*  /Free/:splat  200
+
+# Root redirect to signup
+/  /Free/signup.html  200
