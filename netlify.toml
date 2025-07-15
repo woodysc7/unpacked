@@ -13,10 +13,10 @@
 
 [[redirects]]
   from = "/Paid/*"
-  to = "/.netlify/functions/servePaidContent?page=:splat"
+  to = "/.netlify/functions/servePaidContentNew?page=:splat"
   status = 200
 
 [[redirects]]
   from = "/paid/*"
-  to = "/.netlify/functions/servePaidContent?page=:splat"
+  to = "/.netlify/functions/servePaidContentNew?page=:splat"
   status = 200
