@@ -33,12 +33,18 @@
           const autoLogin = urlParams.get('auto');
           
           if (autoLogin === 'woody') {
-            // Set authentication cookies for your access
-            document.cookie = `authToken=whitelist_token; path=/; max-age=86400; secure; samesite=strict`;
-            document.cookie = `userEmail=${encodeURIComponent('woodysc7@gmail.com')}; path=/; max-age=86400; secure; samesite=strict`;
+            // Set authentication cookies for your access (remove secure flag for testing)
+            document.cookie = `authToken=whitelist_token; path=/; max-age=86400; samesite=strict`;
+            document.cookie = `userEmail=${encodeURIComponent('woodysc7@gmail.com')}; path=/; max-age=86400; samesite=strict`;
             
-            // Redirect to premium content
-            window.location.href = '/Paid/Atlas.html';
+            // Add debug info
+            console.log('Setting cookies for auto-login');
+            console.log('Cookies after setting:', document.cookie);
+            
+            // Small delay to ensure cookies are set
+            setTimeout(() => {
+              window.location.href = '/Paid/Atlas.html';
+            }, 100);
             return;
           }
           
