@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Dominica</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="dominica-label">
+      DOMINICA
+      <img class="flag-icon" src="https://flagcdn.com/dm.svg" alt="Dominica flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/32753087/pexels-photo-32753087.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="" data-title="" data-meta="Photographer: Bobby Dimas" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32731473/pexels-photo-32731473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-title="Two young adults enjoying skateboarding and roller skating at a colorful skatepark." data-meta="Photographer: Diana Reyes" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/29711253/pexels-photo-29711253.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Colorful alleyway in Roseau, Dominica with vivid architectural charm." data-title="Colorful alleyway in Roseau, Dominica with vivid architectural charm." data-meta="Photographer: Hiwa Ali" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/29014535/pexels-photo-29014535.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Intense black and white portrait of a man playing a djembe drum outdoors in Dominika." data-title="Intense black and white portrait of a man playing a djembe drum outdoors in Dominika." data-meta="Photographer: Hiwa Ali" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title"></div>
+          <div class="art-info-meta">Photographer: Bobby Dimas</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Dominica News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.jamaicaobserver.com/2025/06/28/ground-broke-climate-change-centre-university-belize/" class="blog-post" target="_blank">
+            <div class="blog-title">Ground broken for construction of climate change centre at University of Belize</div>
+            <div class="blog-meta">BELMOPAN, Belize (CMC) — The Caribbean Community Climate Change Centre (CCCCC) officially broke ground this week to construct its new state-of-the-art headquarters at the University of Belize (UB) Belmopan Campus, marking a significant milestone in advancing regional climate resilience.This landmark development held on Wednesday solidified a deeper, long-term partnership between the CCCCC and the University of Belize, creating meaningful opportunities for students, benefiting the wider Belizean community, and advancing climate resilience efforts across Caribbean Community (Caricom) member states.The groundbreaking ceremony was attended by key regional leaders, including, Caricom Deputy Secretary General Armstrong Alexis, Prime Minister of Belize, John Briceño; Prime Minister of Saint Lucia and CARICOM Lead Head of Government for Sustainable Development (including Environment and Disaster Management and Water) in the Caricom Quasi-Cabinet, Philip Pierre; as well as Ministers from Barbados, Saint Lucia, Dominica, and Grenada.Beyond serving as the new headquarters for the CCCCC, this new facility will serve as a central hub for climate action in the Caribbean, strengthening the CCCCC’s ability to expand its operations and bolster national and regional efforts to mitigate and adapt to the impacts of climate change.“Today marks a significant milestone because it coincides with the 20th anniversary of the CCCCC. This event showcases the essential role of strategic partnerships in the delivery of our mandates. With this partnership, climate resilience, sustainability and adaptation in the Caribbean will take precedence. And while it may seem as though it has taken us 20 years to get to this point, nothing happens before its time,” said Colin Young, the Executive Director of the CCCCC, in his address.The construction of CCCCC’s permanent home on the grounds of the Belmopan campus is being called a “homecoming” of sorts, because in its first days, the CCCCC was situated in one room at the University for its humble beginnings.Dr. Vincent Palacio, President of the University of Belize, happily welcomed CCCCC “back home”.“The University of Belize has allocated five acres of its campus to the Caribbean Community Climate Change Centre because we understand that education must engage directly with national development. Climate change is not an abstract issue—it is here, and our response must be rooted in institutions that serve,” he said.This follows the formal Memorandum of Understanding (MOU) between UB and the CCCCC, which “provides the framework for shared research, technical training, and deeper academic collaboration. This facility gives that work a permanent and focused base.”Reflecting on the long journey to this milestone, Prime Minister Briceño expressed a deep sense of fulfilment: “When it comes to the CCCCC, I feel a true sense of accomplishment. Twenty years later, we are finally here at the University of Belize, breaking ground for its headquarters. This vision began as far back as 1998 under the leadership of Prime Minister Said Musa, when I served as Minister of Natural Resources. He entrusted me with the task of championing Belize’s bid to host the Centre.”The Prime Minister extended his gratitude to the leaders who supported this vision, offering special recognition to the late Former Prime Minister of Barbados, Owen Arthur, for graciously withdrawing Barbados’ bid and paving the way for Belize to become home to the CCCCC.</div>
+        </a>
+        
+        <a href="https://thenationonlineng.net/top-five-countries-where-legal-drinking-age-is-less-than-18/" class="blog-post" target="_blank">
+            <div class="blog-title">Top five countries where legal drinking age is less than 18</div>
+            <div class="blog-meta">In many countries, the legal drinking age is 18. However, there are a few places where individuals under 18 are legally allowed to purchase or consume alcohol. Here is aThe post Top five countries where legal drinking age is less than 18 appeared first on The Nation Newspaper.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of Dominica</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Era (Before 1493)</h3>
+<p>
+Dominica, known as" Wai'tu kubuli" by the indigenous Kalinago people, was inhabited for centuries before European arrival. The island was densely forested and inhabited by the Kalinago, skilled seafarers and warriors. Christopher Columbus first sighted the island in 1493 during his second voyage but did not land due to the rugged terrain and fierce resistance of the Kalinago.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Colonial Rule and European Settlement (1600s–1700s)</h3>
+<p>
+European powers, mainly the French and British, vied for control of Dominica in the 17th and 18th centuries. The island changed hands numerous times, with the indigenous population resisting colonization fiercely. The European powers established plantations for sugar, coffee, and tobacco, relying heavily on enslaved Africans for labor, shaping the island's cultural and social fabric.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Emancipation and Post-Emancipation Period (1830s–1960s)</h3>
+<p>
+Dominica abolished slavery in 1834, leading to significant social changes. Formerly enslaved individuals gained more rights and opportunities, contributing to the island's diverse cultural heritage. Throughout the 19th and early 20th centuries, Dominica experienced shifts in governance, moving from colonial rule to various forms of self-government.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Independence and Modern Era (1978–Present)</h3>
+<p>
+Dominica gained independence from British rule in 1978, becoming a sovereign nation within the Commonwealth. The island faced challenges such as natural disasters, economic fluctuations, and political developments. Despite its small size, Dominica has played an active role in regional affairs and environmental conservation, earning the nickname" Nature Isle of the Caribbean" for its lush landscapes and commitment to preserving its natural beauty.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of Dominica</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What languages are spoken in Dominica?</h3>
+<p>
+Dominica is an English-speaking country, with English being the official language used in government, education, and business. However, due to its multicultural heritage, you may also hear Creole spoken informally among locals. Creole is a French-based dialect known as Dominican Creole or Kwéyòl.
+</p>
+
+<h3 style="font-weight:bold;">How easy is it to get around in English?</h3>
+<p>
+English is widely understood and spoken throughout Dominica, especially in tourist areas, hotels, and restaurants. Most locals are fluent in English, making it relatively easy for English-speaking travelers to communicate. However, in more rural or remote areas, you may encounter individuals who primarily speak Creole.
+</p>
+
+<h3 style="font-weight:bold;">Useful Phrases in Dominican Creole</h3>
+<ul>
+<li><b>Bonjou</b> – <b>Good morning</b></li>
+<li><b>Kijan ou ye?</b> – <b>How are you?</b></li>
+<li><b>Mèsi</b> – <b>Thank you</b></li>
+<li><b>Konbyen sa ka koute?</b> – <b>How much does this cost?</b></li>
+<li><b>Kote toilèt la ye?</b> – <b>Where is the toilet?</b></li>
+<li><b>Mwen pa konprann</b> – <b>I don’t understand</b></li>
+<li><b>Sa ki non ou?</b> – <b>What is your name?</b></li>
+<li><b>Kòman ou di sa an angle?</b> – <b>How do you say this in English?</b></li>
+<li><b>Eske ou kapab ede mwen?</b> – <b>Can you help me?</b></li>
+<li><b>Mwen bezwen èd</b> – <b>I need help</b></li>
+<li><b>Eske ou ka repete sa, souple?</b> – <b>Can you repeat that, please?</b></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Dominica Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Dominica's cuisine is a delightful reflection of its Caribbean roots, blending indigenous, African, and European influences into a unique culinary experience. While the island may not boast as many high-end restaurants as some of its neighbors, its local eateries offer a genuine taste of tradition and flavor. Expect dishes that celebrate fresh, locally sourced ingredients, vibrant spices, and a love for hearty stews and seafood.
+</p>
+<ul>
+<li><b>Callaloo</b> – A popular leafy green vegetable stew, often cooked with coconut milk and okra.</li>
+<li><b>Mountain Chicken</b> – Don't let the name fool you; this dish features locally caught frog legs, a traditional delicacy.</li>
+<li><b>Creole Fish</b> – Fresh fish seasoned with local spices and herbs, a staple in Dominica's coastal communities.</li>
+<li><b>Provisions and Saltfish</b> – A hearty dish of salted codfish served with starchy root vegetables like sweet potatoes, yams, and breadfruit.</li>
+<li><b>Coconut Bake and Saltfish</b> – A breakfast favorite consisting of fried dough made with coconut milk, paired with savory salted cod.</li>
+<li><b>Crab Back</b> – Crab meat mixed with local seasonings, served in crab shells and baked to perfection.</li>
+<li><b>Pepperpot</b> – A rich and spicy stew made with meat, vegetables, and the indigenous" bush tea" leaf, cooked low and slow for maximum flavor.</li>
+<li><b>Fruit and Juice Stands</b> – Enjoy refreshing tropical fruits like mangoes, guavas, and pineapples, often freshly squeezed into delicious juices.</li>
+<li><b>Banana Fritters</b> – Fried dough made with ripe bananas, a sweet and satisfying treat popular across the island.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Local Dining Culture</h3>
+<p>
+Dining in Dominica is a laid-back affair, with many restaurants offering open-air seating that allows you to soak in the island's natural beauty while savoring your meal. Locals are warm and welcoming, and you might find yourself engaged in friendly conversations with fellow diners or restaurant staff. Don't be in a hurry;
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Dominica Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are Dominica's most famous festivals?</h3>
+<p>
+Dominica, known as the" Nature Island of the Caribbean," is not only abundant in natural beauty but also in vibrant cultural celebrations. Experience the island's rich heritage through these lively festivals:
+</p>
+<ul>
+<li><b>World Creole Music Festival (Roseau, October)</b> – Celebrating the diverse Creole heritage of Dominica and the wider Caribbean, this festival showcases a fusion of music styles, from zouk and reggae to bouyon and calypso.</li>
+<li><b>Independence Day (Roseau, November)</b> – Commemorating Dominica's independence from British rule, this festival features colorful parades, traditional dances, local cuisine, and lively street parties.</li>
+<li><b>Dive Fest (Scotts Head, July)</b> – As a diver's paradise, Dominica hosts Dive Fest, where enthusiasts can explore the island's underwater world, participate in dive excursions, and enjoy beach parties.</li>
+<li><b>Creole Festival (Various locations, October)</b> – Celebrated across the island, the Creole Festival showcases Dominica's cultural heritage through music, dance, traditional food, and crafts, highlighting the island's unique Creole identity.</li>
+<li><b>Caribbean Carnival (Roseau, February)</b> – Dominica's Carnival is a vibrant explosion of color, music, and dance, with extravagant costumes, lively parades, and pulsating rhythms that embody the spirit of the Caribbean.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Dominica, immerse yourself in the local culture by trying traditional dishes like callaloo soup and bakes. Respect the customs and traditions of the islanders, and don't miss the chance to interact with friendly locals. Plan your accommodations in advance, especially during peak festival times, and be prepared for tropical weather by packing sunscreen, a hat, and plenty of water. Embrace the festive spirit, dance to the music, and create unforgettable memories on this enchanting island.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+For a truly immersive experience of Dominica, consider exploring the country through these insightful podcasts, books, and movies that capture the essence and beauty of this Caribbean gem.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Dominica Discoveries</b> – Join host Maria as she delves into the rich history, vibrant culture, and stunning natural wonders of Dominica, offering a unique perspective on this hidden gem in the Caribbean.</li>
+<li><b>Uncovering Dominica</b> – This podcast takes listeners on
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/dominica/dominicahome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/dominica/dominicamore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/dominica/dominicacityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

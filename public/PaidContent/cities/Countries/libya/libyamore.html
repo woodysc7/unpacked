@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Libya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas " class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="libya-label">
+      LIBYA
+      <img class="flag-icon" src="https://flagcdn.com/ly.svg" alt="Libya flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/31321769/pexels-photo-31321769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the stunning Roman ruins of Leptis Magna, Khoms, with classic columns and arches." data-title="Explore the stunning Roman ruins of Leptis Magna, Khoms, with classic columns and arches." data-meta="Photographer: Taha Elfitouri" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/30445376/pexels-photo-30445376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning view of ancient Roman ruins in Sabratah under a clear blue sky." data-title="Stunning view of ancient Roman ruins in Sabratah under a clear blue sky." data-meta="Photographer: Taha Elfitouri" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/29651696/pexels-photo-29651696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the ancient Roman theater ruins in Sabratah, Libya under a clear blue sky." data-title="Explore the ancient Roman theater ruins in Sabratah, Libya under a clear blue sky." data-meta="Photographer: Taha Elfitouri" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/4713691/pexels-photo-4713691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Black and white image of a globe highlighting North Africa and Europe, reflecting global connections." data-title="Black and white image of a globe highlighting North Africa and Europe, reflecting global connections." data-meta="Photographer: Nothing Ahead" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Explore the stunning Roman ruins of Leptis Magna, Khoms, with classic columns and arches.</div>
+    <div class="art-info-meta">Photographer: Taha Elfitouri</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Libya News</div>
+          
+    <a href="https://nypost.com/2025/06/19/us-news/president-trump-holding-off-for-two-weeks-on-attacks-against-last-iran-nuke-sites-over-concerns-of-creating-another-libya-sources/" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">Trump’s fear of Iran becoming ‘another Libya’ stalls decision on nuke site strikes for two weeks: sources</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-06-19T21:00:07Z &middot; New York Post</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">President Trump's wariness over bombing Iran is due in part to concerns about creating "another Libya" if Supreme Leader Ayatollah Khamenei is toppled, administration insiders told The Post — as Trump shelves his decision for up to two weeks.</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.thenews.com.pk/tns/detail/1325274-alternatives-to-american-unilateralism-i" class="blog-post" target="_blank">
+            <div class="blog-title">Alternatives to American unilateralism â€” I</div>
+            <div class="blog-meta">F rom the end of the World War II in 1945 until 2001, the United States was involved in 201 out of 248 armed conflicts around the world, according to data from Uppsala University in Sweden. These conflicts took place in 153 regions, the US was involved in about 81 percent of those. These...</div>
+        </a>
+        
+        <a href="https://thenews-chronicle.com/nuclear-truths-and-selective-justice-the-treaty-and-the-wests-dance-with-hypocrity-2/" class="blog-post" target="_blank">
+            <div class="blog-title">Nuclear Truths and Selective Justice: The Treaty and the West’s Dance With ‘Hypocrity’ (2)</div>
+            <div class="blog-meta">Of course, one must ask that question because everyone, especially those accusing Iran of inching towards acquiring the nuclear bomb, knew it was not so. After all, the country spent a whole year implementing the JCPOA agreement, even after Trump unilaterally tore up the deal reached after exhaustive negotiations lasting eighteen months. Iran waited, giving [...]</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Libya</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/31321769/pexels-photo-31321769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the stunning Roman ruins of Leptis Magna, Khoms, with classic columns and arches." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/30445376/pexels-photo-30445376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning view of ancient Roman ruins in Sabratah under a clear blue sky." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/29651696/pexels-photo-29651696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the ancient Roman theater ruins in Sabratah, Libya under a clear blue sky." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/4713691/pexels-photo-4713691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Black and white image of a globe highlighting North Africa and Europe, reflecting global connections." style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Ancient Libya and Phoenician Influence (1000 BCE–146 BCE)</h3>
+<p>
+Libya's history dates back to ancient times when Berber tribes inhabited the region. Phoenician traders established colonies along the coast, introducing new trade routes and cultural exchanges. The city of Carthage in present-day Tunisia became a dominant power in the western Mediterranean, exerting influence over parts of Libya.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Roman Rule and Byzantine Period (146 BCE–643 CE)</h3>
+<p>
+After the fall of Carthage, Libya came under Roman control in 146 BCE. The Romans developed cities like Leptis Magna and Sabratha, which became prosperous centers of trade and culture. With the division of the Roman Empire, Libya later fell under Byzantine rule, experiencing both stability and occasional conflicts.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Arab Conquest and Islamic Influence (643–1551)</h3>
+<p>
+In the 7th century, Arab forces conquered Libya, bringing Islam to the region. Under Islamic rule, cities like Tripoli and Benghazi flourished as important centers of scholarship, trade, and culture. The region's strategic location on the Mediterranean ensured its importance in trans-Saharan and Mediterranean trade routes.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Ottoman Rule and Italian Colonization (1551–1943)</h3>
+<p>
+The Ottoman Empire took control of Libya in the 16th century, establishing Tripoli as a provincial capital. In the late 19th century, Italy invaded and colonized Libya, leading to years of resistance against Italian rule. The Italian occupation significantly impacted Libya's cultural landscape and fueled nationalist movements.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Libyan Independence and Gaddafi Era (1951–2011)</h3>
+<p>
+Libya gained independence in 1951, with King Idris I as the country's monarch. However, in 1969, Colonel Muammar Gaddafi led a coup that ousted the king and established a controversial regime. Gaddafi's rule was marked by authoritarianism, political repression, and international isolation, culminating in the Arab Spring uprising in 2011.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Post-Gaddafi Transition and Civil War (2011–Present)</h3>
+<p>
+The Arab Spring protests in Libya escalated into a civil war that ultimately led to the downfall of Gaddafi's regime. The country faced a complex political transition, characterized by competing factions, militia groups, and external interventions. Despite efforts to establish stability and democratic governance, Libya continues to grapple with internal conflicts and regional challenges.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Libya</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Libya</h3>
+<p>
+Libya is a diverse country with Arabic as its official language. In addition to Arabic, there are various minority languages spoken by specific ethnic groups and communities. These languages include Tamazight, Domari, and Tebu among others, reflecting the rich cultural tapestry of the region.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in Libya</h3>
+<p>
+English is considered the second most widely spoken language in Libya, particularly in urban areas and among the younger population. Approximately 15-20% of Libyans are reported to speak English, with varying levels of proficiency. While English may not be as prevalent as Arabic, many Libyans working in the tourism industry or international sectors are likely to have some proficiency in English.
+</p>
+
+<h3 style="font-weight:bold;">Useful Arabic Phrases</h3>
+<ul>
+<li><b>مرحباً</b> – <b>Hello</b></li>
+<li><b>وداعاً</b> – <b>Goodbye</b></li>
+<li><b>من فضلك</b> – <b>Please</b></li>
+<li><b>شكراً</b> – <b>Thank you</b></li>
+<li><b>هل تتكلم الإنجليزية؟</b> – <b>Do you speak English?</b></li>
+<li><b>لا أتحدث العربية</b> – <b>I don’t speak Arabic</b></li>
+<li><b>أين الحمام؟</b> – <b>Where is the bathroom?</b></li>
+<li><b>كم السعر؟</b> – <b>How much is it?</b></li>
+<li><b>عذراً/آسف</b> – <b>Excuse me / Sorry</b></li>
+<li><b>طاولة لشخصين، من فضلك</b> – <b>A table for two, please</b></li>
+<li><b>الفاتورة، من فضلك</b>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Libya Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Libyan cuisine offers a unique blend of Mediterranean, North African, and Middle Eastern flavors, reflecting the country's diverse culinary influences. While Libyan dishes may not be as widely known as some of its neighbors, the country's food is rich in history and flavor, with an emphasis on fresh ingredients and aromatic spices. Traditional Libyan meals are often hearty and satisfying, perfect for fueling up after a day of exploration.
+</p>
+<ul>
+<li><b>Shakshuka</b> – A popular breakfast dish made of poached eggs in a spicy tomato and pepper sauce, typically served with bread for dipping.</li>
+<li><b>Couscous</b> – A staple of Libyan cuisine, couscous is often served with a flavorful stew of vegetables and meat.</li>
+<li><b>Bazeen</b> – A traditional Libyan dish made of a thick paste of barley or wheat flour, served with stewed meat or vegetables.</li>
+<li><b>Harissa</b> – A fiery chili paste used to add heat and flavor to many Libyan dishes.</li>
+<li><b>Libyan Mint Tea</b> – A refreshing beverage made with green tea, fresh mint leaves, and sugar, enjoyed throughout the day.</li>
+<li><b>Musakhan</b> – A savory chicken and onion dish seasoned with sumac and served over flatbread, a flavorful and aromatic delight.</li>
+<li><b>Libyan Salad</b> – A simple yet delicious salad made with tomatoes, cucumbers, onions, and olives, dressed with olive oil and lemon juice.</li>
+<li><b>Asida</b> – A sweet Libyan dessert made from cooked flour, butter, and honey, often enjoyed during special occasions.</li>
+</ul>
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Libya, mealtimes often follow a similar pattern to other North African and Middle Eastern countries. Breakfast is typically light, with bread, olives, cheese, and tea or coffee. Lunch is the main meal of the day and is enjoyed in the afternoon, while dinner is lighter and served in the evening, often followed by social gatherings with friends and family.
+</p>
+<h3 style="font-weight:bold;">What about drinks?</h3>
+<p>
+Tea is a staple in Libyan culture
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Libya Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Libya’s most famous festivals?</h3>
+<p>
+Libya’s festivals offer a glimpse into the rich cultural tapestry of this North African country. While fewer in number compared to some other nations, these celebrations are deeply rooted in tradition and are worth experiencing:
+</p>
+<ul>
+<li><b>Ghat Festival (Ghat, November)</b> – Held in the stunning Saharan oasis town of Ghat, this festival showcases traditional music, dance, and crafts against a backdrop of ancient rock art and desert landscapes.</li>
+<li><b>Awissu Festival (Tripoli, May)</b> – Celebrated in the capital city, Awissu features colorful parades, music performances, and a vibrant market where local artisans display their crafts and delicacies.</li>
+<li><b>Tuareg Festival (Ubari, February)</b> – The Tuareg people, known for their distinctive blue attire and nomadic lifestyle, gather in the Ubari region for a cultural festival filled with music, storytelling, and camel races.</li>
+<li><b>Fezzan Festival (Ghadames, September)</b> – In the historic city of Ghadames, the Fezzan Festival highlights traditional Berber culture through dance performances, poetry readings, and a grand feast featuring local dishes.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending a festival in Libya, respect local customs and traditions. Dress modestly, especially in more conservative regions, and seek permission before taking photographs, especially of people. Due to the desert climate, stay hydrated and protect yourself from the sun. Embrace the hospitality of the Libyan people, try local delicacies, and immerse yourself in the unique cultural experiences each festival offers.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+If you're eager to delve deeper into the rich and complex tapestry of Libyan culture and history, there are several engaging resources to help you gain a deeper understanding of this fascinating North African nation.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Libya Matters</b> - A thought-provoking podcast that explores various aspects of Libyan society, politics, and culture, providing valuable insights for curious travelers.</li>
+<li><b>Libya Untold</b> - Delving into untold stories and lesser-known
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/libya/libyahome " class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/libya/libyamore " class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/libya/libyacityguide " class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

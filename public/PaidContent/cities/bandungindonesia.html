@@ -1,0 +1,1198 @@
+i<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bandung - Indonesia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+        :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+    /* Centered bold popup titles */
+.popup-section-title {
+  text-align: center;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  margin: 1.2em 0 0.7em 0;
+  display: block;
+  color: var(--brown-dark);
+  letter-spacing: 1px;
+}
+.popup-section-title.main-title {
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 0.7em;
+  text-align: center;
+}
+        .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-bubble {
+  background: var(--surface); /* or use var(--brown-light) if you prefer */
+  color: var(--brown-dark);
+  padding: 1.2em 2.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  margin-bottom: 1.5em;
+  pointer-events: auto;
+}
+.hero-bubble h1,
+.hero-bubble h2,
+.hero-bubble a {
+  color: var(--brown-dark) !important;
+  text-decoration: none;
+  font-weight: 900;
+}
+.hero-bubble a:hover {
+  text-decoration: underline;
+}
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      width: 100vw;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+.popup-content-modal {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 2.2em;
+  box-shadow: 0 12px 36px rgba(107,66,38,.13);
+  padding: 4em 3em 3em 3em;
+  width: 90vw;
+  height: 88vh;
+  max-width: 600px;          /* Reduced width for better centering */
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupZoom .33s;
+  display: block;            /* Changed from flex to block */
+  margin-left: auto;         /* Horizontally center */
+  margin-right: auto;        /* Horizontally center */
+}
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1707993467310-a5b2bb858d68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzE0NTB8MHwxfHNlYXJjaHwxfHxCYW5kdW5nJTIwSW5kb25lc2lhfGVufDB8fHx8MTc1MTQ4MTQ0NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Bandung, Indonesia">
+    <div class="hero-overlay">
+      <div class="hero-bubble">
+        <h1 class="city-title" style="margin:0;">Bandung</h1>
+        <h2 class="country-title" style="margin:0;">
+  <a href="/.netlify/functions/servePaidContent?page=Countries/Indonesia/indonesiaHome"  id="Indonesia-link">Indonesia</a>
+</h2>
+      </div>
+      <div class="down-arrow" id="to-info">&#8595;</div>
+    </div>
+  </section>
+  <!-- TOP BANNER AD -->
+  <div class="ad-banner ad-top">
+    <span>YOUR AD HERE (Top Banner 728x90)</span>
+  </div>
+  <!-- INFO SECTION -->
+  <section class="info-section" id="info-section">
+    <div class="info-header">
+      <a href="" target="_blank" class="weather-link" style="text-decoration:none;">
+        <div class="weather-tag">
+          <span class="weather-icon">&#9729;</span>
+          <span id="weather-temp">--°C</span>
+        </div>
+      </a>
+      <span class="tourscore-container">
+        <span class="tourscore-tag" title="Tourists rate Bandung highly!">
+          <span class="tourscore-label">TOURSCORE</span>
+         <span class="tourscore-value">
+  85.0%
+</span>
+        </span>
+      </span>
+    </div>
+    <div class="info-card">
+    <div class="info-card-left">
+  <h3>About Bandung</h3>
+  
+  <p>Bandung, Indonesia, is a vibrant city that effortlessly blends modernity with tradition, offering a kaleidoscope of experiences for every traveler. Known for its cool climate, stunning volcanic landscapes, and rich cultural heritage, Bandung is a paradise for nature lovers and history buffs alike. From exploring the bustling markets of Jalan Braga to savoring exquisite Sundanese cuisine at local eateries, every corner of this city exudes charm and authenticity. Don't miss the opportunity to visit the iconic Kawah Putih crater lake or immerse yourself in the vibrant art scene at the Bandung Institute of Technology. Whether you're seeking adventure, relaxation, or a taste of local life, Bandung has something to offer everyone, making it a must-visit destination in Indonesia.</p>
+
+</div>
+      <div class="info-card-right">
+        <div class="info-sections-list">
+          <div class="info-section-box" data-popup="accommodations">
+            <h4>Accommodations</h4>
+            <p>Click to view accommodations details.</p>
+          </div>
+          <div class="info-section-box" data-popup="transportation">
+            <h4>Transportation</h4>
+            <p>Click to view transportation info.</p>
+          </div>
+          <div class="info-section-box" data-popup="restaurants">
+            <h4>Restaurants</h4>
+            <p>Click to view restaurant info.</p>
+          </div>
+          <div class="info-section-box" data-popup="evenings">
+            <h4>Evenings</h4>
+            <p>Click to view evenings info.</p>
+          </div>
+        </div>
+        <div class="blogs-box">
+          <h4>Blogs</h4>
+          <ul class="blogs-list">
+            
+              <li><a href="https://www.dreambigtravelfarblog.com/blog/things-to-do-in-bandung-indonesia" target="_blank" rel="noopener">15 Best Things To Do In Bandung {Indonesia} In 2025</a></li>
+            
+              <li><a href="https://www.christravelblog.com/indonesia-bandung-day-trip-tangkuban-perahu-volcano-crater-tour-tea-plantation-more/" target="_blank" rel="noopener">INDONESIA - Bandung day trip: Tangkuban Perahu volcano crater ...</a></li>
+            
+              <li><a href="https://sharontravelogue.com/tag/bandung-travel-blog/" target="_blank" rel="noopener">bandung travel blog – Sharon Loh</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="down-arrow" id="to-slideshow">&#8595;</div>
+  </section>
+  <!-- BETWEEN SECTIONS AD -->
+  <div class="ad-banner ad-between">
+    <span>YOUR AD HERE (Between Sections 728x90)</span>
+  </div>
+  <!-- POPUPS -->
+  <div class="popup-modal" id="popup-modal">
+    <div class="popup-content-modal" id="popup-content-modal">
+      <button class="popup-close-btn" id="popup-close-btn" title="Close">&times;</button>
+      <div id="popup-dynamic-content"></div>
+    </div>
+  </div>
+  <!-- SLIDESHOW SECTION -->
+  <section class="slideshow-section" id="slideshow-section">
+    <div class="slideshow" id="slideshow">
+      
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1625283895528-dfdccca0fdba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUYW5na3ViYW4lMjBQZXJhaHUlMjBCYW5kdW5nJTIwSW5kb25lc2lhfGVufDB8fHx8MTc1MTA0NTc1NHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Tangkuban Perahu: Active volcano with hiking trails and bubbling mud.">
+        <div class="slide-caption">
+          <h4>Tangkuban Perahu: Active volcano with hiking trails and bubbling mud.</h4>
+          <a href="https://www.google.com/search?q=Tangkuban+Perahu+Bandung+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1684189930003-9434c949925f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLYXdhaCUyMFB1dGloJTIwQmFuZHVuZyUyMEluZG9uZXNpYXxlbnwwfHx8fDE3NTEwNDU3NTV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Kawah Putih: Stunning turquoise crater lake surrounded by white cliffs.">
+        <div class="slide-caption">
+          <h4>Kawah Putih: Stunning turquoise crater lake surrounded by white cliffs.</h4>
+          <a href="https://www.google.com/search?q=Kawah+Putih+Bandung+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1744343934350-aadc3388ca82?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUcmFucyUyMFN0dWRpbyUyMEJhbmR1bmclMjBCYW5kdW5nJTIwSW5kb25lc2lhfGVufDB8fHx8MTc1MTA0NTc1NXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Trans Studio Bandung: Indoor theme park with rides and live shows.">
+        <div class="slide-caption">
+          <h4>Trans Studio Bandung: Indoor theme park with rides and live shows.</h4>
+          <a href="https://www.google.com/search?q=Trans+Studio+Bandung+Bandung+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1707993467310-a5b2bb858d68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxHZWR1bmclMjBTYXRlJTIwQmFuZHVuZyUyMEluZG9uZXNpYXxlbnwwfHx8fDE3NTEwNDU3NTV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Gedung Sate: Historic government building with distinct Dutch architecture.">
+        <div class="slide-caption">
+          <h4>Gedung Sate: Historic government building with distinct Dutch architecture.</h4>
+          <a href="https://www.google.com/search?q=Gedung+Sate+Bandung+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('to-info').onclick = function() {
+        document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      document.getElementById('to-slideshow').onclick = function() {
+        document.getElementById('slideshow-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      // Popup modal logic
+      const popupContents = {
+  accommodations: `<h2 class="popup-section-title main-title">Accommodations</h2>
+<h2 class="popup-section-title">Hotels</h2>
+<div>1. Padma Hotel Bandung: Set amidst lush greenery with stunning views of the surrounding mountains, Padma Hotel Bandung offers luxurious accommodations and top-notch amenities. Guests can relax by the infinity pool, indulge in spa treatments, and savor delicious meals at the on-site restaurants.<br><br>2. The Trans Luxury Hotel Bandung: Known for its opulent design and impeccable service, The Trans Luxury Hotel Bandung provides a lavish stay experience. The hotel features spacious rooms, a grand lobby, an extravagant spa, and various dining options, making it a popular choice for luxury travelers.<br><br>3. Hilton Bandung: Situated in the heart of Bandung, Hilton Bandung boasts elegant rooms, modern facilities, and exceptional service. Guests can enjoy a rooftop swimming pool, multiple dining venues, a well-equipped fitness center, and convenient access to shopping and entertainment districts.</div>
+<h2 class="popup-section-title">Hostels</h2>
+<div>1. Beehive Bandung Hostel: Known for its friendly staff, cozy atmosphere, and convenient location, Beehive Bandung Hostel offers clean dormitory rooms, a shared kitchen, and a common area for socializing. Travelers appreciate the warm hospitality and budget-friendly rates at this hostel.<br><br>2. Buton Backpacker Lodge: Nestled in a peaceful neighborhood, Buton Backpacker Lodge provides a serene environment for guests to relax after exploring Bandung. With its laid-back vibe, garden area, and comfortable beds, this hostel is popular among travelers seeking a tranquil stay away from the hustle and bustle of the city.<br><br>3. The Packer Lodge: Offering a stylish and modern setting, The Packer Lodge stands out for its trendy design, rooftop terrace overlooking the city, and engaging community events. Backpackers flock to this hostel for its chic ambiance, vibrant social scene, and prime location near local attractions and dining options.</div>`,
+  transportation: `<h2 class="popup-section-title main-title">Transportation</h2>
+<h2 class="popup-section-title">Getting Around</h2>
+<div>Bandung, Indonesia offers a range of transportation options for visitors. The most convenient way to get around the city is by using rideshare services like Grab or Gojek, which are widely available and affordable. Additionally, public transportation such as angkot (minivans) and ojek (motorcycle taxis) are popular modes of transport for short distances, while walking is a great way to explore the vibrant neighborhoods and soak in the city's local atmosphere.</div>`,
+  restaurants: `<h2 class="popup-section-title main-title">Restaurants</h2>
+<h2 class="popup-section-title">Recommended Restaurants</h2>
+<div>1. Sate Maulana Yusuf is a popular restaurant in Bandung known for its delicious selection of satay dishes. The tender and flavorful chicken satay served with a side of peanut sauce is a must-try here.<br><br>2. Mie Rica Kejaksaan is a local favorite known for its spicy noodles. The signature dish, Mie Rica, is a fiery and savory noodle dish topped with minced chicken, boiled egg, and crispy wontons.<br><br>3. Kampung Daun Culture Gallery & Cafe offers a unique dining experience in a picturesque setting. Specializing in Sundanese cuisine, the restaurant is famous for its Nasi Liwet, a fragrant rice dish cooked in coconut milk and served with various side dishes such as fried chicken, tempeh, and sambal.</div>`,
+  evenings: `<h2 class="popup-section-title main-title">Evenings</h2>
+<h2 class="popup-section-title">Bars</h2>
+<div>1. The Shelter Sky Bar - Located on the rooftop of The Papandayan Hotel, The Shelter Sky Bar offers stunning views of the city's skyline. This sophisticated bar is known for its extensive cocktail menu and relaxed ambiance, making it a perfect spot for a chill evening with friends or a romantic night out.<br><br>2. Maja House - Maja House is a unique bar that combines a cozy atmosphere with a touch of nature. Surrounded by lush greenery and adorned with rustic wooden furniture, this bar exudes a laid-back vibe, ideal for unwinding after a long day. Their specialty includes a variety of craft beers and creative cocktails that perfectly complement the relaxing ambiance.<br><br>3. Braga Permai - Established in 1923, Braga Permai is one of Bandung's oldest and most iconic bars. This historic establishment boasts a charming colonial-style setting and serves a wide range of beverages from classic cocktails to local beers. The bar's vintage decor and live music nights create a nostalgic ambiance, making it a popular choice for both locals and tourists looking to experience a taste of Bandung's old-world charm.</div>
+<h2 class="popup-section-title">Nightlife</h2>
+<div>1. The Shelter: Located in the heart of Bandung, The Shelter is a vibrant nightclub known for its impressive lineup of local and international DJs spinning a mix of electronic, house, and techno music. The club's energetic atmosphere, stylish decor, and state-of-the-art sound system make it a popular choice for party-goers looking to dance the night away in a modern setting.<br><br>2. Maja House: Situated in the scenic Dago Pakar area, Maja House is a unique nightlife spot offering a blend of live music performances, DJ sets, and fine dining. Guests can enjoy a diverse range of music genres, from jazz to electronic, while taking in breathtaking views of Bandung city lights. The cozy and sophisticated ambiance, combined with excellent food and drinks, creates a memorable and laid-back nightlife experience.<br><br>3. Southbank Club: Nestled beside the Cikapundung River, Southbank Club is a trendy club with an open-air concept, perfect for those who enjoy alfresco partying. The club features a mix of live bands, DJs, and themed nights, drawing a diverse crowd of locals and tourists alike. With its relaxed vibe, scenic riverside setting, and creative cocktail selection, Southbank Club offers a refreshing alternative to the typical club scene in Bandung.</div>
+<h2 class="popup-section-title">Weekly Itinerary</h2>
+<div>Monday: Enjoy a traditional Sundanese dinner at Sate Maulana Yusuf, known for its mouthwatering satay dishes.<br>Tuesday: Explore the lively Braga Street and visit local cafes and bars offering live music and a vibrant nightlife scene.<br>Wednesday: Attend a traditional Angklung music performance at Saung Angklung Udjo to experience Indonesian culture through music.<br>Thursday: Stroll through the atmospheric Dago Street lined with trendy shops, boutiques, and cafes, perfect for a leisurely evening walk.<br>Friday: Indulge in a gourmet dinner at The Valley Bistro Cafe with stunning views of Bandung city lights from its hillside location.<br>Saturday: Experience a night market at Pasar Malam Setiabudi, offering local street food, handicrafts, and live performances for a bustling night out.<br>Sunday: Join a guided evening walking tour of the iconic Gedung Sate building and learn about its history and architectural significance under the city lights.</div>`
+};
+const infoSectionBoxes = document.querySelectorAll('.info-section-box');
+const popupModal = document.getElementById('popup-modal');
+      const popupContent = document.getElementById('popup-dynamic-content');
+      const popupCloseBtn = document.getElementById('popup-close-btn');
+      infoSectionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const type = this.getAttribute('data-popup');
+          popupContent.innerHTML = popupContents[type] || '<p>No content available.</p>';
+          popupModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      popupCloseBtn.onclick = function() {
+        popupModal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      popupModal.addEventListener('click', function(e) {
+        if (e.target === popupModal) {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      // Slideshow Logic
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          if (i === idx) slide.classList.add('active');
+          else slide.classList.remove('active');
+        });
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+      if(slides.length > 0) {
+        setInterval(nextSlide, 6000);
+      }
+      // Weather API (OpenWeatherMap)
+      const weatherTemp = document.getElementById('weather-temp');
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=,&units=metric&appid=')
+        .then(res => res.json())
+        .then(data => {
+          if (data.main && typeof data.main.temp ===" number") {
+            weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+          } else {
+            weatherTemp.textContent =" N/A";
+          }
+        })
+        .catch(() => { weatherTemp.textContent = '--°C'; });
+  });
+  </script>
+</body>
+</html>

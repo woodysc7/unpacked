@@ -1,0 +1,1196 @@
+i<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Malang - Indonesia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+        :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+    /* Centered bold popup titles */
+.popup-section-title {
+  text-align: center;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  margin: 1.2em 0 0.7em 0;
+  display: block;
+  color: var(--brown-dark);
+  letter-spacing: 1px;
+}
+.popup-section-title.main-title {
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 0.7em;
+  text-align: center;
+}
+        .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-bubble {
+  background: var(--surface); /* or use var(--brown-light) if you prefer */
+  color: var(--brown-dark);
+  padding: 1.2em 2.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  margin-bottom: 1.5em;
+  pointer-events: auto;
+}
+.hero-bubble h1,
+.hero-bubble h2,
+.hero-bubble a {
+  color: var(--brown-dark) !important;
+  text-decoration: none;
+  font-weight: 900;
+}
+.hero-bubble a:hover {
+  text-decoration: underline;
+}
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      width: 100vw;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+.popup-content-modal {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 2.2em;
+  box-shadow: 0 12px 36px rgba(107,66,38,.13);
+  padding: 4em 3em 3em 3em;
+  width: 90vw;
+  height: 88vh;
+  max-width: 600px;          /* Reduced width for better centering */
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupZoom .33s;
+  display: block;            /* Changed from flex to block */
+  margin-left: auto;         /* Horizontally center */
+  margin-right: auto;        /* Horizontally center */
+}
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1628054901534-ab9eb7690f66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzE0NTB8MHwxfHNlYXJjaHwxfHxNYWxhbmclMjBJbmRvbmVzaWF8ZW58MHx8fHwxNzUxNTE0NTU2fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Malang, Indonesia">
+    <div class="hero-overlay">
+      <div class="hero-bubble">
+        <h1 class="city-title" style="margin:0;">Malang</h1>
+        <h2 class="country-title" style="margin:0;">
+  <a href="/.netlify/functions/servePaidContent?page=Countries/Indonesia/indonesiaHome " id="Indonesia-link">Indonesia</a>
+</h2>
+      </div>
+      <div class="down-arrow" id="to-info">&#8595;</div>
+    </div>
+  </section>
+  <!-- TOP BANNER AD -->
+  <div class="ad-banner ad-top">
+    <span>YOUR AD HERE (Top Banner 728x90)</span>
+  </div>
+  <!-- INFO SECTION -->
+  <section class="info-section" id="info-section">
+    <div class="info-header">
+      <a href="" target="_blank" class="weather-link" style="text-decoration:none;">
+        <div class="weather-tag">
+          <span class="weather-icon">&#9729;</span>
+          <span id="weather-temp">--°C</span>
+        </div>
+      </a>
+      <span class="tourscore-container">
+        <span class="tourscore-tag" title="Tourists rate Malang highly!">
+          <span class="tourscore-label">TOURSCORE</span>
+         <span class="tourscore-value">
+  85.0%
+</span>
+        </span>
+      </span>
+    </div>
+    <div class="info-card">
+    <div class="info-card-left">
+  <h3>About Malang</h3>
+  
+  <p>Nestled in the scenic highlands of Java, Malang is a charming city that effortlessly blends old-world charm with vibrant modernity. From savoring local delicacies at the bustling street markets to exploring the breathtaking landscapes of Bromo-Tengger-Semeru National Park, Malang offers a perfect mix of cultural experiences and outdoor adventures. Don't miss a visit to the colorful Jodipan Village, where every corner is a photo opportunity waiting to happen. With its friendly locals and laid-back atmosphere, Malang is a hidden gem just waiting to be discovered by intrepid travelers seeking an authentic Indonesian experience.</p>
+
+</div>
+      <div class="info-card-right">
+        <div class="info-sections-list">
+          <div class="info-section-box" data-popup="accommodations">
+            <h4>Accommodations</h4>
+            <p>Click to view accommodations details.</p>
+          </div>
+          <div class="info-section-box" data-popup="transportation">
+            <h4>Transportation</h4>
+            <p>Click to view transportation info.</p>
+          </div>
+          <div class="info-section-box" data-popup="restaurants">
+            <h4>Restaurants</h4>
+            <p>Click to view restaurant info.</p>
+          </div>
+          <div class="info-section-box" data-popup="evenings">
+            <h4>Evenings</h4>
+            <p>Click to view evenings info.</p>
+          </div>
+        </div>
+        <div class="blogs-box">
+          <h4>Blogs</h4>
+          <ul class="blogs-list">
+            
+              <li><a href="https://example.com/top-things-malang" target="_blank" rel="noopener">Top Things to Do in Malang</a></li>
+            
+              <li><a href="https://example.com/food-nightlife-malang" target="_blank" rel="noopener">Malang Food & Nightlife Guide</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="down-arrow" id="to-slideshow">&#8595;</div>
+  </section>
+  <!-- BETWEEN SECTIONS AD -->
+  <div class="ad-banner ad-between">
+    <span>YOUR AD HERE (Between Sections 728x90)</span>
+  </div>
+  <!-- POPUPS -->
+  <div class="popup-modal" id="popup-modal">
+    <div class="popup-content-modal" id="popup-content-modal">
+      <button class="popup-close-btn" id="popup-close-btn" title="Close">&times;</button>
+      <div id="popup-dynamic-content"></div>
+    </div>
+  </div>
+  <!-- SLIDESHOW SECTION -->
+  <section class="slideshow-section" id="slideshow-section">
+    <div class="slideshow" id="slideshow">
+      
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1689625198907-7d6dc4638ff9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCcm9tbyUyMFRlbmdnZXIlMjBTZW1lcnUlMjBOYXRpb25hbCUyMFBhcmslMjBNYWxhbmclMjBJbmRvbmVzaWF8ZW58MHx8fHwxNzUxMjIxNjY4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Bromo Tengger Semeru National Park: Famous for its volcanic landscapes and hiking trails.">
+        <div class="slide-caption">
+          <h4>Bromo Tengger Semeru National Park: Famous for its volcanic landscapes and hiking trails.</h4>
+          <a href="https://www.google.com/search?q=Bromo+Tengger+Semeru+National+Park+Malang+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1688724119551-afcb79b4c7a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxKYXRpbSUyMFBhcmslMjBNYWxhbmclMjBJbmRvbmVzaWF8ZW58MHx8fHwxNzUxMjIxNjY4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Jatim Park: Theme park with zoo, museum, and water park attractions.">
+        <div class="slide-caption">
+          <h4>Jatim Park: Theme park with zoo, museum, and water park attractions.</h4>
+          <a href="https://www.google.com/search?q=Jatim+Park+Malang+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1738410848021-d78ca7c657e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDb2JhbiUyMFJvbmRvJTIwV2F0ZXJmYWxsJTIwTWFsYW5nJTIwSW5kb25lc2lhfGVufDB8fHx8MTc1MTIyMTY2OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Coban Rondo Waterfall: Scenic waterfall surrounded by lush greenery.">
+        <div class="slide-caption">
+          <h4>Coban Rondo Waterfall: Scenic waterfall surrounded by lush greenery.</h4>
+          <a href="https://www.google.com/search?q=Coban+Rondo+Waterfall+Malang+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1713634437183-f86ae928dcd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLYW1wdW5nJTIwV2FybmEtV2FybmklMjBNYWxhbmclMjBJbmRvbmVzaWF8ZW58MHx8fHwxNzUxMjIxNjY5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Kampung Warna-Warni: Colorful village filled with vibrant street art.">
+        <div class="slide-caption">
+          <h4>Kampung Warna-Warni: Colorful village filled with vibrant street art.</h4>
+          <a href="https://www.google.com/search?q=Kampung+Warna-Warni+Malang+Indonesia" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('to-info').onclick = function() {
+        document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      document.getElementById('to-slideshow').onclick = function() {
+        document.getElementById('slideshow-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      // Popup modal logic
+      const popupContents = {
+  accommodations: `<h2 class="popup-section-title main-title">Accommodations</h2>
+<h2 class="popup-section-title">Hotels</h2>
+<div>1. Atria Hotel Malang: This modern and stylish hotel offers comfortable rooms, excellent facilities including a rooftop pool and fitness center, and a convenient location in the city center, making it a great choice for both leisure and business travelers.<br><br>2. The Shalimar Boutique Hotel: Set in a charming colonial building, this boutique hotel exudes old-world charm while providing guests with luxurious amenities, personalized service, and a serene atmosphere in the heart of Malang, perfect for those seeking a unique and relaxing stay.<br><br>3. Ibis Styles Malang: Ideal for budget-conscious travelers, this contemporary hotel offers colorful and well-designed rooms, a central location close to popular attractions, and facilities such as a restaurant and a fitness center, providing great value for a comfortable stay in Malang.</div>
+<h2 class="popup-section-title">Hostels</h2>
+<div>1. Krowi Inn<br>Krowi Inn is a popular hostel in Malang known for its cozy and clean accommodations. Travelers appreciate the friendly staff, convenient location close to attractions like Jodipan Village, and the relaxed atmosphere that encourages socializing with other guests.<br><br>2. Rumah Kayen Family Homestay<br>Rumah Kayen Family Homestay offers a unique experience by staying in traditional Javanese houses surrounded by lush gardens. Travelers rave about the warm hospitality of the hosts, delicious homemade breakfast, and the opportunity to immerse themselves in local culture through traditional activities such as batik-making workshops.</div>`,
+  transportation: `<h2 class="popup-section-title main-title">Transportation</h2>
+<h2 class="popup-section-title">Getting Around</h2>
+<div>The best way for a visitor to get around Malang is by using a combination of angkot (public minivans), becak (pedicabs), and ojek (motorcycle taxis). The city also has a growing rideshare service like Gojek, which offers convenient transportation options at reasonable prices. Walking is a great way to explore the compact city center and its charming streets lined with historical buildings and local shops.</div>`,
+  restaurants: `<h2 class="popup-section-title main-title">Restaurants</h2>
+<h2 class="popup-section-title">Recommended Restaurants</h2>
+<div>1. Toko Oen: Established in 1930, this iconic restaurant is famous for its Colonial-era ambiance and signature dishes like Bistik Jawa, a Javanese-style beef steak, and Poffertjes, Dutch mini pancakes served with powdered sugar and butter.<br>  <br>2. Bakso President Malang: A beloved local establishment renowned for its flavorful meatball soup, or Bakso, served with noodles and topped with crispy fried shallots. Don't miss the Nasi Goreng President, a delicious Indonesian fried rice dish filled with savory flavors.<br><br>3. Warung Tjiputra: Known for its authentic Indonesian cuisine, this cozy eatery offers a variety of traditional dishes such as Ayam Penyet, a fried chicken dish served with sambal and fresh vegetables, and Soto Ayam, a comforting chicken noodle soup delicately spiced with turmeric and lemongrass.</div>`,
+  evenings: `<h2 class="popup-section-title main-title">Evenings</h2>
+<h2 class="popup-section-title">Bars</h2>
+<div>1. Saka Bistro & Bar: Known for its cozy atmosphere and live music performances, Saka Bistro & Bar is a popular spot in Malang for both locals and tourists. Enjoy a wide selection of cocktails and delicious local cuisine while listening to the soothing sounds of talented musicians.<br><br>2. The Rooftop: As the name suggests, The Rooftop offers stunning views of Malang city from its rooftop setting. This bar is perfect for those looking to unwind with a drink in hand while taking in the picturesque cityscape. With a relaxed ambiance and a menu featuring a variety of beverages, The Rooftop is a must-visit for those seeking a laid-back evening experience.<br><br>3. Dublicious Irish Pub: For a taste of Ireland in the heart of Malang, head to Dublicious Irish Pub. This lively bar is known for its friendly atmosphere, extensive beer selection, and live sports screenings. Whether you're looking for a pint of Guinness or a classic Irish whiskey, Dublicious Irish Pub has something for every visitor looking for a fun and spirited night out.</div>
+<h2 class="popup-section-title">Nightlife</h2>
+<div>1. Amarelo Rooftop Bar & Restaurant: Located at the heart of Malang, Amarelo offers a vibrant nightlife experience with a touch of elegance. The rooftop bar provides stunning views of the city while serving a variety of signature cocktails and fine wines. Live music performances and DJ sets add to the lively atmosphere, making it a popular spot for locals and tourists alike.<br><br>2. Boshe VVIP Club: Known for its energetic crowd and dynamic ambiance, Boshe VVIP Club is a premier nightlife destination in Malang. This club features state-of-the-art sound systems, dazzling light shows, and a spacious dance floor where party-goers can groove to the latest hits spun by resident DJs. With a mix of local and international clientele, Boshe VVIP Club promises a night of fun and excitement.<br><br>3. Eclectic Bar & Lounge: Housed in a chic and cozy setting, Eclectic Bar & Lounge offers a more relaxed yet stylish nightlife option in Malang. Patrons can enjoy a wide selection of craft cocktails, premium spirits, and beers while unwinding in a comfortable lounge area. The laid-back vibe, along with occasional live acoustic performances, makes Eclectic Bar & Lounge a great place to socialize and chill after a long day of exploring the city.</div>
+<h2 class="popup-section-title">Weekly Itinerary</h2>
+<div>Monday: Start your week with a relaxing evening at Alun-Alun Tugu Malang, a vibrant city square where you can enjoy local street food, take a traditional horse-drawn carriage ride, and admire the sparkling city lights.<br><br>Tuesday: Explore the culinary scene by joining a night food tour in Alun-Alun Klojen area, where you can indulge in a variety of authentic Javanese dishes such as soto, bakso, and nasi goreng.<br><br>Wednesday: Spend the evening at Museum Malang Tempo Doeloe to learn about the city's history through fascinating artifacts, photographs, and multimedia displays.<br><br>Thursday: Immerse yourself in the local arts scene at Taman Krida Budaya Jawa Timur, where you can catch a traditional Javanese dance performance or theater show.<br><br>Friday: Experience the vibrant nightlife at Jalan Basuki Rahmat, a bustling street lined with trendy cafes, bars, and live music venues perfect for a night out with friends.<br><br>Saturday: Escape the city hustle and bustle by heading to Coban Rondo Waterfall for a peaceful evening surrounded by nature's beauty and the soothing sound of cascading water.<br><br>Sunday: Conclude your week with a visit to Kampung Warna-Warni, a colorful village adorned with vibrant murals and street art, perfect for a leisurely evening stroll and Instagram-worthy photos.</div>`
+};
+const infoSectionBoxes = document.querySelectorAll('.info-section-box');
+const popupModal = document.getElementById('popup-modal');
+      const popupContent = document.getElementById('popup-dynamic-content');
+      const popupCloseBtn = document.getElementById('popup-close-btn');
+      infoSectionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const type = this.getAttribute('data-popup');
+          popupContent.innerHTML = popupContents[type] || '<p>No content available.</p>';
+          popupModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      popupCloseBtn.onclick = function() {
+        popupModal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      popupModal.addEventListener('click', function(e) {
+        if (e.target === popupModal) {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      // Slideshow Logic
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          if (i === idx) slide.classList.add('active');
+          else slide.classList.remove('active');
+        });
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+      if(slides.length > 0) {
+        setInterval(nextSlide, 6000);
+      }
+      // Weather API (OpenWeatherMap)
+      const weatherTemp = document.getElementById('weather-temp');
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=,&units=metric&appid=')
+        .then(res => res.json())
+        .then(data => {
+          if (data.main && typeof data.main.temp === "number") {
+            weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+          } else {
+            weatherTemp.textContent = "N/A";
+          }
+        })
+        .catch(() => { weatherTemp.textContent = '--°C'; });
+  });
+  </script>
+</body>
+</html>

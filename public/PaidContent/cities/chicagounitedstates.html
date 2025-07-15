@@ -1,0 +1,1200 @@
+i<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chicago - United States</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+        :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+    /* Centered bold popup titles */
+.popup-section-title {
+  text-align: center;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  margin: 1.2em 0 0.7em 0;
+  display: block;
+  color: var(--brown-dark);
+  letter-spacing: 1px;
+}
+.popup-section-title.main-title {
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 0.7em;
+  text-align: center;
+}
+        .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-bubble {
+  background: var(--surface); /* or use var(--brown-light) if you prefer */
+  color: var(--brown-dark);
+  padding: 1.2em 2.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  margin-bottom: 1.5em;
+  pointer-events: auto;
+}
+.hero-bubble h1,
+.hero-bubble h2,
+.hero-bubble a {
+  color: var(--brown-dark) !important;
+  text-decoration: none;
+  font-weight: 900;
+}
+.hero-bubble a:hover {
+  text-decoration: underline;
+}
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      width: 100vw;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+.popup-content-modal {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 2.2em;
+  box-shadow: 0 12px 36px rgba(107,66,38,.13);
+  padding: 4em 3em 3em 3em;
+  width: 90vw;
+  height: 88vh;
+  max-width: 600px;          /* Reduced width for better centering */
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupZoom .33s;
+  display: block;            /* Changed from flex to block */
+  margin-left: auto;         /* Horizontally center */
+  margin-right: auto;        /* Horizontally center */
+}
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1660524422741-bb2ff327ccd4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzE0NTB8MHwxfHNlYXJjaHwxfHxDaGljYWdvJTIwVW5pdGVkJTIwU3RhdGVzfGVufDB8fHx8MTc1MTQ4MTQzM3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Chicago, United States">
+    <div class="hero-overlay">
+      <div class="hero-bubble">
+        <h1 class="city-title" style="margin:0;">Chicago</h1>
+        <h2 class="country-title" style="margin:0;">
+  <a href="/.netlify/functions/servePaidContent?page=Countries/unitedstates/unitedstateshome"  id="United States-link">United States</a>
+</h2>
+      </div>
+      <div class="down-arrow" id="to-info">&#8595;</div>
+    </div>
+  </section>
+  <!-- TOP BANNER AD -->
+  <div class="ad-banner ad-top">
+    <span>YOUR AD HERE (Top Banner 728x90)</span>
+  </div>
+  <!-- INFO SECTION -->
+  <section class="info-section" id="info-section">
+    <div class="info-header">
+      <a href="" target="_blank" class="weather-link" style="text-decoration:none;">
+        <div class="weather-tag">
+          <span class="weather-icon">&#9729;</span>
+          <span id="weather-temp">--°C</span>
+        </div>
+      </a>
+      <span class="tourscore-container">
+        <span class="tourscore-tag" title="Tourists rate Chicago highly!">
+          <span class="tourscore-label">TOURSCORE</span>
+         <span class="tourscore-value">
+  85.0%
+</span>
+        </span>
+      </span>
+    </div>
+    <div class="info-card">
+    <div class="info-card-left">
+  <h3>About Chicago</h3>
+  
+  <p>Chicago, the Windy City, is a vibrant metropolis that effortlessly blends history with modernity. From the iconic skyline dotted with architectural marvels like the Willis Tower and John Hancock Center to the serene shores of Lake Michigan, there's something for every kind of traveler here. Dive into the city's rich cultural scene by exploring world-class museums like the Art Institute of Chicago or catch a live blues performance in one of the lively jazz clubs. Don't forget to indulge in Chicago's culinary delights, from deep-dish pizza to gourmet hot dogs. Soak in the energetic pulse of this city as you stroll along the bustling Magnificent Mile or cheer on the Cubs at Wrigley Field – Chicago is a sensory overload that will leave you craving more.</p>
+
+</div>
+      <div class="info-card-right">
+        <div class="info-sections-list">
+          <div class="info-section-box" data-popup="accommodations">
+            <h4>Accommodations</h4>
+            <p>Click to view accommodations details.</p>
+          </div>
+          <div class="info-section-box" data-popup="transportation">
+            <h4>Transportation</h4>
+            <p>Click to view transportation info.</p>
+          </div>
+          <div class="info-section-box" data-popup="restaurants">
+            <h4>Restaurants</h4>
+            <p>Click to view restaurant info.</p>
+          </div>
+          <div class="info-section-box" data-popup="evenings">
+            <h4>Evenings</h4>
+            <p>Click to view evenings info.</p>
+          </div>
+        </div>
+        <div class="blogs-box">
+          <h4>Blogs</h4>
+          <ul class="blogs-list">
+            
+              <li><a href="https://www.sincerelyreneze.com/blog/visiting-my-dream-city-chicago" target="_blank" rel="noopener">First Time Visit to Beautiful Chicago: Chicago Travel Guide ...</a></li>
+            
+              <li><a href="https://www.monicafrancis.com/blog/chicago-best-quick-travel-guide" target="_blank" rel="noopener">A Quick Guide to the Best of Chicago, Illinois — Monica Francis ...</a></li>
+            
+              <li><a href="https://www.waywardblog.com/36-hours-downtown-chicago-travel-guide/" target="_blank" rel="noopener">36 Hours in Downtown Chicago Travel Guide</a></li>
+            
+              <li><a href="https://www.ciee.org/in-the-usa/blog/finding-love-through-work-travel-usa" target="_blank" rel="noopener">Finding Love Through Work & Travel USA | CIEE</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="down-arrow" id="to-slideshow">&#8595;</div>
+  </section>
+  <!-- BETWEEN SECTIONS AD -->
+  <div class="ad-banner ad-between">
+    <span>YOUR AD HERE (Between Sections 728x90)</span>
+  </div>
+  <!-- POPUPS -->
+  <div class="popup-modal" id="popup-modal">
+    <div class="popup-content-modal" id="popup-content-modal">
+      <button class="popup-close-btn" id="popup-close-btn" title="Close">&times;</button>
+      <div id="popup-dynamic-content"></div>
+    </div>
+  </div>
+  <!-- SLIDESHOW SECTION -->
+  <section class="slideshow-section" id="slideshow-section">
+    <div class="slideshow" id="slideshow">
+      
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1697756619262-39003f552498?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxXaWxsaXMlMjBUb3dlciUyMFNreWRlY2slMjBDaGljYWdvJTIwVW5pdGVkJTIwU3RhdGVzfGVufDB8fHx8MTc1MTA0MTkzMnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Willis Tower Skydeck: Glass-floored observation deck offering city views from 1,353 feet.">
+        <div class="slide-caption">
+          <h4>Willis Tower Skydeck: Glass-floored observation deck offering city views from 1,353 feet.</h4>
+          <a href="https://www.google.com/search?q=Willis+Tower+Skydeck+Chicago+United+States" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1731624674588-e41465f2ca11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNaWxsZW5uaXVtJTIwUGFyayUyMENoaWNhZ28lMjBVbml0ZWQlMjBTdGF0ZXN8ZW58MHx8fHwxNzUxMDQxOTMyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Millennium Park: Urban park with public art, gardens, and outdoor events.">
+        <div class="slide-caption">
+          <h4>Millennium Park: Urban park with public art, gardens, and outdoor events.</h4>
+          <a href="https://www.google.com/search?q=Millennium+Park+Chicago+United+States" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1643147329245-04f5aea03698?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxOYXZ5JTIwUGllciUyMENoaWNhZ28lMjBVbml0ZWQlMjBTdGF0ZXN8ZW58MHx8fHwxNzUxMDQxOTMzfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Navy Pier: Lakeside entertainment complex with rides, shops, and restaurants.">
+        <div class="slide-caption">
+          <h4>Navy Pier: Lakeside entertainment complex with rides, shops, and restaurants.</h4>
+          <a href="https://www.google.com/search?q=Navy+Pier+Chicago+United+States" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1710891622919-e681b27dcf81?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBcnQlMjBJbnN0aXR1dGUlMjBvZiUyMENoaWNhZ28lMjBDaGljYWdvJTIwVW5pdGVkJTIwU3RhdGVzfGVufDB8fHx8MTc1MTA0MTkzM3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Art Institute of Chicago: Renowned art museum with vast collection spanning centuries.">
+        <div class="slide-caption">
+          <h4>Art Institute of Chicago: Renowned art museum with vast collection spanning centuries.</h4>
+          <a href="https://www.google.com/search?q=Art+Institute+of+Chicago+Chicago+United+States" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('to-info').onclick = function() {
+        document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      document.getElementById('to-slideshow').onclick = function() {
+        document.getElementById('slideshow-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      // Popup modal logic
+      const popupContents = {
+  accommodations: `<h2 class="popup-section-title main-title">Accommodations</h2>
+<h2 class="popup-section-title">Hotels</h2>
+<div>1. The Langham, Chicago: This luxurious hotel is located in a prime location along the Chicago River, offering stunning views of the city skyline. Guests can enjoy top-notch amenities, exceptional service, and a relaxing spa experience during their stay.<br><br>2. The Gwen, a Luxury Collection Hotel: Situated in the historic McGraw-Hill building, The Gwen combines modern design with timeless elegance. This hotel boasts stylish rooms, a rooftop terrace with panoramic views, and a convenient location near the Magnificent Mile shopping district.<br><br>3. The Peninsula Chicago: Known for its sophisticated ambiance and impeccable service, The Peninsula is a five-star hotel offering elegant accommodations and top-notch dining options. Guests can indulge in the spa services, swim in the indoor pool overlooking the city, and experience unparalleled luxury in the heart of downtown Chicago.</div>
+<h2 class="popup-section-title">Hostels</h2>
+<div>1. Freehand Chicago - Located in the River North neighborhood, Freehand Chicago offers stylish and modern accommodations with a social atmosphere. Travelers are drawn to the hostel for its welcoming common areas, on-site restaurant and bar, and convenient location near popular attractions like the Magnificent Mile and Millennium Park.<br><br>2. HI Chicago Hostel - Situated in the heart of downtown Chicago, HI Chicago Hostel provides budget-friendly accommodation with a focus on community engagement and cultural exchange. The hostel organizes social events, walking tours, and excursions to help guests connect with fellow travelers and explore the city together. With its central location and inclusive environment, HI Chicago Hostel is a popular choice for solo travelers and backpackers looking to meet new people and experience the local culture.</div>`,
+  transportation: `<h2 class="popup-section-title main-title">Transportation</h2>
+<h2 class="popup-section-title">Getting Around</h2>
+<div>Chicago has a well-connected public transportation system operated by the Chicago Transit Authority (CTA), which includes buses and trains. The 'L' train system is a convenient and efficient way to travel within the city. Visitors can also explore Chicago by walking or using rideshare services like Uber and Lyft, especially for shorter distances or late-night travel.</div>`,
+  restaurants: `<h2 class="popup-section-title main-title">Restaurants</h2>
+<h2 class="popup-section-title">Recommended Restaurants</h2>
+<div>1. Giordano's: Famous for its deep-dish pizza, Giordano's has been a staple in Chicago since 1974. The stuffed crust and gooey cheese of their pizza have made it a must-try for visitors and locals alike.<br><br>2. Girl & the Goat: Owned by celebrity chef Stephanie Izard, this trendy spot is known for its innovative small plates. Dishes like the wood oven-roasted pig face and the goat empanadas showcase Izard's culinary creativity and have put this restaurant on the map.<br><br>3. The Purple Pig: A popular spot on the Magnificent Mile, The Purple Pig specializes in Mediterranean-inspired dishes. Their signature dishes include the milk-braised pork shoulder and the house-made charcuterie board, making it a favorite for those looking for a unique dining experience in the heart of Chicago.</div>`,
+  evenings: `<h2 class="popup-section-title main-title">Evenings</h2>
+<h2 class="popup-section-title">Bars</h2>
+<div>1. The Violet Hour: Known for its prohibition-era ambiance, craft cocktails, and speakeasy feel. This upscale bar in Wicker Park has a rotating menu of innovative drinks crafted by skilled mixologists.<br><br>2. Three Dots and a Dash: A popular tiki bar located in River North, Three Dots and a Dash offers an extensive menu of tropical cocktails served in unique mugs and garnished with creative flair. The lively atmosphere and Polynesian-inspired decor make it a fun spot for enjoying vibrant drinks.<br><br>3. The Aviary: A high-end cocktail lounge in the West Loop neighborhood, The Aviary is famous for its avant-garde cocktails that are more akin to works of art. Guests can expect inventive concoctions, molecular gastronomy techniques, and a sophisticated atmosphere for a truly exceptional drinking experience.</div>
+<h2 class="popup-section-title">Nightlife</h2>
+<div>1. The Underground: Located in the River North neighborhood, The Underground is a high-energy nightclub known for its celebrity sightings, top DJs, and stylish ambiance. With multiple levels offering different vibes, this venue is a popular choice for those seeking a lively and upscale nightlife experience in Chicago.<br><br>2. Smart Bar: Situated in the Wrigleyville area, Smart Bar is a legendary nightclub and music venue that has been a staple of Chicago's electronic music scene for decades. Known for its cutting-edge sound system and diverse lineup of DJs and performers, Smart Bar offers a more underground and eclectic atmosphere for music enthusiasts and night owls.<br><br>3. The Violet Hour: For a more sophisticated and intimate nightlife experience, head to The Violet Hour in the Wicker Park neighborhood. This craft cocktail bar exudes a speakeasy vibe with its dimly lit interior and expertly crafted drinks. Ideal for those looking for a quieter and more refined evening out in Chicago.</div>
+<h2 class="popup-section-title">Weekly Itinerary</h2>
+<div>Monday: Start your week with a relaxing evening stroll along the Chicago Riverwalk, enjoying the beautiful views of the city skyline.<br><br>Tuesday: Head to Millennium Park to catch one of the free outdoor concerts or movie screenings happening during the summer months.<br><br>Wednesday: Immerse yourself in the vibrant arts scene of Chicago by attending a performance at the famous Second City comedy club.<br><br>Thursday: Explore the trendy neighborhood of Wicker Park and enjoy live music at one of the many bars or music venues in the area.<br><br>Friday: Experience the bustling nightlife of River North with its diverse selection of bars, lounges, and clubs catering to every taste.<br><br>Saturday: Indulge in a gourmet dinner at one of Chicago's renowned restaurants followed by a nighttime architecture boat tour on the Chicago River.<br><br>Sunday: Wind down your week with a visit to the Adler Planetarium for their" Adler After Dark" event featuring cocktails, live entertainment, and stargazing.</div>`
+};
+const infoSectionBoxes = document.querySelectorAll('.info-section-box');
+const popupModal = document.getElementById('popup-modal');
+      const popupContent = document.getElementById('popup-dynamic-content');
+      const popupCloseBtn = document.getElementById('popup-close-btn');
+      infoSectionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const type = this.getAttribute('data-popup');
+          popupContent.innerHTML = popupContents[type] || '<p>No content available.</p>';
+          popupModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      popupCloseBtn.onclick = function() {
+        popupModal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      popupModal.addEventListener('click', function(e) {
+        if (e.target === popupModal) {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      // Slideshow Logic
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          if (i === idx) slide.classList.add('active');
+          else slide.classList.remove('active');
+        });
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+      if(slides.length > 0) {
+        setInterval(nextSlide, 6000);
+      }
+      // Weather API (OpenWeatherMap)
+      const weatherTemp = document.getElementById('weather-temp');
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=,&units=metric&appid=')
+        .then(res => res.json())
+        .then(data => {
+          if (data.main && typeof data.main.temp ===" number") {
+            weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+          } else {
+            weatherTemp.textContent =" N/A";
+          }
+        })
+        .catch(() => { weatherTemp.textContent = '--°C'; });
+  });
+  </script>
+</body>
+</html>

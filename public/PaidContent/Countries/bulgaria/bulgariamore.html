@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Bulgaria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="bulgaria-label">
+      BULGARIA
+      <img class="flag-icon" src="https://flagcdn.com/bg.svg" alt="Bulgaria flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/1738955/pexels-photo-1738955.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A woman in traditional Bulgarian folk costume poses outdoors in a green forested area." data-title="A woman in traditional Bulgarian folk costume poses outdoors in a green forested area." data-meta="Photographer: ​Ѩвѻҏ Ѫєљѩӡӄѻ҇в" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/3996255/pexels-photo-3996255.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Close-up of hands painting Easter eggs with bright colors, creative and festive." data-title="Close-up of hands painting Easter eggs with bright colors, creative and festive." data-meta="Photographer: Chavdar Lungov" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/17441819/pexels-photo-17441819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A scenic view of a tranquil lake surrounded by lush green mountains under a clear blue sky." data-title="A scenic view of a tranquil lake surrounded by lush green mountains under a clear blue sky." data-meta="Photographer: Kiril Gruev" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/14514209/pexels-photo-14514209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Vibrant frescoes and arches at Rila Monastery, Bulgaria's iconic landmark." data-title="Vibrant frescoes and arches at Rila Monastery, Bulgaria's iconic landmark." data-meta="Photographer: Rainer Eck" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title">A woman in traditional Bulgarian folk costume poses outdoors in a green forested area.</div>
+          <div class="art-info-meta">Photographer: ​Ѩвѻҏ Ѫєљѩӡӄѻ҇в</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Bulgaria News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://english.aawsat.com/node/5159280" class="blog-post" target="_blank">
+            <div class="blog-title">Thousands Protest Bulgaria's Euro Adoption and Call for Referendum</div>
+            <div class="blog-meta">None</div>
+        </a>
+        
+        <a href="https://halifax.citynews.ca/2025/06/28/thousands-protest-bulgarias-euro-adoption-and-call-for-a-referendum/" class="blog-post" target="_blank">
+            <div class="blog-title">Thousands protest Bulgaria’s euro adoption and call for a referendum</div>
+            <div class="blog-meta">SOFIA, Bulgaria (AP) — Days before Bulgaria was expected to become the 21st member of the eurozone, opponents of the move geared up Saturday for a final battle to change the schedule. Thousands of protesters gathered on a central square in downtown Sofia to protest government plans to adopt the euro and to demand a [...]</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of Bulgaria</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Thracian and Roman Influence (Before 681 CE)</h3>
+<p>
+Long before Bulgaria emerged as a distinct entity, the Thracians inhabited the region, known for their rich culture and fierce warriors. In the 1st century CE, the Romans conquered the area, bringing their language, infrastructure, and governance. The Roman influence left a lasting mark on the region's architecture, trade, and early Christian communities.
+</p>
+<h3 style="text-align:center;font-weight:bold;">First Bulgarian Empire (681–1018)</h3>
+<p>
+In 681, the Bulgars, a Turkic tribe, established their own state, marking the beginning of the First Bulgarian Empire. Under rulers like Khan Krum and Tsar Simeon, Bulgaria expanded its territory, becoming a major power in Southeastern Europe. The empire's golden age saw a flourishing of arts, literature, and Christian missionary work.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Byzantine Rule and Second Bulgarian Empire (1018–1396)</h3>
+<p>
+In 1018, the Byzantine Empire conquered Bulgaria, leading to a period of Byzantine rule. However, in the late 12th century, the Second Bulgarian Empire emerged, reclaiming independence under leaders like Ivan Asen II. This era saw cultural revival, with the spread of Orthodox Christianity and the development of a distinctive Bulgarian art and architecture style.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Ottoman Rule and National Revival (1396–1878)</h3>
+<p>
+By the late 14th century, the Ottomans conquered Bulgaria, ushering in over four centuries of Ottoman rule. Despite the oppressive regime, a national revival movement emerged in the 19th century, fueled by intellectuals and revolutionaries seeking independence. The April Uprising of 1876 and the Russo-Turkish War of 1877–1878 paved the way for Bulgaria's liberation from Ottoman rule.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Third Bulgarian State and World Wars (1878–1946)</h3>
+<p>
+The Treaty of San Stefano in 1878 established the Third Bulgarian State, albeit as a smaller entity than initially envisioned. Bulgaria participated in the Balkan Wars and World War I, experiencing territorial gains and losses. The interwar period was marked by political instability, leading to Bulgaria's alignment with Nazi Germany during World War II and subsequent Soviet occupation.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Communist Era and Transition (1946–1989)</h3>
+<p>
+In 1946, Bulgaria became a communist state under the rule of the Bulgarian Communist Party. The country experienced rapid industrialization but also political repression and economic hardship. The fall of communism in 1989 brought about a period of transition towards democracy and a market economy, albeit with challenges of corruption and economic restructuring.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Modern Bulgaria (1990–Present)</h3>
+<p>
+Since the early 1990s, Bulgaria has been navigating the complexities of post-communist transition, joining the European Union in 2007. The country has made strides in economic development and democratic reforms, though issues such as corruption and emigration persist. Bulgaria continues to preserve its rich cultural heritage while looking towards a future of integration and progress.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of Bulgaria</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What languages are spoken in Bulgaria?</h3>
+<p>
+Bulgaria's official language is Bulgarian, a Slavic language written in the Cyrillic script. However, Bulgaria is also home to linguistic diversity with various minority languages spoken by different ethnic groups.
+</p>
+
+<h3 style="font-weight:bold;">Regional and Minority Languages</h3>
+<p>
+In addition to Bulgarian, minority languages spoken in Bulgaria include Turkish, Romani, and various dialects of the surrounding regions. Turkish is particularly prevalent due to the Turkish minority population in the country.
+</p>
+
+<h3 style="font-weight:bold;">English in Bulgaria</h3>
+<p>
+English is increasingly spoken in Bulgaria, especially in major tourist areas and among the younger generation. However, proficiency levels vary, and outside tourist hubs, English may not be as widely understood. Learning a few basic Bulgarian phrases can go a long way in connecting with locals.
+</p>
+
+<h3 style="font-weight:bold;">Useful Bulgarian Phrases</h3>
+<ul>
+<li><b>Здравейте</b> – <b>Hello</b></li>
+<li><b>Довиждане</b> – <b>Goodbye</b></li>
+<li><b>Моля</b> – <b>Please</b></li>
+<li><b>Благодаря</b> – <b>Thank you</b></li>
+<li><b>Говорите ли английски?</b> – <b>Do you speak English?</b></li>
+<li><b>Не говоря български</b> – <b>I don’t speak Bulgarian</b></li>
+<li><b>Къде е тоалетната?</b> – <b>Where is the bathroom?</b></li>
+<li><b>Колко струва?</b> – <b>How much is it?</b></li>
+<li><b>Извинявайте</b> – <b>Excuse me / Sorry</b></li>
+<li><b>Една маса за двама, моля</b> – <b>A table for two, please</b></li>
+<li><b>Сметката, моля</b> – <
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Bulgaria Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Bulgarian cuisine is a delightful amalgamation of flavors influenced by its rich history and diverse cultural interactions. While not as widely known as some of its European counterparts, Bulgarian dishes offer a unique and hearty dining experience. The cuisine often features fresh vegetables, fragrant herbs, and a variety of dairy products, reflecting the country's agricultural bounty and culinary traditions. Traditional Bulgarian meals are typically comforting and filling, perfect for fueling up after a day of exploring this beautiful country.
+</p>
+<ul>
+<li><b>Shopska Salad</b> – A refreshing salad made with tomatoes, cucumbers, peppers, onions, and grated sirene cheese.</li>
+<li><b>Banitsa</b> – A flaky pastry filled with cheese, spinach, or pumpkin, often enjoyed for breakfast or as a snack.</li>
+<li><b>Kebapche</b> – Grilled minced meat sausages seasoned with spices like cumin and served with a side of bread and lyutenitsa.</li>
+<li><b>Moussaka</b> – A layered dish with potatoes, minced meat, and a creamy yogurt and egg mixture, baked to perfection.</li>
+<li><b>Tarator</b> – A cold cucumber and yogurt soup, perfect for hot summer days.</li>
+<li><b>Sarmi</b> – Cabbage leaves or vine leaves stuffed with a mixture of rice and minced meat, cooked in a savory broth.</li>
+<li><b>Bulgarian Yogurt</b> – Known for its probiotic qualities, Bulgarian yogurt is creamy and often served with honey or fruit.</li>
+<li><b>Meshana Skara</b> – A mixed grill platter featuring a variety of grilled meats, perfect for meat lovers.</li>
+<li><b>Baklava</b> – A sweet pastry made of layers of filo dough, nuts, and syrup, popular for dessert or special occasions.</li>
+</ul>
+<h3 style="font-weight:bold;">Regional Influences</h3>
+<p>
+Bulgarian cuisine varies across regions, with coastal areas showcasing more seafood dishes, while mountainous regions feature hearty stews and grilled meats. The Thracian Valley is known for its vineyards and wine production, offering a wide selection of local wines to pair with your meals.
+</p>
+<h3 style="
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Bulgaria Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are Bulgaria’s most famous festivals?</h3>
+<p>
+Bulgaria's rich cultural heritage is showcased in a variety of vibrant festivals that celebrate traditions, music, and local customs throughout the year. Here are some of the most iconic festivals in Bulgaria:
+</p>
+<ul>
+<li><b>Kukeri Festival (Pernik, January)</b> – Held in Pernik, this ancient festival features elaborate masks and costumes worn by participants who perform rituals to scare away evil spirits and bring good luck for the upcoming year.</li>
+<li><b>Rose Festival (Kazanlak, June)</b> – Celebrated in the Valley of Roses, this festival pays tribute to Bulgaria’s renowned rose oil production with colorful parades, folk music, traditional dances, and the crowning of the Rose Queen.</li>
+<li><b>Nestinarstvo Fire Dancing (Bulgarian villages, June-August)</b> – This mesmerizing ritual involves barefoot dancers performing on hot coals in a display of ancient pagan traditions, accompanied by traditional music and rituals for health and prosperity.</li>
+<li><b>Plovdiv International Fair (Plovdiv, September)</b> – One of the oldest fairs in the world, this event features trade exhibitions, cultural performances, music concerts, and a lively atmosphere that attracts visitors from around the globe.</li>
+<li><b>Rozhen Folklore Festival (Rozhen, July)</b> – This folk music and dance festival in the Rhodope Mountains showcases Bulgaria’s rich musical heritage with performances by local and international artists, workshops, and a vibrant market selling traditional crafts.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Bulgaria, immerse yourself in the local culture by trying traditional foods, interacting with locals, and participating in the festivities. Check the festival schedule in advance and consider booking accommodations early, especially during peak seasons. Respect local customs and traditions, dress comfortably for outdoor activities, and be prepared for varying weather conditions. Don't miss the opportunity to witness authentic Bulgarian culture and create unforgettable memories during these lively celebrations.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+For those seeking to deepen their understanding of Bulgaria, there are a variety of engaging resources to explore. Whether you're interested in podcasts, books, or movies, these recommendations offer valuable insights into the rich culture and history of this fascinating country.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Bulgaria Now</b> – A podcast that delves into contemporary Bulgarian society, politics, and culture, offering a fresh perspective on current events and issues.</li>
+<li><b>Hidden Bulgaria</b> – Explore the lesser
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/bulgaria/bulgariahome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/bulgaria/bulgariamore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/bulgaria/bulgariacityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

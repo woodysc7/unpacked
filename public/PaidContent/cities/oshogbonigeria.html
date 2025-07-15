@@ -1,0 +1,1198 @@
+i<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Oshogbo - Nigeria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+        :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+    /* Centered bold popup titles */
+.popup-section-title {
+  text-align: center;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  margin: 1.2em 0 0.7em 0;
+  display: block;
+  color: var(--brown-dark);
+  letter-spacing: 1px;
+}
+.popup-section-title.main-title {
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 0.7em;
+  text-align: center;
+}
+        .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-bubble {
+  background: var(--surface); /* or use var(--brown-light) if you prefer */
+  color: var(--brown-dark);
+  padding: 1.2em 2.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  margin-bottom: 1.5em;
+  pointer-events: auto;
+}
+.hero-bubble h1,
+.hero-bubble h2,
+.hero-bubble a {
+  color: var(--brown-dark) !important;
+  text-decoration: none;
+  font-weight: 900;
+}
+.hero-bubble a:hover {
+  text-decoration: underline;
+}
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      width: 100vw;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+.popup-content-modal {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 2.2em;
+  box-shadow: 0 12px 36px rgba(107,66,38,.13);
+  padding: 4em 3em 3em 3em;
+  width: 90vw;
+  height: 88vh;
+  max-width: 600px;          /* Reduced width for better centering */
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupZoom .33s;
+  display: block;            /* Changed from flex to block */
+  margin-left: auto;         /* Horizontally center */
+  margin-right: auto;        /* Horizontally center */
+}
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1624383045192-cf512eb9d78c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzE0NTB8MHwxfHNlYXJjaHwxfHxPc2hvZ2JvJTIwTmlnZXJpYXxlbnwwfHx8fDE3NTE1MjU1Njl8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Oshogbo, Nigeria">
+    <div class="hero-overlay">
+      <div class="hero-bubble">
+        <h1 class="city-title" style="margin:0;">Oshogbo</h1>
+        <h2 class="country-title" style="margin:0;">
+  <a href="/.netlify/functions/servePaidContent?page=Countries/Nigeria/nigeriaHome " id="Nigeria-link">Nigeria</a>
+</h2>
+      </div>
+      <div class="down-arrow" id="to-info">&#8595;</div>
+    </div>
+  </section>
+  <!-- TOP BANNER AD -->
+  <div class="ad-banner ad-top">
+    <span>YOUR AD HERE (Top Banner 728x90)</span>
+  </div>
+  <!-- INFO SECTION -->
+  <section class="info-section" id="info-section">
+    <div class="info-header">
+      <a href="" target="_blank" class="weather-link" style="text-decoration:none;">
+        <div class="weather-tag">
+          <span class="weather-icon">&#9729;</span>
+          <span id="weather-temp">--°C</span>
+        </div>
+      </a>
+      <span class="tourscore-container">
+        <span class="tourscore-tag" title="Tourists rate Oshogbo highly!">
+          <span class="tourscore-label">TOURSCORE</span>
+         <span class="tourscore-value">
+  75.0%
+</span>
+        </span>
+      </span>
+    </div>
+    <div class="info-card">
+    <div class="info-card-left">
+  <h3>About Oshogbo</h3>
+  
+  <p>Immerse yourself in the vibrant culture and rich history of Oshogbo, Nigeria. Explore the UNESCO-listed Osun-Osogbo Sacred Grove, where ancient traditions come alive amidst lush greenery and sacred art. Lose yourself in the bustling markets, where colorful fabrics and spices fill the air with tantalizing scents. Don't miss the annual Osun-Osogbo festival, a dazzling celebration of Yoruba spirituality that will leave you awestruck. Whether you're an art enthusiast, a history buff, or a curious traveler seeking new adventures, Oshogbo will captivate your senses and leave you longing for more.</p>
+
+</div>
+      <div class="info-card-right">
+        <div class="info-sections-list">
+          <div class="info-section-box" data-popup="accommodations">
+            <h4>Accommodations</h4>
+            <p>Click to view accommodations details.</p>
+          </div>
+          <div class="info-section-box" data-popup="transportation">
+            <h4>Transportation</h4>
+            <p>Click to view transportation info.</p>
+          </div>
+          <div class="info-section-box" data-popup="restaurants">
+            <h4>Restaurants</h4>
+            <p>Click to view restaurant info.</p>
+          </div>
+          <div class="info-section-box" data-popup="evenings">
+            <h4>Evenings</h4>
+            <p>Click to view evenings info.</p>
+          </div>
+        </div>
+        <div class="blogs-box">
+          <h4>Blogs</h4>
+          <ul class="blogs-list">
+            
+              <li><a href="https://nextbiteoflife.com/historic-osun-osogbo-sacred-grove/" target="_blank" rel="noopener">Historic Osun Osogbo Sacred Grove Is Terrific! - nextbiteoflife blog</a></li>
+            
+              <li><a href="https://barnitka.travel.blog/2019/05/11/oshogbo-to-idanre-beautiful-hills/" target="_blank" rel="noopener">Oshogbo to Idanre: beautiful hills – Coming back to Maman</a></li>
+            
+              <li><a href="https://blog.flickr.net/en/2022/05/03/16-questions-about-one-photo-with-taiwo-aina-the-women-and-culture-of-the-osun-osogbo-festival/" target="_blank" rel="noopener">16 Questions about One Photo with Taiwo Aina: The Women and ...</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="down-arrow" id="to-slideshow">&#8595;</div>
+  </section>
+  <!-- BETWEEN SECTIONS AD -->
+  <div class="ad-banner ad-between">
+    <span>YOUR AD HERE (Between Sections 728x90)</span>
+  </div>
+  <!-- POPUPS -->
+  <div class="popup-modal" id="popup-modal">
+    <div class="popup-content-modal" id="popup-content-modal">
+      <button class="popup-close-btn" id="popup-close-btn" title="Close">&times;</button>
+      <div id="popup-dynamic-content"></div>
+    </div>
+  </div>
+  <!-- SLIDESHOW SECTION -->
+  <section class="slideshow-section" id="slideshow-section">
+    <div class="slideshow" id="slideshow">
+      
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1694607401435-916ff2e6974a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxPc3VuLU9zb2dibyUyMFNhY3JlZCUyMEdyb3ZlJTIwT3Nob2dibyUyME5pZ2VyaWF8ZW58MHx8fHwxNzUxMjcyNjU1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Osun-Osogbo Sacred Grove: UNESCO World Heritage Site with sacred forest and shrines.">
+        <div class="slide-caption">
+          <h4>Osun-Osogbo Sacred Grove: UNESCO World Heritage Site with sacred forest and shrines.</h4>
+          <a href="https://www.google.com/search?q=Osun-Osogbo+Sacred+Grove+Oshogbo+Nigeria" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1696208733982-2a1625241c36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxOaWtlJTIwQXJ0JTIwR2FsbGVyeSUyME9zaG9nYm8lMjBOaWdlcmlhfGVufDB8fHx8MTc1MTI3MjY1Nnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Nike Art Gallery: Prominent art gallery showcasing Nigerian contemporary art.">
+        <div class="slide-caption">
+          <h4>Nike Art Gallery: Prominent art gallery showcasing Nigerian contemporary art.</h4>
+          <a href="https://www.google.com/search?q=Nike+Art+Gallery+Oshogbo+Nigeria" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1720945489924-19b707539b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxPc2hvZ2JvJTIwTXVzZXVtJTIwT3Nob2dibyUyME5pZ2VyaWF8ZW58MHx8fHwxNzUxMjcyNjU2fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Oshogbo Museum: Museum with artifacts and exhibits on local history.">
+        <div class="slide-caption">
+          <h4>Oshogbo Museum: Museum with artifacts and exhibits on local history.</h4>
+          <a href="https://www.google.com/search?q=Oshogbo+Museum+Oshogbo+Nigeria" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1699389211171-cec25b68f11f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBdGFvamElMjBQYWxhY2UlMjBPc2hvZ2JvJTIwTmlnZXJpYXxlbnwwfHx8fDE3NTEyNzI2NTd8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Ataoja Palace: Royal palace of the traditional ruler of Oshogbo.">
+        <div class="slide-caption">
+          <h4>Ataoja Palace: Royal palace of the traditional ruler of Oshogbo.</h4>
+          <a href="https://www.google.com/search?q=Ataoja+Palace+Oshogbo+Nigeria" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('to-info').onclick = function() {
+        document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      document.getElementById('to-slideshow').onclick = function() {
+        document.getElementById('slideshow-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      // Popup modal logic
+      const popupContents = {
+  accommodations: `<h2 class="popup-section-title main-title">Accommodations</h2>
+<h2 class="popup-section-title">Hotels</h2>
+<div>1. Royal Park International Hotel: This modern hotel in Oshogbo offers spacious rooms with contemporary amenities, an on-site restaurant serving delicious Nigerian and international cuisine, and a swimming pool for guests to relax in. Its central location makes it convenient for exploring the city's attractions such as the Osun-Osogbo Sacred Grove and the Nike Art Gallery.<br><br>2. Atlantic Hotel & Suites: Featuring elegant rooms and suites with comfortable furnishings, this hotel provides a tranquil environment for guests in Oshogbo. The hotel boasts a well-equipped fitness center, a restaurant serving delectable meals, and a business center for corporate travelers. Its attentive staff and convenient location near landmarks like the Osun-Osogbo Sacred Grove make it a popular choice for visitors.<br><br>3. Leisure Spring Hotel & Suites: Nestled in a serene area in Oshogbo, this boutique hotel offers cozy and well-appointed rooms ideal for a relaxing stay. Guests can enjoy the hotel's outdoor swimming pool, lush gardens, and a restaurant serving a variety of dishes. Its proximity to attractions like the Osun-Osogbo Sacred Grove and the Oshogbo Arts and Crafts Market makes it a great base for exploring the city.</div>
+<h2 class="popup-section-title">Hostels</h2>
+<div>1. Ile Labo Guest House: This charming hostel offers comfortable and affordable accommodation in a serene environment, making it an ideal choice for budget-conscious travelers. The friendly staff, clean facilities, and proximity to popular attractions such as Osun-Osogbo Sacred Grove add to its appeal.<br><br>2. Royal Park Hotel and Suites: Known for its warm hospitality and convenient location, this hostel provides guests with a cozy atmosphere and modern amenities. Travelers appreciate the on-site restaurant serving delicious local and international cuisine, as well as the proximity to Oshogbo's vibrant markets and cultural sites.</div>`,
+  transportation: `<h2 class="popup-section-title main-title">Transportation</h2>
+<h2 class="popup-section-title">Getting Around</h2>
+<div>The best way for visitors to get around Oshogbo, Nigeria is by using minibuses, known as "Danfo" or "Okada" motorcycles for short distances. They are affordable and readily available throughout the city. Alternatively, walking or taking a taxi are also convenient options for getting around Oshogbo.</div>`,
+  restaurants: `<h2 class="popup-section-title main-title">Restaurants</h2>
+<h2 class="popup-section-title">Recommended Restaurants</h2>
+<div>1. Iya Oyo Amala Joint is a popular spot in Oshogbo known for its delicious amala and ewedu soup. This local favorite offers a true taste of traditional Yoruba cuisine in a casual and vibrant setting.<br><br>2. Kabachi Chinese Restaurant offers a unique dining experience in Oshogbo with its extensive menu of authentic Chinese dishes. Visitors rave about their mouthwatering sweet and sour chicken and fragrant fried rice.<br><br>3. Sky Pavilion Restaurant is a top choice for fine dining in Oshogbo, offering a variety of continental and Nigerian dishes. Guests flock to this elegant restaurant for their exquisite seafood platter and decadent chocolate lava cake.</div>`,
+  evenings: `<h2 class="popup-section-title main-title">Evenings</h2>
+<h2 class="popup-section-title">Bars</h2>
+<div>1. La Mango Restaurant & Bar: La Mango is a popular spot in Oshogbo known for its vibrant atmosphere and great music. This bar offers a wide selection of drinks and cocktails, making it a favorite among locals and tourists alike.<br><br>2. De Caribbean Lounge: De Caribbean Lounge is a cozy and laid-back bar that serves delicious Caribbean-inspired drinks and cuisine. With its warm and welcoming ambiance, this bar is perfect for those looking to unwind and enjoy a more relaxed evening in Oshogbo.<br><br>3. Club Quilox: Club Quilox is a lively and energetic nightclub in Oshogbo that is famous for its pulsating music and energetic crowd. This bar is a great choice for those looking to dance the night away and experience the vibrant nightlife scene in the city.</div>
+<h2 class="popup-section-title">Nightlife</h2>
+<div>1. Sky Pavilion Lounge: Located in the heart of Oshogbo, Sky Pavilion Lounge is a trendy nightlife spot that offers a vibrant ambiance, excellent music, and a wide selection of drinks. With a rooftop setting providing panoramic views of the city, this club is popular among locals and visitors looking to unwind and party the night away.<br><br>2. Ostra Hall & Hotels: Known for its energetic atmosphere and pulsating beats, Ostra Hall & Hotels is a popular nightclub in Oshogbo. The club features a spacious dance floor, top-notch sound system, and a diverse crowd of partygoers. With themed nights and live performances by local artists, Ostra Hall & Hotels promises an unforgettable nightlife experience in the city.<br><br>3. Quilox Nightclub: As one of the most upscale nightlife venues in Oshogbo, Quilox Nightclub offers a luxurious setting for a night out on the town. The club boasts a sophisticated ambiance, VIP sections, and renowned DJs spinning the latest tunes. From international acts to themed parties, Quilox Nightclub provides a premium nightlife experience for those seeking a touch of glamour and excitement.</div>
+<h2 class="popup-section-title">Weekly Itinerary</h2>
+<div>Monday: Start your week with a visit to the Nike Art Gallery, showcasing contemporary Nigerian art and crafts.<br>Tuesday: Attend a traditional dance performance at the Osun-Osogbo Sacred Grove, a UNESCO World Heritage Site.<br>Wednesday: Explore the historic and spiritual significance of the Osogbo Township and its palace.<br>Thursday: Enjoy a traditional Yoruba cuisine at a local restaurant for an authentic culinary experience.<br>Friday: Experience the vibrant nightlife at the Oje Market, known for its local music and street food stalls.<br>Saturday: Join a guided tour of the Ife Museum to learn about the rich history and artifacts of the Yoruba culture.<br>Sunday: Relax and unwind at the Ataoja Palace as you witness the ceremonial drumming and storytelling performances.</div>`
+};
+const infoSectionBoxes = document.querySelectorAll('.info-section-box');
+const popupModal = document.getElementById('popup-modal');
+      const popupContent = document.getElementById('popup-dynamic-content');
+      const popupCloseBtn = document.getElementById('popup-close-btn');
+      infoSectionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const type = this.getAttribute('data-popup');
+          popupContent.innerHTML = popupContents[type] || '<p>No content available.</p>';
+          popupModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      popupCloseBtn.onclick = function() {
+        popupModal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      popupModal.addEventListener('click', function(e) {
+        if (e.target === popupModal) {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      // Slideshow Logic
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          if (i === idx) slide.classList.add('active');
+          else slide.classList.remove('active');
+        });
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+      if(slides.length > 0) {
+        setInterval(nextSlide, 6000);
+      }
+      // Weather API (OpenWeatherMap)
+      const weatherTemp = document.getElementById('weather-temp');
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=,&units=metric&appid=')
+        .then(res => res.json())
+        .then(data => {
+          if (data.main && typeof data.main.temp === "number") {
+            weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+          } else {
+            weatherTemp.textContent = "N/A";
+          }
+        })
+        .catch(() => { weatherTemp.textContent = '--°C'; });
+  });
+  </script>
+</body>
+</html>

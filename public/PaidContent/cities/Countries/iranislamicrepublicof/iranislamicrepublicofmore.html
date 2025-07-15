@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Iran, Islamic Republic of</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas " class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="iranislamicrepublicof-label">
+      IRAN, ISLAMIC REPUBLIC OF
+      <img class="flag-icon" src="https://flagcdn.com/ir.svg" alt="Iran, Islamic Republic of flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/16033963/pexels-photo-16033963.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="High-quality image of the Iranian national flag waving to symbolize patriotism and national pride." data-title="High-quality image of the Iranian national flag waving to symbolize patriotism and national pride." data-meta="Photographer: Engin Akyurt" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/9117138/pexels-photo-9117138.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="The iconic Tomb of Ferdowsi in Iran under a bright blue sky, showcasing Persian architectural heritage." data-title="The iconic Tomb of Ferdowsi in Iran under a bright blue sky, showcasing Persian architectural heritage." data-meta="Photographer: Nima Nezafat Yazdi" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/30423650/pexels-photo-30423650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful traditional courtyard with central fountain in Isfahan, Iran, showcasing Persian architecture." data-title="Beautiful traditional courtyard with central fountain in Isfahan, Iran, showcasing Persian architecture." data-meta="Photographer: farzam yousefi" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/20585311/pexels-photo-20585311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Vertical shot of the Tomb of Yaghub Leys Safari in Dezful, Iran, against a clear sky." data-title="Vertical shot of the Tomb of Yaghub Leys Safari in Dezful, Iran, against a clear sky." data-meta="Photographer: Ali Ghybi" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">High-quality image of the Iranian national flag waving to symbolize patriotism and national pride.</div>
+    <div class="art-info-meta">Photographer: Engin Akyurt</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Iran, Islamic Republic of News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.deccanchronicle.com/world/iran-could-restart-uranium-enrichment-in-months-iaea-chief-1888205" class="blog-post" target="_blank">
+            <div class="blog-title">Iran Could Restart Uranium Enrichment in Months: IAEA Chief</div>
+            <div class="blog-meta">Despite US-Israel strikes, IAEA chief Grossi warns Tehran may resume enrichment soon; fate of uranium stockpile remains unclear.</div>
+        </a>
+        
+        <a href="https://jamaica-gleaner.com/article/focus/20250629/gordon-robinson-apocalypse-now" class="blog-post" target="_blank">
+            <div class="blog-title">Gordon Robinson | Apocalypse now?</div>
+            <div class="blog-meta">So Benny the Boorish Bully; Vlad the Vain Vampire; and Donny the Deranged Despot have combined to form the world’s latest Axis of Ego. But, even among egotists, there’s a hierarchy of stupidity at the zenith of which we find Donny. Benny, at the...</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Iran, Islamic Republic of</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/16033963/pexels-photo-16033963.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="High-quality image of the Iranian national flag waving to symbolize patriotism and national pride." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/9117138/pexels-photo-9117138.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="The iconic Tomb of Ferdowsi in Iran under a bright blue sky, showcasing Persian architectural heritage." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/30423650/pexels-photo-30423650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Beautiful traditional courtyard with central fountain in Isfahan, Iran, showcasing Persian architecture." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/20585311/pexels-photo-20585311.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Vertical shot of the Tomb of Yaghub Leys Safari in Dezful, Iran, against a clear sky." style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Ancient Persia (550 BCE–651 CE)</h3>
+<p>
+Iran, known historically as Persia, was once the heart of a powerful empire that stretched from the Indus Valley to the Mediterranean. The Achaemenid Empire, founded by Cyrus the Great, established a legacy of tolerance and grandeur. Later, the Parthians and Sassanians continued this tradition, blending Persian, Hellenistic, and later, Roman influences. Zoroastrianism became the dominant religion, shaping Persian culture and identity.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Islamic Conquest and the Abbasid Era (651–1055)</h3>
+<p>
+In 651, Arab Muslim armies conquered Persia, ushering in a new era of Islamic rule. The Abbasid Caliphate, centered in Baghdad, saw a flourishing of Persian culture, with Persian scholars contributing significantly to the Islamic Golden Age in science, medicine, and literature. Persian language and customs persisted alongside Arabic, leading to a rich cultural synthesis.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Seljuk and Mongol Invasions (1055–1501)</h3>
+<p>
+The Seljuk Turks arrived in the 11th century, bringing a period of instability but also fostering a revival of Persian literature and art. However, the Mongol invasion led by Genghis Khan in the 13th century devastated the region, destroying cities and causing widespread loss of life. The subsequent Ilkhanate period saw a blending of Persian and Mongol cultures.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Safavid Empire and the Age of Empires (1501–1736)</h3>
+<p>
+The Safavid dynasty, founded by Shah Ismail I, established Twelver Shiism as the state religion, shaping Iran’s identity as a predominantly Shiite nation. The Safavids engaged in conflicts with the neighboring Ottoman and Mughal Empires, contributing to a rich tapestry of Persian art, architecture, and poetry that influenced the wider Islamic world.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Qajar Dynasty and Western Encroachment (1794–1925)</h3>
+<p>
+The Qajar dynasty, which came to power in the late 18th century, faced increasing pressure from European powers seeking to exploit Iran’s resources. The 19th century saw territorial losses to Russia and Britain, weakening Iran’s sovereignty. Modernization efforts led to social and political reforms, but also stirred nationalist sentiments against foreign interference.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Pahlavi Era and the 1979 Revolution (1925–1979)</h3>
+<p>
+Reza Shah Pahlavi’s rule in the early 20th century marked a period of rapid modernization, but also authoritarianism and suppression of dissent. His son, Mohammad Reza Shah, continued these policies, leading to widespread discontent. The 1979 Islamic Revolution, led by Ayatollah Khomeini, overthrew the monarchy and established the Islamic Republic of Iran, reshaping the country’s political landscape.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Iran-Iraq War and Post-Revolutionary Challenges (1980–Present)</h3>
+<p>
+The 1980–1988 Iran-Iraq War imposed significant human and economic costs on Iran, but also fostered a sense of unity and resilience among Iranians. The post-war period saw Iran’s reintegration into the global community, alongside ongoing challenges such as political repression, economic sanctions, and regional tensions. Despite these obstacles, Iran remains a complex and dynamic nation with a rich cultural heritage that continues to evolve.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Iran, Islamic Republic of</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Iran, Islamic Republic of</h3>
+<p>
+Iran, Islamic Republic of is officially Persian-speaking, with Farsi being the most widely spoken language. However, the country also has significant linguistic diversity with several minority languages spoken in different regions. Some of the prominent minority languages include Azerbaijani, Kurdish, Arabic, and others. These languages reflect the rich cultural tapestry of the country.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in Iran</h3>
+<p>
+English proficiency in Iran varies across different age groups and regions. While English is taught in schools and many young Iranians have some level of proficiency, it is not as widely spoken as Persian. Approximately 10-15% of the population is reported to have a working knowledge of English, with higher proficiency levels in urban areas and among the younger generation.
+</p>
+
+<h3 style="font-weight:bold;">Useful Persian Phrases</h3>
+<ul>
+<li><b>Salam</b> – <b>Hello</b></li>
+<li><b>Khodahafez</b> – <b>Goodbye</b></li>
+<li><b>Lotfan</b> – <b>Please</b></li>
+<li><b>Mamnoon</b> – <b>Thank you</b></li>
+<li><b>Ayat englisi harf mizani?</b> – <b>Do you speak English?</b></li>
+<li><b>Man Farsi balad nistam</b> – <b>I don’t speak Persian</b></li>
+<li><b>Dastshuy-e to kheyeh ast?</b> – <b>Where is your bag?</b></li>
+<li><b>Chandeh ast?</b> – <b>How much is it?</b></li>
+<li><b>Bebakhshid</b> – <b>Excuse me / Sorry</b></li>
+<li><b>Yek miz baraye do nafar, lotfan</b> – <b>A table for two, please</b></li>
+<li><b>Hararat, lotfan</b> – <b>The check, please</b></li>
+<li><b>Mitoonid be man komak konid?</b> – <b>Can you help me?</
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Iran, Islamic Republic of Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Iranian cuisine is a delightful blend of flavors and textures, drawing influences from Persian, Arab, Turkish, and Central Asian culinary traditions. The food is rich, aromatic, and often intricately spiced, creating a sensory experience that reflects the country's diverse cultural heritage. While Iranian dishes may not be as well-known globally as some other cuisines, they are a true hidden gem waiting to be discovered by adventurous food enthusiasts.
+</p>
+<ul>
+<li><b>Kebabs</b> – Grilled skewers of marinated meat, such as lamb, chicken, or beef, often served with saffron-infused rice.</li>
+<li><b>Ghormeh Sabzi</b> – A fragrant herb stew made with parsley, cilantro, fenugreek, and kidney beans, typically served with rice.</li>
+<li><b>Tahchin</b> – A savory rice cake layered with yogurt, saffron, and tender pieces of chicken or lamb.</li>
+<li><b>Fesenjan</b> – A unique dish featuring a sweet and tangy pomegranate and walnut sauce served with duck or chicken.</li>
+<li><b>Zereshk Polo</b> – Rice mixed with barberries, saffron, and slivered almonds, often paired with chicken.</li>
+<li><b>Ash Reshteh</b> – A hearty noodle soup filled with herbs, legumes, and sometimes meat, a popular comfort food.</li>
+<li><b>Must O Khiar</b> – A refreshing yogurt and cucumber dip seasoned with mint and garlic, perfect for cooling off on hot days.</li>
+<li><b>Baklava</b> – Layers of flaky pastry filled with nuts and sweetened with syrup, a delectable dessert enjoyed across the Middle East.</li>
+<li><b>Saffron Ice Cream</b> – Luxuriously creamy ice cream flavored with the world's most expensive spice, saffron, and rosewater.</li>
+</ul>
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Iran, mealtimes are a social affair, often enjoyed with family and friends. Lunch is considered the main meal of the day and is typically served around midday, followed by a light dinner in the evening. Iranians take pride in their
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Iran, Islamic Republic of Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Iran's most famous festivals?</h3>
+<p>
+Iran's rich cultural heritage is showcased through its diverse and vibrant festivals that offer a glimpse into the country's traditions and history. Here are some of the most renowned festivals to experience:
+</p>
+<ul>
+<li><b>Nowruz (Nationwide, March 21st)</b> - Nowruz, the Persian New Year, marks the beginning of spring and is celebrated with family gatherings, traditional meals, and symbolic rituals that date back thousands of years.</li>
+<li><b>Shab-e Yalda (Nationwide, December 21st)</b> - Also known as the Winter Solstice, this festival celebrates the longest night of the year with poetry readings, storytelling, and feasting on fruits and nuts to welcome longer days ahead.</li>
+<li><b>Tirgan (Tehran, July 1st)</b> - Tirgan is a water festival where people gather by rivers or streams to enjoy music, dance, and water games as a way to cool off during the hot summer days.</li>
+<li><b>Sizdeh Bedar (Nationwide, April 2nd)</b> - On the 13th day of Nowruz, families and friends picnic outdoors to dispel bad luck and welcome good fortune, often tying blades of grass into knots to symbolize their wishes.</li>
+<li><b>Mehragan (Nationwide, October)</b> - This festival, also known as the Festival of Love and Friendship, celebrates the ancient deity Mithra with colorful decorations, dancing, and traditional rituals.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Iran, remember to respect local customs and traditions. Modest attire is recommended, especially in religious settings. Be prepared for large crowds and consider booking accommodations in advance. Embrace the opportunity to try traditional foods and participate in cultural activities to fully immerse yourself in the festive spirit of Iran.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+For a deeper dive into the rich culture and history of Iran, Islamic Republic of, there are several engaging resources to explore. From podcasts to books and movies, these recommendations will offer insightful perspectives and enhance your understanding of this fascinating country.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>The Persianate</b> – Delve into Iranian culture, history, and society with this thought-provoking podcast that features interviews with experts and locals.</li>
+<li><b>Rook Media</b> – Offering a contemporary look at
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/iranislamicrepublicof/iranislamicrepublicofhome " class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/iranislamicrepublicof/iranislamicrepublicofmore " class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/iranislamicrepublicof/iranislamicrepublicofcityguide " class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

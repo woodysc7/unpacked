@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bangladesh City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas ">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Bangladesh</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/dhakabangladesh "><img src="https://images.unsplash.com/photo-1726390415698-3c60d6b16c02?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMExhbGJhZ2glMjBGb3J0JTIwRGhha2ElMjBCYW5nbGFkZXNofGVufDB8fHx8MTc1MDk2NTU1NHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Lalbagh Fort: Historic Mughal fort with beautiful architecture and gardens."></a>
+        <div class="citycard-caption">1. Lalbagh Fort: Historic Mughal fort with beautiful architecture and gardens.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/dhakabangladesh ">Dhaka</a>
+        <div class="citycard-about">Dhaka, the vibrant capital of Bangladesh, is a city that dances to its own beat. From the chaotic streets filled with rickshaws and roadside tea stalls to the serene beauty of Lalbagh Fort and Ahsan Manzil, this city is a delightful mix of old-world charm and modern hustle. Dive into the bustling markets of New Market and Shankhari Bazaar, savor mouthwatering street food at Kawran Bazar, and soak in the colors and energy of the vibrant Dhanmondi Lake. Dhaka may overwhelm your senses, but its warmth, resilience, and unmistakable spirit will capture your heart in an instant.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/chittagongbangladesh "><img src="https://images.unsplash.com/photo-1715680876148-4c0a0c58c267?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEZveSUyN3MlMjBMYWtlJTIwQ2hpdHRhZ29uZyUyMEJhbmdsYWRlc2h8ZW58MHx8fHwxNzUxMDAyNjI3fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Foy&#x27;s Lake: Scenic lake with boat rides and amusement park."></a>
+        <div class="citycard-caption">1. Foy&#x27;s Lake: Scenic lake with boat rides and amusement park.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/chittagongbangladesh ">Chittagong</a>
+        <div class="citycard-about">Chittagong, Bangladesh, a bustling port city on the Bay of Bengal, offers an authentic and vibrant experience for intrepid travelers. Immerse yourself in the chaos of its lively markets, where the scent of spices and the sound of bargaining fill the air. Explore the historic Patenga Beach, with its colorful fishing boats and delicious street food stalls. For a dose of culture, visit the picturesque Foy&#x27;s Lake or the ethereal Shah Amanat Mosque. Don&#x27;t miss the chance to savor the local cuisine, from mouthwatering biryanis to fresh seafood delicacies. In Chittagong, expect the unexpected and embrace the raw beauty and energy of this dynamic city.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/khulnabangladesh "><img src="https://images.unsplash.com/photo-1674236537020-9ccf3b9841a9?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTdW5kYXJiYW5zJTIwS2h1bG5hJTIwQmFuZ2xhZGVzaHxlbnwwfHx8fDE3NTEyMDIwOTV8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Sundarbans: World&#x27;s largest mangrove forest with diverse wildlife and flora."></a>
+        <div class="citycard-caption">Sundarbans: World&#x27;s largest mangrove forest with diverse wildlife and flora.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/khulnabangladesh ">Khulna</a>
+        <div class="citycard-about">Khulna, Bangladesh, is a city that hums with energy and charm, offering a delightful mix of bustling markets, serene river views, and mouthwatering street food. Navigate through the chaos of Rupsha Bridge or hop on a boat to explore the enchanting Sundarbans, the largest mangrove forest in the world. Immerse yourself in the vibrant local culture by savoring juicy mangoes at the historic Moylapota Bazar or bargaining for vibrant textiles at Daulatpur Market. Khulna may not be on every traveler&#x27;s radar, but its raw authenticity and warm hospitality will surely win over the adventurous at heart.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/rajshahibangladesh "><img src="https://images.unsplash.com/photo-1726390414916-6e6ba8d8305a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxWYXJlbmRyYSUyMFJlc2VhcmNoJTIwTXVzZXVtJTIwUmFqc2hhaGklMjBCYW5nbGFkZXNofGVufDB8fHx8MTc1MTIxMDAxNXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Varendra Research Museum: Houses ancient artifacts and sculptures."></a>
+        <div class="citycard-caption">Varendra Research Museum: Houses ancient artifacts and sculptures.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/rajshahibangladesh ">Rajshahi</a>
+        <div class="citycard-about">Rajshahi, Bangladesh, is a hidden gem waiting to be discovered by intrepid travelers seeking authentic experiences off the beaten path. With its vibrant cultural scene, bustling markets, and mouth-watering street food, Rajshahi offers a glimpse into the true essence of Bangladeshi life. Explore the ancient archaeological sites of Paharpur and Mahasthangarh, immerse yourself in the tranquil beauty of the Padma River, or simply wander through the winding streets and soak up the local charm. Whether you&#x27;re a history buff, a foodie, or just a curious adventurer, Rajshahi promises to enchant and captivate with its unique blend of tradition and modernity.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/sylhetbangladesh "><img src="https://images.unsplash.com/photo-1589556183130-530470785fab?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFJhdGFyZ3VsJTIwU3dhbXAlMjBGb3Jlc3QlMjBTeWxoZXQlMjBCYW5nbGFkZXNofGVufDB8fHx8MTc1MTIyMTg1Nnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Ratargul Swamp Forest: Freshwater swamp forest with boat rides and abundant wildlife."></a>
+        <div class="citycard-caption">1. Ratargul Swamp Forest: Freshwater swamp forest with boat rides and abundant wildlife.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/sylhetbangladesh ">Sylhet</a>
+        <div class="citycard-about">Sylhet, a hidden gem in the northeastern region of Bangladesh, is a captivating destination waiting to be explored. Known for its lush tea gardens, rolling hills, and vibrant culture, Sylhet offers a unique blend of natural beauty and rich heritage. Dive into the bustling markets, sample the mouth-watering local cuisine, and immerse yourself in the warmth of the people. Whether you&#x27;re trekking through the hills, exploring the enchanting Ratargul Swamp Forest, or visiting the historic Hazrat Shah Jalal Dargah, Sylhet promises an unforgettable adventure that will leave you craving more of its charm and authenticity.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/bograbangladesh "><img src="https://images.unsplash.com/photo-1719299618494-5c59b497d0a3?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNYWhhc3RoYW5nYXJoJTIwQm9ncmElMjBCYW5nbGFkZXNofGVufDB8fHx8MTc1MTI0MTIyMHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Mahasthangarh: Ancient archaeological site with ruins dating back to 3rd century BC."></a>
+        <div class="citycard-caption">Mahasthangarh: Ancient archaeological site with ruins dating back to 3rd century BC.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/bograbangladesh ">Bogra</a>
+        <div class="citycard-about">Bogra, a vibrant city in northern Bangladesh, is a hidden gem waiting to be explored. With its rich historical significance and captivating archaeological sites like the Mahasthangarh ruins, traveling back in time becomes effortless here. But Bogra isn&#x27;t just about history—it&#x27;s also a bustling hub of local culture, from the colorful bazaars offering tantalizing street food to the warm hospitality of its people. Soak in the authentic Bangladeshi experience as you navigate through the chaotic yet charming streets, and don&#x27;t forget to catch a mesmerizing sunset over the serene banks of the Karatoya River. Bogra beckons travelers looking for an off-the-beaten-path adventure filled with surprises at every turn.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/comillabangladesh "><img src="https://images.unsplash.com/photo-1655549837063-67384558d412?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNYWluYW1hdGklMjBSdWlucyUyMENvbWlsbGElMjBCYW5nbGFkZXNofGVufDB8fHx8MTc1MTM0MzY2MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Mainamati Ruins: Ancient Buddhist archaeological site with intricate carvings."></a>
+        <div class="citycard-caption">Mainamati Ruins: Ancient Buddhist archaeological site with intricate carvings.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/comillabangladesh ">Comilla</a>
+        <div class="citycard-about">Nestled in the lush greenery of eastern Bangladesh lies the charming city of Comilla, a hidden gem waiting to be discovered. With its rich history dating back to ancient times, this city offers a delightful mix of historical sites, vibrant markets, and mouthwatering local cuisine. Explore the majestic ruins of Mainamati Buddhist Vihara, immerse yourself in the bustling atmosphere of Laksham Bazaar, and indulge in a culinary adventure sampling delicacies like panta bhat and hilsha fish curry. Whether you&#x27;re a history buff, a foodie, or simply seeking an off-the-beaten-path adventure, Comilla has something for everyone to enjoy.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/bangladesh/bangladeshhome ">Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/bangladesh/bangladeshmore ">More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/bangladesh/bangladeshcityguide ">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([23.77474777142857, 90.35346592857142], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([23.7861979,90.4026151]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/dhakabangladesh ">Dhaka</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/dhakabangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([22.3364709,91.8260479]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/chittagongbangladesh ">Chittagong</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/chittagongbangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([22.9372087,89.2852741]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/khulnabangladesh ">Khulna</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/khulnabangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.4611511,88.6888703]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/rajshahibangladesh ">Rajshahi</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/rajshahibangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.5910781,91.7177362]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/sylhetbangladesh ">Sylhet</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/sylhetbangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.8500662,89.3728431]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/bograbangladesh ">Bogra</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/bograbangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([23.4610615,91.1808748]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/comillabangladesh ">Comilla</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/comillabangladesh "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

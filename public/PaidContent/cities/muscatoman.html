@@ -1,0 +1,1198 @@
+i<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Muscat - Oman</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+        :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+    /* Centered bold popup titles */
+.popup-section-title {
+  text-align: center;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  margin: 1.2em 0 0.7em 0;
+  display: block;
+  color: var(--brown-dark);
+  letter-spacing: 1px;
+}
+.popup-section-title.main-title {
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 0.7em;
+  text-align: center;
+}
+        .hero {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hero-bubble {
+  background: var(--surface); /* or use var(--brown-light) if you prefer */
+  color: var(--brown-dark);
+  padding: 1.2em 2.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  margin-bottom: 1.5em;
+  pointer-events: auto;
+}
+.hero-bubble h1,
+.hero-bubble h2,
+.hero-bubble a {
+  color: var(--brown-dark) !important;
+  text-decoration: none;
+  font-weight: 900;
+}
+.hero-bubble a:hover {
+  text-decoration: underline;
+}
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+    a {
+      color: var(--brown-medium);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      width: 100vw;
+    }
+    .hero-image {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+      background: #bbb;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(250,249,246,0.2) 0%, rgba(107,66,38,0.4) 100%);
+      z-index: 2;
+    }
+    .city-title {
+      font-size: 5rem;
+      color: var(--brown-dark);
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.18);
+    }
+    .country-title {
+      font-size: 2rem;
+      color: var(--brown-medium);
+      font-weight: 700;
+      margin: 0.3em 0 0 0;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 18px rgba(107,66,38,0.09);
+    }
+    .country-title a {
+      color: var(--brown-medium);
+      text-decoration: none;
+      border-bottom: 2px solid var(--brown-light);
+      padding: 0 0.2em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .country-title a:hover {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+    .down-arrow {
+      font-size: 3rem;
+      color: var(--brown-dark);
+      margin-top: 2.2em;
+      cursor: pointer;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(16px);}
+    }
+    /* Info Section */
+    .info-section {
+      background: var(--background);
+      padding: 7em 0 3em 0;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100vw;
+      box-sizing: border-box;
+    }
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 2.1em;
+      flex-wrap: wrap;
+      margin-bottom: 2em;
+      justify-content: center;
+      width: 100vw;
+      max-width: 1100px;
+      padding-left: 2vw;
+      box-sizing: border-box;
+    }
+    .weather-link {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 325px;
+      min-width: 220px;
+      max-width: 430px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 0.4em;
+    }
+    .weather-link:hover .weather-tag {
+      background: var(--brown-light);
+      box-shadow: 0 4px 24px rgba(107,66,38,0.10);
+      cursor: pointer;
+    }
+    .weather-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 2.2em;
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 2em;
+      padding: 0.5em 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+    .weather-icon {
+      font-size: 2.1em;
+      flex: 1 1 0;
+      text-align: left;
+      line-height: 1;
+    }
+    #weather-temp {
+      font-size: 1.25em;
+      font-weight: 700;
+      flex: 1 1 0;
+      text-align: right;
+      line-height: 1;
+    }
+    /* Tourscore */
+    .tourscore-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 138px;
+      flex-shrink: 0;
+    }
+    .tourscore-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--tour-bg);
+      color: var(--brown-dark);
+      border-radius: 2em;
+      padding: 0.8em 2em 0.9em 2em;
+      font-size: 1.45em;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      letter-spacing: 1px;
+      gap: 0.22em;
+      cursor: default;
+      user-select: none;
+      min-width: 110px;
+      max-height: none;
+    }
+    .tourscore-label {
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      font-size: 0.7em;
+      font-weight: 900;
+      color: var(--brown-dark);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 0.15em;
+      margin-top: 0;
+      text-align: center;
+      line-height: 1.1;
+      letter-spacing: 2px;
+    }
+    .tourscore-value {
+      font-size: 1.1em;
+      font-weight: 800;
+      color: var(--brown-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.33em;
+    }
+    .tourscore-check {
+      font-size: 1.13em;
+      margin-left: 0.2em;
+      color: var(--brown-medium);
+    }
+    /* Middle Info Card */
+    .info-card {
+      display: flex;
+      flex-direction: row;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      max-width: 1300px;
+      width: 96vw;
+      margin: 0 auto 2.5em auto;
+      padding: 0;
+      overflow: hidden;
+      min-height: 410px;
+      align-items: stretch;
+    }
+    .info-card-left {
+      flex: 2 1 0;
+      padding: 2.9em 2.3em 2.5em 2.6em;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .info-card-right {
+      flex: 1.15 1 0;
+      padding: 2.5em 2em 2.5em 2em;
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      background: var(--background);
+      min-width: 285px;
+      max-width: 400px;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
+    .info-sections-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.3em;
+    }
+    .info-section-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.3em 1.2em 1.3em 1.3em;
+      margin-bottom: 0;
+      cursor: pointer;
+      transition: box-shadow 0.18s, background 0.18s;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .info-section-box:hover {
+      background: var(--brown-light);
+      box-shadow: 0 6px 36px rgba(107,66,38,0.12);
+    }
+    .info-section-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      padding: 1.6em 1.2em 1.6em 1.3em;
+      min-width: 0;
+    }
+    .blogs-box h4 {
+      color: var(--brown-dark);
+      margin-top: 0;
+      margin-bottom: 0.8em;
+      font-size: 1.15em;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .blogs-list {
+      padding-left: 1em;
+      margin: 0;
+    }
+    .blogs-list li {
+      margin-bottom: 0.7em;
+      font-size: 1em;
+    }
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--popup-bg);
+      z-index: var(--popup-z);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.38s;
+    }
+    .popup-modal.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+.popup-content-modal {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 2.2em;
+  box-shadow: 0 12px 36px rgba(107,66,38,.13);
+  padding: 4em 3em 3em 3em;
+  width: 90vw;
+  height: 88vh;
+  max-width: 600px;          /* Reduced width for better centering */
+  max-height: 92vh;
+  overflow-y: auto;
+  position: relative;
+  animation: popupZoom .33s;
+  display: block;            /* Changed from flex to block */
+  margin-left: auto;         /* Horizontally center */
+  margin-right: auto;        /* Horizontally center */
+}
+    @keyframes popupZoom {
+      from { transform: scale(0.93);}
+      to   { transform: scale(1);}
+    }
+    .popup-close-btn {
+      position: absolute;
+      top: 1.3em;
+      right: 1.7em;
+      background: none;
+      border: none;
+      font-size: 2.6rem;
+      color: var(--brown-medium);
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .popup-close-btn:hover {
+      color: var(--brown-dark);
+    }
+    /* Slideshow Section */
+    .slideshow-section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: var(--surface);
+    }
+    .slideshow {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+    .slide {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--surface);
+      transition: opacity 1.3s cubic-bezier(.85,0,.1,1);
+      z-index: 1;
+      display: flex;
+    }
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .slide img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.95);
+      background: #ccc;
+    }
+    .slide-caption {
+      position: absolute;
+      bottom: 5.5em;
+      left: 3em;
+      background: rgba(250,249,246,0.92);
+      padding: 1.2em 2em;
+      border-radius: 1em;
+      box-shadow: var(--shadow);
+      color: var(--brown-dark);
+      min-width: 220px;
+      max-width: 80vw;
+      z-index: 100;
+      opacity: 0.97;
+    }
+    .slide-caption h4 {
+      margin: 0 0 0.2em 0;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .ticket-link {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+    @media (max-width: 1200px) {
+      .info-card {
+        flex-direction: column;
+        max-width: 99vw;
+      }
+      .info-card-left,
+      .info-card-right {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        max-width: 99vw;
+        width: 99vw;
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+      }
+      .info-card-right {
+        border-bottom: none;
+        border-right: none;
+        padding-top: 1.8em;
+      }
+    }
+    @media (max-width: 900px) {
+      .city-title { font-size: 3rem;}
+      .country-title { font-size: 1.3rem;}
+      .info-header { flex-direction: column; gap: 1em; align-items: flex-start; padding-left: 0.8em;}
+      .info-card { flex-direction: column; max-width: 99vw; }
+      .info-card-left,
+      .info-card-right {
+        padding: 1.3em 0.8em;
+        width: 99vw;
+        max-width: 99vw;
+      }
+      .info-card-left { border-right: none; border-bottom: 1px solid var(--border);}
+      .info-card-right { border-bottom: none; padding-top: 0.8em;}
+      .slide-caption { left: 1em; right: 1em; bottom: 6.5em; }
+      .popup-content-modal {
+        width: 99vw;
+        height: 96vh;
+        min-width: 0;
+        padding: 1.1em 0.4em 1.5em 0.4em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1599743777555-e362a2feab39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzE0NTB8MHwxfHNlYXJjaHwxfHxNdXNjYXQlMjBPbWFufGVufDB8fHx8MTc1MTQ5MjQ1MHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Muscat, Oman">
+    <div class="hero-overlay">
+      <div class="hero-bubble">
+        <h1 class="city-title" style="margin:0;">Muscat</h1>
+        <h2 class="country-title" style="margin:0;">
+  <a href="/.netlify/functions/servePaidContent?page=Countries/Oman/omanHome " id="Oman-link">Oman</a>
+</h2>
+      </div>
+      <div class="down-arrow" id="to-info">&#8595;</div>
+    </div>
+  </section>
+  <!-- TOP BANNER AD -->
+  <div class="ad-banner ad-top">
+    <span>YOUR AD HERE (Top Banner 728x90)</span>
+  </div>
+  <!-- INFO SECTION -->
+  <section class="info-section" id="info-section">
+    <div class="info-header">
+      <a href="" target="_blank" class="weather-link" style="text-decoration:none;">
+        <div class="weather-tag">
+          <span class="weather-icon">&#9729;</span>
+          <span id="weather-temp">--°C</span>
+        </div>
+      </a>
+      <span class="tourscore-container">
+        <span class="tourscore-tag" title="Tourists rate Muscat highly!">
+          <span class="tourscore-label">TOURSCORE</span>
+         <span class="tourscore-value">
+  85.0%
+</span>
+        </span>
+      </span>
+    </div>
+    <div class="info-card">
+    <div class="info-card-left">
+  <h3>About Muscat</h3>
+  
+  <p>Prepare to be enchanted by the captivating blend of ancient traditions and modern luxuries in Muscat, Oman. Wander through the labyrinthine alleys of Muttrah Souq, where the scent of frankincense fills the air, and haggle for handmade treasures. Dive into the crystal-clear waters of the Arabian Sea, where vibrant coral reefs teem with marine life. Indulge in a feast fit for a sultan at a seaside restaurant, savoring aromatic Omani dishes as the sun sets over the jagged Hajar Mountains. Muscat is a city of contrasts, where the past and present intertwine seamlessly, promising a travel experience that will leave a lasting impression.</p>
+
+</div>
+      <div class="info-card-right">
+        <div class="info-sections-list">
+          <div class="info-section-box" data-popup="accommodations">
+            <h4>Accommodations</h4>
+            <p>Click to view accommodations details.</p>
+          </div>
+          <div class="info-section-box" data-popup="transportation">
+            <h4>Transportation</h4>
+            <p>Click to view transportation info.</p>
+          </div>
+          <div class="info-section-box" data-popup="restaurants">
+            <h4>Restaurants</h4>
+            <p>Click to view restaurant info.</p>
+          </div>
+          <div class="info-section-box" data-popup="evenings">
+            <h4>Evenings</h4>
+            <p>Click to view evenings info.</p>
+          </div>
+        </div>
+        <div class="blogs-box">
+          <h4>Blogs</h4>
+          <ul class="blogs-list">
+            
+              <li><a href="http://www.traveltoofar.com/blog/2024/5/19/muscat-oman" target="_blank" rel="noopener">MUSCAT // OMAN TRAVEL TOO FAR - BLOG — TravelToofar</a></li>
+            
+              <li><a href="https://abroadwife.com/blog/things-to-do-in-muscat-oman" target="_blank" rel="noopener">Things to do in Muscat, Oman — Abroad Wife-Family Travel</a></li>
+            
+              <li><a href="https://www.abubakarphotography.com/blog/why-you-must-visit-muscat-oman" target="_blank" rel="noopener">Why You Must Visit Muscat — ABU BAKAR PHOTOGRAPHY</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="down-arrow" id="to-slideshow">&#8595;</div>
+  </section>
+  <!-- BETWEEN SECTIONS AD -->
+  <div class="ad-banner ad-between">
+    <span>YOUR AD HERE (Between Sections 728x90)</span>
+  </div>
+  <!-- POPUPS -->
+  <div class="popup-modal" id="popup-modal">
+    <div class="popup-content-modal" id="popup-content-modal">
+      <button class="popup-close-btn" id="popup-close-btn" title="Close">&times;</button>
+      <div id="popup-dynamic-content"></div>
+    </div>
+  </div>
+  <!-- SLIDESHOW SECTION -->
+  <section class="slideshow-section" id="slideshow-section">
+    <div class="slideshow" id="slideshow">
+      
+      <div class="slide active">
+        <img src="https://images.unsplash.com/photo-1555300873-660313ab1518?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTdWx0YW4lMjBRYWJvb3MlMjBHcmFuZCUyME1vc3F1ZSUyME11c2NhdCUyME9tYW58ZW58MHx8fHwxNzUxMDk2NTE5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Sultan Qaboos Grand Mosque: Stunning Islamic architecture and one of the largest mosques.">
+        <div class="slide-caption">
+          <h4>Sultan Qaboos Grand Mosque: Stunning Islamic architecture and one of the largest mosques.</h4>
+          <a href="https://www.google.com/search?q=Sultan+Qaboos+Grand+Mosque+Muscat+Oman" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1597725095342-a4796c65bbec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNdXRyYWglMjBTb3VxJTIwTXVzY2F0JTIwT21hbnxlbnwwfHx8fDE3NTEwOTY1MTl8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Mutrah Souq: Bustling traditional market offering local goods and souvenirs.">
+        <div class="slide-caption">
+          <h4>Mutrah Souq: Bustling traditional market offering local goods and souvenirs.</h4>
+          <a href="https://www.google.com/search?q=Mutrah+Souq+Muscat+Oman" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1653107422561-cad89a8f20d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxSb3lhbCUyME9wZXJhJTIwSG91c2UlMjBNdXNjYXQlMjBNdXNjYXQlMjBPbWFufGVufDB8fHx8MTc1MTA5NjUxOXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Royal Opera House Muscat: World-class venue for opera, music, and arts performances.">
+        <div class="slide-caption">
+          <h4>Royal Opera House Muscat: World-class venue for opera, music, and arts performances.</h4>
+          <a href="https://www.google.com/search?q=Royal+Opera+House+Muscat+Muscat+Oman" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <img src="https://images.unsplash.com/photo-1705581224798-9e7c1014e755?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBbCUyMEphbGFsaSUyMEZvcnQlMjBNdXNjYXQlMjBPbWFufGVufDB8fHx8MTc1MTA5NjUyMHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Al Jalali Fort: Historic fort with panoramic views of Muscat and the sea.">
+        <div class="slide-caption">
+          <h4>Al Jalali Fort: Historic fort with panoramic views of Muscat and the sea.</h4>
+          <a href="https://www.google.com/search?q=Al+Jalali+Fort+Muscat+Oman" class="ticket-link" target="_blank">Learn More</a>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('to-info').onclick = function() {
+        document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      document.getElementById('to-slideshow').onclick = function() {
+        document.getElementById('slideshow-section').scrollIntoView({ behavior: 'smooth' });
+      };
+      // Popup modal logic
+      const popupContents = {
+  accommodations: `<h2 class="popup-section-title main-title">Accommodations</h2>
+<h2 class="popup-section-title">Hotels</h2>
+<div>1. The Chedi Muscat: This luxurious 5-star hotel offers serene beachfront accommodations, exquisite dining options, and a world-class spa. Its minimalist design, attentive service, and stunning infinity pool overlooking the Gulf of Oman make it a top choice for those seeking a tranquil and indulgent stay.<br><br>2. Al Bustan Palace, a Ritz-Carlton Hotel: Set against the backdrop of the Al Hajar Mountains, this opulent hotel boasts elegant rooms, lush gardens, and an impressive private beach. Guests can enjoy exceptional dining experiences, rejuvenating spa treatments, and a variety of recreational activities, making it a popular choice for travelers looking for a lavish retreat in Muscat.<br><br>3. Kempinski Hotel Muscat: Nestled within the community of Al Mouj, this contemporary 5-star hotel offers upscale accommodations, impeccable service, and picturesque views of the marina and Gulf of Oman. With a range of dining options, a luxurious spa, and easy access to Al Mouj Marina and nearby attractions, Kempinski Hotel Muscat provides a sophisticated and convenient stay for discerning guests.</div>
+<h2 class="popup-section-title">Hostels</h2>
+<div>1. Mutrah Hotel<br>Located in the heart of Muttrah, this hostel offers clean and affordable accommodation with a friendly atmosphere. Its convenient location near the Muttrah Souq and Corniche makes it a popular choice for travelers looking to explore the traditional side of Muscat.<br><br>2. Eastin Residences Muscat<br>Offering modern amenities and comfortable private rooms, Eastin Residences Muscat provides a cozy and welcoming environment for travelers. The hostel's rooftop terrace with views of the city and the mountains is a great spot to unwind after a day of sightseeing.</div>`,
+  transportation: `<h2 class="popup-section-title main-title">Transportation</h2>
+<h2 class="popup-section-title">Getting Around</h2>
+<div>The best ways for a visitor to get around Muscat, Oman, are by using taxis, renting a car, or hiring a private driver. Taxis are readily available and relatively affordable, making them a convenient option for short distances. Renting a car allows for more flexibility to explore the city and its surroundings at your own pace, while private drivers can offer a more personalized and comfortable experience for navigating the city.</div>`,
+  restaurants: `<h2 class="popup-section-title main-title">Restaurants</h2>
+<h2 class="popup-section-title">Recommended Restaurants</h2>
+<div>1. Bait Al Luban offers traditional Omani cuisine with a focus on seafood dishes such as hammour and prawn biryani. This restaurant is famous for its authentic flavors and cozy ambiance, making it a popular spot for both locals and tourists.<br><br>2. Kargeen Caffe is a charming restaurant known for its outdoor seating and delicious shuwa, a traditional Omani slow-cooked lamb dish. Visitors can enjoy a variety of Middle Eastern and international dishes in a relaxed garden setting, creating a unique dining experience in Muscat.<br><br>3. Ubhar is a contemporary Omani restaurant that serves modern interpretations of traditional Omani recipes, including signature dishes like harris and mishkak. The restaurant's elegant decor, attentive service, and innovative menu make it a top choice for those looking to explore the flavors of Omani cuisine in a refined setting.</div>`,
+  evenings: `<h2 class="popup-section-title main-title">Evenings</h2>
+<h2 class="popup-section-title">Bars</h2>
+<div>1. On The Rocks: Located in the Shangri-La Barr Al Jissah Resort & Spa, On The Rocks is a popular bar in Muscat known for its stunning cliffside location overlooking the Gulf of Oman. The bar offers a sophisticated atmosphere with a wide selection of drinks and cocktails, making it a great spot for enjoying sunset views and relaxing in a luxurious setting.<br><br>2. Trader Vic's: Situated in the InterContinental Muscat hotel, Trader Vic's is a Polynesian-themed bar and restaurant that is well-loved for its exotic cocktails and lively ambiance. Guests can enjoy signature drinks like the famous Mai Tai while surrounded by tiki décor and a vibrant atmosphere that transports visitors to a tropical paradise.<br><br>3. Habana Sports Bar: Perfect for sports enthusiasts, Habana Sports Bar in the Radisson Blu Hotel Muscat offers a casual setting with multiple screens showing live sports events. Visitors can enjoy a range of beers, spirits, and bar bites while cheering on their favorite teams, creating a laid-back and social environment for sports fans to gather and unwind.</div>
+<h2 class="popup-section-title">Nightlife</h2>
+<div>1. Onyx Lounge: Located in the heart of Muscat, Onyx Lounge is a popular nightclub that offers a vibrant and lively atmosphere. The club features top DJs spinning the latest hits, a spacious dance floor, and a wide selection of drinks to keep the party going all night long.<br><br>2. Habana Sports Bar: For a more laid-back nightlife experience, head to Habana Sports Bar. This cozy spot offers a relaxed ambiance with multiple big screens showing live sports events, pool tables, and a great selection of beers and cocktails. It's a perfect place to unwind with friends after a long day of sightseeing in Muscat.</div>
+<h2 class="popup-section-title">Weekly Itinerary</h2>
+<div>Monday: Explore Muttrah Souq, one of the oldest markets in Oman, known for vibrant stalls selling traditional Omani goods and souvenirs.<br>Tuesday: Visit the Royal Opera House Muscat to enjoy a performance of traditional Omani music or an international concert in a stunning architectural setting.<br>Wednesday: Take a leisurely stroll along the picturesque Qurum Beach, perfect for relaxation and enjoying the sunset.<br>Thursday: Discover the grandeur of the Sultan Qaboos Grand Mosque, one of the largest and most beautiful mosques in the world, especially impressive when illuminated at night.<br>Friday: Enjoy a traditional Omani dinner at Bait Al Luban restaurant in Muttrah, where you can savor authentic Omani dishes in a charming setting.<br>Saturday: Attend the Muscat Festival (seasonal), a celebration of Omani culture featuring live music, performances, and traditional arts and crafts.<br>Sunday: Experience the Al Mouj Marina Walk, a vibrant waterfront area with plenty of cafes, restaurants, and shops, perfect for an evening stroll.</div>`
+};
+const infoSectionBoxes = document.querySelectorAll('.info-section-box');
+const popupModal = document.getElementById('popup-modal');
+      const popupContent = document.getElementById('popup-dynamic-content');
+      const popupCloseBtn = document.getElementById('popup-close-btn');
+      infoSectionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          const type = this.getAttribute('data-popup');
+          popupContent.innerHTML = popupContents[type] || '<p>No content available.</p>';
+          popupModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      popupCloseBtn.onclick = function() {
+        popupModal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      popupModal.addEventListener('click', function(e) {
+        if (e.target === popupModal) {
+          popupModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      // Slideshow Logic
+      let slideIndex = 0;
+      const slides = document.querySelectorAll('.slide');
+      function showSlide(idx) {
+        slides.forEach((slide, i) => {
+          if (i === idx) slide.classList.add('active');
+          else slide.classList.remove('active');
+        });
+      }
+      function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      }
+      if(slides.length > 0) {
+        setInterval(nextSlide, 6000);
+      }
+      // Weather API (OpenWeatherMap)
+      const weatherTemp = document.getElementById('weather-temp');
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=,&units=metric&appid=')
+        .then(res => res.json())
+        .then(data => {
+          if (data.main && typeof data.main.temp === "number") {
+            weatherTemp.textContent = `${Math.round(data.main.temp)}°C`;
+          } else {
+            weatherTemp.textContent = "N/A";
+          }
+        })
+        .catch(() => { weatherTemp.textContent = '--°C'; });
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mexico City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas" >← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Mexico</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Mexico CityMexico" ><img src="https://images.unsplash.com/photo-1747607176106-ef0176141e9e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxab2NhbG8lMjBNZXhpY28lMjBDaXR5JTIwTWV4aWNvfGVufDB8fHx8MTc1MDk1OTY0OHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Zocalo: Main square with historic buildings, museums, and events."></a>
+        <div class="citycard-caption">Zocalo: Main square with historic buildings, museums, and events.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Mexico CityMexico" >Mexico City</a>
+        <div class="citycard-about">Mexico City is a vibrant mosaic of history, culture, and flavors that will enchant even the most seasoned traveler. From the majestic Chapultepec Castle to the lively markets of Coyoacán, every corner of this metropolis tells a compelling story. Indulge in mouthwatering tacos al pastor, explore ancient Aztec ruins at Teotihuacán, or simply lose yourself in the colorful murals of Diego Rivera. With its eclectic mix of old-world charm and modern sophistication, Mexico City is a destination that will leave you craving more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/guadalajaramexico" ><img src="https://images.unsplash.com/photo-1645450350532-f23817cf1562?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxHdWFkYWxhamFyYSUyMENhdGhlZHJhbCUyMEd1YWRhbGFqYXJhJTIwTWV4aWNvfGVufDB8fHx8MTc1MTAwMjU2N3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Guadalajara Cathedral: Historic cathedral with stunning architecture and religious significance."></a>
+        <div class="citycard-caption">Guadalajara Cathedral: Historic cathedral with stunning architecture and religious significance.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/guadalajaramexico" >Guadalajara</a>
+        <div class="citycard-about">Step into the vibrant cultural hub of Guadalajara, Mexico, where mariachi bands serenade you on every corner and the tantalizing scent of street tacos beckons you to indulge. Explore the historic downtown with its stunning colonial architecture and bustling mercado, where artisans showcase their colorful crafts. Sip on a refreshing tequila cocktail at a trendy rooftop bar overlooking the city lights, or venture out to discover the nearby agave fields that produce Mexico&#x27;s famous spirit. Guadalajara is a city that pulses with life, offering a perfect blend of tradition and modernity that will leave you captivated and craving more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/monterreymexico" ><img src="https://images.unsplash.com/photo-1672081420292-1be6ddf6f2d1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyME1hY3JvcGxhemElMjBNb250ZXJyZXklMjBNZXhpY298ZW58MHx8fHwxNzUxMDAyNzQ4fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Macroplaza: Main square with fountains, gardens, and historic buildings."></a>
+        <div class="citycard-caption">1. Macroplaza: Main square with fountains, gardens, and historic buildings.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/monterreymexico" >Monterrey</a>
+        <div class="citycard-about">Monterrey, Mexico, is a vibrant metropolis that effortlessly blends rich cultural heritage with modern amenities. From the towering Cerro de la Silla mountain offering breathtaking views of the city to the bustling Macroplaza, one of the largest public squares in the world, Monterrey has something for every traveler. Indulge in mouthwatering street tacos, explore the historic Barrio Antiguo neighborhood, or venture into the stunning landscapes of the nearby Chipinque Ecological Park. Whether you&#x27;re seeking adventure, culinary delights, or simply a taste of Mexican hospitality, Monterrey promises an unforgettable experience that will leave you craving more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/pueblamexico" ><img src="https://images.unsplash.com/photo-1747607176106-ef0176141e9e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFB1ZWJsYSUyMENhdGhlZHJhbCUyMFB1ZWJsYSUyME1leGljb3xlbnwwfHx8fDE3NTEwMjYxOTd8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Puebla Cathedral: Imposing 16th-century cathedral with ornate interior and historic significance."></a>
+        <div class="citycard-caption">1. Puebla Cathedral: Imposing 16th-century cathedral with ornate interior and historic significance.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/pueblamexico" >Puebla</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, Puebla is a vibrant city that effortlessly blends colonial charm with modern energy. Known for its colorful streets, stunning architecture, and delicious cuisine, Puebla offers a feast for the senses at every turn. Take a stroll through the historic center to marvel at the intricate tiles of the buildings and indulge in local specialties like mole poblano and chiles en nogada. Don&#x27;t miss the jaw-dropping views of the surrounding volcanoes from the nearby forts and immerse yourself in the lively atmosphere of the local markets. Puebla is a gem waiting to be discovered, promising an unforgettable and authentic Mexican experience.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Toluca de LerdoMexico" ><img src="https://images.unsplash.com/photo-1603772289429-6e69bd219846?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMENvc21vdml0cmFsJTIwQm90YW5pY2FsJTIwR2FyZGVuJTIwVG9sdWNhJTIwZGUlMjBMZXJkbyUyME1leGljb3xlbnwwfHx8fDE3NTEwNDk1NDl8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Cosmovitral Botanical Garden: Stained glass botanical garden inside a former market."></a>
+        <div class="citycard-caption">1. Cosmovitral Botanical Garden: Stained glass botanical garden inside a former market.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Toluca de LerdoMexico" >Toluca de Lerdo</a>
+        <div class="citycard-about">Nestled among the stunning mountains of central Mexico, Toluca de Lerdo is a vibrant city that seamlessly blends rich culture with modern amenities. From exploring the colorful Mercado Juarez filled with tantalizing street food vendors and artisan crafts, to taking a leisurely stroll through the quaint Zocalo square and admiring the stunning Cathedral of Toluca, this city offers a delightful mix of history and local charm. Don&#x27;t miss the chance to hike to the breathtaking Nevado de Toluca volcano for jaw-dropping views of the surrounding valley. Whether you&#x27;re a foodie, history buff, or nature enthusiast, Toluca de Lerdo is a gem waiting to be discovered.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/tijuanamexico" ><img src="https://images.unsplash.com/photo-1664333395686-ecb0c900979f?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxMYSUyMEJ1ZmFkb3JhJTIwVGlqdWFuYSUyME1leGljb3xlbnwwfHx8fDE3NTEwNjE0NDJ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="La Bufadora: Natural blowhole, popular for its powerful ocean spray."></a>
+        <div class="citycard-caption">La Bufadora: Natural blowhole, popular for its powerful ocean spray.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/tijuanamexico" >Tijuana</a>
+        <div class="citycard-about">Tijuana, Mexico, is a vibrant and eclectic city that never fails to captivate travelers with its intoxicating blend of culture, cuisine, and creativity. From savoring mouthwatering street tacos at the world-famous food stalls to exploring the bustling markets filled with colorful artisan crafts, Tijuana is a sensory overload in the best possible way. Dive into the city&#x27;s rich history at the Cultural Center or get lost in the vibrant street art that adorns every corner. And when the sun sets, Tijuana truly comes alive with its energetic nightlife scene, where you can dance the night away to the rhythmic beats of live music. In Tijuana, every moment is an adventure waiting to be had.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Leon de los AldamasMexico" ><img src="https://images.unsplash.com/photo-1645450350532-f23817cf1562?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxMZW9uJTIwQ2F0aGVkcmFsJTIwTGVvbiUyMGRlJTIwbG9zJTIwQWxkYW1hcyUyME1leGljb3xlbnwwfHx8fDE3NTEwODA3MjN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Leon Cathedral: Stunning neo-gothic cathedral with colorful stained glass windows."></a>
+        <div class="citycard-caption">Leon Cathedral: Stunning neo-gothic cathedral with colorful stained glass windows.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Leon de los AldamasMexico" >Leon de los Aldamas</a>
+        <div class="citycard-about">Leon de los Aldamas, Mexico, is a hidden gem that offers a delightful blend of traditional charm and modern allure. From exploring the vibrant street markets overflowing with colorful textiles and handmade crafts, to savoring mouthwatering street tacos bursting with authentic flavors, this city captivates visitors with its authenticity and warmth. Take a stroll through the historic center and marvel at the stunning colonial architecture, or venture out to the nearby Sierra de Lobos mountains for a thrilling hiking adventure with breathtaking views. Whether you&#x27;re a culture enthusiast, foodie, nature lover, or all of the above, Leon de los Aldamas has something special to offer every traveler seeking a truly unforgettable experience.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/La LagunaMexico" ><img src="https://images.unsplash.com/photo-1645678968258-1326554fa242?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEJhc2lsaWNhJTIwb2YlMjBPdXIlMjBMYWR5JTIwb2YlMjBHdWFkYWx1cGUlMjBMYSUyMExhZ3VuYSUyME1leGljb3xlbnwwfHx8fDE3NTEwOTI0MTZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Basilica of Our Lady of Guadalupe: Important pilgrimage site with ornate architecture and religious significance."></a>
+        <div class="citycard-caption">1. Basilica of Our Lady of Guadalupe: Important pilgrimage site with ornate architecture and religious significance.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/La LagunaMexico" >La Laguna</a>
+        <div class="citycard-about">Nestled in the heart of Mexico&#x27;s vibrant Oaxaca region, La Laguna is a hidden gem waiting to be discovered. This quaint town enchants visitors with its cobblestone streets, colorful colonial architecture, and bustling markets overflowing with local handicrafts and culinary delights. A true haven for foodies, La Laguna offers a tantalizing array of traditional Oaxacan dishes to savor, from rich mole to tangy tlayudas. Take a leisurely stroll around the town&#x27;s picturesque lagoon, where tranquility reigns supreme, and immerse yourself in the warmth of the local community. Whether you&#x27;re seeking cultural immersion, culinary adventures, or simply a serene escape off the beaten path, La Laguna promises an unforgettable Mexican experience that will leave you longing to return.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Ciudad JuarezMexico" ><img src="https://images.unsplash.com/photo-1741358707994-56c7d7b17049?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQbGF6YSUyMGRlJTIwQXJtYXMlMjBDaXVkYWQlMjBKdWFyZXolMjBNZXhpY298ZW58MHx8fHwxNzUxMTA0MjUxfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Plaza de Armas: Historic square with gardens, sculptures, and concerts."></a>
+        <div class="citycard-caption">Plaza de Armas: Historic square with gardens, sculptures, and concerts.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Ciudad JuarezMexico" >Ciudad Juarez</a>
+        <div class="citycard-about">Ciudad Juarez, once known for its tumultuous past, has emerged as a vibrant city brimming with energy and culture that can&#x27;t be ignored. From its bustling markets filled with colorful handicrafts to its mouthwatering street food that will tantalize your taste buds, this border town has a way of captivating visitors with its authenticity. And let&#x27;s not forget the warm hospitality of its people, who are quick to welcome you with open arms and share tales of their beloved city. So go ahead, immerse yourself in the lively rhythms of Ciudad Juarez and discover the hidden gems that make this Mexican gem a must-visit destination.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/queretaromexico" ><img src="https://images.unsplash.com/photo-1598948494994-dc9def1ee3c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBcXVlZHVjdCUyMG9mJTIwUXVlcmV0YXJvJTIwUXVlcmV0YXJvJTIwTWV4aWNvfGVufDB8fHx8MTc1MTExOTkzN3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Aqueduct of Queretaro: 1,200m long aqueduct built in 18th century."></a>
+        <div class="citycard-caption">Aqueduct of Queretaro: 1,200m long aqueduct built in 18th century.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/queretaromexico" >Queretaro</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, Queretaro is a charming colonial city that seamlessly blends history with modernity. Stroll through cobblestone streets lined with colorful buildings and picturesque plazas filled with lively cafes and bars. From exploring well-preserved churches and museums to indulging in delicious local cuisine at bustling markets, Queretaro offers a perfect mix of culture and relaxation. Don&#x27;t miss the opportunity to taste the region&#x27;s renowned wines at nearby vineyards or embark on a hot air balloon ride for panoramic views of the stunning surroundings. Whether you&#x27;re a history buff, foodie, or adventure seeker, Queretaro has something for every traveler to enjoy.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/San Luis PotosiMexico" ><img src="https://images.unsplash.com/photo-1736319358220-26a77f183cfe?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUYW5nYW1hbmdhJTIwUGFyayUyMFNhbiUyMEx1aXMlMjBQb3Rvc2klMjBNZXhpY298ZW58MHx8fHwxNzUxMTM5NjkwfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Tangamanga Park: Urban park with lakes, gardens, and recreational activities."></a>
+        <div class="citycard-caption">Tangamanga Park: Urban park with lakes, gardens, and recreational activities.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/San Luis PotosiMexico" >San Luis Potosi</a>
+        <div class="citycard-about">San Luis Potosi, Mexico, is a hidden gem waiting to be discovered. This vibrant city seamlessly blends colonial architecture with a modern vibe, offering visitors a taste of both old-world charm and contemporary culture. Wander through the historic center&#x27;s colorful streets, indulge in delicious street food at the bustling markets, or explore the stunning natural wonders nearby like the surreal landscape of the Huasteca Potosina. Whether you&#x27;re a history buff, foodie, or nature lover, San Luis Potosi has something for everyone to enjoy in this off-the-beaten-path Mexican destination.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/meridamexico" ><img src="https://images.unsplash.com/photo-1661924309888-46a203d2ba14?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFBsYXphJTIwR3JhbmRlJTIwTWVyaWRhJTIwTWV4aWNvfGVufDB8fHx8MTc1MTE1MTM4M3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Plaza Grande: Historic central square surrounded by colonial architecture."></a>
+        <div class="citycard-caption">1. Plaza Grande: Historic central square surrounded by colonial architecture.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/meridamexico" >Merida</a>
+        <div class="citycard-about">Nestled in the heart of the Yucatan Peninsula, Merida is a vibrant tapestry of colonial charm, rich heritage, and modern flair. Wander through its bustling markets, where the scent of local cuisine mingles with the sounds of live music and laughter. Admire the grandeur of the Paseo de Montejo&#x27;s elegant mansions or immerse yourself in the city&#x27;s cultural tapestry at the Gran Museo del Mundo Maya. Whether you&#x27;re exploring ancient ruins, savoring spicy street food, or salsa dancing the night away, Merida welcomes you with open arms and a contagious zest for life.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/mexicalimexico" ><img src="https://images.unsplash.com/photo-1747607176106-ef0176141e9e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFBsYXphJTIwZGUlMjBUb3JvcyUyMENhbGFmaWElMjBNZXhpY2FsaSUyME1leGljb3xlbnwwfHx8fDE3NTExNTkxMjh8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Plaza de Toros Calafia: Historic bullfighting ring with cultural events."></a>
+        <div class="citycard-caption">1. Plaza de Toros Calafia: Historic bullfighting ring with cultural events.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/mexicalimexico" >Mexicali</a>
+        <div class="citycard-about">Bordering California, Mexicali is a vibrant city that seamlessly blends Mexican and American cultures. Known for its sizzling hot weather and mouthwatering culinary scene, Mexicali offers a unique experience for travelers seeking a taste of authentic Mexican cuisine and festive atmosphere. From indulging in street tacos to exploring the local craft beer scene, this city will leave you craving more. Don&#x27;t miss out on the chance to witness the breathtaking sunsets over the desert landscape or soak in natural hot springs for the ultimate relaxation. Mexicali is the perfect destination for an unforgettable Mexican adventure just south of the border.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/aguascalientesmexico" ><img src="https://images.unsplash.com/photo-1691363243055-9cc50a99630a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyME5hdGlvbmFsJTIwTXVzZXVtJTIwb2YlMjBEZWF0aCUyMEFndWFzY2FsaWVudGVzJTIwTWV4aWNvfGVufDB8fHx8MTc1MTE2MzAzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. National Museum of Death: Exhibits on Mexican death culture and traditions."></a>
+        <div class="citycard-caption">1. National Museum of Death: Exhibits on Mexican death culture and traditions.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/aguascalientesmexico" >Aguascalientes</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, Aguascalientes is a charming city bursting with vibrant culture and history. From the lively Plaza de la Patria to the fascinating Museo Nacional de la Muerte, every corner of Aguascalientes offers a glimpse into the rich heritage of this region. Feast on mouthwatering street tacos, explore the ornate Templo de San Marcos, or soak in the soothing waters of the iconic Ojocaliente hot springs. With its warm hospitality and colorful festivals, Aguascalientes is a hidden gem waiting to be discovered by intrepid travelers seeking an authentic Mexican experience.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/cuernavacamexico" ><img src="https://images.unsplash.com/photo-1563657284032-a1fa8b51f91a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQYWxhY2lvJTIwZGUlMjBDb3J0ZXMlMjBDdWVybmF2YWNhJTIwTWV4aWNvfGVufDB8fHx8MTc1MTE3MDc0NXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Palacio de Cortes: Historic palace with murals and gardens."></a>
+        <div class="citycard-caption">Palacio de Cortes: Historic palace with murals and gardens.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/cuernavacamexico" >Cuernavaca</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, Cuernavaca is a vibrant city where colonial history meets modern charm. Known as the &quot;City of Eternal Spring&quot;, Cuernavaca boasts perfect weather year-round, inviting visitors to explore its lush gardens, historic cathedrals, and bustling markets. Whether you&#x27;re wandering through the cobblestone streets of the city center, sampling delicious street food, or unwinding in a tranquil hacienda, Cuernavaca offers a delightful blend of culture, relaxation, and adventure that will leave you enchanted and longing to return.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/chihuahuamexico" ><img src="https://images.unsplash.com/photo-1582727867856-46e3951fd3ff?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDb3BwZXIlMjBDYW55b24lMjBDaGlodWFodWElMjBNZXhpY298ZW58MHx8fHwxNzUxMTcwODg0fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Copper Canyon: Vast canyon system with scenic train rides."></a>
+        <div class="citycard-caption">Copper Canyon: Vast canyon system with scenic train rides.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/chihuahuamexico" >Chihuahua</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, the vibrant city of Chihuahua offers a delightful mix of rich history, captivating culture, and mouthwatering cuisine. Explore the historic architecture of the city center, visit the impressive Cathedral, or take a leisurely stroll through the charming Plaza de Armas. For a taste of local flavors, don&#x27;t miss the chance to indulge in savory street tacos or savor a refreshing margarita at one of the lively cantinas. And if you&#x27;re feeling adventurous, venture outside the city to marvel at the awe-inspiring landscapes of Copper Canyon. Chihuahua will charm you with its warm hospitality and leave you craving more of its lively Mexican spirit.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/tampicomexico" ><img src="https://images.unsplash.com/photo-1723054244941-2c5ea966ecb5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQbGF6YSUyMGRlJTIwQXJtYXMlMjBUYW1waWNvJTIwTWV4aWNvfGVufDB8fHx8MTc1MTE4NjQ4NHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Plaza de Armas: Historic town square with gardens, fountains, and sculptures."></a>
+        <div class="citycard-caption">Plaza de Armas: Historic town square with gardens, fountains, and sculptures.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/tampicomexico" >Tampico</a>
+        <div class="citycard-about">Nestled along the Gulf of Mexico, Tampico effortlessly blends vibrant culture with laid-back beach vibes. Stroll down the bustling streets filled with colorful buildings and lively markets, then hop on a boat to cruise through the scenic Laguna del Carpintero. Indulge in mouthwatering seafood dishes at local eateries or relax on Miramar Beach with a cold drink in hand. Whether you&#x27;re exploring historical sites like the Palacio Municipal or simply soaking up the sun, Tampico is a delightful destination that promises a perfect mix of relaxation and adventure.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/saltillomexico" ><img src="https://images.unsplash.com/photo-1648319570163-f595fd4106c8?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNdXNlbyUyMGRlbCUyMERlc2llcnRvJTIwU2FsdGlsbG8lMjBNZXhpY298ZW58MHx8fHwxNzUxMTkwNDIxfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Museo del Desierto: Interactive museum with fossils, meteorites, and desert habitats."></a>
+        <div class="citycard-caption">Museo del Desierto: Interactive museum with fossils, meteorites, and desert habitats.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/saltillomexico" >Saltillo</a>
+        <div class="citycard-about">Saltillo, Mexico, where the warmth of the sun matches the friendliness of its people. This dynamic city effortlessly blends its rich cultural heritage with modern amenities, inviting visitors to explore its vibrant markets, stunning colonial architecture, and mouthwatering cuisine. Whether strolling through the picturesque Plaza de Armas or immersing in the fascinating Regional Museum of the Desert, Saltillo promises a delightful mix of history, art, and adventure. Soak in the tranquil beauty of the Alameda Zaragoza Park or savor the flavors of traditional dishes like cabrito and gorditas de chicharrón. With its charming streets and authentic charm, Saltillo is a gem waiting to be discovered.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Acapulco de JuarezMexico" ><img src="https://images.unsplash.com/photo-1675859636916-3de4f4a0f045?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxMYSUyMFF1ZWJyYWRhJTIwQ2xpZmYlMjBEaXZlcnMlMjBBY2FwdWxjbyUyMGRlJTIwSnVhcmV6JTIwTWV4aWNvfGVufDB8fHx8MTc1MTE5NDE3OHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="La Quebrada Cliff Divers: Daring cliff diving performances into the ocean."></a>
+        <div class="citycard-caption">La Quebrada Cliff Divers: Daring cliff diving performances into the ocean.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Acapulco de JuarezMexico" >Acapulco de Juarez</a>
+        <div class="citycard-about">Acapulco de Juarez, Mexico, is a vibrant coastal gem that seamlessly blends old-world charm with modern energy. Discover the iconic cliff divers showcasing jaw-dropping acrobatics against the backdrop of the Pacific Ocean, indulge in fresh seafood at bustling markets, and unwind on beautiful beaches with a refreshing margarita in hand. This dynamic destination offers a mix of thrilling nightlife, rich cultural experiences, and opportunities for relaxation, making it a must-visit for those seeking a lively and unforgettable escape in Mexico.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/cancunmexico" ><img src="https://images.unsplash.com/photo-1501085928709-6e5c3b86ad9c?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDaGljaGVuJTIwSXR6YSUyMENhbmN1biUyME1leGljb3xlbnwwfHx8fDE3NTExOTgyMDN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Chichen Itza: Ancient Mayan ruins with iconic step pyramid."></a>
+        <div class="citycard-caption">Chichen Itza: Ancient Mayan ruins with iconic step pyramid.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/cancunmexico" >Cancun</a>
+        <div class="citycard-about">Escape to the vibrant paradise of Cancun, where endless sunshine, pristine beaches, and turquoise waters await. This Mexican gem combines laid-back beach vibes with vibrant nightlife, offering a perfect blend of relaxation and excitement. Dive into the Mayan culture with a visit to ancient ruins, tantalize your taste buds with delicious street food, or dance the night away at world-class clubs. Whether you&#x27;re seeking adventure or simply looking to unwind on the sandy shores, Cancun has something for every traveler. Pack your bags and get ready for a tropical getaway like no other in this lively slice of paradise.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/moreliamexico" ><img src="https://images.unsplash.com/photo-1598948494994-dc9def1ee3c5?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBcXVlZHVjdCUyMG9mJTIwTW9yZWxpYSUyME1vcmVsaWElMjBNZXhpY298ZW58MHx8fHwxNzUxMjAxOTkzfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Aqueduct of Morelia: Historic 18th-century aqueduct with arches spanning the city."></a>
+        <div class="citycard-caption">Aqueduct of Morelia: Historic 18th-century aqueduct with arches spanning the city.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/moreliamexico" >Morelia</a>
+        <div class="citycard-about">Nestled in the heart of Mexico&#x27;s colorful state of Michoacán, Morelia enchants visitors with its striking colonial architecture, vibrant plazas, and mouthwatering cuisine. Dive into the city&#x27;s rich history as you wander the cobblestone streets lined with majestic cathedrals and ornate buildings, or treat your taste buds to an array of traditional dishes like carnitas and corundas at the bustling food markets. The warmth of the locals is as inviting as the year-round pleasant weather, making Morelia a must-visit destination for anyone seeking a culturally immersive and authentic Mexican experience.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/veracruzmexico" ><img src="https://images.unsplash.com/photo-1576868946232-c4696d176be9?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTYW4lMjBKdWFuJTIwZGUlMjBVbCVDMyVCQWElMjBWZXJhY3J1eiUyME1leGljb3xlbnwwfHx8fDE3NTEyMDk4NjF8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="San Juan de Ulúa: Historic fortress and prison on an island."></a>
+        <div class="citycard-caption">San Juan de Ulúa: Historic fortress and prison on an island.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/veracruzmexico" >Veracruz</a>
+        <div class="citycard-about">Nestled along Mexico&#x27;s Gulf Coast, Veracruz is a vibrant destination that seamlessly blends rich history with modern charm. Stroll along the colorful streets of the historic center, where lively music spills out of every corner and the tantalizing scent of fresh seafood beckons you to try the local delicacies. Dive into the region&#x27;s fascinating past at the San Juan de Ulúa fortress, or soak up the sun on the beautiful beaches lining the coast. With its lively atmosphere, delicious cuisine, and warm hospitality, Veracruz is a must-visit destination for anyone looking for a true taste of Mexican culture.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/reynosamexico" ><img src="https://images.unsplash.com/photo-1729626127838-00f588d85c37?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQbGF6YSUyME1pZ3VlbCUyMEhpZGFsZ28lMjBSZXlub3NhJTIwTWV4aWNvfGVufDB8fHx8MTc1MTIxMzc4M3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Plaza Miguel Hidalgo: Main square with historic buildings, shops, and restaurants."></a>
+        <div class="citycard-caption">Plaza Miguel Hidalgo: Main square with historic buildings, shops, and restaurants.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/reynosamexico" >Reynosa</a>
+        <div class="citycard-about">Nestled along the US-Mexico border, Reynosa offers an intriguing blend of vibrant culture, delicious cuisine, and warm hospitality. Explore the bustling Mercado Zaragoza for a true taste of local life, where the aromas of freshly grilled tacos and colorful handicrafts create a sensory feast. Take a leisurely stroll along the Rio Grande riverfront or enjoy a picnic at Parque Cultural Reynosa, where art installations and outdoor exhibitions capture the city&#x27;s creative spirit. From savoring authentic street food to discovering hidden gems in the historic downtown, Reynosa promises an unforgettable adventure for intrepid travelers seeking to experience the heartbeat of Mexico just beyond the border.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/villahermosamexico" ><img src="https://images.unsplash.com/photo-1691363243055-9cc50a99630a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxMYSUyMFZlbnRhJTIwUGFyayUyME11c2V1bSUyMFZpbGxhaGVybW9zYSUyME1leGljb3xlbnwwfHx8fDE3NTEyMTM4ODB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="La Venta Park Museum: Outdoor museum with Olmec artifacts and ruins."></a>
+        <div class="citycard-caption">La Venta Park Museum: Outdoor museum with Olmec artifacts and ruins.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/villahermosamexico" >Villahermosa</a>
+        <div class="citycard-about">Nestled in the heart of the lush Tabasco region, Villahermosa is a vibrant city that seamlessly blends ancient Mayan heritage with modern Mexican culture. From the bustling markets overflowing with colorful handicrafts and spicy street food to the impressive Parque Museo La Venta filled with towering Olmec stone heads, this city offers a sensory feast for travelers of all kinds. Don&#x27;t miss the chance to explore the nearby ancient ruins of Palenque or take a boat ride through the mystical mangroves of Centla Biosphere Reserve. Villahermosa truly captures the essence of Mexico&#x27;s rich history and natural beauty, making it a must-visit destination for anyone seeking an authentic and unforgettable experience.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/hermosillomexico" ><img src="https://images.unsplash.com/photo-1642040794936-4ab5e3a1e82d?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDZXJybyUyMGRlJTIwbGElMjBDYW1wYW5hJTIwSGVybW9zaWxsbyUyME1leGljb3xlbnwwfHx8fDE3NTEyMjU2MTB8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Cerro de la Campana: Hill with hiking trails and panoramic city views."></a>
+        <div class="citycard-caption">Cerro de la Campana: Hill with hiking trails and panoramic city views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/hermosillomexico" >Hermosillo</a>
+        <div class="citycard-about">Nestled in the heart of Sonora, Hermosillo invites travelers to discover the true essence of Mexican charm with a modern twist. From savoring mouthwatering carne asada tacos at local street stands to exploring the historical architecture of the city center, Hermosillo offers a perfect blend of tradition and innovation. Don&#x27;t miss the chance to witness the breathtaking sunsets over the desert landscape or to sip on refreshing margaritas with friendly locals. Whether you&#x27;re a foodie, history buff, or nature lover, Hermosillo promises an unforgettable journey filled with authenticity and warmth. ¡Viva Hermosillo!</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Tuxtla GutierrezMexico" ><img src="https://images.unsplash.com/photo-1678141823183-86fe8b5e8dca?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxDYSVDMyVCMSVDMyVCM24lMjBkZWwlMjBTdW1pZGVybyUyMFR1eHRsYSUyMEd1dGllcnJleiUyME1leGljb3xlbnwwfHx8fDE3NTEyMjk2MTd8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Cañón del Sumidero: Spectacular canyon with boat tours and wildlife viewing."></a>
+        <div class="citycard-caption">Cañón del Sumidero: Spectacular canyon with boat tours and wildlife viewing.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Tuxtla GutierrezMexico" >Tuxtla Gutierrez</a>
+        <div class="citycard-about">Nestled amid the lush landscapes of Chiapas, Tuxtla Gutierrez is a vibrant Mexican city that seamlessly blends modern amenities with rich indigenous heritage. Explore the bustling markets where you can taste the local delicacies, or wander through the lively parks filled with families enjoying the warm sun. For nature enthusiasts, a boat ride through the Sumidero Canyon will leave you awe-inspired by the towering cliffs and diverse wildlife. Whether you&#x27;re craving adventure or relaxation, Tuxtla Gutierrez offers a delightful mix of culture, nature, and warmth that will captivate your senses and leave you yearning for more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/culiacanmexico" ><img src="https://images.unsplash.com/photo-1736319358220-26a77f183cfe?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFBhcnF1ZSUyMExhcyUyMFJpYmVyYXMlMjBDdWxpYWNhbiUyME1leGljb3xlbnwwfHx8fDE3NTEyMzM0MzR8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Parque Las Riberas: Riverside park with walking trails and outdoor activities."></a>
+        <div class="citycard-caption">1. Parque Las Riberas: Riverside park with walking trails and outdoor activities.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/culiacanmexico" >Culiacan</a>
+        <div class="citycard-about">Nestled in the vibrant state of Sinaloa, Culiacan offers up a mix of traditional charm and modern excitement that will have you dancing to the beat of banda music in no time. Known for its delicious street tacos and bustling markets, this city is a culinary paradise just waiting to be explored. But Culiacan is more than just food - it&#x27;s a place where history and culture collide, from the iconic Cathedral Basilica to the striking museums showcasing the region&#x27;s rich heritage. So pack your sombrero and get ready to dive into the colorful tapestry of Culiacan, where every corner holds a new adventure waiting to be discovered. Viva Culiacan!</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/xalapamexico" ><img src="https://images.unsplash.com/photo-1645450350532-f23817cf1562?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxYYWxhcGElMjBDYXRoZWRyYWwlMjBYYWxhcGElMjBNZXhpY298ZW58MHx8fHwxNzUxMjUyODcwfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Xalapa Cathedral: Historic cathedral with Baroque architecture and beautiful interior."></a>
+        <div class="citycard-caption">Xalapa Cathedral: Historic cathedral with Baroque architecture and beautiful interior.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/xalapamexico" >Xalapa</a>
+        <div class="citycard-about">Nestled in the lush mountains of Veracruz, Xalapa effortlessly blends colonial charm with a vibrant cultural scene. Home to bustling markets, cozy cafes, and world-class museums like the Museo de Antropología, this university town exudes a youthful energy that&#x27;s impossible to resist. Take a leisurely stroll through the picturesque streets, lined with colorful buildings and dotted with quirky street art, or escape the heat in the cool shade of Parque Juárez. With its perfect mix of history, nature, and creativity, Xalapa promises an unforgettable Mexican adventure for every traveler.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Oaxaca de JuarezMexico" ><img src="https://images.unsplash.com/photo-1674585531800-ccf690933c7e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxab2NhbG8lMjBPYXhhY2ElMjBkZSUyMEp1YXJleiUyME1leGljb3xlbnwwfHx8fDE3NTEyODA2MjZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Zocalo: Main square with historic buildings, shops, and restaurants."></a>
+        <div class="citycard-caption">Zocalo: Main square with historic buildings, shops, and restaurants.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Oaxaca de JuarezMexico" >Oaxaca de Juarez</a>
+        <div class="citycard-about">Oaxaca de Juarez, a vibrant and charming city in southern Mexico, is a feast for the senses. From the tantalizing aromas of street food vendors selling tlayudas and mole, to the colorful markets brimming with handcrafted treasures, Oaxaca captivates with its rich cultural tapestry. Stroll cobblestone streets lined with colonial architecture, explore ancient Zapotec ruins at Monte Alban, or sip on mezcal in trendy rooftop bars overlooking the bustling zocalo. Whether you&#x27;re a foodie, history buff, or simply seeking a lively and authentic Mexican experience, Oaxaca de Juarez will leave you enchanted and craving more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/celayamexico" ><img src="https://images.unsplash.com/photo-1691363294166-93b31b06139d?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUZW1wbGUlMjBvZiUyMFNhbiUyMEZyYW5jaXNjbyUyMENlbGF5YSUyME1leGljb3xlbnwwfHx8fDE3NTEyOTYyOTN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Temple of San Francisco: Historic church with ornate Baroque architecture."></a>
+        <div class="citycard-caption">Temple of San Francisco: Historic church with ornate Baroque architecture.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/celayamexico" >Celaya</a>
+        <div class="citycard-about">Celaya, Mexico is a charming gem waiting to be uncovered, where the aroma of freshly baked bread mingles with the sound of bustling markets and vibrant mariachi music. Stroll through the historic center and admire the captivating blend of colonial architecture and colorful street art that adorns the city&#x27;s walls. Indulge in the local cuisine with mouthwatering carnitas tacos and decadent cajeta desserts that will leave your taste buds dancing. Explore the nearby lush countryside and discover hidden waterfalls and ancient ruins that whisper secrets of the past. Celaya beckons you to immerse yourself in its rich culture and warm hospitality, promising an unforgettable adventure off the beaten path.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Pachuca de SotoMexico" ><img src="https://images.unsplash.com/photo-1651756534410-170ddf81f358?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNb251bWVudGFsJTIwQ2xvY2slMjBvZiUyMFBhY2h1Y2ElMjBQYWNodWNhJTIwZGUlMjBTb3RvJTIwTWV4aWNvfGVufDB8fHx8MTc1MTMyMDAzNnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Monumental Clock of Pachuca: Historic clock tower in the city center."></a>
+        <div class="citycard-caption">Monumental Clock of Pachuca: Historic clock tower in the city center.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Pachuca de SotoMexico" >Pachuca de Soto</a>
+        <div class="citycard-about">Nestled in the heart of central Mexico, Pachuca de Soto is a hidden gem waiting to be discovered by adventurous travelers. This charming city seamlessly blends history with modernity, boasting vibrant murals that grace its streets and a stunning architectural mix of colonial and Art Nouveau buildings. Be sure to sample the local delicacy, pastes, a delicious pastry filled with savory goodness. Dive into the mining history at the Surrealistic Garden of Edward James or explore the majestic Grutas de Tolantongo for a dip in the natural hot springs. Pachuca de Soto offers a unique and authentic Mexican experience that is sure to leave a lasting impression.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/durangomexico" ><img src="https://images.unsplash.com/photo-1570639366624-b9d977931bb4?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQYXNlbyUyMER1cmFuZ28lMjBEdXJhbmdvJTIwTWV4aWNvfGVufDB8fHx8MTc1MTMyMDI5MXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Paseo Durango: Popular shopping mall with a wide variety of stores."></a>
+        <div class="citycard-caption">Paseo Durango: Popular shopping mall with a wide variety of stores.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/durangomexico" >Durango</a>
+        <div class="citycard-about">Nestled in the heart of Mexico, Durango is a hidden gem waiting to be explored. From its picturesque colonial architecture to its vibrant markets filled with local treasures, there is a sense of authenticity that permeates the air. But don&#x27;t be fooled by its old-world charm, Durango is also a playground for adrenaline junkies with its rugged terrain perfect for hiking, biking, and zip-lining. And let&#x27;s not forget the mouthwatering street food, a culinary adventure in itself. So pack your bags and get ready to immerse yourself in the rich culture and thrilling adventures that Durango has to offer.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/tlaxcalamexico" ><img src="https://images.unsplash.com/photo-1645678968258-1326554fa242?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCYXNpbGljYSUyMG9mJTIwT3VyJTIwTGFkeSUyMG9mJTIwT2NvdGxhbiUyMFRsYXhjYWxhJTIwTWV4aWNvfGVufDB8fHx8MTc1MTM0MzY5NXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Basilica of Our Lady of Ocotlan: Historic basilica with ornate interior and religious significance."></a>
+        <div class="citycard-caption">Basilica of Our Lady of Ocotlan: Historic basilica with ornate interior and religious significance.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/tlaxcalamexico" >Tlaxcala</a>
+        <div class="citycard-about">Welcome to Tlaxcala, a hidden gem in Mexico waiting to be explored! This charming colonial city offers a unique blend of history, culture, and delicious cuisine. Stroll through the colorful streets lined with vibrant buildings, visit the impressive Basilica of Our Lady of Ocotlán, and don&#x27;t miss the bustling local markets where you can taste authentic Mexican flavors. Feel the magic of this off-the-beaten-path destination as you immerse yourself in its rich traditions and warm hospitality. Tlaxcala is a must-visit for travelers seeking an authentic Mexican experience away from the crowds.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/mexico/mexicohome" >Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/mexico/mexicomore" >More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/mexico/mexicocityguide" >Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([23.17417679, -98.16124065757576], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([19.4326296,-99.1331785]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Mexico CityMexico" >Mexico City</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Mexico CityMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([20.6720375,-103.338396]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/guadalajaramexico" >Guadalajara</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/guadalajaramexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([25.6802019,-100.315258]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/monterreymexico" >Monterrey</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/monterreymexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([18.833333,-98.0]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/pueblamexico" >Puebla</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/pueblamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([19.292545,-99.6569007]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Toluca de LerdoMexico" >Toluca de Lerdo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Toluca de LerdoMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([32.5010188,-116.964662]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/tijuanamexico" >Tijuana</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/tijuanamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([26.0962497,-99.2763436]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Leon de los AldamasMexico" >Leon de los Aldamas</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Leon de los AldamasMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([25.54275967,-103.4068701]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/La LagunaMexico" >La Laguna</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/La LagunaMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([31.7097961,-106.455581]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Ciudad JuarezMexico" >Ciudad Juarez</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Ciudad JuarezMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([20.5927744,-100.3902245]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/queretaromexico" >Queretaro</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/queretaromexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([22.5000001,-100.4949145]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/San Luis PotosiMexico" >San Luis Potosi</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/San Luis PotosiMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([38.9174665,-6.3443977]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/meridamexico" >Merida</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/meridamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([32.6248622,-115.448325]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/mexicalimexico" >Mexicali</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/mexicalimexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([22.0000001,-102.5000001]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/aguascalientesmexico" >Aguascalientes</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/aguascalientesmexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([18.9218274,-99.2342282]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/cuernavacamexico" >Cuernavaca</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/cuernavacamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([28.5000001,-106.0000001]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/chihuahuamexico" >Chihuahua</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/chihuahuamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([22.2329889,-97.8614802]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/tampicomexico" >Tampico</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/tampicomexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([25.4230425,-100.9927509]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/saltillomexico" >Saltillo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/saltillomexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([16.8680495,-99.8940182]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Acapulco de JuarezMexico" >Acapulco de Juarez</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Acapulco de JuarezMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([21.1617854,-86.8510468]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/cancunmexico" >Cancun</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/cancunmexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([19.7027116,-101.1923818]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/moreliamexico" >Morelia</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/moreliamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([19.333333,-96.666667]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/veracruzmexico" >Veracruz</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/veracruzmexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([26.0704018,-98.2963932]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/reynosamexico" >Reynosa</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/reynosamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([18.0018152,-92.9330401]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/villahermosamexico" >Villahermosa</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/villahermosamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([29.0948207,-110.9692202]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/hermosillomexico" >Hermosillo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/hermosillomexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([16.753801,-93.115959]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Tuxtla GutierrezMexico" >Tuxtla Gutierrez</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Tuxtla GutierrezMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.7978965,-107.393395]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/culiacanmexico" >Culiacan</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/culiacanmexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([19.5408338,-96.9146374]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/xalapamexico" >Xalapa</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/xalapamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([17.0604663,-96.7253575]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Oaxaca de JuarezMexico" >Oaxaca de Juarez</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Oaxaca de JuarezMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([20.5218445,-100.8139609]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/celayamexico" >Celaya</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/celayamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([20.1165413,-98.7413535]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Pachuca de SotoMexico" >Pachuca de Soto</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Pachuca de SotoMexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.833333,-104.833333]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/durangomexico" >Durango</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/durangomexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([19.416667,-98.166667]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/tlaxcalamexico" >Tlaxcala</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/tlaxcalamexico" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ?" " :" none";
+      }
+    }
+  </script>
+</body>
+</html>

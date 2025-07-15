@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saudiarabia City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas" >← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Saudiarabia</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/RiyadhSaudi Arabia" ><img src="https://images.unsplash.com/photo-1731323772710-6a73b33bb4f8?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEtpbmdkb20lMjBDZW50cmUlMjBUb3dlciUyMFJpeWFkaCUyMFNhdWRpJTIwQXJhYmlhfGVufDB8fHx8MTc1MDk5NDY3Mnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Kingdom Centre Tower: Iconic skyscraper with viewing deck and luxury shopping."></a>
+        <div class="citycard-caption">1. Kingdom Centre Tower: Iconic skyscraper with viewing deck and luxury shopping.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/RiyadhSaudi Arabia" >Riyadh</a>
+        <div class="citycard-about">Step into the modern and traditional fusion of Riyadh, Saudi Arabia, where gleaming skyscrapers overlook ancient souks bustling with life. Discover the city&#x27;s rich history at the National Museum and delve into the local culture at the vibrant Diriyah district. Indulge in mouthwatering Middle Eastern cuisine at authentic restaurants or unwind in luxury at the city&#x27;s lavish hotels. Whether you&#x27;re exploring the sweeping desert landscapes or witnessing the stunning architecture, Riyadh promises an unforgettable adventure that seamlessly blends past and present in the heart of Saudi Arabia.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/JiddahSaudi Arabia" ><img src="https://images.unsplash.com/photo-1600701210638-625a1d504fed?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEFsLUJhbGFkJTIwSmlkZGFoJTIwU2F1ZGklMjBBcmFiaWF8ZW58MHx8fHwxNzUxMDA2NTExfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Al-Balad: Historic district with traditional architecture and souks."></a>
+        <div class="citycard-caption">1. Al-Balad: Historic district with traditional architecture and souks.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/JiddahSaudi Arabia" >Jiddah</a>
+        <div class="citycard-about">Jeddah, Saudi Arabia, is a vibrant coastal city that seamlessly weaves together tradition and modernity, creating a unique and dynamic atmosphere that captures the essence of Saudi culture. From the bustling souks filled with aromatic spices and intricate textiles to the towering skyscrapers that dot the skyline, Jeddah offers a sensory experience like no other. Don&#x27;t miss the opportunity to stroll along the Corniche, where the Red Sea sparkles under the Arabian sun, or dive into the rich history of the city at the Al-Balad historic district. Jeddah is a hidden gem waiting to be explored, offering a glimpse into the heart and soul of Saudi Arabia.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/MeccaSaudi Arabia" ><img src="https://images.unsplash.com/photo-1710695198971-3abdf7fcc82e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLYWFiYSUyME1lY2NhJTIwU2F1ZGklMjBBcmFiaWF8ZW58MHx8fHwxNzUxMDY1Mjg4fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Kaaba: Holiest site in Islam, focal point of Hajj pilgrimage."></a>
+        <div class="citycard-caption">Kaaba: Holiest site in Islam, focal point of Hajj pilgrimage.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/MeccaSaudi Arabia" >Mecca</a>
+        <div class="citycard-about">Mecca, Saudi Arabia, is a city that pulsates with spiritual energy, ancient history, and vibrant culture. Home to the holiest site in Islam, the Great Mosque of Mecca, this city draws millions of pilgrims each year for the Hajj pilgrimage. Beyond its religious significance, Mecca offers a unique blend of tradition and modernity, with bustling markets, aromatic street food stalls, and stunning modern architecture. Immerse yourself in the sights and sounds of this dynamic city, where the call to prayer echoes through the bustling streets and the sense of unity among diverse pilgrims is palpable. Mecca is a truly unforgettable destination that will leave you in awe of its spiritual grandeur and cultural richness.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/MedinaSaudi Arabia" ><img src="https://images.unsplash.com/photo-1646931826929-97e6951f150f?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBbC1NYXNqaWQlMjBhbi1OYWJhd2klMjBNZWRpbmElMjBTYXVkaSUyMEFyYWJpYXxlbnwwfHx8fDE3NTExMDQ0Mjl8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Al-Masjid an-Nabawi: Second holiest mosque in Islam, burial site of Muhammad."></a>
+        <div class="citycard-caption">Al-Masjid an-Nabawi: Second holiest mosque in Islam, burial site of Muhammad.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/MedinaSaudi Arabia" >Medina</a>
+        <div class="citycard-about">Medina, Saudi Arabia, is an enchanting city that effortlessly blends rich history with modern charm. Known as the &quot;City of the Prophet,&quot; you can sense the spiritual aura as you wander through its narrow streets lined with vibrant markets and ornate mosques. Take a moment to soak in the tranquility of the Prophet&#x27;s Mosque, bustling with pilgrims and locals alike. Don&#x27;t miss the chance to savor the aromatic flavors of traditional Saudi cuisine at local eateries, or indulge in some retail therapy at the bustling Quba Market. Whether you&#x27;re seeking spiritual rejuvenation or simply a taste of authentic Arabian culture, Medina is a captivating destination that promises a truly unforgettable experience.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Ad-DammamSaudi Arabia" ><img src="https://images.unsplash.com/photo-1625236466493-72842ceec47b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEtpbmclMjBGYWhkJTIwUGFyayUyMEFkLURhbW1hbSUyMFNhdWRpJTIwQXJhYmlhfGVufDB8fHx8MTc1MTEzNTU2OHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. King Fahd Park: Beautiful park with gardens, lakes, and children&#x27;s play areas."></a>
+        <div class="citycard-caption">1. King Fahd Park: Beautiful park with gardens, lakes, and children&#x27;s play areas.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Ad-DammamSaudi Arabia" >Ad-Dammam</a>
+        <div class="citycard-about">Ad-Dammam, a bustling port city in Saudi Arabia, offers a unique blend of modern amenities and traditional charm. From exploring the picturesque Corniche with stunning views of the Arabian Gulf to indulging in authentic Middle Eastern cuisine at the local souks, there is something for everyone in this vibrant city. Don&#x27;t miss the opportunity to visit the heritage village to get a glimpse of the rich history and culture of the region. With friendly locals and a dynamic atmosphere, Ad-Dammam is a hidden gem waiting to be discovered by adventurous travelers seeking an off-the-beaten-path experience in the heart of the Arabian Peninsula.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Hufuf-MubarrazSaudi Arabia" ><img src="https://images.unsplash.com/photo-1668352095668-f809f41b2ba9?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxJYm4lMjBLaGFsZG91biUyME1hbGwlMjBIdWZ1Zi1NdWJhcnJheiUyMFNhdWRpJTIwQXJhYmlhfGVufDB8fHx8MTc1MTIzNzIxOHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Ibn Khaldoun Mall: Large shopping center with a variety of stores and restaurants."></a>
+        <div class="citycard-caption">Ibn Khaldoun Mall: Large shopping center with a variety of stores and restaurants.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Hufuf-MubarrazSaudi Arabia" >Hufuf-Mubarraz</a>
+        <div class="citycard-about">Located in the heart of the Eastern Province, Hufuf-Mubarraz in Saudi Arabia seamlessly blends tradition with modernity, offering a unique glimpse into the Kingdom&#x27;s rich heritage. From the bustling traditional souks filled with vibrant textiles and intricate pottery to the striking architecture of the historic mud-brick forts, this charming destination promises an authentic Arabian experience. Take a leisurely stroll through the picturesque Date Market, breathe in the sweet aroma of fresh dates, and immerse yourself in the warm hospitality of the locals. Whether you&#x27;re exploring the ancient Al-Qara Mountain or indulging in mouthwatering local cuisine, Hufuf-Mubarraz invites you to step off the beaten path and discover the hidden gems of Saudi Arabia with open arms.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/TaifSaudi Arabia" ><img src="https://images.unsplash.com/photo-1664064004793-62d7f42941dc?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFNodWJyYSUyMFBhbGFjZSUyMFRhaWYlMjBTYXVkaSUyMEFyYWJpYXxlbnwwfHx8fDE3NTEyOTI0Njh8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Shubra Palace: Restored historic palace with traditional architecture and gardens."></a>
+        <div class="citycard-caption">1. Shubra Palace: Restored historic palace with traditional architecture and gardens.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/TaifSaudi Arabia" >Taif</a>
+        <div class="citycard-about">Nestled in the mountains of Saudi Arabia, Taif beckons with its cool temperatures, lush gardens, and unique charm. Known as the City of Roses, Taif boasts enchanting scents and vivid colors during the annual Rose Festival, a delightful spectacle for the senses. Visitors can wander through the historic Souq Okaz, where ancient trading traditions come to life, or take a leisurely stroll along the scenic Al Rudaf Park. With its refreshing climate, rich history, and warm hospitality, Taif offers a refreshing escape from the hustle and bustle of modern life.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/BuraydahSaudi Arabia" ><img src="https://images.unsplash.com/photo-1673538104712-62c9ac12462f?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEtpbmclMjBBYmR1bGxhaCUyMFBhcmslMjBCdXJheWRhaCUyMFNhdWRpJTIwQXJhYmlhfGVufDB8fHx8MTc1MTMwMDMxMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. King Abdullah Park: Family-friendly park with green spaces and entertainment options."></a>
+        <div class="citycard-caption">1. King Abdullah Park: Family-friendly park with green spaces and entertainment options.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/BuraydahSaudi Arabia" >Buraydah</a>
+        <div class="citycard-about">Welcome to Buraydah, a vibrant city in the heart of Saudi Arabia that seamlessly blends tradition with modernity. Explore the bustling markets filled with exotic spices and intricate textiles, or take a leisurely stroll along the serene Wadi Hanifah park to escape the desert heat. Indulge in authentic Arabian cuisine at local eateries, where you can savor delicious kebabs and fragrant saffron-infused rice. Whether you&#x27;re captivated by the ancient mud-brick architecture or enchanted by the warm hospitality of the locals, Buraydah promises a unique and unforgettable experience that will leave you wanting more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/TabukSaudi Arabia" ><img src="https://images.unsplash.com/photo-1591697166655-34eaa1c621a2?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUdXdhaXElMjBQYWxhY2UlMjBUYWJ1ayUyMFNhdWRpJTIwQXJhYmlhfGVufDB8fHx8MTc1MTMwODI3OXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Tuwaiq Palace: Historic mud-brick fort with scenic views of Tabuk city."></a>
+        <div class="citycard-caption">Tuwaiq Palace: Historic mud-brick fort with scenic views of Tabuk city.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/TabukSaudi Arabia" >Tabuk</a>
+        <div class="citycard-about">Tabuk, Saudi Arabia, may not be your typical tourist hotspot, but it&#x27;s a hidden gem waiting to be discovered. From the rugged beauty of the Tabuk Mountains to the historic Al Raqi Historical Village, this city offers a unique blend of nature and culture. Explore the vibrant local markets, savor authentic Middle Eastern cuisine, and immerse yourself in the warm hospitality of the locals. Whether you&#x27;re an adventure seeker or a history buff, Tabuk has something to offer everyone. So pack your bags and get ready for an unforgettable journey off the beaten path in this enchanting Saudi Arabian city.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/JubaylSaudi Arabia" ><img src="https://images.unsplash.com/photo-1710815759725-952f8a7ed017?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEtpbmclMjBGYWhkJTIwRm91bnRhaW4lMjBKdWJheWwlMjBTYXVkaSUyMEFyYWJpYXxlbnwwfHx8fDE3NTEzMjgxMjZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. King Fahd Fountain: World&#x27;s tallest fountain with stunning light displays."></a>
+        <div class="citycard-caption">1. King Fahd Fountain: World&#x27;s tallest fountain with stunning light displays.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/JubaylSaudi Arabia" >Jubayl</a>
+        <div class="citycard-about">Jubayl, Saudi Arabia, is a hidden gem along the Red Sea coast that seamlessly blends rich history with vibrant modernity. Stroll through the old town&#x27;s winding alleys and marvel at the well-preserved Ottoman architecture, then relax on the pristine beaches and indulge in fresh seafood at the bustling waterfront. Dive into the deep blue waters for world-class snorkeling or explore the nearby mangrove forests teeming with wildlife. With its warm hospitality, mouthwatering cuisine, and captivating blend of tradition and innovation, Jubayl promises a unique and unforgettable Arabian experience.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/saudiarabia/saudiarabiahome" >Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/saudiarabia/saudiarabiamore" >More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/saudiarabia/saudiarabiacityguide" >Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([25.249333999999998, 43.09353921], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([24.638916,46.7160104]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/RiyadhSaudi Arabia" >Riyadh</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/RiyadhSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([21.5810088,39.1653612]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/JiddahSaudi Arabia" >Jiddah</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/JiddahSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([21.420847,39.826869]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/MeccaSaudi Arabia" >Mecca</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/MeccaSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([24.471153,39.6111216]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/MedinaSaudi Arabia" >Medina</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/MedinaSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([26.4367824,50.1039991]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Ad-DammamSaudi Arabia" >Ad-Dammam</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Ad-DammamSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([25.4100012,49.580833]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Hufuf-MubarrazSaudi Arabia" >Hufuf-Mubarraz</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/Hufuf-MubarrazSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([21.270278,40.415833]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/TaifSaudi Arabia" >Taif</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/TaifSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([26.331667,43.971667]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/BuraydahSaudi Arabia" >Buraydah</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/BuraydahSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([28.3251866,37.6328648]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/TabukSaudi Arabia" >Tabuk</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/TabukSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([32.6075,43.910833]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/JubaylSaudi Arabia" >Jubayl</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/JubaylSaudi Arabia" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ?" " :" none";
+      }
+    }
+  </script>
+</body>
+</html>

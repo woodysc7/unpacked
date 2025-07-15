@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Block all direct access to Paid folder contents
+RewriteCond %{REQUEST_URI} ^/Paid/
+RewriteRule ^(.*)$ /.netlify/functions/servePaidContent?page=$1 [R=302,L]
+
+# Prevent .htaccess file access
+<Files ".htaccess">
+Order allow,deny
+Deny from all
+</Files>
+
+# Prevent access to sensitive files
+<FilesMatch "\.(env|config|key|json)$">
+Order allow,deny
+Deny from all
+</FilesMatch>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas United Kingdom</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="unitedkingdom-label">
+      UNITED KINGDOM
+      <img class="flag-icon" src="https://flagcdn.com/gb.svg" alt="United Kingdom flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/28804234/pexels-photo-28804234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Classic view of the Royal Liver Building with clock towers in Liverpool, UK." data-title="Classic view of the Royal Liver Building with clock towers in Liverpool, UK." data-meta="Photographer: Oliver Potter" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/10555529/pexels-photo-10555529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the medieval architecture of Caerphilly Castle, a grand stone fortification in Wales." data-title="Explore the medieval architecture of Caerphilly Castle, a grand stone fortification in Wales." data-meta="Photographer: Lakruwan Rajapaksha" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/20819238/pexels-photo-20819238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the historical Gwrych Castle nestled in the Welsh countryside, a captivating travel destination." data-title="Explore the historical Gwrych Castle nestled in the Welsh countryside, a captivating travel destination." data-meta="Photographer: Lisa from Pexels" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/30763846/pexels-photo-30763846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Iconic view of UK's Houses of Parliament with Union Jack flying high." data-title="Iconic view of UK's Houses of Parliament with Union Jack flying high." data-meta="Photographer: Diego Spano" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Classic view of the Royal Liver Building with clock towers in Liverpool, UK.</div>
+    <div class="art-info-meta">Photographer: Oliver Potter</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">United Kingdom News</div>
+          
+    <a href="https://krdo.com/news/national-world/cnn-world/2025/06/25/trumps-state-visit-to-the-uk-to-take-place-this-year-says-buckingham-palace/" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">Trump’s state visit to the UK to take place this year, says Buckingham Palace</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-06-25T14:43:07Z &middot; KRDO</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">By Max Foster and Lauren Said-Moorhouse, CNN London (CNN) — The United Kingdom will host Donald Trump for a state visit this year, but King Charles</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://turks.us/turkey-pride-march-8/" class="blog-post" target="_blank">
+            <div class="blog-title">Turkey Pride March</div>
+            <div class="blog-meta">State AlabamaAlaskaArizonaArkansasCaliforniaColoradoConnecticutDelawareFloridaGeorgiaHawaiiIdahoIllinoisIndianaIowaKansasKentuckyLouisianaMaineMarylandMassachusettsMichiganMinnesotaMississippiMissouriMontanaNebraskaNevadaNew HampshireNew JerseyNew MexicoNew YorkNorth CarolinaNorth DakotaOhioOklahomaOregonPennsylvaniaRhode IslandSouth CarolinaSouth DakotaTennesseeTexasUtahVermontVirginiaWashingtonWashington D.C.West VirginiaWisconsinWyomingPuerto RicoUS Virgin IslandsArmed Forces AmericasArmed Forces PacificArmedThe post Turkey Pride March appeared first on Daily News World News Turkish Turkey.</div>
+        </a>
+        
+        <a href="http://www.theportugalnews.com/news/2025-06-29/luxury-real-estate-resists-uncertainty/98906" class="blog-post" target="_blank">
+            <div class="blog-title">Luxury real estate resists uncertainty</div>
+            <div class="blog-meta">The luxury real estate market in Portugal is resisting the global context of uncertainty and volatility and continues to record an increase in demand.</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of United Kingdom</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/28804234/pexels-photo-28804234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Classic view of the Royal Liver Building with clock towers in Liverpool, UK." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/10555529/pexels-photo-10555529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the medieval architecture of Caerphilly Castle, a grand stone fortification in Wales." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/20819238/pexels-photo-20819238.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the historical Gwrych Castle nestled in the Welsh countryside, a captivating travel destination." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/30763846/pexels-photo-30763846.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Iconic view of UK's Houses of Parliament with Union Jack flying high." style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Prehistoric and Celtic Britain (Before 43 CE)</h3>
+<p>
+Long before written records, ancient Britons inhabited the island, leaving behind enigmatic stone circles like Stonehenge. Celtic tribes, such as the Britons, Gaels, and Picts, dominated the landscape, with intricate societies and religious practices. Their interactions with continental Europe shaped early British culture and trade networks.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Roman Occupation and Britannia (43–410)</h3>
+<p>
+The Roman conquest of Britain in 43 CE brought sophisticated engineering, governance, and urban planning to the island. Britannia became a vital part of the Roman Empire, with cities like Londinium (London) flourishing as centers of trade and administration. Roman rule left lasting influences on British infrastructure, language, and law.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Anglo-Saxon and Viking Invasions (410–1066)</h3>
+<p>
+Following the Roman withdrawal in the early 5th century, waves of Anglo-Saxon invaders settled in Britain, establishing numerous kingdoms. The Viking raids from the 8th century onwards further reshaped the political landscape, leading to the eventual unification of England under King Æthelstan in 927. These invasions left a mark on language, place names, and governance.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Norman Conquest and Medieval England (1066–1485)</h3>
+<p>
+In 1066, William the Conqueror of Normandy defeated King Harold II at the Battle of Hastings, ushering in Norman rule over England. The Middle Ages saw the construction of iconic castles, cathedrals, and the Magna Carta in 1215, a foundational document for English liberties. Feudalism, chivalry, and the bubonic plague also marked this era.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Tudor and Elizabethan England (1485–1603)</h3>
+<p>
+The Tudor dynasty, beginning with Henry VII, brought stability and cultural flourishing to England. Henry VIII’s split from the Catholic Church led to the English Reformation, and his daughter, Elizabeth I, oversaw a golden age of exploration, literature, and the defeat of the Spanish Armada in 1588. Shakespeare, Drake, and Raleigh defined this era.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Civil War, Commonwealth, and Restoration (1603–1714)</h3>
+<p>
+The Stuart period witnessed the English Civil War (1642–1651) between Parliamentarians and Royalists, resulting in the temporary abolition of the monarchy and the establishment of the Commonwealth under Oliver Cromwell. The Restoration of the monarchy in 1660, starting with Charles II, brought a period of relative stability and the Glorious Revolution of 1688.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">British Empire and Industrial Revolution (1714–1914)</h3>
+<p>
+The 18th and 19th centuries saw Britain rise as a global superpower through the expansion of the British Empire. The Industrial Revolution transformed society, economy, and technology, leading to urbanization and social reforms. Britain’s colonial holdings spanned the globe, shaping trade, culture, and politics for centuries to come.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">World Wars and Post-War Rebuilding (1914–Present)</h3>
+<p>
+The 20th century brought the devastation of two World Wars, where Britain played a significant role. The end of empire, decolonization, and the establishment of the welfare state marked post-war Britain. Economic challenges, social changes, and the country’s evolving role in the European Union characterize modern British history.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of United Kingdom</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in the United Kingdom</h3>
+<p>
+The United Kingdom is officially English-speaking, but it also has a rich linguistic tapestry that includes regional languages and dialects. Besides English, other languages like Welsh, Scottish Gaelic, and Irish are spoken in specific regions, reflecting the diverse cultural heritage of the UK.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in the UK</h3>
+<p>
+English is the predominant language spoken in the United Kingdom. According to a recent survey, approximately 95% of the population in the UK report English as their first language, and a high percentage are proficient in English. English is widely used in all aspects of daily life, making communication relatively easy for travelers.
+</p>
+
+<h3 style="font-weight:bold;">Useful English Phrases</h3>
+<ul>
+<li><b>Hello</b> – <b>Hello</b></li>
+<li><b>Goodbye</b> – <b>Goodbye</b></li>
+<li><b>Please</b> – <b>Please</b></li>
+<li><b>Thank you</b> – <b>Thank you</b></li>
+<li><b>Excuse me / Sorry</b> – <b>Excuse me / Sorry</b></li>
+<li><b>Where is the nearest train station?</b> – <b>Where is the nearest train station?</b></li>
+<li><b>I would like to order...</b> – <b>I would like to order...</b></li>
+<li><b>Could you recommend a good restaurant?</b> – <b>Could you recommend a good restaurant?</b></li>
+<li><b>How much does this cost?</b> – <b>How much does this cost?</b></li>
+<li><b>Can you help me, please?</b> – <b>Can you help me, please?</b></li>
+<li><b>Is there a pharmacy nearby?</b> – <b>Is there a pharmacy nearby?</b></li>
+</ul>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">United Kingdom Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+British cuisine has evolved over centuries, blending traditional dishes with influences from around the world. While some might dismiss British food as bland or heavy, there is a rich tapestry of flavors and dishes waiting to be explored. The cuisine is hearty and comforting, perfect for the often chilly and rainy weather. British food reflects a mix of history, geography, and local produce, with a focus on seasonal ingredients and classic recipes passed down through generations.
+</p>
+<ul>
+<li><b>Full English Breakfast</b> – A substantial morning meal with eggs, bacon, sausages, baked beans, mushrooms, tomatoes, and toast.</li>
+<li><b>Fish and Chips</b> – A quintessential British dish featuring battered and fried fish served with chunky fries, often accompanied by mushy peas.</li>
+<li><b>Roast Dinner</b> – Typically enjoyed on Sundays, this meal consists of roasted meat (such as beef, lamb, or chicken), roast potatoes, Yorkshire pudding, vegetables, and gravy.</li>
+<li><b>Shepherd's Pie/Cottage Pie</b> – Comforting dishes made with minced meat (lamb for Shepherd's Pie, beef for Cottage Pie) topped with mashed potatoes.</li>
+<li><b>Afternoon Tea</b> – A delightful ritual featuring tea served with sandwiches, scones with clotted cream and jam, and a selection of cakes and pastries.</li>
+<li><b>Ploughman's Lunch</b> – A simple yet satisfying meal of cheese, pickles, bread, and salad, often enjoyed in pubs.</li>
+<li><b>Curry</b> – With a strong Indian influence, curry dishes like Chicken Tikka Masala have become incredibly popular in the UK.</li>
+<li><b>Scotch Egg</b> – A hard-boiled egg wrapped in sausage meat, coated in breadcrumbs, and deep-fried.</li>
+<li><b>Black Pudding</b> – A type of blood sausage often served as part of a traditional breakfast.</li>
+</ul>
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In the UK, breakfast is typically a lighter affair, with options ranging from cereal to a full English breakfast. Lunch is often a quick meal, while dinner, commonly referred to as supper, is the main meal
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">United Kingdom Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are the United Kingdom’s most famous festivals?</h3>
+<p>
+The United Kingdom is known for its diverse and lively festivals that showcase the country's rich cultural heritage and modern creativity. From traditional celebrations to contemporary events, there's something for everyone to enjoy throughout the year:
+</p>
+<ul>
+<li><b>Notting Hill Carnival (London, August)</b> – Europe's largest street festival, the Notting Hill Carnival is a vibrant celebration of Caribbean culture with colorful costumes, music, dance, and delicious food.</li>
+<li><b>Edinburgh Festival Fringe (Edinburgh, August)</b> – The world's largest arts festival, the Fringe features thousands of performances across various genres, from comedy and theater to music and dance, creating a lively and dynamic atmosphere in the historic city.</li>
+<li><b>Glastonbury Festival (Somerset, June)</b> – One of the most iconic music festivals globally, Glastonbury attracts music lovers from around the world to enjoy a diverse lineup of artists, performances, and immersive experiences on a massive farm setting.</li>
+<li><b>Chelsea Flower Show (London, May)</b> – A prestigious event in the gardening world, the Chelsea Flower Show displays stunning floral exhibits, garden designs, and innovative horticultural trends, offering a feast for the senses in the heart of London.</li>
+<li><b>Bonfire Night (Nationwide, November)</b> – Also known as Guy Fawkes Night, this traditional event commemorates the failed Gunpowder Plot with fireworks, bonfires, and burning effigies, creating a festive yet historical atmosphere across the UK.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in the United Kingdom, check the event dates and book accommodations well in advance, especially for popular festivals like Glastonbury. Embrace the spirit of each festival by participating in activities, trying local foods, and interacting with performers and fellow attendees. Stay prepared for typical British weather by dressing in layers and carrying an umbrella. Respect local customs and regulations, stay informed about transportation options, and above all, have a fantastic time immersing yourself in the UK's vibrant festival scene.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+If you're looking to dive deeper into the rich tapestry of the United Kingdom, there are plenty of podcasts, books, and movies that offer engaging insights into its culture, history, and people. Whether you're a history buff, a literature lover, or simply curious about life across the pond, these recommendations will enrich your understanding of this fascinating country.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>The British History Podcast</b> – A captivating exploration of the history of Britain, from the Roman invasion to the present
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/unitedkingdom/unitedkingdomhome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/unitedkingdom/unitedkingdommore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/unitedkingdom/unitedkingdomcityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

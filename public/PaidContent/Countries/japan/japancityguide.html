@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Japan City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas" >← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Japan</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan" ><img src="https://images.unsplash.com/photo-1716564100974-b3ad6b53290f?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxUb2t5byUyMFRvd2VyJTIwVG9reW8lMjBKYXBhbnxlbnwwfHx8fDE3NTA5NTk1MjJ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Tokyo Tower: Iconic red and white tower with observation decks."></a>
+        <div class="citycard-caption">Tokyo Tower: Iconic red and white tower with observation decks.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/tokyojapan" >Tokyo</a>
+        <div class="citycard-about">Tokyo, a city where tradition meets innovation in an electrifying collision of ancient temples and futuristic skyscrapers. Get lost in the bustling streets of Shinjuku, where neon lights beckon you to explore hidden izakayas and quirky themed cafes. Indulge in a sensory overload at the iconic Tsukiji Fish Market, sampling fresh sushi that melts in your mouth. Take a moment of serenity amidst the cherry blossoms in Ueno Park, before diving back into the energetic chaos of Shibuya Crossing. Embrace the harmonious blend of old and new in this vibrant metropolis, where every corner offers an unforgettable experience waiting to be discovered.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/osakajapan" ><img src="https://images.unsplash.com/photo-1707913351961-232743fc30f1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxPc2FrYSUyMENhc3RsZSUyME9zYWthJTIwSmFwYW58ZW58MHx8fHwxNzUwOTU5ODA3fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Osaka Castle: Historic castle with lush gardens and museum."></a>
+        <div class="citycard-caption">Osaka Castle: Historic castle with lush gardens and museum.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/osakajapan" >Osaka</a>
+        <div class="citycard-about">Welcome to Osaka, where tradition meets modernity in a bustling city filled with neon lights, vibrant street markets, and mouthwatering street food. From the historic Osaka Castle to the trendy Dotonbori district, this city has something for everyone. Don&#x27;t miss the chance to sample some of Japan&#x27;s best takoyaki and okonomiyaki, explore the vibrant shopping scene in Shinsaibashi, and experience the famous Osaka hospitality firsthand. Whether you&#x27;re a foodie, history buff, or shopping enthusiast, Osaka is sure to charm you with its unique blend of old and new.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/nagoyajapan" ><img src="https://images.unsplash.com/photo-1657711023065-7d48583fca25?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxOYWdveWElMjBDYXN0bGUlMjBOYWdveWElMjBKYXBhbnxlbnwwfHx8fDE3NTA5ODY4NDR8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Nagoya Castle: Historic castle with beautiful gardens and cultural exhibits."></a>
+        <div class="citycard-caption">Nagoya Castle: Historic castle with beautiful gardens and cultural exhibits.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/nagoyajapan" >Nagoya</a>
+        <div class="citycard-about">Nagoya, Japan may not be the first city that comes to mind when planning a trip to Japan, but this hidden gem is definitely worth a visit. From the stunning architecture of Nagoya Castle to the bustling Osu Shopping Arcade, this city seamlessly blends traditional charm with modern innovation. Don&#x27;t miss the mouthwatering local specialty, hitsumabushi (grilled eel over rice), or the interactive exhibits at the futuristic SCMAGLEV and Railway Park. Whether you&#x27;re a history buff, a foodie, or a tech enthusiast, Nagoya has something to offer every type of traveler.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/fukuokajapan" ><img src="https://images.unsplash.com/photo-1679230708086-2b10acf31074?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxGdWt1b2thJTIwVG93ZXIlMjBGdWt1b2thJTIwSmFwYW58ZW58MHx8fHwxNzUwOTk4NzUxfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Fukuoka Tower: Observation tower offering panoramic views of the city."></a>
+        <div class="citycard-caption">Fukuoka Tower: Observation tower offering panoramic views of the city.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/fukuokajapan" >Fukuoka</a>
+        <div class="citycard-about">Fukuoka, Japan effortlessly blends ancient traditions with modern innovation, offering a dynamic and vibrant experience for travelers. From savoring mouthwatering tonkotsu ramen at yatai food stalls to strolling through serene temples and shrines like Dazaifu Tenmangu, Fukuoka captures the essence of Japanese culture. Embrace the bustling energy of Canal City Hakata, shop for unique souvenirs at Yanagibashi Rengo Market, or take a relaxing dip in the rejuvenating hot springs of nearby onsen towns. With its warm hospitality, delicious cuisine, and eclectic mix of attractions, Fukuoka promises a memorable and enriching adventure for all.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/shizuokajapan" ><img src="https://images.unsplash.com/photo-1641991144096-49f4150320c0?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxNdC4lMjBGdWppJTIwU2hpenVva2ElMjBKYXBhbnxlbnwwfHx8fDE3NTEwMzc3Mzd8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Mt. Fuji: Japan&#x27;s highest peak, iconic and sacred volcano."></a>
+        <div class="citycard-caption">Mt. Fuji: Japan&#x27;s highest peak, iconic and sacred volcano.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/shizuokajapan" >Shizuoka</a>
+        <div class="citycard-about">Nestled between the stunning Mount Fuji and the refreshing Pacific Ocean, Shizuoka effortlessly blends natural beauty with rich cultural heritage. Embrace the serene tea fields of Uji and the vibrant vibes of Hamamatsu, where the sound of music (literally, with its renowned musical instrument industry) fills the air. Indulge in the freshest seafood at Suruga Bay, savor some matcha ice cream in Shimizu, and rejuvenate in a traditional onsen overlooking the picturesque landscapes. With its warm hospitality and diverse landscapes, Shizuoka promises a delightful adventure for any traveler seeking a perfect mix of relaxation and exploration.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/sapporojapan" ><img src="https://images.unsplash.com/photo-1736089132615-a7e738ce07da?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxPZG9yaSUyMFBhcmslMjBTYXBwb3JvJTIwSmFwYW58ZW58MHx8fHwxNzUxMDQ1NTY3fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Odori Park: Urban park with seasonal events and flower displays."></a>
+        <div class="citycard-caption">Odori Park: Urban park with seasonal events and flower displays.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/sapporojapan" >Sapporo</a>
+        <div class="citycard-about">Sapporo, Japan, a sparkling gem in the Hokkaido region, seamlessly blends modernity with tradition, offering a feast for the senses at every turn. From slurping on piping hot ramen in Susukino&#x27;s bustling alleyways to twirling through the powdery snow at the enchanting Sapporo Snow Festival, this vibrant city has something for everyone. Explore the stunning Odori Park, indulge in a heavenly bowl of creamy soft-serve ice cream at Shiroi Koibito Park, or unwind in a steaming hot spring under the starlit sky. With its welcoming locals, mouthwatering cuisine, and an irresistible charm, Sapporo is a must-visit destination for those seeking pure delight in every experience.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/sendaijapan" ><img src="https://images.unsplash.com/photo-1720086893779-b6d9fbb03d82?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxadWlob2RlbiUyME1hdXNvbGV1bSUyMFNlbmRhaSUyMEphcGFufGVufDB8fHx8MTc1MTA1MzY1M3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Zuihoden Mausoleum: Elaborate final resting place of Date clan leaders."></a>
+        <div class="citycard-caption">Zuihoden Mausoleum: Elaborate final resting place of Date clan leaders.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/sendaijapan" >Sendai</a>
+        <div class="citycard-about">Nestled in the heart of Japan&#x27;s Tohoku region, Sendai effortlessly combines tradition and modernity, offering travelers a unique cultural experience of historic temples and bustling shopping streets. Indulge in the city&#x27;s culinary delights, from savory beef tongue to creamy zunda mochi, and don&#x27;t miss the vibrant Tanabata Festival where colorful paper decorations adorn the streets. Explore the lush greenery of the nearby Matsushima Bay, renowned as one of Japan&#x27;s three most scenic views, and discover the serenity of the Zuiganji Temple. Whether you&#x27;re a foodie, history buff, or nature enthusiast, Sendai has something to captivate every traveler&#x27;s heart.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/hiroshimajapan" ><img src="https://images.unsplash.com/photo-1693229549285-d4a402df1db2?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxIaXJvc2hpbWElMjBQZWFjZSUyME1lbW9yaWFsJTIwUGFyayUyMEhpcm9zaGltYSUyMEphcGFufGVufDB8fHx8MTc1MTA2NTMyMHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Hiroshima Peace Memorial Park: Commemorates victims of atomic bomb, with museum and monuments."></a>
+        <div class="citycard-caption">Hiroshima Peace Memorial Park: Commemorates victims of atomic bomb, with museum and monuments.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/hiroshimajapan" >Hiroshima</a>
+        <div class="citycard-about">Hiroshima, a city of immense resilience and vibrant culture, seamlessly weaves its tragic past with a hopeful future. Visitors are drawn to the poignant Peace Memorial Park, a sobering reminder of the atomic bombing in 1945, followed by the rejuvenated Hiroshima Castle and its surrounding cherry blossom gardens. The bustling Hondori shopping arcade offers a taste of modern Japan, while the tranquil island of Miyajima beckons with its iconic floating torii gate and friendly deer. Embrace the harmony of old and new in Hiroshima, a city that embodies the spirit of peace and progress.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/niigatajapan" ><img src="https://images.unsplash.com/photo-1712367812981-859c6a078c05?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyME5paWdhdGElMjBDaXR5JTIwSGlzdG9yeSUyME11c2V1bSUyME5paWdhdGElMjBKYXBhbnxlbnwwfHx8fDE3NTEyNDUzMTZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Niigata City History Museum: Exhibits on local history and culture."></a>
+        <div class="citycard-caption">1. Niigata City History Museum: Exhibits on local history and culture.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/niigatajapan" >Niigata</a>
+        <div class="citycard-about">Nestled along the coast of the Sea of Japan, Niigata offers a delightful blend of natural beauty and cultural treasures. Known for its world-class sake breweries, visitors can indulge in sake tasting tours while exploring the picturesque landscapes of terraced rice fields and towering mountains. Art enthusiasts will revel in the Echigo-Tsumari Art Field, a sprawling outdoor art gallery featuring installations by international artists. With its vibrant festivals, delectable seafood, and warm hospitality, Niigata welcomes travelers to experience the essence of Japan in a unique and unforgettable way.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/kumamotojapan" ><img src="https://images.unsplash.com/photo-1669777074592-c69d4986f907?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTdWl6ZW5qaSUyMEpvanVlbiUyMEdhcmRlbiUyMEt1bWFtb3RvJTIwSmFwYW58ZW58MHx8fHwxNzUxMjY4NjAxfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Suizenji Jojuen Garden: Traditional Japanese garden with ponds, bridges, and tea houses."></a>
+        <div class="citycard-caption">Suizenji Jojuen Garden: Traditional Japanese garden with ponds, bridges, and tea houses.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/kumamotojapan" >Kumamoto</a>
+        <div class="citycard-about">Kumamoto, Japan, is not your typical tourist destination, but it holds a unique charm that will capture your heart. Known for its stunning castle, vibrant gardens, and mouthwatering cuisine, Kumamoto offers a delightful mix of history and modernity. Take a leisurely stroll through the historic streets of Shimotori and soak in the culture, or venture to the nearby Aso region for breathtaking landscapes and natural hot springs. Whether you&#x27;re a history buff, nature lover, or foodie, Kumamoto has something special to offer you. Immerse yourself in the warm hospitality of this hidden gem and create unforgettable memories in the heart of Kyushu.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/okayamajapan" ><img src="https://images.unsplash.com/photo-1669380981515-cb1870a169fa?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxLb3Jha3VlbiUyMEdhcmRlbiUyME9rYXlhbWElMjBKYXBhbnxlbnwwfHx8fDE3NTEyNzY0NjJ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Korakuen Garden: One of Japan&#x27;s top three gardens, featuring scenic landscapes."></a>
+        <div class="citycard-caption">Korakuen Garden: One of Japan&#x27;s top three gardens, featuring scenic landscapes.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/okayamajapan" >Okayama</a>
+        <div class="citycard-about">Nestled between the majestic Seto Inland Sea and the lush green mountains, Okayama is a gem waiting to be discovered in Japan. Known as the &quot;Land of Sunshine,&quot; this charming city boasts historical treasures like the iconic Korakuen Garden and the majestic Okayama Castle. Stroll through the quaint streets of the Kurashiki Bikan Historical Quarter, lined with picturesque white-walled buildings and weeping willows, or indulge in some retail therapy at the trendy shopping arcades. And don&#x27;t forget to savor a bowl of steaming hot Okayama-style udon noodles, a culinary delight that will tantalize your taste buds. Okayama is the perfect blend of culture, history, and natural beauty, offering a truly authentic Japanese experience that will leave you enchanted and craving for more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/kagoshimajapan" ><img src="https://images.unsplash.com/photo-1698794909107-19b90ec7c511?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTYWt1cmFqaW1hJTIwS2Fnb3NoaW1hJTIwSmFwYW58ZW58MHx8fHwxNzUxMzU1NDU4fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Sakurajima: Active volcano with hiking trails and scenic views."></a>
+        <div class="citycard-caption">Sakurajima: Active volcano with hiking trails and scenic views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/kagoshimajapan" >Kagoshima</a>
+        <div class="citycard-about">Nestled at the southern tip of Japan, Kagoshima is a hidden gem waiting to be discovered. With its stunning views of Sakurajima volcano looming in the distance, this city effortlessly combines natural beauty with urban charm. Indulge in Kagoshima&#x27;s culinary delights, from savory kurobuta pork to the famous sweet potato shochu. Immerse yourself in the local culture by visiting historic sites like Senganen Garden and exploring the bustling Tenmonkan shopping arcade. Whether you&#x27;re soaking in an onsen with a view or watching a traditional Kagura dance performance, Kagoshima promises a unique and unforgettable adventure that will leave you longing to return.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/japan/japanhome" >Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/japan/japanmore" >More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/japan/japancityguide" >Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([35.52338766666666, 135.80781827500002], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([35.6828387,139.7594549]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan" >Tokyo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/tokyojapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.6198813,135.490357]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/osakajapan" >Osaka</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/osakajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([35.1851045,136.8998438]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/nagoyajapan" >Nagoya</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/nagoyajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([33.6251241,130.6180016]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/fukuokajapan" >Fukuoka</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/fukuokajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.979149,138.38299]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/shizuokajapan" >Shizuoka</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/shizuokajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([43.061936,141.3542924]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/sapporojapan" >Sapporo</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/sapporojapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([38.2677554,140.8691498]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/sendaijapan" >Sendai</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/sendaijapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.3916058,132.4518156]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/hiroshimajapan" >Hiroshima</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/hiroshimajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([37.6452283,138.7669125]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/niigatajapan" >Niigata</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/niigatajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([32.6450475,130.6341345]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/kumamotojapan" >Kumamoto</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/kumamotojapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([34.6553944,133.9194595]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/okayamajapan" >Okayama</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/okayamajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([31.521587,130.5474077]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/kagoshimajapan" >Kagoshima</a>')
+  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/kagoshimajapan" ; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ?" " :" none";
+      }
+    }
+  </script>
+</body>
+</html>

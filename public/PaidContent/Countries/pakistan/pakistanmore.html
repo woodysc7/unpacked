@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Pakistan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="pakistan-label">
+      PAKISTAN
+      <img class="flag-icon" src="https://flagcdn.com/pk.svg" alt="Pakistan flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+  <section class="art-gallery-section">
+  <img class="art-slideshow-img active"
+    src="https://images.pexels.com/photos/2884867/pexels-photo-2884867.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Detailed view of the intricate Mughal architectural facade in Lahore, Pakistan." data-title="Detailed view of the intricate Mughal architectural facade in Lahore, Pakistan." data-meta="Photographer: Aa Dil" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/5417957/pexels-photo-5417957.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning black and white photo of snow-capped mountains under a dramatic sky." data-title="Stunning black and white photo of snow-capped mountains under a dramatic sky." data-meta="Photographer: Aa Dil" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/3103375/pexels-photo-3103375.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="An elderly woman carries firewood in Chitral, Pakistan. Monochrome portrait." data-title="An elderly woman carries firewood in Chitral, Pakistan. Monochrome portrait." data-meta="Photographer: Aa Dil" data-location="" />
+  <img class="art-slideshow-img"
+    src="https://images.pexels.com/photos/2863220/pexels-photo-2863220.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the historic Mughal architecture of Sheikhupura Fort in Punjab, Pakistan." data-title="Explore the historic Mughal architecture of Sheikhupura Fort in Punjab, Pakistan." data-meta="Photographer: Aa Dil" data-location="" />
+  <div class="art-info-overlay">
+    <div class="art-info-title">Detailed view of the intricate Mughal architectural facade in Lahore, Pakistan.</div>
+    <div class="art-info-meta">Photographer: Aa Dil</div>
+    <div class="art-info-location"></div>
+  </div>
+</section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Pakistan News</div>
+          
+    <a href="https://apnews.com/article/iran-pakistan-afghan-deportation-refugees-ea3fd1f9b995e4f97d8584718cea058d" class="news-article big-news" target="_blank" style="display:block;padding:2em 1.5em;margin:0.5em 0 1.5em 0;border-radius:1.2em;background:#fff;box-shadow:0 2px 20px #6b422620;border:2.5px solid #e3d8c8;min-height:120px;">
+        <div class="news-title" style="font-size:1.5em;font-weight:900;color:#A9746E;margin-bottom:0.4em;">At least 1.2 million Afghans forced to return from Iran and Pakistan this year, says UN</div>
+        <div class="news-meta" style="color:#a9746e;font-size:1.1em;">2025-06-28T18:59:18Z &middot; The Associated Press</div>
+        <div style="font-size:1.11em;margin-top:0.8em;color:#6B4226;">The U.N. refugee agency reports that over 1.2 million Afghans have been forced to return from Iran and Pakistan this year.</div>
+    </a>
+    
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        </div>
+      </section>
+    </main>
+    
+<!-- FULLSCREEN POPUPS (one per icon) -->
+<div class="fullscreen-popup" id="history-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">A Brief History of Pakistan</div>
+<div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:#4B3425;">
+  <div class="history-images" style="text-align:center; margin-bottom:1.5em;">
+    <img src="https://images.pexels.com/photos/2884867/pexels-photo-2884867.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Detailed view of the intricate Mughal architectural facade in Lahore, Pakistan." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/5417957/pexels-photo-5417957.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Stunning black and white photo of snow-capped mountains under a dramatic sky." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/3103375/pexels-photo-3103375.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="An elderly woman carries firewood in Chitral, Pakistan. Monochrome portrait." style="width:200px;max-width:95%;margin:10px;">
+    <img src="https://images.pexels.com/photos/2863220/pexels-photo-2863220.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Explore the historic Mughal architecture of Sheikhupura Fort in Punjab, Pakistan." style="width:200px;max-width:95%;margin:10px;">
+  </div>
+  <h3 style="text-align:center;font-weight:bold;">Indus Valley Civilization (3300–1300 BCE)</h3>
+<p>
+The roots of Pakistan's history lie in the ancient Indus Valley Civilization, one of the world's earliest urban societies. Flourishing along the banks of the Indus River, this civilization boasted sophisticated urban planning, advanced drainage systems, and intricate trade networks. Cities like Mohenjo-Daro and Harappa are testament to the civilization's advanced culture and technological prowess.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Achaemenid and Mauryan Empires (6th–4th Century BCE)</h3>
+<p>
+Pakistan's territory fell under the rule of the Achaemenid Empire, followed by the Mauryan Empire of India. These empires brought diverse cultural influences to the region, shaping the art, architecture, and religious practices of the local populace.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Islamic Conquest and the Delhi Sultanate (8th–16th Century)</h3>
+<p>
+In the 8th century, Arab invaders introduced Islam to the region, marking a significant turning point in Pakistan's history. The Delhi Sultanate, established in the 12th century, brought Persian and Islamic traditions to the subcontinent, leaving a lasting imprint on Pakistan's culture and society.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Mughal Empire and British Colonialism (16th–20th Century)</h3>
+<p>
+The Mughal Empire, with its opulent architecture and rich cultural heritage, ruled over present-day Pakistan for centuries. However, by the 19th century, British colonial forces began to dominate the region, bringing about significant social and economic changes. The struggle for independence grew, culminating in the creation of Pakistan as a separate nation in 1947.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Partition and Independence (1947)</h3>
+<p>
+The partition of British India in 1947 led to the creation of Pakistan as a homeland for Muslims in South Asia. This momentous event was accompanied by widespread violence and mass migrations, shaping the demographic and political landscape of the newly formed nation.
+</p>
+<h3 style="text-align:center;font-weight:bold;">Military Rule and Democratic Transition (1958–Present)</h3>
+<p>
+Pakistan has experienced periods of military rule interspersed with attempts at democratic governance since its independence. Political instability, regional conflicts, and economic challenges have characterized much of the country's post-independence history. Despite these hurdles, Pakistan continues to strive towards a more stable and prosperous future.
+</p>
+</div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="languages-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Languages of Pakistan</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Languages Spoken in Pakistan</h3>
+<p>
+Pakistan is a diverse country with several languages spoken across different regions. The official language is Urdu, which is widely used in government, schools, and the media. However, there are also many regional languages that hold significant importance in various parts of the country.
+</p>
+
+<h3 style="font-weight:bold;">Regional Languages in Pakistan</h3>
+<p>
+In addition to Urdu, Pakistan boasts a rich linguistic tapestry with regional languages such as Punjabi, Sindhi, Pashto, Balochi, and Saraiki. These languages are not only means of communication but also integral parts of cultural identity and heritage for the diverse communities in Pakistan.
+</p>
+
+<h3 style="font-weight:bold;">English Proficiency in Pakistan</h3>
+<p>
+English is widely understood and used in Pakistan, especially in urban areas, business settings, and among the educated population. According to recent surveys, approximately 18% of the Pakistani population is proficient in English, with higher proficiency levels in major cities and among younger generations.
+</p>
+
+<h3 style="font-weight:bold;">Useful Phrases in Urdu</h3>
+<ul>
+<li><b>سلام</b> – <b>Hello</b></li>
+<li><b>خدا حافظ</b> – <b>Goodbye</b></li>
+<li><b>شکریہ</b> – <b>Thank you</b></li>
+<li><b>براہ کرم</b> – <b>Please</b></li>
+<li><b>کیا آپ انگریزی بولتے ہیں؟</b> – <b>Do you speak English?</b></li>
+<li><b>میں اردو نہیں بولتا</b> – <b>I don’t speak Urdu</b></li>
+<li><b>بات کرنے کا طریقہ کیا ہے؟</b> – <b>How do I say this?</b></li>
+<li><b>کیا آپ میری مدد کر سکتے ہیں؟
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="cuisine-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Pakistan Cuisine</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Exploring Pakistani cuisine is a culinary adventure that showcases a rich tapestry of flavors and influences from various regions and cultures. The food is known for its bold and aromatic spices, creating dishes that are bursting with complex and vibrant flavors. Pakistani cuisine is a perfect blend of indigenous recipes and traditions from South Asia, Persia, and Central Asia, offering a diverse and satisfying dining experience.
+</p>
+<ul>
+<li><b>Biryani</b> – Fragrant and aromatic rice dish cooked with meat (often chicken or mutton), spices, and yogurt, creating a symphony of flavors.</li>
+<li><b>Karahi</b> – A savory and spicy meat dish cooked in a wok-like pan with tomatoes, green chilies, and a blend of traditional spices.</li>
+<li><b>Haleem</b> – A hearty stew made with meat, lentils, and wheat, slow-cooked to perfection and often enjoyed during festivities.</li>
+<li><b>Chapli Kebab</b> – Spiced minced meat patties, typically made with ground beef or mutton and served with naan or rice.</li>
+<li><b>Nihari</b> – A slow-cooked stew made with tender meat, spices, and bone marrow, enjoyed with naan or rice for a flavorful meal.</li>
+<li><b>Saag</b> – A nutritious dish made with leafy greens such as spinach, mustard greens, or fenugreek, simmered with spices and served with roti.</li>
+<li><b>Pakoras</b> – Crispy fritters made from gram flour and various ingredients like potatoes, onions, or spinach, perfect for snacking.</li>
+<li><b>Gol Gappay/Pani Puri</b> – Small, hollow puris filled with spiced water, tamarind chutney, chickpeas, and potatoes, offering a burst of tangy and spicy flavors.</li>
+<li><b>Jalebi</b> – Deep-fried pretzel-shaped sweets soaked in sugar syrup, a popular dessert enjoyed across Pakistan.</li>
+</ul>
+
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+In Pakistan, mealtimes are an integral part of the culture, often bringing families and communities together. Breakfast typically includes traditional items
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="festivals-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Pakistan Festivals</div>
+    <div class="popup-body-text">
+      <h3 style="font-weight:bold;">What are Pakistan’s most famous festivals?</h3>
+<p>
+Pakistan’s diverse cultural tapestry is on full display during its vibrant festivals, where traditions blend with modern celebrations, creating unforgettable experiences for locals and visitors alike. Here are some of the most iconic festivals in Pakistan:
+</p>
+<ul>
+<li><b>Basant Festival (Lahore, February)</b> – Known as the Kite Festival, Basant marks the arrival of spring with colorful kites filling the sky, music, dancing, and delicious traditional foods.</li>
+<li><b>Shandur Polo Festival (Shandur, July)</b> – Located on the world's highest polo ground, this festival features thrilling polo matches between teams from Chitral and Gilgit, set against the stunning backdrop of the Hindu Kush mountains.</li>
+<li><b>Kalash Spring Festival (Chitral, May)</b> – Celebrated by the Kalash tribe, this festival includes traditional music, dance performances, and rituals to welcome the arrival of spring and ward off evil spirits.</li>
+<li><b>Lok Mela (Islamabad, April)</b> – A cultural festival showcasing Pakistan’s diverse heritage through folk dances, music, arts and crafts exhibitions, traditional cuisines, and colorful clothing from different regions.</li>
+<li><b>Mango Festival (Multan, July)</b> – Multan, known as the City of Saints, celebrates the king of fruits with a festival dedicated to different varieties of mangoes, including tastings, competitions, and cultural performances.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+When attending festivals in Pakistan, respect local customs and dress modestly, especially in religious or traditional settings. Be prepared for large crowds and consider booking accommodations in advance. Embrace the festive spirit by trying local delicacies, participating in traditional activities, and interacting with friendly locals. Remember to take care of the environment and follow any guidelines or rules set by festival organizers for a safe and enjoyable experience.
+</p>
+    </div>
+  </div>
+</div>
+<div class="fullscreen-popup" id="learnmore-popup">
+  <button class="popup-close" aria-label="Close">&times;</button>
+  <div class="popup-content-wrapper">
+    <div class="popup-big-title">Learn More</div>
+    <div class="popup-body-text">
+      <p>
+For those eager to delve deeper into the rich tapestry of Pakistan, there are a variety of engaging resources that offer unique insights into the country's culture, history, and people. Whether you're a literature lover, film enthusiast, or podcast aficionado, these recommendations are sure to enhance your understanding and appreciation of Pakistan.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>The Pakistan Experience</b> – A captivating podcast that explores the diverse landscapes, traditions, and stories of Pakistan through the eyes of locals and expats. Perfect
+    </div>
+  </div>
+</div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/pakistan/pakistanhome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/pakistan/pakistanmore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/pakistan/pakistancityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

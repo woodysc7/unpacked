@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More | World Atlas Argentina</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background, #FAF9F6);
+      color: var(--text, #4B3425);
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    body {
+      padding-top: 65px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      width: 100vw;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .more-main-content {
+      display: flex;
+      flex-direction: row;
+      min-height: calc(100vh - 65px - 60px);
+      width: 100vw;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .more-leftbar {
+      width: 86px;
+      min-width: 60px;
+      max-width: 120px;
+      background: transparent;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 2;
+      padding-top: 8vh;
+      padding-bottom: 8vh;
+      user-select: none;
+    }
+    .icon-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.2em;
+      width: 100%;
+    }
+    .icon-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 80px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+      position: relative;
+      z-index: 4;
+    }
+    .icon-svg {
+      width: 46px;
+      height: 46px;
+      margin-bottom: 0.25em;
+      display: block;
+      fill: #a9746e;
+      transition: filter 0.2s;
+      filter: drop-shadow(0 2px 10px #0001);
+    }
+    .icon-label {
+      font-size: 1.03em;
+      color: var(--brown-dark, #6B4226);
+      margin-top: 0.1em;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .icon-btn:focus .icon-svg,
+    .icon-btn:active .icon-svg {
+      filter: drop-shadow(0 0 14px #a9746e88) brightness(1.12);
+      fill: #6B4226;
+    }
+    .fullscreen-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.98);
+      color: #6B4226;
+      z-index: 10000;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      animation: popupFadeIn 0.25s;
+    }
+    @keyframes popupFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .fullscreen-popup.active {
+      display: block;
+    }
+    .popup-content-wrapper {
+      position: absolute;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      padding: 3vw 6vw 3vw 7vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow-y: auto;
+      max-height: calc(100vh - 120px);
+      width: 100%;
+    }
+    .popup-close {
+      position: absolute;
+      top: 18px;
+      right: 32px;
+      font-size: 2.6rem;
+      color: #a9746e;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      z-index: 10001;
+      transition: color 0.13s;
+    }
+    .popup-close:hover { color: #6B4226; }
+    .popup-big-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: #A9746E;
+      margin-bottom: 0.5em;
+      letter-spacing: 0.01em;
+    }
+    .popup-body-text {
+      font-size: 1.22rem;
+      line-height: 1.75;
+      color: #6B4226;
+      max-width: 800px;
+      margin-bottom: 1.7em;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 700px) {
+      .popup-content-wrapper { padding: 12vw 4vw 7vw 4vw; }
+      .popup-big-title { font-size: 1.5rem;}
+      .popup-close { top: 10px; right: 10px; font-size: 2rem;}
+    }
+    .more-maincol {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 0 0 0.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      z-index: 1;
+      position: relative;
+    }
+    .art-gallery-section {
+      width: 100%;
+      min-height: 82vh;
+      height: 82vh;
+      max-height: 1200px;
+      position: relative;
+      margin-bottom: 2.5em;
+      background: #e3d8c8;
+      border-radius: 1.5em;
+      overflow: hidden;
+      box-shadow: 0 4px 28px #6b42261a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .art-slideshow-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2.5s;
+      z-index: 1;
+    }
+    .art-slideshow-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .art-info-overlay {
+      position: absolute;
+      bottom: 1.2em;
+      right: 1.2em;
+      background: rgba(255,255,255,0.89);
+      color: #6B4226;
+      font-size: 0.96em;
+      padding: 0.53em 1.25em 0.47em 1.05em;
+      border-radius: 0.8em;
+      min-width: 140px;
+      max-width: 88vw;
+      box-shadow: 0 2px 14px #0002;
+      line-height: 1.26;
+      z-index: 10;
+      text-align: right;
+      pointer-events: none;
+    }
+    .art-info-title {
+      font-weight: 800;
+      font-size: 1em;
+      color: #A9746E;
+      margin-bottom: 0.1em;
+    }
+    .art-info-meta {
+      font-weight: 600;
+      font-size: 0.99em;
+      color: #6B4226;
+    }
+    .art-info-location {
+      font-weight: 500;
+      font-size: 0.92em;
+      color: #6B4226;
+      margin-top: 0.08em;
+      opacity: 0.7;
+    }
+    .news-blogs-section {
+      width: 99%;
+      margin: 0.8em auto 1.2em auto;
+      display: flex;
+      flex-direction: row;
+      gap: 2vw;
+      min-height: 360px;
+      border-radius: 1.25em;
+      background: #f4f1eb;
+      box-shadow: 0 2px 22px #6b422610;
+      padding: 2.2em 2em 2.3em 2em;
+    }
+    .news-col, .blogs-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2em;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      color: #6B4226;
+      margin-bottom: 1.1em;
+    }
+    .news-article, .blog-post {
+      background: #fff;
+      border-radius: 0.9em;
+      box-shadow: 0 1.5px 12px #0001;
+      padding: 1.1em 1em 0.94em 1em;
+      font-size: 1.07em;
+      color: #6B4226;
+      font-weight: 500;
+      border: 1.2px solid #e3d8c8;
+      transition: box-shadow 0.11s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .news-article:hover, .blog-post:hover {
+      box-shadow: 0 2.5px 20px #a9746e22;
+      background: #faf9f6;
+    }
+    .news-title, .blog-title {
+      font-weight: 700;
+      font-size: 1.09em;
+      margin-bottom: 0.3em;
+      color: #A9746E;
+    }
+    .news-meta, .blog-meta {
+      font-size: 0.91em;
+      color: #a9746e;
+      margin-bottom: 0.5em;
+    }
+    @media (max-width: 1100px) {
+      .more-maincol { padding: 0 0.4vw; }
+      .news-blogs-section { flex-direction: column; gap: 1.3em; padding: 1.2em 0.8em 1.7em 0.8em;}
+      .art-gallery-section { min-height: 58vh; height: 58vh; }
+    }
+    @media (max-width: 800px) {
+      .more-main-content { flex-direction: column; }
+      .more-leftbar {
+        width: 100vw; min-width: 0; max-width: 100vw;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        position: relative;
+        z-index: 3;
+        background: #faf9f6;
+      }
+      .icon-stack {
+        flex-direction: row;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .icon-btn {
+        width: auto;
+        margin: 0 0.4em;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .art-gallery-section { min-height: 49vh; height: 49vh; }
+      .art-info-overlay { font-size: 0.93em; padding: 0.34em 0.8em 0.3em 0.8em; }
+      .news-blogs-section { padding: 1.1em 0.2em 1.2em 0.2em; }
+    }
+    @media (max-width: 600px) {
+      .top-nav { padding: 0 0.8rem; height: 48px; font-size: 1em;}
+      .top-nav .flag-icon { width: 22px; height: 15px;}
+      .top-nav .spain-label { font-size: 1em;}
+      .bottom-bar { font-size: 1em; height: 46px; }
+      .more-leftbar { padding-top: 0.7em; padding-bottom: 0.7em;}
+      .icon-label { font-size: 0.97em; }
+      .art-gallery-section { min-height: 34vh; height: 34vh; }
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface, #fff);
+      color: var(--brown-dark, #6B4226);
+      padding: 0 2rem;
+      border-bottom: 1px solid var(--border, #E3D8C8);
+      font-size: 1.13rem;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      height: 65px;
+      box-sizing: border-box;
+    }
+    .top-nav .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.1em;
+      font-weight: 700;
+      transition: color 0.13s;
+      height: 100%;
+    }
+    .top-nav .back-link:hover,
+    .top-nav .back-link:focus {
+      color: var(--brown-medium, #A9746E);
+      text-decoration: underline;
+    }
+    .top-nav .arrow {
+      font-size: 1.3em;
+      margin-right: 0.4em;
+      font-weight: 900;
+      color: var(--muted, #A9746E);
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .top-nav .spain-label {
+      display: flex;
+      align-items: center;
+      font-size: 1.13em;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent, #6B4226);
+      margin-left: auto;
+    }
+    .top-nav .flag-icon {
+      display: inline-block;
+      width: 32px;
+      height: 21px;
+      margin-left: 0.6em;
+      object-fit: contain;
+      border-radius: 0.18em;
+      border: 2px solid var(--border, #E3D8C8);
+      box-shadow: 0 0 6px #0001;
+      background: #fff;
+    }
+    .bottom-bar {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: 60px;
+      background: var(--surface, #fff);
+      color: var(--accent, #6B4226);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      z-index: 1000;
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      border-top: 1px solid var(--border, #E3D8C8);
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: none;
+    }
+    .bottom-bar a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--accent, #6B4226);
+      font-size: 1.0em;
+      padding: 0.1em 2em;
+      border-radius: 1.7em;
+      margin: 0 0.8em;
+      font-family: inherit;
+      font-weight: 600;
+      background: none;
+      border: none;
+      transition: background 0.13s, color 0.13s;
+    }
+    .bottom-bar a.active,
+    .bottom-bar a:focus,
+    .bottom-bar a:hover {
+      background: var(--brown-light, #D9CFC1);
+      color: var(--brown-dark, #6B4226);
+      outline: none;
+    }
+    .history-era-row {
+      display: flex;
+      align-items: stretch;
+      gap: 1.7em;
+      margin-bottom: 2.6em;
+    }
+    .history-era-row.reverse {
+      flex-direction: row-reverse;
+    }
+    .history-era-text {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .history-era-text h3 {
+      color: var(--brown-medium,#A9746E);
+      font-size: 1.25em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    .history-era-img {
+      flex: 1 1 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      max-width: 330px;
+    }
+    .history-era-img img {
+      width: 100%;
+      max-width: 320px;
+      min-width: 150px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 0.7em;
+      box-shadow: 0 2px 16px #a9746e18;
+      border: 2px solid var(--border, #E3D8C8);
+      background: #eee;
+      transition: box-shadow 0.18s;
+    }
+    .history-era-img img:hover,
+    .history-era-img img:focus {
+      box-shadow: 0 4px 24px #a9746e30;
+      outline: 2px solid var(--accent,#6B4226);
+      z-index: 1;
+    }
+    @media (max-width: 900px) {
+      .history-engaged { padding: 1.1em 0.3em 1.7em 0.3em;}
+      .history-era-row, .history-era-row.reverse { flex-direction: column; gap: 1em;}
+      .history-era-img { max-width: 100vw; min-width: 0; }
+      .history-era-img img { max-width: 97vw; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Top Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Atlas"  class="back-link" aria-label="Back to Explore">
+      <span class="arrow">&#8592;</span>
+      Back to Explore
+    </a>
+    <span class="argentina-label">
+      ARGENTINA
+      <img class="flag-icon" src="https://flagcdn.com/ar.svg" alt="Argentina flag"/>
+    </span>
+  </nav>
+  <div class="more-main-content">
+    <!-- LEFTBAR: ICONS + POPUPS -->
+    <aside class="more-leftbar">
+      <div class="icon-stack">
+        <!-- History -->
+        <button class="icon-btn" tabindex="0" aria-label="History" data-popup="history-popup">
+          <!-- Medieval Knight Helmet SVG -->
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <rect x="10" y="36" width="28" height="4" rx="2" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="14" y="12" width="20" height="22" rx="2.5" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="8" y="8" width="32" height="6" rx="3" fill="#e3d8c8" stroke="#a9746e" stroke-width="1.5"/>
+            <rect x="20" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+            <rect x="25.5" y="16" width="2.5" height="16" rx="1" fill="#e3d8c8"/>
+          </svg>
+          <span class="icon-label">History</span>
+        </button>
+        <!-- Languages -->
+        <button class="icon-btn" tabindex="0" aria-label="Languages" data-popup="languages-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><text x="6" y="28" font-size="20" font-family="serif">文</text><text x="23" y="36" font-size="14" font-family="serif">ع</text></svg>
+          <span class="icon-label">Languages</span>
+        </button>
+        <!-- Cuisine -->
+        <button class="icon-btn" tabindex="0" aria-label="Cuisine" data-popup="cuisine-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="#f9c76e"/><ellipse cx="24" cy="24" rx="7" ry="4" fill="#a9746e"/><circle cx="19" cy="22" r="1.8" fill="#fff"/><circle cx="28" cy="26" r="1.3" fill="#fff"/><ellipse cx="23" cy="27" rx="1.1" ry="0.7" fill="#fff"/></svg>
+          <span class="icon-label">Cuisine</span>
+        </button>
+        <!-- Festivals -->
+        <button class="icon-btn" tabindex="0" aria-label="Festivals" data-popup="festivals-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="20" fill="#e3d8c8" stroke="#a9746e" stroke-width="2"/>
+            <path d="M15 36c2-6 16-6 18 0" stroke="#a9746e" stroke-width="2" fill="none"/>
+            <circle cx="24" cy="20" r="8" fill="#fff" stroke="#a9746e" stroke-width="2"/>
+            <rect x="22" y="10" width="4" height="4" rx="2" fill="#a9746e"/>
+            <rect x="32" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+            <rect x="14" y="26" width="2" height="8" rx="1" fill="#a9746e"/>
+          </svg>
+          <span class="icon-label">Festivals</span>
+        </button>
+        <!-- Learn More -->
+        <button class="icon-btn" tabindex="0" aria-label="Learn More" data-popup="learnmore-popup">
+          <svg class="icon-svg" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#f4f1eb" stroke="#a9746e" stroke-width="2"/><rect x="21" y="11" width="6" height="26" fill="#a9746e"/><rect x="11" y="21" width="26" height="6" fill="#a9746e"/></svg>
+          <span class="icon-label">Learn More</span>
+        </button>
+      </div>
+    </aside>
+    <!-- MAIN COLUMN: ART SLIDESHOW + NEWS/BLOGS -->
+    <main class="more-maincol">
+      <section class="art-gallery-section">
+        <img class="art-slideshow-img active"
+          src="https://images.pexels.com/photos/32766749/pexels-photo-32766749.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A stylish couple enjoying leisure time in a classic library in Buenos Aires, Argentina." data-title="A stylish couple enjoying leisure time in a classic library in Buenos Aires, Argentina." data-meta="Photographer: Diego Fioravanti" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32766750/pexels-photo-32766750.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A sophisticated couple enjoys a book in an ornate library, exuding classic elegance and romance." data-title="A sophisticated couple enjoys a book in an ornate library, exuding classic elegance and romance." data-meta="Photographer: Diego Fioravanti" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32766747/pexels-photo-32766747.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Elegant couple in classic attire reading a newspaper in a Buenos Aires library setting." data-title="Elegant couple in classic attire reading a newspaper in a Buenos Aires library setting." data-meta="Photographer: Diego Fioravanti" data-location="" />
+        <img class="art-slideshow-img"
+          src="https://images.pexels.com/photos/32766748/pexels-photo-32766748.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="A couple engaged in a dramatic conversation in a vintage library setting in Buenos Aires." data-title="A couple engaged in a dramatic conversation in a vintage library setting in Buenos Aires." data-meta="Photographer: Diego Fioravanti" data-location="" />
+        <div class="art-info-overlay">
+          <div class="art-info-title">A stylish couple enjoying leisure time in a classic library in Buenos Aires, Argentina.</div>
+          <div class="art-info-meta">Photographer: Diego Fioravanti</div>
+          <div class="art-info-location"></div>
+        </div>
+      </section>
+      <section class="news-blogs-section">
+        <div class="news-col">
+          <div class="section-title">Argentina News</div>
+          
+        </div>
+        <div class="blogs-col">
+          <div class="section-title">Travel Blogs</div>
+          
+        <a href="https://www.citizentribune.com/news/national/at-100-this-globetrotting-catholic-priest-still-bakes-pies-enjoys-opera-and-celebrates-daily-mass/article_f0df35b9-f5ce-5ba8-b6cb-a7f1a0146ec2"  class="blog-post" target="_blank">
+            <div class="blog-title">At 100, this globetrotting Catholic priest still bakes pies, enjoys opera and celebrates daily Mass</div>
+            <div class="blog-meta">The Rev. James Kelly baptized and married thousands of people, ministered to the ill at hospitals, and traveled the world. He became friends with an opera superstar and with a saint. Kelly is the longest-serving priest in the Archdiocese of...</div>
+        </a>
+        
+        <a href="https://lufkindailynews.com/anpa/lifestyle/at-100-this-globetrotting-catholic-priest-still-bakes-pies-enjoys-opera-and-celebrates-daily-mass/article_d78c4586-5909-53c2-a426-2acff8803bce"  class="blog-post" target="_blank">
+            <div class="blog-title">At 100, this globetrotting Catholic priest still bakes pies, enjoys opera and celebrates daily Mass</div>
+            <div class="blog-meta">The Rev. James Kelly baptized and married thousands of people, ministered to the ill at hospitals, and traveled the world. He became friends with an opera superstar and with a saint. Kelly is the longest-serving priest in the Archdiocese of...</div>
+        </a>
+        
+        </div>
+      </section>
+    </main>
+    <!-- FULLSCREEN POPUPS (one per icon) -->
+    <div class="fullscreen-popup" id="history-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">A Brief History of Argentina</div>
+        <div class="history-engaged" style="max-width:900px;margin:2.5em auto 2.5em auto;padding:2em 2em 2.5em 2em;border-radius:1.1em;box-shadow:0 4px 28px #a9746e16;background:#fff;line-height:1.7;color:var(--text,#4B3425);">
+          <h3 style="text-align:center;font-weight:bold;">Pre-Columbian Era and Spanish Conquest (Before 1810)</h3>
+<p>
+Before the arrival of Europeans, various indigenous groups inhabited the region now known as Argentina. The Inca Empire's influence extended into the northwest, while groups like the Mapuche and Guaraní thrived in other areas. In 1516, Spanish explorers led by Juan Díaz de Solís reached the Rio de la Plata, marking the start of European contact. Spanish colonization began in the 16th century, leading to conflicts with the indigenous peoples and the establishment of Buenos Aires in 1580.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Colonial Rule and Independence (1810–1816)</h3>
+<p>
+Argentina's path to independence was tumultuous. In 1810, the May Revolution in Buenos Aires sparked a series of events that culminated in a declaration of independence on July 9, 1816. Leaders like José de San Martín and Simón Bolívar played key roles in the fight for independence from Spain. The newly formed nation faced internal power struggles and external threats, but by 1820, Argentina had established itself as an independent state.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">The Age of Nation-Building (1820–1880)</h3>
+<p>
+Following independence, Argentina focused on nation-building and expanding its territory. The presidency of Juan Manuel de Rosas in the mid-19th century was marked by political turmoil and conflict. The centralization of power and economic growth under leaders like Domingo Faustino Sarmiento set the stage for Argentina's transformation into a modern nation. The period also saw an influx of European immigrants, shaping the country's cultural diversity.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">The Rise of Perón and Peronism (1946–1955)</h3>
+<p>
+Juan Domingo Perón's presidency from 1946 to 1955 had a profound impact on Argentina. Perón's populist policies, known as Peronism, aimed to uplift the working class and promote social justice. His government implemented labor reforms, social welfare programs, and nationalization of key industries. Despite his popularity among many Argentinians, Perón's authoritarian tendencies led to political unrest and his eventual ousting in 1955.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Military Dictatorships and the Falklands War (1976–1983)</h3>
+<p>
+The late 20th century was marked by periods of military rule in Argentina. The 1976 coup brought a brutal dictatorship to power, characterized by human rights abuses and the" Dirty War" against political dissidents. The 1982 Falklands War with the UK, initiated by the military junta, ended in defeat and further destabilized the regime. Growing opposition and international pressure eventually led to the return of civilian rule in 1983.
+</p>
+
+<h3 style="text-align:center;font-weight:bold;">Modern Argentina: Democracy and Economic Challenges (1983–Present)</h3>
+<p>
+Since the return to democracy in 1983, Argentina has experienced political and economic ups and downs. Successive governments have grappled with issues such as hyperinflation, debt crises, and social inequality. The early 21st century saw periods of economic growth, but also economic instability and political corruption scandals. Today, Argentina continues to navigate its complex history while striving for stability and prosperity.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="languages-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Languages of Argentina</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What languages are spoken in Argentina?</h3>
+<p>
+Argentina's official language is Spanish, spoken by the majority of the population. However, due to historical influences and immigration, there are other languages and dialects spoken in different regions. Indigenous languages like Quechua and Guarani are still spoken in some areas, particularly in the northern provinces. Italian and German are also spoken by descendants of European immigrants.
+</p>
+
+<h3 style="font-weight:bold;">How easy is it to get around in English?</h3>
+<p>
+English is not as widely spoken in Argentina as in some other countries. While you may find English speakers in major tourist areas and hotels, it's not as common in smaller towns or rural regions. Learning some basic Spanish phrases can greatly enhance your travel experience and interactions with locals. Argentine people are generally appreciative of visitors making an effort to communicate in Spanish.
+</p>
+
+<h3 style="font-weight:bold;">Useful Spanish Phrases for Traveling in Argentina</h3>
+<ul>
+<li><b>Hola</b> – <b>Hello</b></li>
+<li><b>Adiós</b> – <b>Goodbye</b></li>
+<li><b>Por favor</b> – <b>Please</b></li>
+<li><b>Gracias</b> – <b>Thank you</b></li>
+<li><b>¿Habla inglés?</b> – <b>Do you speak English?</b></li>
+<li><b>No hablo español</b> – <b>I don’t speak Spanish</b></li>
+<li><b>¿Dónde está la estación de tren?</b> – <b>Where is the train station?</b></li>
+<li><b>¿Cuánto cuesta?</b> – <b>How much is it?</b></li>
+<li><b>Perdón/Disculpe</b> – <b>Excuse me / Sorry</b></li>
+<li><b>Quisiera un café, por favor</b> – <b>I would like a coffee, please</b></li>
+<li><b>¿Puede ayudarme?</b> – <b>Can you help me?</b></li>
+</ul>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="cuisine-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Argentina Cuisine</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">Cuisine</h3>
+<p>
+Argentina is a culinary delight, blending European influences with its own unique gastronomic traditions. The country is famous for its high-quality beef, grilled to perfection, as well as hearty stews and delicious pastries. Argentine cuisine tends to be flavorful and hearty, with a strong emphasis on meat dishes and indulgent sweets. Be prepared for generous portions and a dining experience that celebrates the country's rich cultural heritage.
+</p>
+<ul>
+<li><b>Asado</b> – A traditional Argentine barbecue featuring various cuts of beef, sausages, and offal, grilled over an open flame.</li>
+<li><b>Empanadas</b> – Savory pastries filled with a variety of ingredients such as beef, chicken, cheese, or vegetables, often served as a snack or appetizer.</li>
+<li><b>Milanesa</b> – Breaded and fried meat cutlets, typically made with beef or chicken, served with a side of mashed potatoes or salad.</li>
+<li><b>Locro</b> – A hearty stew made with corn, beans, meat, and vegetables, often enjoyed during national holidays or special occasions.</li>
+<li><b>Matambre</b> – Stuffed and rolled flank steak, a popular dish for family gatherings and celebrations.</li>
+<li><b>Dulce de Leche</b> – A sweet, caramel-like spread made from milk and sugar, used in desserts, pastries, and as a topping for toast or pancakes.</li>
+<li><b>Chimichurri</b> – A vibrant green sauce made with parsley, garlic, vinegar, and spices, commonly served with grilled meats.</li>
+<li><b>Yerba Mate</b> – A traditional herbal tea enjoyed throughout Argentina, often shared with friends in a social setting.</li>
+</ul>
+<h3 style="font-weight:bold;">Mealtimes</h3>
+<p>
+Argentines typically have a late dinner, with lunch being the main meal of the day. Lunchtime can extend into the afternoon, with many businesses closing for a siesta. Dinner is usually served around 9 pm or later, allowing for a leisurely dining experience that extends well into the night.
+</p>
+<h3 style="font-weight:bold;">What about drinks?</h3>
+<p>
+Argentina is renowned for its Malbec
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="festivals-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Argentina Festivals</div>
+        <div class="popup-body-text">
+          <h3 style="font-weight:bold;">What are Argentina’s most famous festivals?</h3>
+<p>
+Argentina is a country rich in culture and traditions, and its festivals are a true reflection of its vibrant spirit and diverse heritage. Here are some of the most iconic celebrations that you won’t want to miss:
+</p>
+<ul>
+<li><b>Fiesta Nacional de la Vendimia (Mendoza, March)</b> – The National Grape Harvest Festival in Mendoza is a dazzling display of music, dance, and of course, wine. Experience the beauty of the vineyards coming alive in a celebration of Argentina’s winemaking culture.</li>
+<li><b>Carnaval de Gualeguaychú (Gualeguaychú, January - March)</b> – Known as one of the largest carnival celebrations in Argentina, this colorful event features extravagant parades, vibrant costumes, and energetic music that will have you dancing along with the locals.</li>
+<li><b>La Fiesta Nacional del Sol (San Juan, February)</b> – This festival of the sun in San Juan combines ancient rituals with modern performances to honor the sun and the fertility of the land. Enjoy traditional music, dance, and the stunning beauty of the Andean landscapes.</li>
+<li><b>Festival Internacional de Tango (Buenos Aires, August)</b> – As the birthplace of tango, Buenos Aires hosts this international tango festival that brings together dancers, musicians, and enthusiasts from around the world. Immerse yourself in the passion and elegance of this iconic dance.</li>
+<li><b>Oktoberfest Argentina (Villa General Belgrano, October)</b> – Experience a taste of Bavaria in the heart of Argentina at the Oktoberfest celebration in Villa General Belgrano. Raise a stein, enjoy traditional German cuisine, and join in the lively festivities.</li>
+</ul>
+<h3 style="font-weight:bold;">Festival Tips</h3>
+<p>
+Before attending a festival in Argentina, make sure to check the dates and locations in advance as some festivals can be quite popular and accommodations may fill up quickly. Embrace the local culture by trying traditional foods, learning a few basic phrases in Spanish, and respecting the customs of the communities hosting the event. Be prepared for varying weather conditions, especially if attending outdoor festivals, and always keep an open mind to fully enjoy the unique experiences that Argentina’s festivals offer.
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="fullscreen-popup" id="learnmore-popup">
+      <button class="popup-close" aria-label="Close">&times;</button>
+      <div class="popup-content-wrapper">
+        <div class="popup-big-title">Learn More</div>
+        <div class="popup-body-text">
+          <p>
+For a deeper dive into the vibrant culture and rich history of Argentina, there are several engaging resources worth exploring to enhance your understanding of this diverse South American nation.
+</p>
+<h3 style="font-weight:bold;">Podcasts</h3>
+<ul>
+<li><b>Argentina Project</b> – This podcast delves into various aspects of Argentine society, politics, and culture, offering valuable insights into the country's current affairs and historical context.</li>
+<li><b>Let's Talk Argentina</b> – A fantastic podcast that explores the diverse landscapes, traditions, and people of
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="bottom-bar" aria-label="Bottom Navigation">
+    <a href="/.netlify/functions/servePaidContent?page=Countries/argentina/argentinahome"  class="home-link" aria-label="Home">
+      Home
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/argentina/argentinamore"  class="more-link" aria-label="More">
+      More
+    </a>
+    <a href="/.netlify/functions/servePaidContent?page=Countries/argentina/argentinacityguide"  class="cityguide-link" aria-label="City Guide">
+      CityGuide
+    </a>
+  </nav>
+  <script>
+    // ART SLIDESHOW - much slower, large (so news/blogs is barely visible below fold)
+    const images = document.querySelectorAll('.art-slideshow-img');
+    const overlay = document.querySelector('.art-info-overlay');
+    function updateOverlay(idx) {
+      const img = images[idx];
+      overlay.querySelector('.art-info-title').textContent = img.getAttribute('data-title') || '';
+      overlay.querySelector('.art-info-meta').textContent = img.getAttribute('data-meta') || '';
+      overlay.querySelector('.art-info-location').textContent = img.getAttribute('data-location') || '';
+    }
+    let current = 0;
+    images[current].classList.add('active');
+    updateOverlay(current);
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+      updateOverlay(current);
+    }, 18000); // 18s per slide
+
+    // FULLSCREEN POPUPS - click only, no hover
+    function closeAllPopups() {
+      document.querySelectorAll('.fullscreen-popup').forEach(p => p.classList.remove('active'));
+    }
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      const popupId = btn.getAttribute('data-popup');
+      if (!popupId) return;
+      const popupEl = document.getElementById(popupId);
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        popupEl.classList.add('active');
+        e.stopPropagation();
+      });
+    });
+    document.querySelectorAll('.popup-close').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        closeAllPopups();
+        e.stopPropagation();
+      });
+    });
+    document.body.addEventListener('click', function(e) {
+      if (!e.target.closest('.fullscreen-popup') && !e.target.closest('.icon-btn')) {
+        closeAllPopups();
+      }
+    });
+    document.querySelectorAll('.fullscreen-popup').forEach(p => {
+      p.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllPopups();
+    });
+  </script>
+</body>
+</html>

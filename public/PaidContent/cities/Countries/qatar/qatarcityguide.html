@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Qatar City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="/.netlify/functions/servePaidContent?page=Atlas ">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Qatar</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/Ar-RayyanQatar "><img src="https://images.unsplash.com/photo-1560361670-90e454c19fff?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEFzcGlyZSUyMFBhcmslMjBBci1SYXl5YW4lMjBRYXRhcnxlbnwwfHx8fDE3NTEyNjA4Mzh8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. Aspire Park: Expansive green space with playgrounds and walking trails."></a>
+        <div class="citycard-caption">1. Aspire Park: Expansive green space with playgrounds and walking trails.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/Ar-RayyanQatar ">Ar-Rayyan</a>
+        <div class="citycard-about">Immerse yourself in the vibrant city life of Ar-Rayyan, Qatar, where modernity meets tradition in a fascinating juxtaposition. Wander through the bustling souks filled with exotic spices and intricate textiles, or admire the sleek skyscrapers that dominate the skyline. Indulge in delectable cuisine at local eateries, where fragrant kebabs and rich coffee delight the senses. Whether you&#x27;re exploring the stunning architecture of the Education City or relaxing on the pristine beaches along the Arabian Gulf, Ar-Rayyan offers a truly captivating experience for every traveler.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/.netlify/functions/servePaidContent?page=cities/dohaqatar "><img src="https://images.unsplash.com/photo-1568482695466-49f2e8fb4ce6?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMFRoZSUyMFBlYXJsLVFhdGFyJTIwRG9oYSUyMFFhdGFyfGVufDB8fHx8MTc1MTMyMDAwM3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. The Pearl-Qatar: Luxury artificial island with upscale shops, restaurants, and residences."></a>
+        <div class="citycard-caption">1. The Pearl-Qatar: Luxury artificial island with upscale shops, restaurants, and residences.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/dohaqatar ">Doha</a>
+        <div class="citycard-about">Doha, Qatar is a sparkling gem of the Middle East, where tradition meets modernity in a captivating blend. From the stunning skyline with futuristic skyscrapers to the bustling Souq Waqif brimming with exotic spices and vibrant textiles, Doha offers a sensory overload like no other. Indulge in delicious Qatari cuisine, explore the striking Museum of Islamic Art, or take a stroll along the picturesque Corniche overlooking the glistening waters of the Arabian Gulf. Whether you&#x27;re a culture vulture, a foodie, or a luxury lover, Doha has something for everyone, making it a must-visit destination for any adventurous traveler.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/qatar/qatarhome ">Home</a>
+    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/qatar/qatarmore ">More</a>
+    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/qatar/qatarcityguide ">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([25.1080535, 51.252052500000005], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([24.9304741,50.9776888]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/Ar-RayyanQatar ">Ar-Rayyan</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/Ar-RayyanQatar "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([25.2856329,51.5264162]).addTo(map)
+  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/dohaqatar ">Doha</a>')
+  .on('click', function(){ window.location.href = "/.netlify/functions/servePaidContent?page=cities/dohaqatar "; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>
