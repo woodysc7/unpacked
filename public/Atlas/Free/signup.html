@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Sign Up / Login</title>
-  <!-- REMOVE type="module" for firebase.js and signup.js; load firebase from CDN for browser compatibility -->
-  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"></script>
-  <script src="../../firebase.js"></script>
+  <!-- Firebase v8 SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <style>
     body { font-family: Montserrat, Arial, sans-serif; background: #faf9f6; color: #4B3425; }
     .auth-container { max-width: 400px; margin: 90px auto; background: #fff; padding: 2em; border-radius: 18px; box-shadow: 0 2px 12px #0001; }
@@ -127,8 +127,112 @@
           window.location.href = data.url;
         } else {
           errorMsg.textContent = data.error || "Could not create checkout session.";
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD2-Ns0c-yTGIjmTcLOC5koCBiLFGHVs9I",
+      authDomain: "unpacked-1b2b1.firebaseapp.com",
+      projectId: "unpacked-1b2b1",
+      storageBucket: "unpacked-1b2b1.firebasestorage.app",
+      messagingSenderId: "59965033310",
+      appId: "1:59965033310:web:ac0ed69b6f5727c0561dcf",
+      measurementId: "G-8XX716E629"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const authForm = document.getElementById('authForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+    const payBtn = document.getElementById('pay-btn');
+    const freeBtn = document.getElementById('free-btn');
+
+    loginBtn.onclick = async (e) => {
+      e.preventDefault();
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        
+        // Check if user has paid status
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (userDoc.exists() && userDoc.data().paid) {
+          successMsg.textContent = 'Login successful! Redirecting to paid content...';
+          // Get Firebase ID token and redirect with authentication
+          const token = await user.getIdToken();
+          setTimeout(() => {
+            window.location.href = `/.netlify/functions/servePaidContent?page=Atlas&token=${token}`;
+          }, 1000);
+        } else {
+          successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
+          payBtn.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.textContent = err.message;
+      }
+    };
+
+    signupBtn.onclick = async (e) => {
+      e.preventDefault();
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        // Create user record in Firestore (mark as not paid yet)
+        await db.collection('users').doc(userCredential.user.uid).set({
+          email: email,
+          paid: false,
+          createdAt: new Date()
+        });
+        successMsg.textContent = 'Sign up successful! Please log in.';
+      } catch (err) {
+        errorMsg.textContent = err.message;
+      }
+    };
+
+    freeBtn.onclick = (e) => {
+      e.preventDefault();
+      window.location.href = 'Atlas.html';
+    };
+
+    payBtn.onclick = async (e) => {
+      e.preventDefault();
+      errorMsg.textContent = '';
+      successMsg.textContent = '';
+      
+      try {
+        payBtn.disabled = true;
+        payBtn.textContent = "Processing...";
+        
+        const user = auth.currentUser;
+        if (!user) {
+          errorMsg.textContent = "Please log in first";
           payBtn.disabled = false;
           payBtn.textContent = "Upgrade to Premium";
+          return;
+        }
+
+        const response = await fetch('/.netlify/functions/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid: user.uid, email: user.email })
+        });
+
+        if (response.ok) {
+          const { url } = await response.json();
+          window.location.href = url;
+        } else {
+          throw new Error('Failed to create checkout session');
         }
       } catch (err) {
         errorMsg.textContent = err.message;
