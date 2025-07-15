@@ -1,6 +1,12 @@
-# Protect Paid folder from direct access
+# Protect Paid folder from direct access (both cases)
 [[redirects]]
   from = "/Paid/*"
+  to = "/.netlify/functions/servePaidContent?page=:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/paid/*"
   to = "/.netlify/functions/servePaidContent?page=:splat"
   status = 200
   force = true
