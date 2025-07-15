@@ -131,9 +131,28 @@ function getAccessDeniedPage() {
 }
 
 exports.handler = async (event, context) => {
-  const { page } = event.queryStringParameters || {};
+  let { page } = event.queryStringParameters || {};
 
   console.log('servePaidContentNew called with page:', page);
+  console.log('All query parameters:', event.queryStringParameters);
+
+  // Handle case where page parameter contains query string (from redirect)
+  if (page && page.includes('?')) {
+    const parts = page.split('?');
+    page = parts[0];
+    
+    // Parse additional parameters from page string
+    const additionalParams = parts[1];
+    if (additionalParams) {
+      const paramPairs = additionalParams.split('&');
+      paramPairs.forEach(pair => {
+        const [key, value] = pair.split('=');
+        if (key && value && !event.queryStringParameters[key]) {
+          event.queryStringParameters[key] = decodeURIComponent(value);
+        }
+      });
+    }
+  }
 
   if (!page) {
     return {
