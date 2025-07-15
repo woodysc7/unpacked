@@ -837,9 +837,23 @@ premiumBtn.addEventListener('click', function() {
   };
 },
           onEachFeature: function(feature, layer) {
+            // Exclude problematic territories
+            const problematicTerritories = [
+              "Akrotiri Sovereign Base Area", "Ashmore And Cartier Islands",
+              "Bajo Nuevo Bank (Petrel Is.)", "Baykonur Cosmodrome", "Bir Tawil",
+              "Brazilian Island", "Clipperton Island", "Coral Sea Islands",
+              "Cyprus No Mans Area", "Dhekelia Sovereign Base Area",
+              "Indian Ocean Territories", "Kosovo", "Northern Cyprus",
+              "Scarborough Reef", "Serranilla Bank", "Siachen Glacier",
+              "Somaliland", "Southern Patagonian Ice Field", "Spratly Islands",
+              "US Naval Base Guantanamo Bay"
+            ];
+            const name = feature.properties.name;
+            if (problematicTerritories.includes(name)) {
+              return; // Skip this territory completely
+            }
             const iso3 = feature.properties["ISO3166-1-Alpha-3"];
             const iso2 = feature.properties["ISO3166-1-Alpha-2"];
-            const name = feature.properties.name;
             countryLayers[iso3] = layer;
             allCountries.push({name, iso2, iso3});
             countryByName[name] = {iso2, iso3};
