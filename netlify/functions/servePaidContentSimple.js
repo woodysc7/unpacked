@@ -1,4 +1,5 @@
 exports.handler = async (event, context) => {
+  console.log('servePaidContentSimple called - deployment test');
   const { page } = event.queryStringParameters || {};
 
   if (!page) {
