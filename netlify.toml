@@ -1,31 +1,18 @@
 [build]
-  functions = "netlify/functions"
   publish = "public"
+  functions = "netlify/functions"
 
-[build.environment]
-  NODE_VERSION = "18"
-
-# Allow free content access
-[[redirects]]
-  from = "/Atlas/Free/*"
-  to = "/Atlas/Free/:splat"
-  status = 200
-
-# Redirect root access to signup for first-time users  
 [[redirects]]
   from = "/"
   to = "/Atlas/Free/signup.html"
   status = 200
 
-# Block access to paid content directory
 [[redirects]]
-  from = "/netlify/functions/_Paid/*"
-  to = "/Atlas/Free/blocked.html"
-  status = 404
+  from = "/Paid/*"
+  to = "/.netlify/functions/servePaidContent?page=:splat"
+  status = 200
 
-[[headers]]
-  for = "/Paid/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[[redirects]]
+  from = "/paid/*"
+  to = "/.netlify/functions/servePaidContent?page=:splat"
+  status = 200
