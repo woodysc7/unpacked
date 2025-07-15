@@ -69,6 +69,8 @@ exports.handler = async (event, context) => {
     }
     
     console.log('Looking for file at:', filePath);
+    console.log('File exists?', fs.existsSync(filePath));
+    console.log('Directory contents:', fs.readdirSync(path.join(__dirname, '_Paid')));
 
     // Check if file exists and read it
     if (fs.existsSync(filePath)) {
@@ -98,26 +100,26 @@ exports.handler = async (event, context) => {
           <!DOCTYPE html>
           <html>
             <head>
-              <title>Paid Content - ${page}</title>
+              <title>Debug Info - ${page}</title>
               <style>
                 body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
                 .container { max-width: 800px; margin: 0 auto; }
-                .success { color: green; background: #f0f8ff; padding: 20px; border-radius: 8px; }
+                .debug { color: blue; background: #f0f8ff; padding: 20px; border-radius: 8px; }
+                .file-list { background: #f5f5f5; padding: 10px; margin: 10px 0; }
               </style>
             </head>
             <body>
               <div class="container">
-                <div class="success">
-                  <h1>🔒 Paid Content Access</h1>
-                  <p><strong>Success! You have access.</strong></p>
+                <div class="debug">
+                  <h1>� Debug: File Not Found</h1>
                   <p><strong>Page requested:</strong> ${page}</p>
                   <p><strong>File path:</strong> ${filePath}</p>
-                  <h3>Status:</h3>
-                  <ul>
-                    <li>✅ Authentication verified</li>
-                    <li>✅ Paid status confirmed</li>
-                    <li>⚠️ Content file not found at expected location</li>
-                  </ul>
+                  <p><strong>__dirname:</strong> ${__dirname}</p>
+                  <p><strong>File exists?:</strong> ${fs.existsSync(filePath)}</p>
+                  <div class="file-list">
+                    <strong>Files in _Paid directory:</strong><br>
+                    ${fs.readdirSync(path.join(__dirname, '_Paid')).join('<br>')}
+                  </div>
                   <p><a href="/Atlas/Free/Atlas.html">← Back to Free Atlas</a></p>
                 </div>
               </div>
