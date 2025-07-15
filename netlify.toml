@@ -1,3 +1,10 @@
+[build]
+  functions = "netlify/functions"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "18"
+
 # Allow free content access
 [[redirects]]
   from = "/Atlas/Free/*"
@@ -15,13 +22,6 @@
   from = "/netlify/functions/_Paid/*"
   to = "/Atlas/Free/blocked.html"
   status = 404
-
-[build]
-  functions = "netlify/functions"
-  publish = "public"
-
-[build.environment]
-  NODE_VERSION = "18"
 
 [[headers]]
   for = "/Paid/*"
