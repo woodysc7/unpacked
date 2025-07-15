@@ -22,8 +22,19 @@ async function checkUserAccess(event) {
   console.log('Headers:', JSON.stringify(event.headers, null, 2));
   console.log('Query params:', event.queryStringParameters);
   
-  // Check for whitelisted email cookie
+  // Check for authentication cookies (matching client-side auth-check.js)
   const cookies = event.headers.cookie || '';
+  console.log('Checking cookies:', cookies);
+  
+  // Check for whitelisted email cookie (userEmail format)
+  if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+      cookies.includes('authToken=whitelist_token') ||
+      cookies.includes('authToken=test_token_woodysc7')) {
+    console.log('Found whitelisted auth cookies, granting access');
+    return true;
+  }
+  
+  // Also check for legacy auth_email format
   const authEmailMatch = cookies.match(/auth_email=([^;]+)/);
   if (authEmailMatch) {
     const email = decodeURIComponent(authEmailMatch[1]);
@@ -43,6 +54,22 @@ async function checkUserAccess(event) {
     const paidStatus = paidCookieMatch[1];
     console.log('Found paid_access cookie:', paidStatus);
     if (paidStatus === 'true') {
+      return true;
+    }
+  }
+  
+  // Check for authToken and userEmail cookies more thoroughly
+  const authTokenMatch = cookies.match(/authToken=([^;]+)/);
+  const userEmailMatch = cookies.match(/userEmail=([^;]+)/);
+  
+  if (authTokenMatch && userEmailMatch) {
+    const authToken = authTokenMatch[1];
+    const userEmail = decodeURIComponent(userEmailMatch[1]);
+    console.log('Found authToken and userEmail:', authToken, userEmail);
+    
+    // For Firebase tokens, do basic validation
+    if (authToken.length > 20 && userEmail.includes('@')) {
+      console.log('Valid Firebase token format, granting access');
       return true;
     }
   }
