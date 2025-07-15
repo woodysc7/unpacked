@@ -104,8 +104,7 @@
       align-items: flex-start;
       justify-content: flex-start;
       pointer-events: auto;
-      padding-left: 50px;             /* <-- add this line */
-
+      padding-left: 50px;
     }
     .atlas-popup-overlay.show { display: flex; }
     .atlas-popup-modal {
@@ -239,14 +238,14 @@
 
     .country-btns {
       display: flex;
-     justify-content: flex-start;    /* This aligns the group to the left */
-    align-items: center;
+      justify-content: flex-start;
+      align-items: center;
       flex: 1;
-  margin: 0;                      /* Remove the auto-centering */
-  gap: 18px;
-  position: relative;
-  padding-left: 20px;             /* Add some left padding if you want spacing from the edge */
-}
+      margin: 0;
+      gap: 18px;
+      position: relative;
+      padding-left: 20px;
+    }
     .country-btn {
       background: #e8e1d1;
       border: none;
@@ -375,14 +374,14 @@
       <button class="atlas-popup-close" id="travel-bible-close" aria-label="Close Travel Tips">&times;</button>
       <h2>Travel Tips</h2>
       <ol style="font-size:1.13em; line-height:1.6;">
-        <li><strong>There’s no perfect trip — only your trip.</strong> Travel is one of the best ways to learn about yourself, but only if you're honest about what you actually want. Don’t let other people’s ideas of a ‘perfect’ experience cloud what matters to you. Plan the trip you want, not the one you think you're supposed to want.</li>
-        <li><strong>Behave yourself.</strong> If it’s illegal or inappropriate at home, it’s no more acceptable just because you're in another country. The country you are in has laws that you are subject to. Don’t forget it.</li>
+        <li><strong>There's no perfect trip — only your trip.</strong> Travel is one of the best ways to learn about yourself, but only if you're honest about what you actually want. Don't let other people's ideas of a 'perfect' experience cloud what matters to you. Plan the trip you want, not the one you think you're supposed to want.</li>
+        <li><strong>Behave yourself.</strong> If it's illegal or inappropriate at home, it's no more acceptable just because you're in another country. The country you are in has laws that you are subject to. Don't forget it.</li>
         <li><strong>Experiences over views.</strong> We live in a beautiful world, and you will see amazing things while you travel. That being said, the more you can interact with people and the culture of the country you visit, the better time you will have. I hardly remember my trip to the Trevi fountain but I remember every moment of the solo flamenco class I took. A hands-on cultural experience is usually more meaningful than a quick stop at a tourist landmark.</li>
-        <li><strong>You don’t always need an ‘authentic’ experience.</strong> In the travel community, there is a push for a more ‘authentic’ experience as opposed to a touristy one. This stems from an elitist fantasy many travelers have that wherever they go, they can integrate with the locals better than their first-world counterparts. When planning a trip, try to ignore the travelers telling you to be more authentic. Unless you completely speak the language and are willing to move there long term, you will not integrate on your three-day trip to Singapore. That’s ok. There’s no shame in visiting popular sites or buying the things that help you feel grounded..</li>
-        <li><strong>Study up.</strong> Some travelers avoid it, but I strongly recommend learning a bit of local history and language before you go. Before going somewhere, learn a little about the local history and language. There is a stark contrast in the interactions you will have when speaking to a local in their own language (even badly) as opposed to assuming they speak English. In some places, like parts of Eastern Europe or East Asia, you’ll often find excellent English speakers — but don’t count on it everywhere. If you can, before you go, read a book on where you’re going or listen to a podcast or two. I promise you, historical context before the trip will make your visit much more interesting.</li>
-        <li><strong>Be honest about what you can do.</strong> Not every place is a good destination for everyone. There are places that I would go as a young, able-bodied person that I would not take my elderly grandmother to. When you pick a destination, consider your own needs and limitations: Will I be able to communicate with them? Are there accessibility needs I have that might not be available here? Is this place safe? Some places are best left for experts and don’t lend themselves to tourism.</li>
-        <li><strong>Talk to strangers.</strong> Hostels, walking tours, and tourist sites are great places to meet strangers. They are almost always interesting and friendly. Be smart: avoid sharing your lodging details, and it’s usually better not to mention you’re traveling alone. But a conversation with a stranger will be nearly always be an interesting and rewarding experience. I have learned more from a ten-minute conversation with a foreigner than I did in two hours in a museum.</li>
-        <li><strong>Museums and cathedrals will all start to feel the same after a while.</strong> I almost always avoid them now. Unless you have a strong personal interest in history or religion, you might find that many museums and cathedrals start to blur together. It’s okay to skip them.</li>
+        <li><strong>You don't always need an 'authentic' experience.</strong> In the travel community, there is a push for a more 'authentic' experience as opposed to a touristy one. This stems from an elitist fantasy many travelers have that wherever they go, they can integrate with the locals better than their first-world counterparts. When planning a trip, try to ignore the travelers telling you to be more authentic. Unless you completely speak the language and are willing to move there long term, you will not integrate on your three-day trip to Singapore. That's ok. There's no shame in visiting popular sites or buying the things that help you feel grounded..</li>
+        <li><strong>Study up.</strong> Some travelers avoid it, but I strongly recommend learning a bit of local history and language before you go. Before going somewhere, learn a little about the local history and language. There is a stark contrast in the interactions you will have when speaking to a local in their own language (even badly) as opposed to assuming they speak English. In some places, like parts of Eastern Europe or East Asia, you'll often find excellent English speakers — but don't count on it everywhere. If you can, before you go, read a book on where you're going or listen to a podcast or two. I promise you, historical context before the trip will make your visit much more interesting.</li>
+        <li><strong>Be honest about what you can do.</strong> Not every place is a good destination for everyone. There are places that I would go as a young, able-bodied person that I would not take my elderly grandmother to. When you pick a destination, consider your own needs and limitations: Will I be able to communicate with them? Are there accessibility needs I have that might not be available here? Is this place safe? Some places are best left for experts and don't lend themselves to tourism.</li>
+        <li><strong>Talk to strangers.</strong> Hostels, walking tours, and tourist sites are great places to meet strangers. They are almost always interesting and friendly. Be smart: avoid sharing your lodging details, and it's usually better not to mention you're traveling alone. But a conversation with a stranger will be nearly always be an interesting and rewarding experience. I have learned more from a ten-minute conversation with a foreigner than I did in two hours in a museum.</li>
+        <li><strong>Museums and cathedrals will all start to feel the same after a while.</strong> I almost always avoid them now. Unless you have a strong personal interest in history or religion, you might find that many museums and cathedrals start to blur together. It's okay to skip them.</li>
       </ol>
     </div>
   </div>
@@ -406,64 +405,7 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script>
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAu9mkF9nLg6KEj6HoV_01gP2X-MWI2qNU",
-      authDomain: "unpacked-aec2e.firebaseapp.com",
-      projectId: "unpacked-aec2e",
-      storageBucket: "unpacked-aec2e.appspot.com",
-      messagingSenderId: "767436027494",
-      appId: "1:767436027494:web:c1f40a3f6d9b8a9c3b3b3b"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Authentication check function
-    function checkAuth() {
-      const cookies = document.cookie;
-      
-      // Check for whitelisted email cookie
-      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
-          cookies.includes('authToken=whitelist_token') ||
-          cookies.includes('authToken=test_token_woodysc7')) {
-        return true; // Allow access for whitelisted user
-      }
-      
-      // Check for valid authentication token
-      const authToken = getCookie('authToken');
-      const userEmail = getCookie('userEmail');
-      
-      if (!authToken || !userEmail) {
-        return false;
-      }
-      
-      // For Firebase tokens, we'll do basic validation
-      if (authToken.length > 20 && userEmail.includes('@')) {
-        return true; // Likely valid Firebase token
-      }
-      
-      return false;
-    }
-    
-    function getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-      return null;
-    }
-    
-    // Block access if not authenticated
-    if (!checkAuth()) {
-      // Redirect to signup page
-      window.location.href = '/Atlas/Free/signup.html';
-      throw new Error('Access denied'); // Stop script execution
-    }
-
     function iso2ToFlag(iso2) {
       return /^[A-Z]{2}$/.test(iso2) ? `https://flagcdn.com/w40/${iso2.toLowerCase()}.png` : null;
     }
@@ -479,9 +421,6 @@
       "Cayman Islands": "caymanislands",
       "Central African Republic": "centralafricanrepublic",
       "Cocos (Keeling) Islands": "cocoskeelingislands",
-      "Congo (Democratic Republic of the)": "congothedemocraticrepublicofthe",
-      "Democratic Republic of the Congo": "congothedemocraticrepublicofthe",
-      "Congo": "congothedemocraticrepublicofthe",
       "Cook Islands": "cookislands",
       "Costa Rica": "costarica",
       "Côte d'Ivoire": "ctedivoire",
@@ -498,19 +437,9 @@
       "Vatican City": "holyseevaticancitystate",
       "Hong Kong": "hongkong",
       "Hong Kong SAR": "hongkong",
-      "Iran (Islamic Republic of)": "iranislamicrepublicof",
-      "Iran": "iranislamicrepublicof",
-      "Korea (Democratic People's Republic of)": "koreademocraticpeoplesrepublicof",
-      "North Korea": "koreademocraticpeoplesrepublicof",
-      "Korea (Republic of)": "korearepublicof",
-      "South Korea": "korearepublicof",
-      "Lao People's Democratic Republic": "laopeoplesdemocraticrepublic",
-      "Laos": "laopeoplesdemocraticrepublic",
       "Marshall Islands": "marshallislands",
       "Micronesia, Federated States of": "micronesiafederatedstatesof",
       "Federated States of Micronesia": "micronesiafederatedstatesof",
-      "Moldova (Republic of)": "moldovarepublicof",
-      "Moldova": "moldovarepublicof",
       "New Caledonia": "newcaledonia",
       "New Zealand": "newzealand",
       "Northern Mariana Islands": "northernmarianaislands",
@@ -556,17 +485,15 @@
       "British Virgin Islands": "virginislandsbritish",
       "Virgin Islands, U.S.": "virginislandsus",
       "U.S. Virgin Islands": "virginislandsus",
-      "Venezuela (Bolivarian Republic of)": "venezuelabolivarianrepublicof",
-      "Venezuela": "venezuelabolivarianrepublicof",
       "Wallis and Futuna": "wallisandfutuna",
       "Western Sahara": "westernsahara"
     };
-    // --- Country display name prettify list ---
-    const countryDisplayNames = {
-      "americansamoa": "American Samoa",
-      "antiguaandbarbuda": "Antigua and Barbuda",
-     "bosniaandherzegovina": "Bosnia and Herzegovina",
-      "bouvetisland": "Bouvet Island",
+    // Function to slugify country names for consistent URL slugs// --- Country display name prettify list ---
+const countryDisplayNames = {
+  "americansamoa": "American Samoa",
+  "antiguaandbarbuda": "Antigua and Barbuda",
+  "bosniaandherzegovina": "Bosnia and Herzegovina",
+  "bouvetisland": "Bouvet Island",
   "britishindianoceanterritory": "British Indian Ocean Territory",
   "capeverde": "Cape Verde",
   "caymanislands": "Cayman Islands",
@@ -733,6 +660,9 @@ function prettifyName(str, isCity = false) {
       return countryNameOverrides[name] || slugify(name);
     }
 
+    // ---- PREMIUM VERSION - ALL CONTENT ACCESSIBLE ----
+    // No access restrictions in premium version
+
     const STATUS_COLOR = {
       been: "#71bf69",
       lived: "#4e8aff",
@@ -746,8 +676,8 @@ function prettifyName(str, isCity = false) {
     let selectedISO = null;
     let selectedLayer = null;
     let geojson = null;
-    let allCountries = []; // [{name, iso2, iso3}...]
-    let countryByName = {}; // {name: {iso2, iso3}}
+    let allCountries = [];
+    let countryByName = {};
 
     const bar = document.getElementById('countryBar');
     const flag = document.getElementById('countryFlag');
@@ -775,7 +705,6 @@ function prettifyName(str, isCity = false) {
     const countriesBadges = document.getElementById('atlas-countries-badges');
     const countriesList = document.getElementById('atlas-countries-list');
 
-    // Track the selected country slug
     let currentSelectedCountrySlug = null;
 
     function setBarActive(status) {
@@ -785,30 +714,27 @@ function prettifyName(str, isCity = false) {
     }
 
     function updateCountryFill(iso) {
-  const st = countryStatus[iso] || null;
-  if (countryLayers[iso]) countryLayers[iso].setStyle({
-    fillColor: STATUS_COLOR[st],
-    fillOpacity: 0.9,
-    color: "#444",
-    weight: 1
-  });
-}
+      const st = countryStatus[iso] || null;
+      if (countryLayers[iso]) countryLayers[iso].setStyle({
+        fillColor: STATUS_COLOR[st],
+        fillOpacity: 0.9
+      });
+    }
 
     function highlightSelectedLayer(layer, iso) {
-  if (selectedLayer && geojson) {
-    geojson.resetStyle(selectedLayer);
-    if (selectedISO) updateCountryFill(selectedISO);
-  }
-  if (layer) {
-    layer.setStyle({
-      color: "black",
-      weight: 2,
-      fillOpacity: 0.9 // keep consistent
-    });
-    selectedLayer = layer;
-    selectedISO = iso;
-  }
-}
+      if (selectedLayer && geojson) {
+        geojson.resetStyle(selectedLayer);
+        if (selectedISO) updateCountryFill(selectedISO);
+      }
+      if (layer) {
+        layer.setStyle({
+          color: "black",
+          weight: 2
+        });
+        selectedLayer = layer;
+        selectedISO = iso;
+      }
+    }
 
     function clearSelectedLayer() {
       if (selectedLayer && geojson) {
@@ -838,33 +764,36 @@ function prettifyName(str, isCity = false) {
       bottomNav.classList.add('show');
       highlightSelectedLayer(layer, iso);
 
-      // Use override-aware slug for nav links
       currentSelectedCountrySlug = getCountrySlug(name);
 
+      // Premium version: All countries accessible
       countryHomeBtn.onclick = function() {
-        if (currentSelectedCountrySlug)
-          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}home`;
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}home.html`;
+        }
       };
       countryMoreBtn.onclick = function() {
-        if (currentSelectedCountrySlug)
-          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}more`;
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}more.html`;
+        }
       };
       countryCityBtn.onclick = function() {
-        if (currentSelectedCountrySlug)
-          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}cityguide`;
+        if (currentSelectedCountrySlug) {
+          window.location.href = `/PaidContent/Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}cityguide.html`;
+        }
       };
     }
 
     var southWest = L.latLng(-89.98155760646617, -180),
     northEast = L.latLng(89.99346179538875, 180);
-var bounds = L.latLngBounds(southWest, northEast);
+    var bounds = L.latLngBounds(southWest, northEast);
 
-var map = L.map('map', {
-  maxBounds: bounds,
-  maxBoundsViscosity: 1.0,
-  minZoom: 2,
-  maxZoom: 18
-}).setView([20, 0], 2);
+    var map = L.map('map', {
+      maxBounds: bounds,
+      maxBoundsViscosity: 1.0,
+      minZoom: 2,
+      maxZoom: 18
+    }).setView([20, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
@@ -873,23 +802,15 @@ var map = L.map('map', {
       .then(function(response) {
         geojson = L.geoJSON(response.data, {
           style: function(feature) {
-  const iso = feature.properties["ISO3166-1-Alpha-3"];
-  const name = feature.properties.name;
-  const slug = getCountrySlug(name);
-  const st = countryStatus[iso] || null;
-  let borderColor = "#444";
-  let borderWeight = 1;
-  if (slug === "unitedstates" || slug === "spain") {
-    borderColor = "#4e8aff";
-    borderWeight = 3;
-  }
-  return {
-    color: borderColor,
-    fillColor: STATUS_COLOR[st],
-    fillOpacity: 0.9,
-    weight: borderWeight
-  };
-},
+            const iso = feature.properties["ISO3166-1-Alpha-3"];
+            const st = countryStatus[iso] || null;
+            return {
+              color: "#444",
+              fillColor: STATUS_COLOR[st],
+              fillOpacity: 0.9,
+              weight: 1
+            };
+          },
           onEachFeature: function(feature, layer) {
             const iso3 = feature.properties["ISO3166-1-Alpha-3"];
             const iso2 = feature.properties["ISO3166-1-Alpha-2"];
@@ -905,7 +826,6 @@ var map = L.map('map', {
           }
         }).addTo(map);
 
-        // Sort countries alpha after all loaded
         allCountries.sort((a, b) => a.name.localeCompare(b.name));
         renderCountriesList();
       });
@@ -955,28 +875,37 @@ var map = L.map('map', {
       bottomNav.classList.remove('show');
     });
 
-    // ===== POPUP FUNCTIONALITY =====
     function closeAllPopups() {
       [searchModal, countriesModal, tipsModal].forEach(m => m.classList.remove('show'));
-      // Remove scroll lock
       document.body.style.overflow = "";
     }
     function openPopup(modal) {
       closeAllPopups();
       modal.classList.add('show');
-      // Lock background scroll for modal
       document.body.style.overflow = "hidden";
-      // Focus input for search
       if (modal === searchModal) setTimeout(()=>searchInput.focus(), 100);
     }
 
-    // Z-order: .country-bar is z-index 1002, popups are 1001, .atlas-topright-icons is 1100
-    function bringBarAbovePopups() {
-      // Popups are always below .country-bar, via z-index CSS
-      // When .country-bar is shown, popups are not closed, just covered
-    }
+    (function overrideShowBar() {
+      const origShowBar = showBar;
+      window.showBar = function(...args) {
+        closeAllPopups();
+        origShowBar.apply(this, args);
+      }
+    })();
 
-    // --- Search Modal ---
+    beenBtn.addEventListener('click', renderCountriesList);
+    livedBtn.addEventListener('click', renderCountriesList);
+    wantBtn.addEventListener('click', renderCountriesList);
+    beenBtn.addEventListener('dblclick', renderCountriesList);
+    livedBtn.addEventListener('dblclick', renderCountriesList);
+    wantBtn.addEventListener('dblclick', renderCountriesList);
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
+
+    // ===== SEARCH AND COUNTRY LIST MODALS =====
     searchBtn.addEventListener('click', ()=>openPopup(searchModal));
     searchClose.addEventListener('click', closeAllPopups);
     searchModal.addEventListener('mousedown', function(e) {
@@ -989,43 +918,62 @@ var map = L.map('map', {
     searchInput.addEventListener('input', function() {
       updateSearchResults(this.value);
     });
-  // Then cities
- function updateSearchResults(query) {
-  searchResults.innerHTML = "";
-  if (!query) return;
-  const q = query.trim().toLowerCase();
-  const countryMatches = allCountries.filter(c => c.name.toLowerCase().includes(q));
-  const cityMatches = allCities.filter(c => c.name.toLowerCase().includes(q));
 
-  if (countryMatches.length === 0 && cityMatches.length === 0) {
-    const li = document.createElement('li');
-    li.textContent = "No countries or cities found";
-    searchResults.appendChild(li);
-    return;
-  }
-  for (const c of countryMatches.slice(0, 10)) {
-    const li = document.createElement('li');
-    li.textContent = prettifyName(c.name);
-    li.tabIndex = 0;
-    li.addEventListener('click', ()=> gotoCountryHome(c.name));
-    li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ gotoCountryHome(c.name);} });
-    searchResults.appendChild(li);
-  }
-  for (const c of cityMatches.slice(0, 10)) {
-    const li = document.createElement('li');
-    li.textContent = `${prettifyName(c.name, true)} (${prettifyName(c.country)})`;
-    li.tabIndex = 0;
-    li.addEventListener('click', ()=> window.location.href = `/paidcontent/cities/${c.name}${c.country}.html`.toLowerCase());
-li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href = `/paidcontent/cities/${c.name}${c.country}.html`.toLowerCase();} });
-    searchResults.appendChild(li);
-  }
-}
-    function gotoCountryHome(name) {
-      let slug = getCountrySlug(name);
-      window.location.href = `/paidcontent/countries/${slug.toLowerCase()}/${slug.toLowerCase()}home`;
+    function updateSearchResults(query) {
+      searchResults.innerHTML = "";
+      if (!query) return;
+      const q = query.trim().toLowerCase();
+      const countryMatches = allCountries.filter(c => c.name.toLowerCase().includes(q));
+      const cityMatches = allCities.filter(c => c.name.toLowerCase().includes(q));
+
+      if (countryMatches.length === 0 && cityMatches.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = "No countries or cities found";
+        searchResults.appendChild(li);
+        return;
+      }
+      for (const c of countryMatches.slice(0, 10)) {
+        const li = document.createElement('li');
+        li.textContent = prettifyName(c.name);
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=>{
+          let slug = getCountrySlug(c.name);
+          // Premium: All countries accessible
+          window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+        });
+        li.addEventListener('keydown', (e)=>{
+          if(e.key==="Enter"){
+            let slug = getCountrySlug(c.name);
+            // Premium: All countries accessible
+            window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+          }
+        });
+        searchResults.appendChild(li);
+      }
+      for (const c of cityMatches.slice(0, 10)) {
+        const li = document.createElement('li');
+        li.textContent = `${prettifyName(c.name, true)} (${prettifyName(c.country)})`;
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=>{
+          // Premium: All cities accessible
+          window.location.href = `/PaidContent/cities/${c.name}${c.country}.html`;
+        });
+        li.addEventListener('keydown', (e)=>{
+          if(e.key==="Enter"){
+            // Premium: All cities accessible
+            window.location.href = `/PaidContent/cities/${c.name}${c.country}.html`;
+          }
+        });
+        searchResults.appendChild(li);
+      }
     }
 
-    // --- Countries Modal ---
+    function gotoCountryHome(name) {
+      let slug = getCountrySlug(name);
+      // Premium: All countries accessible
+      window.location.href = `/PaidContent/Countries/${slug}/${slug}home.html`;
+    }
+
     countriesBtn.addEventListener('click', ()=>openPopup(countriesModal));
     countriesClose.addEventListener('click', closeAllPopups);
     countriesModal.addEventListener('mousedown', function(e) {
@@ -1036,9 +984,7 @@ li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href 
     });
 
     function renderCountriesList() {
-      // Top badges
       let badgesHTML = '';
-      // Collect by status
       const visited = [], lived = [], wanted = [];
       for (const country of allCountries) {
         const st = countryStatus[country.iso3];
@@ -1046,24 +992,19 @@ li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href 
         if (st === "lived") lived.push(country);
         if (st === "want") wanted.push(country);
       }
-      // Visited
       for (const c of visited) {
         badgesHTML += `<span class="country-badge visited" data-country="${c.name}">${prettifyName(c.name)}</span>`;
       }
-      // Lived
       for (const c of lived) {
         badgesHTML += `<span class="country-badge lived" data-country="${c.name}">${prettifyName(c.name)}</span>`;
       }
-      // Wanted
       for (const c of wanted) {
         badgesHTML += `<span class="country-badge wanted" data-country="${c.name}">${prettifyName(c.name)}</span>`;
       }
       countriesBadges.innerHTML = `<div class="country-badge-bar">${badgesHTML||'<span style="font-size:0.98em;opacity:0.65;">No countries marked yet.</span>'}</div>`;
-      // Bind click to badges
       countriesBadges.querySelectorAll('.country-badge').forEach(el => {
         el.addEventListener('click', ()=>gotoCountryHome(el.getAttribute('data-country')));
       });
-      // Full list
       let listHTML = '';
       for (const c of allCountries) {
         listHTML += `<li tabindex="0" data-country="${c.name}">${prettifyName(c.name)}</li>`;
@@ -1075,90 +1016,57 @@ li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href 
       });
     }
 
-// --- Update country badges whenever status changes ---
-function updateCountriesPopup() {
-  renderCountriesList();
-}
+    // --- Travel Tips Modal ---
+    tipsBtn.addEventListener('click', ()=>openPopup(tipsModal));
+    tipsClose.addEventListener('click', closeAllPopups);
+    tipsModal.addEventListener('mousedown', function(e) {
+      if (e.target === tipsModal) closeAllPopups();
+    });
+    tipsModal.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") closeAllPopups();
+    });
 
-// --- Travel Tips Modal ---
-tipsBtn.addEventListener('click', ()=>openPopup(tipsModal));
-tipsClose.addEventListener('click', closeAllPopups);
-tipsModal.addEventListener('mousedown', function(e) {
-  if (e.target === tipsModal) closeAllPopups();
-});
-tipsModal.addEventListener('keydown', function(e) {
-  if (e.key === "Escape") closeAllPopups();
-});
+    // ===== CITY MARKERS AND SEARCH INTEGRATION =====
+    let allCities = [];
+    let cityMarkers = [];
 
-// --- When country bar opens, cover popups (close if needed) ---
-(function overrideShowBar() {
-  const origShowBar = showBar;
-  window.showBar = function(...args) {
-    closeAllPopups();
-    origShowBar.apply(this, args);
-  }
-})();
-
-// --- Update country badges if status changes ---
-beenBtn.addEventListener('click', updateCountriesPopup);
-livedBtn.addEventListener('click', updateCountriesPopup);
-wantBtn.addEventListener('click', updateCountriesPopup);
-beenBtn.addEventListener('dblclick', updateCountriesPopup);
-livedBtn.addEventListener('dblclick', updateCountriesPopup);
-wantBtn.addEventListener('dblclick', updateCountriesPopup);
-
-// Keyboard: Escape closes any popup
-document.addEventListener('keydown', function(e) {
-  if (e.key === "Escape") closeAllPopups();
-});
-
-// ===== CITY MARKERS AND SEARCH INTEGRATION =====
-let allCities = [];
-let cityMarkers = [];
-
-function removeCityMarkers() {
-  for (const m of cityMarkers) map.removeLayer(m);
-  cityMarkers = [];
-}
-
-function showCityMarkers() {
-  console.log('showCityMarkers called, zoom level:', map.getZoom(), 'cities count:', allCities.length);
-  removeCityMarkers();
-  for (const city of allCities) {
-    // In premium version, all cities are allowed and always show at zoom 4+
-    if (map.getZoom() >= 4) {
-      const cityDisp = prettifyName(city.name, true);
-      const countryDisp = prettifyName(city.country);
-
-      const marker = L.circleMarker([city.lat, city.lon], {
-        radius: 8,
-        color: '#4e8aff',
-        fillColor: '#4e8aff',
-        fillOpacity: 0.85,
-        weight: 3
-      })
-      .bindTooltip(`${cityDisp}, ${countryDisp}`, { direction: 'top', offset: [0, -8] })
-      .addTo(map)
-      .on('click', function() {
-        window.location.href = `/paidcontent/cities/${city.name}${city.country}.html`.toLowerCase();
-      });
-      cityMarkers.push(marker);
+    function removeCityMarkers() {
+      for (const m of cityMarkers) map.removeLayer(m);
+      cityMarkers = [];
     }
-  }
-  console.log('City markers added:', cityMarkers.length);
-}
 
-// Fetch cities and init markers
-axios.get('/paidcontent/cities/cities.json?v=2').then(function(response) {
-  console.log('Cities loaded:', response.data.length);
-  allCities = response.data;
-  showCityMarkers();
-}).catch(function(error) {
-  console.error('Error loading cities:', error);
-});
+    function showCityMarkers() {
+      removeCityMarkers();
+      for (const city of allCities) {
+        // Premium version: All cities show at zoom 4+, all are accessible
+        if (map.getZoom() >= 4) {
+          const cityDisp = prettifyName(city.name, true);
+          const countryDisp = prettifyName(city.country);
 
-// Update city markers on zoom
-map.on('zoomend', showCityMarkers);
+          const marker = L.circleMarker([city.lat, city.lon], {
+            radius: 8,
+            color: '#4e8aff',
+            fillColor: '#4e8aff',
+            fillOpacity: 0.85,
+            weight: 3
+          })
+          .bindTooltip(`${cityDisp}, ${countryDisp}`, { direction: 'top', offset: [0, -8] })
+          .addTo(map)
+          .on('click', function() {
+            // Premium: All cities accessible
+            window.location.href = `/PaidContent/cities/${city.name}${city.country}.html`;
+          });
+          cityMarkers.push(marker);
+        }
+      }
+    }
+
+    axios.get('/PaidContent/cities/cities.json').then(function(response) {
+      allCities = response.data;
+      showCityMarkers();
+    });
+
+    map.on('zoomend', showCityMarkers);
   </script>
 </body>
 </html>
