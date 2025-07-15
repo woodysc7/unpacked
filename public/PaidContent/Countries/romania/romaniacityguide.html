@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Romania</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/bucharestromania" ><img src="https://images.unsplash.com/photo-1690284843657-3cff7aba0677?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQYXJsaWFtZW50JTIwUGFsYWNlJTIwQnVjaGFyZXN0JTIwUm9tYW5pYXxlbnwwfHx8fDE3NTEwODA4MTN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Parliament Palace: Massive government building with guided tours."></a>
+        <a href="/PaidContent/cities/bucharestromania.html" ><img src="https://images.unsplash.com/photo-1690284843657-3cff7aba0677?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxQYXJsaWFtZW50JTIwUGFsYWNlJTIwQnVjaGFyZXN0JTIwUm9tYW5pYXxlbnwwfHx8fDE3NTEwODA4MTN8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Parliament Palace: Massive government building with guided tours."></a>
         <div class="citycard-caption">Parliament Palace: Massive government building with guided tours.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/bucharestromania" >Bucharest</a>
+        <a class="citycard-title" href="/PaidContent/cities/bucharestromania.html" >Bucharest</a>
         <div class="citycard-about">Nestled in the heart of Romania, Bucharest is a vibrant city of contrasts waiting to be explored. From its grand Belle Époque buildings to its Communist-era architecture, every corner tells a story of its past. Lose yourself in the lively Old Town, where historic churches and trendy cafes coexist effortlessly. Indulge in traditional Romanian cuisine at local markets or fine dining restaurants, and dance the night away in the city&#x27;s lively nightclubs. With its rich history, buzzing cultural scene, and warm hospitality, Bucharest is a city that will both surprise and delight you at every turn.</div>
       </div>
     </div>
   <div class="geography-blurb">Romania is a country in Eastern Europe known for its diverse geography. From the towering Carpathian Mountains in the north to the sandy beaches along the Black Sea coast in the east, Romania offers a wide range of landscapes to explore. Visitors can also discover the lush forests, rolling hills, and picturesque valleys that make up much of the countryside. In addition to its natural beauty, Romania&#x27;s climate varies from temperate in the south to continental in the interior, providing a unique experience for travelers seeking outdoor adventures or cultural exploration.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/romania/romaniahome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/romania/romaniamore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/romania/romaniacityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/romania/romaniahome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/romania/romaniamore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/romania/romaniacityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([44.4361414,26.1027202]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/bucharestromania" >Bucharest</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/bucharestromania" ; })
+  .bindPopup('<a href="/PaidContent/cities/bucharestromania.html" >Bucharest</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/bucharestromania.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 

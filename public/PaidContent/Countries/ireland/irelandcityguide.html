@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Ireland</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/dublinireland" ><img src="https://images.unsplash.com/photo-1699791913857-f574fe98be04?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxHdWlubmVzcyUyMFN0b3JlaG91c2UlMjBEdWJsaW4lMjBJcmVsYW5kfGVufDB8fHx8MTc1MTEzOTUwN3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Guinness Storehouse: Brewery tour with exhibits and tasting rooms."></a>
+        <a href="/PaidContent/cities/dublinireland.html" ><img src="https://images.unsplash.com/photo-1699791913857-f574fe98be04?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxHdWlubmVzcyUyMFN0b3JlaG91c2UlMjBEdWJsaW4lMjBJcmVsYW5kfGVufDB8fHx8MTc1MTEzOTUwN3ww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Guinness Storehouse: Brewery tour with exhibits and tasting rooms."></a>
         <div class="citycard-caption">Guinness Storehouse: Brewery tour with exhibits and tasting rooms.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/dublinireland" >Dublin</a>
+        <a class="citycard-title" href="/PaidContent/cities/dublinireland.html" >Dublin</a>
         <div class="citycard-about">Dublin, the vibrant and charismatic capital of Ireland, is a city that effortlessly blends rich history with modern energy. From the lively pubs echoing with traditional music to the stunning architecture of its historic buildings, Dublin has a charm that is hard to resist. Take a stroll through the cobblestone streets of Temple Bar, indulge in some hearty Irish cuisine, or explore the fascinating museums and galleries. Whether you&#x27;re sipping on a perfectly poured pint of Guinness or admiring the view from the iconic Ha&#x27;penny Bridge, Dublin promises a delightful mix of cultural experiences and warm hospitality that will leave you wanting more.</div>
       </div>
     </div>
   <div class="geography-blurb">Ireland is known for its stunning landscapes, with rolling green hills, dramatic cliffs, and picturesque coastlines. The country is also home to many historic sites, charming villages, and bustling cities. The climate in Ireland is mild and temperate, with frequent rainfall leading to lush, verdant scenery. Visitors can explore the rugged beauty of the Cliffs of Moher, wander through the ancient ruins of the Rock of Cashel, or immerse themselves in the vibrant culture of Dublin. Whether you&#x27;re seeking outdoor adventures, cultural experiences, or simply a relaxing getaway, Ireland offers something for every traveler to enjoy.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/ireland/irelandhome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/ireland/irelandmore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/ireland/irelandcityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/ireland/irelandhome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/ireland/irelandmore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/ireland/irelandcityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([53.3497645,-6.2602732]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/dublinireland" >Dublin</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/dublinireland" ; })
+  .bindPopup('<a href="/PaidContent/cities/dublinireland.html" >Dublin</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/dublinireland.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 

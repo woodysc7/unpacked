@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Norway</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/oslonorway" ><img src="https://images.unsplash.com/photo-1673112574931-76fe4f5869fe?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxWaWdlbGFuZCUyMFNjdWxwdHVyZSUyMFBhcmslMjBPc2xvJTIwTm9yd2F5fGVufDB8fHx8MTc1MTE3NDkzMHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Vigeland Sculpture Park: Outdoor art gallery with over 200 sculptures by Gustav Vigeland."></a>
+        <a href="/PaidContent/cities/oslonorway.html" ><img src="https://images.unsplash.com/photo-1673112574931-76fe4f5869fe?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxWaWdlbGFuZCUyMFNjdWxwdHVyZSUyMFBhcmslMjBPc2xvJTIwTm9yd2F5fGVufDB8fHx8MTc1MTE3NDkzMHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Vigeland Sculpture Park: Outdoor art gallery with over 200 sculptures by Gustav Vigeland."></a>
         <div class="citycard-caption">Vigeland Sculpture Park: Outdoor art gallery with over 200 sculptures by Gustav Vigeland.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/oslonorway" >Oslo</a>
+        <a class="citycard-title" href="/PaidContent/cities/oslonorway.html" >Oslo</a>
         <div class="citycard-about">Oslo, Norway, effortlessly combines modern Scandinavian flair with a deep-rooted historical charm. A walk along Karl Johans gate offers a glimpse into the city&#x27;s vibrant culture, from bustling cafes to chic boutiques. Don&#x27;t miss the stunning architecture of the Opera House or the fascinating exhibits at the Viking Ship Museum. For a taste of nature within the city limits, head to the lush Royal Palace Park or take a ferry to the serene Bygdøy peninsula. With its innovative gastronomy scene and laid-back atmosphere, Oslo promises a memorable escape for any kind of traveler.</div>
       </div>
     </div>
   <div class="geography-blurb">Norway&#x27;s geography is characterized by its stunning fjords, towering mountains, and pristine forests, making it a paradise for outdoor enthusiasts. The country is known for its dramatic coastline, with deep fjords slicing through the rugged terrain. Inland, travelers can explore vast glaciers, crystal-clear lakes, and picturesque valleys. Norway&#x27;s climate varies from region to region, with the coastal areas experiencing mild winters and cool summers, while the inland regions have colder temperatures and more snowfall. Whether you&#x27;re seeking a peaceful hike through the wilderness or a thrilling skiing adventure, Norway&#x27;s diverse landscape offers something for every traveler to enjoy.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/norway/norwayhome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/norway/norwaymore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/norway/norwaycityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/norway/norwayhome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/norway/norwaymore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/norway/norwaycityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([59.9133301,10.7389701]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/oslonorway" >Oslo</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/oslonorway" ; })
+  .bindPopup('<a href="/PaidContent/cities/oslonorway.html" >Oslo</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/oslonorway.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 

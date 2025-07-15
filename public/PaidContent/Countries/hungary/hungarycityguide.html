@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Hungary</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/budapesthungary" ><img src="https://images.unsplash.com/photo-1715738328813-831a2a6512e7?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxGaXNoZXJtYW4lMjdzJTIwQmFzdGlvbiUyMEJ1ZGFwZXN0JTIwSHVuZ2FyeXxlbnwwfHx8fDE3NTEwODA5ODh8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Fisherman&#x27;s Bastion: Fairytale-like terrace offering stunning views of the city."></a>
+        <a href="/PaidContent/cities/budapesthungary.html" ><img src="https://images.unsplash.com/photo-1715738328813-831a2a6512e7?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxGaXNoZXJtYW4lMjdzJTIwQmFzdGlvbiUyMEJ1ZGFwZXN0JTIwSHVuZ2FyeXxlbnwwfHx8fDE3NTEwODA5ODh8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Fisherman&#x27;s Bastion: Fairytale-like terrace offering stunning views of the city."></a>
         <div class="citycard-caption">Fisherman&#x27;s Bastion: Fairytale-like terrace offering stunning views of the city.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/budapesthungary" >Budapest</a>
+        <a class="citycard-title" href="/PaidContent/cities/budapesthungary.html" >Budapest</a>
         <div class="citycard-about">Budapest, the vibrant capital of Hungary, effortlessly blends old-world charm with a modern buzz, making it a must-visit destination for any traveler. Dive into the city&#x27;s rich history as you explore the grandeur of Buda Castle and soak in the healing waters of the iconic Széchenyi Thermal Bath. Indulge in delicious Hungarian cuisine at local markets, sip on pálinka in ruin bars, and dance the night away on the banks of the Danube River. With its stunning architecture, lively cultural scene, and welcoming locals, Budapest promises an unforgettable experience that will leave you longing to return.</div>
       </div>
     </div>
   <div class="geography-blurb">Hungary, located in central Europe, boasts a diverse geography that includes flat plains, rolling hills, and the majestic Carpathian Mountains in the north. The country is divided by the Danube River, which flows through its capital city, Budapest. Visitors can explore charming historic towns like Eger and Szentendre, as well as the stunning Lake Balaton, Europe&#x27;s largest freshwater lake. Hungary also experiences a continental climate, with hot summers and cold winters, making it a great destination for year-round travel. Whether you&#x27;re looking to soak in thermal baths, hike through lush forests, or indulge in delicious cuisine, Hungary has something for every traveler to enjoy.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/hungary/hungaryhome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/hungary/hungarymore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/hungary/hungarycityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/hungary/hungaryhome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/hungary/hungarymore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/hungary/hungarycityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([47.4979937,19.0403594]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/budapesthungary" >Budapest</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/budapesthungary" ; })
+  .bindPopup('<a href="/PaidContent/cities/budapesthungary.html" >Budapest</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/budapesthungary.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 

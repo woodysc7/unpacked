@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Cuba</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/havanacuba" ><img src="https://images.unsplash.com/photo-1722751171698-6eb1abb85833?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEVsJTIwQ2FwaXRvbGlvJTIwSGF2YW5hJTIwQ3ViYXxlbnwwfHx8fDE3NTEwNjUxMzZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. El Capitolio: Historic government building with ornate architecture and dome."></a>
+        <a href="/PaidContent/cities/havanacuba.html" ><img src="https://images.unsplash.com/photo-1722751171698-6eb1abb85833?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHwxLiUyMEVsJTIwQ2FwaXRvbGlvJTIwSGF2YW5hJTIwQ3ViYXxlbnwwfHx8fDE3NTEwNjUxMzZ8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="1. El Capitolio: Historic government building with ornate architecture and dome."></a>
         <div class="citycard-caption">1. El Capitolio: Historic government building with ornate architecture and dome.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/havanacuba" >Havana</a>
+        <a class="citycard-title" href="/PaidContent/cities/havanacuba.html" >Havana</a>
         <div class="citycard-about">Step into a vibrant kaleidoscope of flavors, rhythms, and colors in Havana, Cuba. Get lost in the labyrinthine streets of Old Havana, where vintage cars rumble past pastel-colored buildings adorned with intricate iron balconies. Savor the smoky aroma of a freshly rolled cigar while swaying to the infectious beats of salsa music spilling out from lively cafes. Immerse yourself in a rich tapestry of history at the grandiose Capitolio and the revolutionary Che Guevara murals. With every sip of smooth aged rum and every glance at a sunset casting a golden glow over the Malecon, Havana weaves its spell on you, leaving an indelible mark on your heart.</div>
       </div>
     </div>
   <div class="geography-blurb">Cuba is a captivating island nation located in the Caribbean Sea, known for its stunning beaches, vibrant culture, and historic architecture. The landscape of Cuba is diverse, with lush mountains, fertile valleys, and pristine coastlines. Visitors can explore the bustling city of Havana with its colorful colonial buildings and lively music scene, or relax on the white sandy beaches of Varadero. The climate in Cuba is tropical, with warm temperatures year-round and a rainy season from May to October. Travelers can also discover the unique ecosystems of Cuba, from the lush forests of the Sierra Maestra mountains to the vibrant coral reefs of the Jardines del Rey archipelago.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/cuba/cubahome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/cuba/cubamore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/cuba/cubacityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/cuba/cubahome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/cuba/cubamore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/cuba/cubacityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([23.135305,-82.3589631]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/havanacuba" >Havana</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/havanacuba" ; })
+  .bindPopup('<a href="/PaidContent/cities/havanacuba.html" >Havana</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/havanacuba.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 

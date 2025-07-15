@@ -189,19 +189,19 @@ html, body {
   <div class="country-identifier">Croatia</div>
   <div class="citycard">
       <div class="citycard-img">
-        <a href="/.netlify/functions/servePaidContent?page=cities/zagrebcroatia" ><img src="https://images.unsplash.com/photo-1727708289330-81c405ae1335?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxaYWdyZWIlMjBDYXRoZWRyYWwlMjBaYWdyZWIlMjBDcm9hdGlhfGVufDB8fHx8MTc1MTMwMDM1MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Zagreb Cathedral: Gothic-style cathedral with twin spires and religious artifacts."></a>
+        <a href="/PaidContent/cities/zagrebcroatia.html" ><img src="https://images.unsplash.com/photo-1727708289330-81c405ae1335?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxaYWdyZWIlMjBDYXRoZWRyYWwlMjBaYWdyZWIlMjBDcm9hdGlhfGVufDB8fHx8MTc1MTMwMDM1MHww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Zagreb Cathedral: Gothic-style cathedral with twin spires and religious artifacts."></a>
         <div class="citycard-caption">Zagreb Cathedral: Gothic-style cathedral with twin spires and religious artifacts.</div>
       </div>
       <div class="citycard-content">
-        <a class="citycard-title" href="/.netlify/functions/servePaidContent?page=cities/zagrebcroatia" >Zagreb</a>
+        <a class="citycard-title" href="/PaidContent/cities/zagrebcroatia.html" >Zagreb</a>
         <div class="citycard-about">Nestled in the heart of Croatia, Zagreb effortlessly blends historic charm with a vibrant urban spirit, making it a delightful destination for travelers seeking a perfect mix of old-world allure and modern delights. Stroll through the cobblestone streets of the Upper Town to admire medieval architecture and cozy cafes, then hop on a funicular to the Lower Town for trendy boutiques and buzzing nightlife. Don&#x27;t miss the colorful Dolac Market for a taste of local flavors and take a leisurely walk through the lush parks for a moment of tranquility in this bustling city. With its welcoming locals, rich cultural scene, and mouthwatering cuisine, Zagreb is a gem waiting to be explored.</div>
       </div>
     </div>
   <div class="geography-blurb">Croatia, situated in southeastern Europe, boasts a diverse landscape that includes stunning coastlines along the Adriatic Sea, picturesque islands, and rugged mountains. The country is known for its crystal-clear waters, ancient walled cities like Dubrovnik, and lush national parks such as Plitvice Lakes. With a Mediterranean climate in the coastal regions and a continental climate further inland, Croatia offers a perfect mix of sun-soaked beaches and verdant forests for travelers to explore. Whether you&#x27;re seeking adventure in the mountains or relaxation on the beach, Croatia&#x27;s varied geography has something for everyone.</div>
   <nav class="country-bottom-nav">
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/croatia/croatiahome" >Home</a>
-    <a class="nav-btn" href="/.netlify/functions/servePaidContent?page=Countries/croatia/croatiamore" >More</a>
-    <a class="nav-btn active" href="/.netlify/functions/servePaidContent?page=Countries/croatia/croatiacityguide" >Cityguide</a>
+    <a class="nav-btn" href="/PaidContent/Countries/croatia/croatiahome.html" >Home</a>
+    <a class="nav-btn" href="/PaidContent/Countries/croatia/croatiamore.html" >More</a>
+    <a class="nav-btn active" href="/PaidContent/Countries/croatia/croatiacityguide.html" >Cityguide</a>
   </nav>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
@@ -211,8 +211,8 @@ html, body {
     }).addTo(map);
     
 L.marker([45.8131847,15.9771774]).addTo(map)
-  .bindPopup('<a href="/.netlify/functions/servePaidContent?page=cities/zagrebcroatia" >Zagreb</a>')
-  .on('click', function(){ window.location.href =" /.netlify/functions/servePaidContent?page=cities/zagrebcroatia" ; })
+  .bindPopup('<a href="/PaidContent/cities/zagrebcroatia.html" >Zagreb</a>')
+  .on('click', function(){ window.location.href =" /PaidContent/cities/zagrebcroatia.html" ; })
   .on('mouseover', function(e){ this.openPopup(); })
   .on('mouseout', function(e){ this.closePopup(); });
 
