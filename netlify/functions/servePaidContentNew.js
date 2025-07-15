@@ -42,6 +42,17 @@ async function checkUserAccess(event) {
       }
     }
 
+    // Check for specific paid user email (manual whitelist)
+    if (cookies) {
+      const emailMatch = cookies.match(/userEmail=([^;]+)/);
+      if (emailMatch) {
+        const email = decodeURIComponent(emailMatch[1]);
+        if (email === 'woodysc7@gmail.com') {
+          return true; // Grant access to specific email
+        }
+      }
+    }
+
     // If no token, user is not authenticated
     if (!token) {
       return false;
@@ -57,6 +68,11 @@ async function checkUserAccess(event) {
       const userDoc = await db.collection('users').doc(uid).get();
       
       if (userDoc.exists && userDoc.data().paid) {
+        return true;
+      }
+      
+      // Also check for specific email
+      if (decodedToken.email === 'woodysc7@gmail.com') {
         return true;
       }
     }

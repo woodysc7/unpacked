@@ -42,7 +42,7 @@ exports.handler = async function(event, context) {
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: 'subscription', // Use subscription mode for recurring prices
       success_url: 'https://unpacked.today/Paid/Atlas.html?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: 'https://unpacked.today/Free/signup.html',
       metadata: {

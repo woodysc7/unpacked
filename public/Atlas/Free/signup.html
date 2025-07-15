@@ -79,8 +79,15 @@
         const userDoc = await db.collection('users').doc(user.uid).get();
         if (userDoc.exists() && userDoc.data().paid) {
           successMsg.textContent = 'Login successful! Redirecting to paid content...';
+          
+          // Get Firebase ID token for authentication
+          const idToken = await user.getIdToken();
+          
+          // Store token in sessionStorage for the function to use
+          sessionStorage.setItem('authToken', idToken);
+          
           setTimeout(() => {
-            window.location.href = `/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7`;
+            window.location.href = `/Paid/Atlas.html`;
           }, 1000);
         } else {
           successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
