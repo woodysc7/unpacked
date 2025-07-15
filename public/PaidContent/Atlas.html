@@ -745,15 +745,15 @@ function prettifyName(str, isCity = false) {
 
       countryHomeBtn.onclick = function() {
         if (currentSelectedCountrySlug)
-          window.location.href = `/.netlify/functions/servePaidContent?page=Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}Home `;
+          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}home`;
       };
       countryMoreBtn.onclick = function() {
         if (currentSelectedCountrySlug)
-          window.location.href = `/.netlify/functions/servePaidContent?page=Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}More `;
+          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}more`;
       };
       countryCityBtn.onclick = function() {
         if (currentSelectedCountrySlug)
-          window.location.href = `/.netlify/functions/servePaidContent?page=Countries/${currentSelectedCountrySlug}/${currentSelectedCountrySlug}Cityguide `;
+          window.location.href = `/paidcontent/countries/${currentSelectedCountrySlug.toLowerCase()}/${currentSelectedCountrySlug.toLowerCase()}cityguide`;
       };
     }
 
@@ -904,14 +904,14 @@ var map = L.map('map', {
     const li = document.createElement('li');
     li.textContent = `${prettifyName(c.name, true)} (${prettifyName(c.country)})`;
     li.tabIndex = 0;
-    li.addEventListener('click', ()=> window.location.href = `/Paid/cities/${c.name}${c.country}.html `);
-li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href = `/Paid/cities/${c.name}${c.country}.html `;} });
+    li.addEventListener('click', ()=> window.location.href = `/paidcontent/cities/${c.name}${c.country}.html`.toLowerCase());
+li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href = `/paidcontent/cities/${c.name}${c.country}.html`.toLowerCase();} });
     searchResults.appendChild(li);
   }
 }
     function gotoCountryHome(name) {
       let slug = getCountrySlug(name);
-      window.location.href = `/.netlify/functions/servePaidContent?page=Countries/${slug}/${slug}Home `;
+      window.location.href = `/paidcontent/countries/${slug.toLowerCase()}/${slug.toLowerCase()}home`;
     }
 
     // --- Countries Modal ---
@@ -1027,7 +1027,7 @@ function showCityMarkers() {
       .bindTooltip(`${cityDisp}, ${countryDisp}`, { direction: 'top', offset: [0, -8] })
       .addTo(map)
       .on('click', function() {
-        window.location.href = `/Paid/cities/${city.name}${city.country}.html `;
+        window.location.href = `/paidcontent/cities/${city.name}${city.country}.html`.toLowerCase();
       });
       cityMarkers.push(marker);
     }
@@ -1035,7 +1035,7 @@ function showCityMarkers() {
 }
 
 // Fetch cities and init markers
-axios.get('/Paid/cities/cities.json').then(function(response) {
+axios.get('/paidcontent/cities/cities.json').then(function(response) {
   allCities = response.data;
   showCityMarkers();
 });

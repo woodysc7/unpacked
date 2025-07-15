@@ -43,7 +43,7 @@ exports.handler = async function(event, context) {
         },
       ],
       mode: 'subscription', // Use subscription mode for recurring prices
-      success_url: 'https://unpacked.today/Paid/Atlas.html?session_id={CHECKOUT_SESSION_ID}',
+      success_url: 'https://unpacked.today/premium-atlas-direct.html?session_id={CHECKOUT_SESSION_ID}',
       cancel_url: 'https://unpacked.today/Free/signup.html',
       metadata: {
         uid: uid, // Pass Firebase UID to webhook

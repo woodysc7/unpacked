@@ -78,7 +78,7 @@
         document.cookie = `userEmail=${encodeURIComponent(userEmail)}; path=/; max-age=3600; secure; samesite=strict`;
         
         // Redirect to premium content
-        window.location.href = `/Paid/Atlas.html`;
+        window.location.href = `/premium-atlas-direct.html`;
         return;
       }
       
@@ -86,7 +86,7 @@
       const cookies = document.cookie;
       if (cookies.includes('userEmail=woodysc7%40gmail.com') || cookies.includes('authToken=whitelist_token')) {
         // User is already authenticated, redirect to premium
-        window.location.href = `/Paid/Atlas.html`;
+        window.location.href = `/premium-atlas-direct.html`;
         return;
       }
     };
@@ -115,7 +115,7 @@
           document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=3600; secure; samesite=strict`;
           
           setTimeout(() => {
-            window.location.href = `/Paid/Atlas.html`;
+            window.location.href = `/premium-atlas-direct.html`;
           }, 1000);
           return;
         }
@@ -134,7 +134,7 @@
             document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=3600; secure; samesite=strict`;
             
             setTimeout(() => {
-              window.location.href = `/Paid/Atlas.html`;
+              window.location.href = `/premium-atlas-direct.html`;
             }, 1000);
           } else {
             successMsg.textContent = 'Login successful! Please purchase access to view paid content.';

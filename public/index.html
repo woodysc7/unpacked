@@ -24,7 +24,7 @@
               cookies.includes('authToken=whitelist_token') ||
               cookies.includes('authToken=test_token_woodysc7')) {
             // Redirect to premium content
-            window.location.href = '/Paid/Atlas.html';
+            window.location.href = '/premium-atlas-direct.html';
             return;
           }
           
@@ -43,7 +43,7 @@
             
             // Small delay to ensure cookies are set
             setTimeout(() => {
-              window.location.href = '/Paid/Atlas.html';
+              window.location.href = '/premium-atlas-direct.html';
             }, 100);
             return;
           }
