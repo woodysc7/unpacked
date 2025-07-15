@@ -83,8 +83,9 @@
           // Get Firebase ID token for authentication
           const idToken = await user.getIdToken();
           
-          // Store token in sessionStorage for the function to use
-          sessionStorage.setItem('authToken', idToken);
+          // Set authentication cookies
+          document.cookie = `authToken=${idToken}; path=/; max-age=3600; secure; samesite=strict`;
+          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=3600; secure; samesite=strict`;
           
           setTimeout(() => {
             window.location.href = `/Paid/Atlas.html`;
