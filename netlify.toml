@@ -17,10 +17,10 @@
   to = "/Free/:splat"
   status = 200
 
-# Redirect root access to main site
+# Redirect root access to signup for first-time users
 [[redirects]]
   from = "/"
-  to = "/index.html"
+  to = "/Free/signup.html"
   status = 200
 
 [build]
