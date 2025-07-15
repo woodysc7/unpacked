@@ -904,8 +904,8 @@ var map = L.map('map', {
     const li = document.createElement('li');
     li.textContent = `${prettifyName(c.name, true)} (${prettifyName(c.country)})`;
     li.tabIndex = 0;
-    li.addEventListener('click', ()=> window.location.href = `/.netlify/functions/servePaidContent?page=cities/${c.name}${c.country} `);
-li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href = `/.netlify/functions/servePaidContent?page=cities/${c.name}${c.country} `;} });
+    li.addEventListener('click', ()=> window.location.href = `/Paid/cities/${c.name}${c.country}.html `);
+li.addEventListener('keydown', (e)=>{ if(e.key==="Enter"){ window.location.href = `/Paid/cities/${c.name}${c.country}.html `;} });
     searchResults.appendChild(li);
   }
 }
@@ -1027,7 +1027,7 @@ function showCityMarkers() {
       .bindTooltip(`${cityDisp}, ${countryDisp}`, { direction: 'top', offset: [0, -8] })
       .addTo(map)
       .on('click', function() {
-        window.location.href = `/.netlify/functions/servePaidContent?page=cities/${city.name}${city.country} `;
+        window.location.href = `/Paid/cities/${city.name}${city.country}.html `;
       });
       cityMarkers.push(marker);
     }
@@ -1035,7 +1035,7 @@ function showCityMarkers() {
 }
 
 // Fetch cities and init markers
-axios.get('/.netlify/functions/servePaidContent?page=cities/cities.json').then(function(response) {
+axios.get('/Paid/cities/cities.json').then(function(response) {
   allCities = response.data;
   showCityMarkers();
 });

@@ -1,13 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirecting...</title>
-    <meta http-equiv="refresh" content="0;url=/Atlas/Free/signup.html">
+    <title>Unpacked.today - Loading...</title>
+    <style>
+      body { 
+        font-family: Montserrat, Arial, sans-serif; 
+        background: #faf9f6; 
+        color: #4B3425; 
+        text-align: center; 
+        padding: 100px 40px; 
+      }
+    </style>
 </head>
 <body>
-    <p>Redirecting to Atlas...</p>
+    <p>Checking access level...</p>
     <script>
-        window.location.href = '/Atlas/Free/signup.html';
+        // Check if user is whitelisted based on cookies
+        function checkAccess() {
+          const cookies = document.cookie;
+          
+          // Check if user already has auth cookies for your email
+          if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+              cookies.includes('authToken=whitelist_token') ||
+              cookies.includes('authToken=test_token_woodysc7')) {
+            // Redirect to premium content
+            window.location.href = '/Paid/Atlas.html';
+            return;
+          }
+          
+          // Check URL parameters for auto-login
+          const urlParams = new URLSearchParams(window.location.search);
+          const autoLogin = urlParams.get('auto');
+          
+          if (autoLogin === 'woody') {
+            // Set authentication cookies for your access
+            document.cookie = `authToken=whitelist_token; path=/; max-age=86400; secure; samesite=strict`;
+            document.cookie = `userEmail=${encodeURIComponent('woodysc7@gmail.com')}; path=/; max-age=86400; secure; samesite=strict`;
+            
+            // Redirect to premium content
+            window.location.href = '/Paid/Atlas.html';
+            return;
+          }
+          
+          // Default: redirect to signup page
+          window.location.href = '/Atlas/Free/signup.html';
+        }
+        
+        checkAccess();
     </script>
 </body>
 </html>

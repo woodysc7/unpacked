@@ -32,7 +32,6 @@
       <div class="error" id="errorMsg"></div>
       <div class="success" id="successMsg"></div>
     </form>
-    <button id="quick-login-btn" style="background: #28a745; margin-top: 10px;">Quick Login (woodysc7@gmail.com)</button>
     <button id="pay-btn" style="display:none;">Upgrade to Premium</button>
     <button id="free-btn">Continue to Free Atlas</button>
   </div>
@@ -63,20 +62,33 @@
     const successMsg = document.getElementById('successMsg');
     const payBtn = document.getElementById('pay-btn');
     const freeBtn = document.getElementById('free-btn');
-    const quickLoginBtn = document.getElementById('quick-login-btn');
 
-    // Quick login for testing
-    quickLoginBtn.onclick = function() {
-      // Simulate successful login for your email
-      successMsg.textContent = 'Quick login successful! Redirecting to paid content...';
+    // Auto-redirect for whitelisted users on page load
+    window.onload = function() {
+      // Check if this is a whitelisted email (you can expand this list)
+      const whitelistedEmails = ['woodysc7@gmail.com'];
       
-      // Set authentication cookies directly
-      document.cookie = `authToken=test_token_woodysc7; path=/; max-age=3600; secure; samesite=strict`;
-      document.cookie = `userEmail=${encodeURIComponent('woodysc7@gmail.com')}; path=/; max-age=3600; secure; samesite=strict`;
+      // Check URL parameters for email hint
+      const urlParams = new URLSearchParams(window.location.search);
+      const userEmail = urlParams.get('email');
       
-      setTimeout(() => {
+      if (userEmail && whitelistedEmails.includes(userEmail)) {
+        // Set authentication cookies for whitelisted user
+        document.cookie = `authToken=whitelist_token; path=/; max-age=3600; secure; samesite=strict`;
+        document.cookie = `userEmail=${encodeURIComponent(userEmail)}; path=/; max-age=3600; secure; samesite=strict`;
+        
+        // Redirect to premium content
         window.location.href = `/Paid/Atlas.html`;
-      }, 1000);
+        return;
+      }
+      
+      // Check if user is already authenticated with valid cookies
+      const cookies = document.cookie;
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || cookies.includes('authToken=whitelist_token')) {
+        // User is already authenticated, redirect to premium
+        window.location.href = `/Paid/Atlas.html`;
+        return;
+      }
     };
 
     // Login form submission
