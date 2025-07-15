@@ -863,13 +863,10 @@ var map = L.map('map', {
   maxBounds: bounds,
   maxBoundsViscosity: 1.0,
   minZoom: 2,
-  maxZoom: 20
+  maxZoom: 18
 }).setView([20, 0], 2);
-    // Use higher quality tiles for premium version
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 20,
-      subdomains: ['a', 'b', 'c']
+      attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
     axios.get('https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson')
@@ -1127,7 +1124,8 @@ function removeCityMarkers() {
 function showCityMarkers() {
   removeCityMarkers();
   for (const city of allCities) {
-    if (map.getZoom() >= 4) {  // Show when zoomed in (zoom 4+)
+    // In premium version, all cities are allowed and always show at zoom 4+
+    if (map.getZoom() >= 4) {
       const cityDisp = prettifyName(city.name, true);
       const countryDisp = prettifyName(city.country);
 
