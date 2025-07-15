@@ -1122,6 +1122,7 @@ function removeCityMarkers() {
 }
 
 function showCityMarkers() {
+  console.log('showCityMarkers called, zoom level:', map.getZoom(), 'cities count:', allCities.length);
   removeCityMarkers();
   for (const city of allCities) {
     // In premium version, all cities are allowed and always show at zoom 4+
@@ -1144,12 +1145,16 @@ function showCityMarkers() {
       cityMarkers.push(marker);
     }
   }
+  console.log('City markers added:', cityMarkers.length);
 }
 
 // Fetch cities and init markers
-axios.get('/paidcontent/cities/cities.json').then(function(response) {
+axios.get('/paidcontent/cities/cities.json?v=2').then(function(response) {
+  console.log('Cities loaded:', response.data.length);
   allCities = response.data;
   showCityMarkers();
+}).catch(function(error) {
+  console.error('Error loading cities:', error);
 });
 
 // Update city markers on zoom
