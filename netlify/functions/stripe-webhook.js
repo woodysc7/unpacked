@@ -6,6 +6,9 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Initialize Firebase Admin SDK from JSON in env variable
 if (!admin.apps.length) {
+  if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+    throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY environment variable is required");
+  }
   const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
   admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 }
