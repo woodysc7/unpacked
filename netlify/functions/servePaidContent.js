@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
 
   // For testing, let's serve the actual content from _Paid folder
   try {
-    const filePath = path.join(__dirname, '../../..', '_Paid', `${page}.html`);
+    const filePath = path.join(__dirname, '_Paid', `${page}.html`);
     console.log('Looking for file at:', filePath);
     
     // Security: prevent directory traversal

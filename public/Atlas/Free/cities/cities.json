@@ -1,0 +1,7002 @@
+[
+  {
+    "name": "tokyo",
+    "lat": 35.6828387,
+    "lon": 139.7594549,
+    "country": "japan",
+    "slug": "tokyojapan"
+  },
+  {
+    "name": "delhi",
+    "lat": 28.6517178,
+    "lon": 77.2219388,
+    "country": "india",
+    "slug": "delhiindia"
+  },
+  {
+    "name": "shanghai",
+    "lat": 31.2322758,
+    "lon": 121.4692071,
+    "country": "china",
+    "slug": "shanghaichina"
+  },
+  {
+    "name": "saopaulo",
+    "lat": -23.5506507,
+    "lon": -46.6333824,
+    "country": "brazil",
+    "slug": "saopaulobrazil"
+  },
+  {
+    "name": "mexicocity",
+    "lat": 19.4326296,
+    "lon": -99.1331785,
+    "country": "mexico",
+    "slug": "mexicocitymexico"
+  },
+  {
+    "name": "dhaka",
+    "lat": 23.7861979,
+    "lon": 90.4026151,
+    "country": "bangladesh",
+    "slug": "dhakabangladesh"
+  },
+  {
+    "name": "cairo",
+    "lat": 30.0443879,
+    "lon": 31.2357257,
+    "country": "egypt",
+    "slug": "cairoegypt"
+  },
+  {
+    "name": "beijing",
+    "lat": 39.906217,
+    "lon": 116.3912757,
+    "country": "china",
+    "slug": "beijingchina"
+  },
+  {
+    "name": "mumbai",
+    "lat": 19.0759899,
+    "lon": 72.8773928,
+    "country": "india",
+    "slug": "mumbaiindia"
+  },
+  {
+    "name": "osaka",
+    "lat": 34.6198813,
+    "lon": 135.490357,
+    "country": "japan",
+    "slug": "osakajapan"
+  },
+  {
+    "name": "karachi",
+    "lat": 24.8546842,
+    "lon": 67.0207055,
+    "country": "pakistan",
+    "slug": "karachipakistan"
+  },
+  {
+    "name": "chongqing",
+    "lat": 29.5647398,
+    "lon": 106.5478767,
+    "country": "china",
+    "slug": "chongqingchina"
+  },
+  {
+    "name": "istanbul",
+    "lat": 41.0096334,
+    "lon": 28.9651646,
+    "country": "turkey",
+    "slug": "istanbulturkey"
+  },
+  {
+    "name": "buenosaires",
+    "lat": -34.6075682,
+    "lon": -58.4370894,
+    "country": "argentina",
+    "slug": "buenosairesargentina"
+  },
+  {
+    "name": "kolkata",
+    "lat": 22.5414185,
+    "lon": 88.3576912,
+    "country": "india",
+    "slug": "kolkataindia"
+  },
+  {
+    "name": "kinshasa",
+    "lat": -4.3217055,
+    "lon": 15.3125974,
+    "country": "drcongo",
+    "slug": "kinshasadrcongo"
+  },
+  {
+    "name": "lagos",
+    "lat": 6.4550575,
+    "lon": 3.3941795,
+    "country": "nigeria",
+    "slug": "lagosnigeria"
+  },
+  {
+    "name": "manila",
+    "lat": 14.5907332,
+    "lon": 120.9809674,
+    "country": "philippines",
+    "slug": "manilaphilippines"
+  },
+  {
+    "name": "tianjin",
+    "lat": 39.0856735,
+    "lon": 117.1951073,
+    "country": "china",
+    "slug": "tianjinchina"
+  },
+  {
+    "name": "guangzhou",
+    "lat": 23.1301964,
+    "lon": 113.2592945,
+    "country": "china",
+    "slug": "guangzhouchina"
+  },
+  {
+    "name": "riodejaneiro",
+    "lat": -22.9110137,
+    "lon": -43.2093727,
+    "country": "brazil",
+    "slug": "riodejaneirobrazil"
+  },
+  {
+    "name": "lahore",
+    "lat": 31.5656822,
+    "lon": 74.3141829,
+    "country": "pakistan",
+    "slug": "lahorepakistan"
+  },
+  {
+    "name": "bangalore",
+    "lat": 12.9767936,
+    "lon": 77.590082,
+    "country": "india",
+    "slug": "bangaloreindia"
+  },
+  {
+    "name": "moscow",
+    "lat": 55.7504461,
+    "lon": 37.6174943,
+    "country": "russia",
+    "slug": "moscowrussia"
+  },
+  {
+    "name": "shenzhen",
+    "lat": 22.555454,
+    "lon": 114.0543297,
+    "country": "china",
+    "slug": "shenzhenchina"
+  },
+  {
+    "name": "chennai",
+    "lat": 13.0836939,
+    "lon": 80.270186,
+    "country": "india",
+    "slug": "chennaiindia"
+  },
+  {
+    "name": "bogota",
+    "lat": 4.6533326,
+    "lon": -74.083652,
+    "country": "colombia",
+    "slug": "bogotacolombia"
+  },
+  {
+    "name": "paris",
+    "lat": 48.8588897,
+    "lon": 2.320041,
+    "country": "france",
+    "slug": "parisfrance"
+  },
+  {
+    "name": "jakarta",
+    "lat": -6.1753942,
+    "lon": 106.827183,
+    "country": "indonesia",
+    "slug": "jakartaindonesia"
+  },
+  {
+    "name": "lima",
+    "lat": -12.0621065,
+    "lon": -77.0365256,
+    "country": "peru",
+    "slug": "limaperu"
+  },
+  {
+    "name": "bangkok",
+    "lat": 13.7525438,
+    "lon": 100.4934734,
+    "country": "thailand",
+    "slug": "bangkokthailand"
+  },
+  {
+    "name": "hyderabad",
+    "lat": 17.360589,
+    "lon": 78.4740613,
+    "country": "india",
+    "slug": "hyderabadindia"
+  },
+  {
+    "name": "seoul",
+    "lat": 37.5666791,
+    "lon": 126.9782914,
+    "country": "southkorea",
+    "slug": "seoulsouthkorea"
+  },
+  {
+    "name": "nagoya",
+    "lat": 35.1851045,
+    "lon": 136.8998438,
+    "country": "japan",
+    "slug": "nagoyajapan"
+  },
+  {
+    "name": "london",
+    "lat": 51.5073219,
+    "lon": -0.1276474,
+    "country": "unitedkingdom",
+    "slug": "londonunitedkingdom"
+  },
+  {
+    "name": "chengdu",
+    "lat": 30.6598628,
+    "lon": 104.0633717,
+    "country": "china",
+    "slug": "chengduchina"
+  },
+  {
+    "name": "tehran",
+    "lat": 35.6892523,
+    "lon": 51.3896004,
+    "country": "iran",
+    "slug": "tehraniran"
+  },
+  {
+    "name": "nanjing",
+    "lat": 32.0437711,
+    "lon": 118.7788734,
+    "country": "china",
+    "slug": "nanjingchina"
+  },
+  {
+    "name": "hochiminhcity",
+    "lat": 10.7715512,
+    "lon": 106.6983801,
+    "country": "vietnam",
+    "slug": "hochiminhcityvietnam"
+  },
+  {
+    "name": "luanda",
+    "lat": -8.8272699,
+    "lon": 13.2439512,
+    "country": "angola",
+    "slug": "luandaangola"
+  },
+  {
+    "name": "wuhan",
+    "lat": 30.5951051,
+    "lon": 114.2999353,
+    "country": "china",
+    "slug": "wuhanchina"
+  },
+  {
+    "name": "xianshaanxi",
+    "lat": 34.3430507,
+    "lon": 108.9350839,
+    "country": "china",
+    "slug": "xianshaanxichina"
+  },
+  {
+    "name": "ahmedabad",
+    "lat": 23.0216238,
+    "lon": 72.5797068,
+    "country": "india",
+    "slug": "ahmedabadindia"
+  },
+  {
+    "name": "newyorkcity",
+    "lat": 40.7127281,
+    "lon": -74.0060152,
+    "country": "unitedstates",
+    "slug": "newyorkcityunitedstates"
+  },
+  {
+    "name": "kualalumpur",
+    "lat": 3.1516964,
+    "lon": 101.6942371,
+    "country": "malaysia",
+    "slug": "kualalumpurmalaysia"
+  },
+  {
+    "name": "hangzhou",
+    "lat": 30.2489634,
+    "lon": 120.2052342,
+    "country": "china",
+    "slug": "hangzhouchina"
+  },
+  {
+    "name": "hongkong",
+    "lat": 22.2793278,
+    "lon": 114.1628131,
+    "country": "hongkong",
+    "slug": "hongkonghongkong"
+  },
+  {
+    "name": "surat",
+    "lat": 45.9383,
+    "lon": 3.2553,
+    "country": "india",
+    "slug": "suratindia"
+  },
+  {
+    "name": "dongguan",
+    "lat": 23.0205969,
+    "lon": 113.7457788,
+    "country": "china",
+    "slug": "dongguanchina"
+  },
+  {
+    "name": "suzhou",
+    "lat": 31.3016935,
+    "lon": 120.5810725,
+    "country": "china",
+    "slug": "suzhouchina"
+  },
+  {
+    "name": "foshan",
+    "lat": 23.0247687,
+    "lon": 113.1146335,
+    "country": "china",
+    "slug": "foshanchina"
+  },
+  {
+    "name": "riyadh",
+    "lat": 24.638916,
+    "lon": 46.7160104,
+    "country": "saudiarabia",
+    "slug": "riyadhsaudiarabia"
+  },
+  {
+    "name": "shenyang",
+    "lat": 41.6749893,
+    "lon": 123.458674,
+    "country": "china",
+    "slug": "shenyangchina"
+  },
+  {
+    "name": "baghdad",
+    "lat": 33.3024309,
+    "lon": 44.3787992,
+    "country": "iraq",
+    "slug": "baghdadiraq"
+  },
+  {
+    "name": "daressalaam",
+    "lat": -6.8160837,
+    "lon": 39.2803583,
+    "country": "tanzania",
+    "slug": "daressalaamtanzania"
+  },
+  {
+    "name": "santiago",
+    "lat": 9.8694792,
+    "lon": -83.7980749,
+    "country": "chile",
+    "slug": "santiagochile"
+  },
+  {
+    "name": "pune",
+    "lat": 18.521428,
+    "lon": 73.8544541,
+    "country": "india",
+    "slug": "puneindia"
+  },
+  {
+    "name": "madrid",
+    "lat": 40.4167047,
+    "lon": -3.7035825,
+    "country": "spain",
+    "slug": "madridspain"
+  },
+  {
+    "name": "haerbin",
+    "lat": 45.7988273,
+    "lon": 126.5303997,
+    "country": "china",
+    "slug": "haerbinchina"
+  },
+  {
+    "name": "toronto",
+    "lat": 43.6534817,
+    "lon": -79.3839347,
+    "country": "canada",
+    "slug": "torontocanada"
+  },
+  {
+    "name": "belohorizonte",
+    "lat": -19.9227318,
+    "lon": -43.9450948,
+    "country": "brazil",
+    "slug": "belohorizontebrazil"
+  },
+  {
+    "name": "singapore",
+    "lat": 1.357107,
+    "lon": 103.8194992,
+    "country": "singapore",
+    "slug": "singaporesingapore"
+  },
+  {
+    "name": "khartoum",
+    "lat": 15.5635972,
+    "lon": 32.5349123,
+    "country": "sudan",
+    "slug": "khartoumsudan"
+  },
+  {
+    "name": "johannesburg",
+    "lat": -26.205,
+    "lon": 28.049722,
+    "country": "southafrica",
+    "slug": "johannesburgsouthafrica"
+  },
+  {
+    "name": "dalian",
+    "lat": 38.9181714,
+    "lon": 121.6282945,
+    "country": "china",
+    "slug": "dalianchina"
+  },
+  {
+    "name": "qingdao",
+    "lat": 36.0638034,
+    "lon": 120.3781372,
+    "country": "china",
+    "slug": "qingdaochina"
+  },
+  {
+    "name": "barcelona",
+    "lat": 41.3828939,
+    "lon": 2.1774322,
+    "country": "spain",
+    "slug": "barcelonaspain"
+  },
+  {
+    "name": "fukuoka",
+    "lat": 33.6251241,
+    "lon": 130.6180016,
+    "country": "japan",
+    "slug": "fukuokajapan"
+  },
+  {
+    "name": "jinanshandong",
+    "lat": 36.6507007,
+    "lon": 117.1140042,
+    "country": "china",
+    "slug": "jinanshandongchina"
+  },
+  {
+    "name": "zhengzhou",
+    "lat": 34.7487244,
+    "lon": 113.6191483,
+    "country": "china",
+    "slug": "zhengzhouchina"
+  },
+  {
+    "name": "saintpetersburg",
+    "lat": 59.938732,
+    "lon": 30.316229,
+    "country": "russia",
+    "slug": "saintpetersburgrussia"
+  },
+  {
+    "name": "yangon",
+    "lat": 16.7967129,
+    "lon": 96.1609916,
+    "country": "myanmar",
+    "slug": "yangonmyanmar"
+  },
+  {
+    "name": "alexandria",
+    "lat": 31.199004,
+    "lon": 29.894378,
+    "country": "egypt",
+    "slug": "alexandriaegypt"
+  },
+  {
+    "name": "abidjan",
+    "lat": 5.320357,
+    "lon": -4.016107,
+    "country": "ivorycoast",
+    "slug": "abidjanivorycoast"
+  },
+  {
+    "name": "guadalajara",
+    "lat": 20.6720375,
+    "lon": -103.338396,
+    "country": "mexico",
+    "slug": "guadalajaramexico"
+  },
+  {
+    "name": "ankara",
+    "lat": 39.9207886,
+    "lon": 32.8540482,
+    "country": "turkey",
+    "slug": "ankaraturkey"
+  },
+  {
+    "name": "chittagong",
+    "lat": 22.3364709,
+    "lon": 91.8260479,
+    "country": "bangladesh",
+    "slug": "chittagongbangladesh"
+  },
+  {
+    "name": "melbourne",
+    "lat": -37.8142176,
+    "lon": 144.9631608,
+    "country": "australia",
+    "slug": "melbourneaustralia"
+  },
+  {
+    "name": "addisababa",
+    "lat": 9.0107934,
+    "lon": 38.7612525,
+    "country": "ethiopia",
+    "slug": "addisababaethiopia"
+  },
+  {
+    "name": "sydney",
+    "lat": -33.768528,
+    "lon": 150.956856,
+    "country": "australia",
+    "slug": "sydneyaustralia"
+  },
+  {
+    "name": "monterrey",
+    "lat": 25.6802019,
+    "lon": -100.315258,
+    "country": "mexico",
+    "slug": "monterreymexico"
+  },
+  {
+    "name": "nairobi",
+    "lat": -1.2832533,
+    "lon": 36.8172449,
+    "country": "kenya",
+    "slug": "nairobikenya"
+  },
+  {
+    "name": "hanoi",
+    "lat": 21.0294498,
+    "lon": 105.8544441,
+    "country": "vietnam",
+    "slug": "hanoivietnam"
+  },
+  {
+    "name": "brasilia",
+    "lat": -10.3333333,
+    "lon": -53.2,
+    "country": "brazil",
+    "slug": "brasiliabrazil"
+  },
+  {
+    "name": "capetown",
+    "lat": -33.928992,
+    "lon": 18.417396,
+    "country": "southafrica",
+    "slug": "capetownsouthafrica"
+  },
+  {
+    "name": "jiddah",
+    "lat": 21.5810088,
+    "lon": 39.1653612,
+    "country": "saudiarabia",
+    "slug": "jiddahsaudiarabia"
+  },
+  {
+    "name": "changsha",
+    "lat": 28.2302056,
+    "lon": 112.9335861,
+    "country": "china",
+    "slug": "changshachina"
+  },
+  {
+    "name": "kunming",
+    "lat": 24.8843019,
+    "lon": 102.8324209,
+    "country": "china",
+    "slug": "kunmingchina"
+  },
+  {
+    "name": "urumqi",
+    "lat": 43.419754,
+    "lon": 87.319461,
+    "country": "china",
+    "slug": "urumqichina"
+  },
+  {
+    "name": "changchun",
+    "lat": 43.8130735,
+    "lon": 125.3171216,
+    "country": "china",
+    "slug": "changchunchina"
+  },
+  {
+    "name": "xinbei",
+    "lat": 31.8644668,
+    "lon": 119.9562502,
+    "country": "taiwan",
+    "slug": "xinbeitaiwan"
+  },
+  {
+    "name": "shantou",
+    "lat": 23.356377,
+    "lon": 116.6775918,
+    "country": "china",
+    "slug": "shantouchina"
+  },
+  {
+    "name": "hefei",
+    "lat": 31.8228094,
+    "lon": 117.2218033,
+    "country": "china",
+    "slug": "hefeichina"
+  },
+  {
+    "name": "kabul",
+    "lat": 34.5260109,
+    "lon": 69.1776838,
+    "country": "afghanistan",
+    "slug": "kabulafghanistan"
+  },
+  {
+    "name": "rome",
+    "lat": 41.8933203,
+    "lon": 12.4829321,
+    "country": "italy",
+    "slug": "romeitaly"
+  },
+  {
+    "name": "ningbo",
+    "lat": 29.8622194,
+    "lon": 121.6203873,
+    "country": "china",
+    "slug": "ningbochina"
+  },
+  {
+    "name": "telaviv",
+    "lat": 32.0852997,
+    "lon": 34.7818064,
+    "country": "israel",
+    "slug": "telavivisrael"
+  },
+  {
+    "name": "montreal",
+    "lat": 45.5031824,
+    "lon": -73.5698065,
+    "country": "canada",
+    "slug": "montrealcanada"
+  },
+  {
+    "name": "shijiazhuang",
+    "lat": 38.0429742,
+    "lon": 114.5088385,
+    "country": "china",
+    "slug": "shijiazhuangchina"
+  },
+  {
+    "name": "recife",
+    "lat": -8.0584933,
+    "lon": -34.8848193,
+    "country": "brazil",
+    "slug": "recifebrazil"
+  },
+  {
+    "name": "yaounde",
+    "lat": 3.8689867,
+    "lon": 11.5213344,
+    "country": "cameroon",
+    "slug": "yaoundecameroon"
+  },
+  {
+    "name": "portoalegre",
+    "lat": -30.0324999,
+    "lon": -51.2303767,
+    "country": "brazil",
+    "slug": "portoalegrebrazil"
+  },
+  {
+    "name": "fortaleza",
+    "lat": -3.7304512,
+    "lon": -38.5217989,
+    "country": "brazil",
+    "slug": "fortalezabrazil"
+  },
+  {
+    "name": "kano",
+    "lat": 49.1813403,
+    "lon": -0.3635615,
+    "country": "nigeria",
+    "slug": "kanonigeria"
+  },
+  {
+    "name": "medellin",
+    "lat": 6.2443382,
+    "lon": -75.573553,
+    "country": "colombia",
+    "slug": "medellincolombia"
+  },
+  {
+    "name": "jaipur",
+    "lat": 26.9154576,
+    "lon": 75.8189817,
+    "country": "india",
+    "slug": "jaipurindia"
+  },
+  {
+    "name": "losangeles",
+    "lat": 34.0536909,
+    "lon": -118.242766,
+    "country": "unitedstates",
+    "slug": "losangelesunitedstates"
+  },
+  {
+    "name": "taiyuanshanxi",
+    "lat": 37.870009,
+    "lon": 112.5452739,
+    "country": "china",
+    "slug": "taiyuanshanxichina"
+  },
+  {
+    "name": "nanning",
+    "lat": 22.8193063,
+    "lon": 108.3627211,
+    "country": "china",
+    "slug": "nanningchina"
+  },
+  {
+    "name": "ekurhuleni",
+    "lat": -26.184765,
+    "lon": 28.3210725,
+    "country": "southafrica",
+    "slug": "ekurhulenisouthafrica"
+  },
+  {
+    "name": "salvador",
+    "lat": 13.8000382,
+    "lon": -88.9140683,
+    "country": "brazil",
+    "slug": "salvadorbrazil"
+  },
+  {
+    "name": "casablanca",
+    "lat": 33.5950627,
+    "lon": -7.6187768,
+    "country": "morocco",
+    "slug": "casablancamorocco"
+  },
+  {
+    "name": "douala",
+    "lat": 4.0429408,
+    "lon": 9.706203,
+    "country": "cameroon",
+    "slug": "doualacameroon"
+  },
+  {
+    "name": "xiamen",
+    "lat": 24.4801069,
+    "lon": 118.0853479,
+    "country": "china",
+    "slug": "xiamenchina"
+  },
+  {
+    "name": "lucknow",
+    "lat": 26.8381,
+    "lon": 80.9346001,
+    "country": "india",
+    "slug": "lucknowindia"
+  },
+  {
+    "name": "fuzhoufujian",
+    "lat": 26.0774954,
+    "lon": 119.2918215,
+    "country": "china",
+    "slug": "fuzhoufujianchina"
+  },
+  {
+    "name": "changzhou",
+    "lat": 31.8122623,
+    "lon": 119.9691539,
+    "country": "china",
+    "slug": "changzhouchina"
+  },
+  {
+    "name": "kozhikode",
+    "lat": 11.2450558,
+    "lon": 75.7754716,
+    "country": "india",
+    "slug": "kozhikodeindia"
+  },
+  {
+    "name": "curitiba",
+    "lat": -25.4295963,
+    "lon": -49.2712724,
+    "country": "brazil",
+    "slug": "curitibabrazil"
+  },
+  {
+    "name": "wenzhou",
+    "lat": 27.9963899,
+    "lon": 120.695345,
+    "country": "china",
+    "slug": "wenzhouchina"
+  },
+  {
+    "name": "nanchang",
+    "lat": 28.687547,
+    "lon": 115.8540042,
+    "country": "china",
+    "slug": "nanchangchina"
+  },
+  {
+    "name": "ibadan",
+    "lat": 7.3777462,
+    "lon": 3.8972497,
+    "country": "nigeria",
+    "slug": "ibadannigeria"
+  },
+  {
+    "name": "malappuram",
+    "lat": 11.1068448,
+    "lon": 76.1099551,
+    "country": "india",
+    "slug": "malappuramindia"
+  },
+  {
+    "name": "berlin",
+    "lat": 52.5170365,
+    "lon": 13.3888599,
+    "country": "germany",
+    "slug": "berlingermany"
+  },
+  {
+    "name": "tangshanhebei",
+    "lat": 39.6295591,
+    "lon": 118.1738665,
+    "country": "china",
+    "slug": "tangshanhebeichina"
+  },
+  {
+    "name": "faisalabad",
+    "lat": 31.4220558,
+    "lon": 73.0923253,
+    "country": "pakistan",
+    "slug": "faisalabadpakistan"
+  },
+  {
+    "name": "antananarivo",
+    "lat": -18.9100122,
+    "lon": 47.5255809,
+    "country": "madagascar",
+    "slug": "antananarivomadagascar"
+  },
+  {
+    "name": "bekasi",
+    "lat": -6.2349858,
+    "lon": 106.9945444,
+    "country": "indonesia",
+    "slug": "bekasiindonesia"
+  },
+  {
+    "name": "kumasi",
+    "lat": 6.698081,
+    "lon": -1.6230404,
+    "country": "ghana",
+    "slug": "kumasighana"
+  },
+  {
+    "name": "kampala",
+    "lat": 0.3177137,
+    "lon": 32.5813539,
+    "country": "uganda",
+    "slug": "kampalauganda"
+  },
+  {
+    "name": "busan",
+    "lat": 35.1799528,
+    "lon": 129.0752365,
+    "country": "southkorea",
+    "slug": "busansouthkorea"
+  },
+  {
+    "name": "abuja",
+    "lat": 9.0643305,
+    "lon": 7.4892974,
+    "country": "nigeria",
+    "slug": "abujanigeria"
+  },
+  {
+    "name": "guiyang",
+    "lat": 25.7561647,
+    "lon": 112.72964,
+    "country": "china",
+    "slug": "guiyangchina"
+  },
+  {
+    "name": "asuncion",
+    "lat": -25.2800459,
+    "lon": -57.6343814,
+    "country": "paraguay",
+    "slug": "asuncionparaguay"
+  },
+  {
+    "name": "santodomingo",
+    "lat": 18.4801972,
+    "lon": -69.942111,
+    "country": "dominicanrepublic",
+    "slug": "santodomingodominicanrepublic"
+  },
+  {
+    "name": "campinas",
+    "lat": -22.90556,
+    "lon": -47.06083,
+    "country": "brazil",
+    "slug": "campinasbrazil"
+  },
+  {
+    "name": "wuxi",
+    "lat": 31.4933074,
+    "lon": 120.3074357,
+    "country": "china",
+    "slug": "wuxichina"
+  },
+  {
+    "name": "mashhad",
+    "lat": 36.2974945,
+    "lon": 59.6059232,
+    "country": "iran",
+    "slug": "mashhadiran"
+  },
+  {
+    "name": "puebla",
+    "lat": 18.833333,
+    "lon": -98,
+    "country": "mexico",
+    "slug": "pueblamexico"
+  },
+  {
+    "name": "dakar",
+    "lat": 14.693425,
+    "lon": -17.447938,
+    "country": "senegal",
+    "slug": "dakarsenegal"
+  },
+  {
+    "name": "thrissur",
+    "lat": 10.5256264,
+    "lon": 76.2132542,
+    "country": "india",
+    "slug": "thrissurindia"
+  },
+  {
+    "name": "kochi",
+    "lat": 9.931308,
+    "lon": 76.2674136,
+    "country": "india",
+    "slug": "kochiindia"
+  },
+  {
+    "name": "kuwaitcity",
+    "lat": 29.3797091,
+    "lon": 47.9735629,
+    "country": "kuwait",
+    "slug": "kuwaitcitykuwait"
+  },
+  {
+    "name": "durban",
+    "lat": -29.861825,
+    "lon": 31.009909,
+    "country": "southafrica",
+    "slug": "durbansouthafrica"
+  },
+  {
+    "name": "portharcourt",
+    "lat": 4.7676576,
+    "lon": 7.0188527,
+    "country": "nigeria",
+    "slug": "portharcourtnigeria"
+  },
+  {
+    "name": "lanzhou",
+    "lat": 36.0620781,
+    "lon": 103.8318566,
+    "country": "china",
+    "slug": "lanzhouchina"
+  },
+  {
+    "name": "kanpur",
+    "lat": 26.4609135,
+    "lon": 80.3217588,
+    "country": "india",
+    "slug": "kanpurindia"
+  },
+  {
+    "name": "athens",
+    "lat": 37.9839412,
+    "lon": 23.7283052,
+    "country": "greece",
+    "slug": "athensgreece"
+  },
+  {
+    "name": "milan",
+    "lat": 45.4641943,
+    "lon": 9.1896346,
+    "country": "italy",
+    "slug": "milanitaly"
+  },
+  {
+    "name": "indore",
+    "lat": 22.7203616,
+    "lon": 75.8681996,
+    "country": "india",
+    "slug": "indoreindia"
+  },
+  {
+    "name": "pyongyang",
+    "lat": 39.0167979,
+    "lon": 125.7473609,
+    "country": "northkorea",
+    "slug": "pyongyangnorthkorea"
+  },
+  {
+    "name": "sanaa",
+    "lat": 15.260691,
+    "lon": 44.424895,
+    "country": "yemen",
+    "slug": "sanaayemen"
+  },
+  {
+    "name": "guayaquil",
+    "lat": -2.2895167,
+    "lon": -80.0983887,
+    "country": "ecuador",
+    "slug": "guayaquilecuador"
+  },
+  {
+    "name": "izmir",
+    "lat": 38.4147331,
+    "lon": 27.1434119,
+    "country": "turkey",
+    "slug": "izmirturkey"
+  },
+  {
+    "name": "kiev",
+    "lat": 50.4500336,
+    "lon": 30.5241361,
+    "country": "ukraine",
+    "slug": "kievukraine"
+  },
+  {
+    "name": "guatemalacity",
+    "lat": 14.6222328,
+    "lon": -90.5185188,
+    "country": "guatemala",
+    "slug": "guatemalacityguatemala"
+  },
+  {
+    "name": "surabaya",
+    "lat": -7.2459717,
+    "lon": 112.7378266,
+    "country": "indonesia",
+    "slug": "surabayaindonesia"
+  },
+  {
+    "name": "lisbon",
+    "lat": 38.7077507,
+    "lon": -9.1365919,
+    "country": "portugal",
+    "slug": "lisbonportugal"
+  },
+  {
+    "name": "caracas",
+    "lat": 10.506098,
+    "lon": -66.9146017,
+    "country": "venezuela",
+    "slug": "caracasvenezuela"
+  },
+  {
+    "name": "zhongshan",
+    "lat": 22.5213807,
+    "lon": 113.3656141,
+    "country": "china",
+    "slug": "zhongshanchina"
+  },
+  {
+    "name": "nagpur",
+    "lat": 21.1498134,
+    "lon": 79.0820556,
+    "country": "india",
+    "slug": "nagpurindia"
+  },
+  {
+    "name": "shizuoka",
+    "lat": 34.979149,
+    "lon": 138.38299,
+    "country": "japan",
+    "slug": "shizuokajapan"
+  },
+  {
+    "name": "dubai",
+    "lat": 25.2653471,
+    "lon": 55.2924914,
+    "country": "unitedarabemirates",
+    "slug": "dubaiunitedarabemirates"
+  },
+  {
+    "name": "ouagadougou",
+    "lat": 12.3681873,
+    "lon": -1.5270944,
+    "country": "burkinafaso",
+    "slug": "ouagadougouburkinafaso"
+  },
+  {
+    "name": "lusaka",
+    "lat": -15.4164488,
+    "lon": 28.2821535,
+    "country": "zambia",
+    "slug": "lusakazambia"
+  },
+  {
+    "name": "coimbatore",
+    "lat": 11.0018115,
+    "lon": 76.9628425,
+    "country": "india",
+    "slug": "coimbatoreindia"
+  },
+  {
+    "name": "portauprince",
+    "lat": 18.547327,
+    "lon": -72.3395928,
+    "country": "haiti",
+    "slug": "portauprincehaiti"
+  },
+  {
+    "name": "depok",
+    "lat": -6.4071903,
+    "lon": 106.8158348,
+    "country": "indonesia",
+    "slug": "depokindonesia"
+  },
+  {
+    "name": "handan",
+    "lat": 36.583333,
+    "lon": 114.483333,
+    "country": "china",
+    "slug": "handanchina"
+  },
+  {
+    "name": "incheon",
+    "lat": 37.456,
+    "lon": 126.7052,
+    "country": "southkorea",
+    "slug": "incheonsouthkorea"
+  },
+  {
+    "name": "cali",
+    "lat": 3.4517923,
+    "lon": -76.5324943,
+    "country": "colombia",
+    "slug": "calicolombia"
+  },
+  {
+    "name": "algiers",
+    "lat": 36.7753606,
+    "lon": 3.0601882,
+    "country": "algeria",
+    "slug": "algiersalgeria"
+  },
+  {
+    "name": "huaian",
+    "lat": 33.5524785,
+    "lon": 119.1075773,
+    "country": "china",
+    "slug": "huaianchina"
+  },
+  {
+    "name": "manchester",
+    "lat": 53.4794892,
+    "lon": -2.2451148,
+    "country": "unitedkingdom",
+    "slug": "manchesterunitedkingdom"
+  },
+  {
+    "name": "goiania",
+    "lat": -16.680882,
+    "lon": -49.2532691,
+    "country": "brazil",
+    "slug": "goianiabrazil"
+  },
+  {
+    "name": "weifang",
+    "lat": 36.7071591,
+    "lon": 119.1557441,
+    "country": "china",
+    "slug": "weifangchina"
+  },
+  {
+    "name": "taibei",
+    "lat": 25.0375198,
+    "lon": 121.5636796,
+    "country": "taiwan",
+    "slug": "taibeitaiwan"
+  },
+  {
+    "name": "bamako",
+    "lat": 12.6132655,
+    "lon": -7.9847391,
+    "country": "mali",
+    "slug": "bamakomali"
+  },
+  {
+    "name": "thiruvananthapuram",
+    "lat": 8.5241122,
+    "lon": 76.9360573,
+    "country": "india",
+    "slug": "thiruvananthapuramindia"
+  },
+  {
+    "name": "zibo",
+    "lat": 36.819626,
+    "lon": 117.980675,
+    "country": "china",
+    "slug": "zibochina"
+  },
+  {
+    "name": "chicago",
+    "lat": 41.8755616,
+    "lon": -87.6244212,
+    "country": "unitedstates",
+    "slug": "chicagounitedstates"
+  },
+  {
+    "name": "sapporo",
+    "lat": 43.061936,
+    "lon": 141.3542924,
+    "country": "japan",
+    "slug": "sapporojapan"
+  },
+  {
+    "name": "pretoria",
+    "lat": -25.7459374,
+    "lon": 28.1879444,
+    "country": "southafrica",
+    "slug": "pretoriasouthafrica"
+  },
+  {
+    "name": "mbujimayi",
+    "lat": -6.1258942,
+    "lon": 23.5998111,
+    "country": "drcongo",
+    "slug": "mbujimayidrcongo"
+  },
+  {
+    "name": "shaoxing",
+    "lat": 29.9992425,
+    "lon": 120.576854,
+    "country": "china",
+    "slug": "shaoxingchina"
+  },
+  {
+    "name": "birmingham",
+    "lat": 52.4796992,
+    "lon": -1.9026911,
+    "country": "unitedkingdom",
+    "slug": "birminghamunitedkingdom"
+  },
+  {
+    "name": "yantai",
+    "lat": 37.461928,
+    "lon": 121.4425255,
+    "country": "china",
+    "slug": "yantaichina"
+  },
+  {
+    "name": "bandung",
+    "lat": -6.9344694,
+    "lon": 107.6049539,
+    "country": "indonesia",
+    "slug": "bandungindonesia"
+  },
+  {
+    "name": "vancouver",
+    "lat": 49.2608724,
+    "lon": -123.113952,
+    "country": "canada",
+    "slug": "vancouvercanada"
+  },
+  {
+    "name": "huizhou",
+    "lat": 23.1146515,
+    "lon": 114.4107202,
+    "country": "china",
+    "slug": "huizhouchina"
+  },
+  {
+    "name": "lubumbashi",
+    "lat": -11.6642316,
+    "lon": 27.4826264,
+    "country": "drcongo",
+    "slug": "lubumbashidrcongo"
+  },
+  {
+    "name": "accra",
+    "lat": 5.5571096,
+    "lon": -0.2012376,
+    "country": "ghana",
+    "slug": "accraghana"
+  },
+  {
+    "name": "tashkent",
+    "lat": 41.3123363,
+    "lon": 69.2787079,
+    "country": "uzbekistan",
+    "slug": "tashkentuzbekistan"
+  },
+  {
+    "name": "tolucadelerdo",
+    "lat": 19.292545,
+    "lon": -99.6569007,
+    "country": "mexico",
+    "slug": "tolucadelerdomexico"
+  },
+  {
+    "name": "patna",
+    "lat": 25.6093239,
+    "lon": 85.1235252,
+    "country": "india",
+    "slug": "patnaindia"
+  },
+  {
+    "name": "brazzaville",
+    "lat": -0.7264327,
+    "lon": 15.6419155,
+    "country": "republicofthecongo",
+    "slug": "brazzavillerepublicofthecongo"
+  },
+  {
+    "name": "luoyang",
+    "lat": 34.6556873,
+    "lon": 112.4209629,
+    "country": "china",
+    "slug": "luoyangchina"
+  },
+  {
+    "name": "bhopal",
+    "lat": 23.2584857,
+    "lon": 77.401989,
+    "country": "india",
+    "slug": "bhopalindia"
+  },
+  {
+    "name": "sanjuan",
+    "lat": 18.465299,
+    "lon": -66.116666,
+    "country": "puertorico",
+    "slug": "sanjuanpuertorico"
+  },
+  {
+    "name": "damascus",
+    "lat": 33.5130695,
+    "lon": 36.3095814,
+    "country": "syria",
+    "slug": "damascussyria"
+  },
+  {
+    "name": "brisbane",
+    "lat": -27.4689682,
+    "lon": 153.0234991,
+    "country": "australia",
+    "slug": "brisbaneaustralia"
+  },
+  {
+    "name": "beirut",
+    "lat": 33.8959203,
+    "lon": 35.47843,
+    "country": "lebanon",
+    "slug": "beirutlebanon"
+  },
+  {
+    "name": "tunis",
+    "lat": 33.8439408,
+    "lon": 9.400138,
+    "country": "tunisia",
+    "slug": "tunistunisia"
+  },
+  {
+    "name": "tangerang",
+    "lat": -6.1760311,
+    "lon": 106.6384468,
+    "country": "indonesia",
+    "slug": "tangerangindonesia"
+  },
+  {
+    "name": "mogadishu",
+    "lat": 2.0349312,
+    "lon": 45.3419183,
+    "country": "somalia",
+    "slug": "mogadishusomalia"
+  },
+  {
+    "name": "baku",
+    "lat": 40.1639991,
+    "lon": 50.2777093,
+    "country": "azerbaijan",
+    "slug": "bakuazerbaijan"
+  },
+  {
+    "name": "medan",
+    "lat": 3.5896654,
+    "lon": 98.6738261,
+    "country": "indonesia",
+    "slug": "medanindonesia"
+  },
+  {
+    "name": "belem",
+    "lat": 31.7043556,
+    "lon": 35.2061876,
+    "country": "brazil",
+    "slug": "belembrazil"
+  },
+  {
+    "name": "nantong",
+    "lat": 31.9827896,
+    "lon": 120.8904588,
+    "country": "china",
+    "slug": "nantongchina"
+  },
+  {
+    "name": "sendai",
+    "lat": 38.2677554,
+    "lon": 140.8691498,
+    "country": "japan",
+    "slug": "sendaijapan"
+  },
+  {
+    "name": "houston",
+    "lat": 29.7589382,
+    "lon": -95.3676974,
+    "country": "unitedstates",
+    "slug": "houstonunitedstates"
+  },
+  {
+    "name": "manaus",
+    "lat": -3.1316333,
+    "lon": -59.9825041,
+    "country": "brazil",
+    "slug": "manausbrazil"
+  },
+  {
+    "name": "barranquilla",
+    "lat": 10.9799669,
+    "lon": -74.8013085,
+    "country": "colombia",
+    "slug": "barranquillacolombia"
+  },
+  {
+    "name": "maracaibo",
+    "lat": 10.6498095,
+    "lon": -71.6443596,
+    "country": "venezuela",
+    "slug": "maracaibovenezuela"
+  },
+  {
+    "name": "gujranwala",
+    "lat": 32.1525312,
+    "lon": 74.1933745,
+    "country": "pakistan",
+    "slug": "gujranwalapakistan"
+  },
+  {
+    "name": "rawalpindi",
+    "lat": 33.5914237,
+    "lon": 73.0535122,
+    "country": "pakistan",
+    "slug": "rawalpindipakistan"
+  },
+  {
+    "name": "peshawar",
+    "lat": 34.0123846,
+    "lon": 71.5787458,
+    "country": "pakistan",
+    "slug": "peshawarpakistan"
+  },
+  {
+    "name": "taoyuan",
+    "lat": 24.9929995,
+    "lon": 121.3010003,
+    "country": "taiwan",
+    "slug": "taoyuantaiwan"
+  },
+  {
+    "name": "agra",
+    "lat": 27.1752554,
+    "lon": 78.0098161,
+    "country": "india",
+    "slug": "agraindia"
+  },
+  {
+    "name": "hohhot",
+    "lat": 40.8337963,
+    "lon": 111.6730788,
+    "country": "china",
+    "slug": "hohhotchina"
+  },
+  {
+    "name": "baotou",
+    "lat": 40.6549157,
+    "lon": 109.8344586,
+    "country": "china",
+    "slug": "baotouchina"
+  },
+  {
+    "name": "vadodara",
+    "lat": 22.2973142,
+    "lon": 73.1942567,
+    "country": "india",
+    "slug": "vadodaraindia"
+  },
+  {
+    "name": "kannur",
+    "lat": 11.8762254,
+    "lon": 75.3738043,
+    "country": "india",
+    "slug": "kannurindia"
+  },
+  {
+    "name": "liuzhou",
+    "lat": 24.3284746,
+    "lon": 109.4239676,
+    "country": "china",
+    "slug": "liuzhouchina"
+  },
+  {
+    "name": "visakhapatnam",
+    "lat": 17.7231276,
+    "lon": 83.3012842,
+    "country": "india",
+    "slug": "visakhapatnamindia"
+  },
+  {
+    "name": "xuzhou",
+    "lat": 34.2066591,
+    "lon": 117.278286,
+    "country": "china",
+    "slug": "xuzhouchina"
+  },
+  {
+    "name": "daegu",
+    "lat": 35.8713,
+    "lon": 128.6018,
+    "country": "southkorea",
+    "slug": "daegusouthkorea"
+  },
+  {
+    "name": "naples",
+    "lat": 40.8359336,
+    "lon": 14.2487826,
+    "country": "italy",
+    "slug": "naplesitaly"
+  },
+  {
+    "name": "amman",
+    "lat": 31.9515694,
+    "lon": 35.9239625,
+    "country": "jordan",
+    "slug": "ammanjordan"
+  },
+  {
+    "name": "tijuana",
+    "lat": 32.5010188,
+    "lon": -116.964662,
+    "country": "mexico",
+    "slug": "tijuanamexico"
+  },
+  {
+    "name": "esfahan",
+    "lat": 32.6707877,
+    "lon": 51.6650002,
+    "country": "iran",
+    "slug": "esfahaniran"
+  },
+  {
+    "name": "phnompenh",
+    "lat": 11.568271,
+    "lon": 104.9224426,
+    "country": "cambodia",
+    "slug": "phnompenhcambodia"
+  },
+  {
+    "name": "havana",
+    "lat": 23.135305,
+    "lon": -82.3589631,
+    "country": "cuba",
+    "slug": "havanacuba"
+  },
+  {
+    "name": "nashik",
+    "lat": 20.0112475,
+    "lon": 73.7902364,
+    "country": "india",
+    "slug": "nashikindia"
+  },
+  {
+    "name": "grandevitoria",
+    "lat": -3.1559361,
+    "lon": -59.2794889,
+    "country": "brazil",
+    "slug": "grandevitoriabrazil"
+  },
+  {
+    "name": "vijayawada",
+    "lat": 16.5087586,
+    "lon": 80.6185102,
+    "country": "india",
+    "slug": "vijayawadaindia"
+  },
+  {
+    "name": "brussels",
+    "lat": 50.8465573,
+    "lon": 4.351697,
+    "country": "belgium",
+    "slug": "brusselsbelgium"
+  },
+  {
+    "name": "mecca",
+    "lat": 21.420847,
+    "lon": 39.826869,
+    "country": "saudiarabia",
+    "slug": "meccasaudiarabia"
+  },
+  {
+    "name": "hiroshima",
+    "lat": 34.3916058,
+    "lon": 132.4518156,
+    "country": "japan",
+    "slug": "hiroshimajapan"
+  },
+  {
+    "name": "perth",
+    "lat": -31.9527121,
+    "lon": 115.8604796,
+    "country": "australia",
+    "slug": "perthaustralia"
+  },
+  {
+    "name": "multan",
+    "lat": 30.1979793,
+    "lon": 71.4724978,
+    "country": "pakistan",
+    "slug": "multanpakistan"
+  },
+  {
+    "name": "yangzhou",
+    "lat": 32.3969935,
+    "lon": 119.4077008,
+    "country": "china",
+    "slug": "yangzhouchina"
+  },
+  {
+    "name": "minsk",
+    "lat": 53.9024716,
+    "lon": 27.5618225,
+    "country": "belarus",
+    "slug": "minskbelarus"
+  },
+  {
+    "name": "bursa",
+    "lat": 40.1827657,
+    "lon": 29.0677305,
+    "country": "turkey",
+    "slug": "bursaturkey"
+  },
+  {
+    "name": "baoding",
+    "lat": 38.8579735,
+    "lon": 115.490696,
+    "country": "china",
+    "slug": "baodingchina"
+  },
+  {
+    "name": "aleppo",
+    "lat": 36.19924,
+    "lon": 37.1637253,
+    "country": "syria",
+    "slug": "alepposyria"
+  },
+  {
+    "name": "putian",
+    "lat": 25.4557366,
+    "lon": 119.0029034,
+    "country": "china",
+    "slug": "putianchina"
+  },
+  {
+    "name": "taizhouzhejiang",
+    "lat": 28.6581723,
+    "lon": 121.4163876,
+    "country": "china",
+    "slug": "taizhouzhejiangchina"
+  },
+  {
+    "name": "conakry",
+    "lat": 9.5170602,
+    "lon": -13.6998434,
+    "country": "guinea",
+    "slug": "conakryguinea"
+  },
+  {
+    "name": "linyishandong",
+    "lat": 37.1767104,
+    "lon": 116.8507744,
+    "country": "china",
+    "slug": "linyishandongchina"
+  },
+  {
+    "name": "wuhuanhui",
+    "lat": 31.3536127,
+    "lon": 118.4277477,
+    "country": "china",
+    "slug": "wuhuanhuichina"
+  },
+  {
+    "name": "vienna",
+    "lat": 48.2083537,
+    "lon": 16.3725042,
+    "country": "austria",
+    "slug": "viennaaustria"
+  },
+  {
+    "name": "kollam",
+    "lat": 8.8879509,
+    "lon": 76.5955013,
+    "country": "india",
+    "slug": "kollamindia"
+  },
+  {
+    "name": "valencia",
+    "lat": 39.4697065,
+    "lon": -0.3763353,
+    "country": "venezuela",
+    "slug": "valenciavenezuela"
+  },
+  {
+    "name": "rajkot",
+    "lat": 22.3053263,
+    "lon": 70.8028377,
+    "country": "india",
+    "slug": "rajkotindia"
+  },
+  {
+    "name": "haikou",
+    "lat": 20.0462328,
+    "lon": 110.1956502,
+    "country": "china",
+    "slug": "haikouchina"
+  },
+  {
+    "name": "almaty",
+    "lat": 43.2363924,
+    "lon": 76.9457275,
+    "country": "kazakhstan",
+    "slug": "almatykazakhstan"
+  },
+  {
+    "name": "baixadasantista",
+    "lat": -24.0443878,
+    "lon": -46.7040929,
+    "country": "brazil",
+    "slug": "baixadasantistabrazil"
+  },
+  {
+    "name": "yanchengjiangsu",
+    "lat": 33.3495657,
+    "lon": 120.1576778,
+    "country": "china",
+    "slug": "yanchengjiangsuchina"
+  },
+  {
+    "name": "daqing",
+    "lat": 46.5969028,
+    "lon": 125.1014811,
+    "country": "china",
+    "slug": "daqingchina"
+  },
+  {
+    "name": "rabat",
+    "lat": 34.022405,
+    "lon": -6.834543,
+    "country": "morocco",
+    "slug": "rabatmorocco"
+  },
+  {
+    "name": "westyorkshire",
+    "lat": 53.7414271,
+    "lon": -1.7202004,
+    "country": "unitedkingdom",
+    "slug": "westyorkshireunitedkingdom"
+  },
+  {
+    "name": "semarang",
+    "lat": -6.9903988,
+    "lon": 110.4229104,
+    "country": "indonesia",
+    "slug": "semarangindonesia"
+  },
+  {
+    "name": "quito",
+    "lat": -0.2201641,
+    "lon": -78.5123274,
+    "country": "ecuador",
+    "slug": "quitoecuador"
+  },
+  {
+    "name": "panamacity",
+    "lat": 8.9714493,
+    "lon": -79.5341802,
+    "country": "panama",
+    "slug": "panamacitypanama"
+  },
+  {
+    "name": "hyderabad",
+    "lat": 17.360589,
+    "lon": 78.4740613,
+    "country": "pakistan",
+    "slug": "hyderabadpakistan"
+  },
+  {
+    "name": "ludhiana",
+    "lat": 30.9090157,
+    "lon": 75.851601,
+    "country": "india",
+    "slug": "ludhianaindia"
+  },
+  {
+    "name": "lapaz",
+    "lat": -16.4955455,
+    "lon": -68.1336229,
+    "country": "bolivia",
+    "slug": "lapazbolivia"
+  },
+  {
+    "name": "lianyungang",
+    "lat": 34.5978596,
+    "lon": 119.215813,
+    "country": "china",
+    "slug": "lianyungangchina"
+  },
+  {
+    "name": "lome",
+    "lat": 6.130419,
+    "lon": 1.215829,
+    "country": "togo",
+    "slug": "lometogo"
+  },
+  {
+    "name": "davaocity",
+    "lat": 7.0645451,
+    "lon": 125.6084371,
+    "country": "philippines",
+    "slug": "davaocityphilippines"
+  },
+  {
+    "name": "leondelosaldamas",
+    "lat": 26.0962497,
+    "lon": -99.2763436,
+    "country": "mexico",
+    "slug": "leondelosaldamasmexico"
+  },
+  {
+    "name": "zhuhai",
+    "lat": 22.273734,
+    "lon": 113.5721327,
+    "country": "china",
+    "slug": "zhuhaichina"
+  },
+  {
+    "name": "turin",
+    "lat": 45.0677551,
+    "lon": 7.6824892,
+    "country": "italy",
+    "slug": "turinitaly"
+  },
+  {
+    "name": "bucharest",
+    "lat": 44.4361414,
+    "lon": 26.1027202,
+    "country": "romania",
+    "slug": "bucharestromania"
+  },
+  {
+    "name": "adana",
+    "lat": 36.9863599,
+    "lon": 35.3252861,
+    "country": "turkey",
+    "slug": "adanaturkey"
+  },
+  {
+    "name": "warsaw",
+    "lat": 52.2319581,
+    "lon": 21.0067249,
+    "country": "poland",
+    "slug": "warsawpoland"
+  },
+  {
+    "name": "hamburg",
+    "lat": 53.550341,
+    "lon": 10.000654,
+    "country": "germany",
+    "slug": "hamburggermany"
+  },
+  {
+    "name": "datong",
+    "lat": 40.0919817,
+    "lon": 113.2951122,
+    "country": "china",
+    "slug": "datongchina"
+  },
+  {
+    "name": "benincity",
+    "lat": 6.3330586,
+    "lon": 5.6221058,
+    "country": "nigeria",
+    "slug": "benincitynigeria"
+  },
+  {
+    "name": "budapest",
+    "lat": 47.4979937,
+    "lon": 19.0403594,
+    "country": "hungary",
+    "slug": "budapesthungary"
+  },
+  {
+    "name": "madurai",
+    "lat": 9.9261153,
+    "lon": 78.1140983,
+    "country": "india",
+    "slug": "maduraiindia"
+  },
+  {
+    "name": "montevideo",
+    "lat": -34.9058916,
+    "lon": -56.1913095,
+    "country": "uruguay",
+    "slug": "montevideouruguay"
+  },
+  {
+    "name": "quanzhou",
+    "lat": 24.8755492,
+    "lon": 118.6723605,
+    "country": "china",
+    "slug": "quanzhouchina"
+  },
+  {
+    "name": "palembang",
+    "lat": -2.9888297,
+    "lon": 104.756857,
+    "country": "indonesia",
+    "slug": "palembangindonesia"
+  },
+  {
+    "name": "santacruz",
+    "lat": -17.78629,
+    "lon": -63.18117,
+    "country": "bolivia",
+    "slug": "santacruzbolivia"
+  },
+  {
+    "name": "matola",
+    "lat": -25.966917,
+    "lon": 32.466956,
+    "country": "mozambique",
+    "slug": "matolamozambique"
+  },
+  {
+    "name": "gaziantep",
+    "lat": 37.0628317,
+    "lon": 37.3792617,
+    "country": "turkey",
+    "slug": "gaziantepturkey"
+  },
+  {
+    "name": "sharjah",
+    "lat": 25.3461498,
+    "lon": 55.4210633,
+    "country": "unitedarabemirates",
+    "slug": "sharjahunitedarabemirates"
+  },
+  {
+    "name": "phoenix",
+    "lat": 33.4484367,
+    "lon": -112.0741417,
+    "country": "unitedstates",
+    "slug": "phoenixunitedstates"
+  },
+  {
+    "name": "lyon",
+    "lat": 45.7578137,
+    "lon": 4.8320114,
+    "country": "france",
+    "slug": "lyonfrance"
+  },
+  {
+    "name": "meerut",
+    "lat": 29.0006525,
+    "lon": 77.7682288,
+    "country": "india",
+    "slug": "meerutindia"
+  },
+  {
+    "name": "jiangmen",
+    "lat": 22.5816619,
+    "lon": 113.0761073,
+    "country": "china",
+    "slug": "jiangmenchina"
+  },
+  {
+    "name": "cantho",
+    "lat": 10.0451859,
+    "lon": 105.7448944,
+    "country": "vietnam",
+    "slug": "canthovietnam"
+  },
+  {
+    "name": "raipur",
+    "lat": 21.2379469,
+    "lon": 81.6336833,
+    "country": "india",
+    "slug": "raipurindia"
+  },
+  {
+    "name": "varanasi",
+    "lat": 25.3356491,
+    "lon": 83.0076292,
+    "country": "india",
+    "slug": "varanasiindia"
+  },
+  {
+    "name": "xiangyang",
+    "lat": 32.010998,
+    "lon": 112.1163785,
+    "country": "china",
+    "slug": "xiangyangchina"
+  },
+  {
+    "name": "mosul",
+    "lat": 36.343694,
+    "lon": 43.0997156,
+    "country": "iraq",
+    "slug": "mosuliraq"
+  },
+  {
+    "name": "glasgow",
+    "lat": 55.8609825,
+    "lon": -4.2488787,
+    "country": "unitedkingdom",
+    "slug": "glasgowunitedkingdom"
+  },
+  {
+    "name": "novosibirsk",
+    "lat": 55.0282171,
+    "lon": 82.9234509,
+    "country": "russia",
+    "slug": "novosibirskrussia"
+  },
+  {
+    "name": "shiraz",
+    "lat": 29.6060218,
+    "lon": 52.5378041,
+    "country": "iran",
+    "slug": "shiraziran"
+  },
+  {
+    "name": "lalaguna",
+    "lat": 25.54275967,
+    "lon": -103.4068701,
+    "country": "mexico",
+    "slug": "lalagunamexico"
+  },
+  {
+    "name": "cixi",
+    "lat": 30.1708675,
+    "lon": 121.261786,
+    "country": "china",
+    "slug": "cixichina"
+  },
+  {
+    "name": "stockholm",
+    "lat": 59.3251172,
+    "lon": 18.0710935,
+    "country": "sweden",
+    "slug": "stockholmsweden"
+  },
+  {
+    "name": "anshan",
+    "lat": 41.1075276,
+    "lon": 122.9902689,
+    "country": "china",
+    "slug": "anshanchina"
+  },
+  {
+    "name": "auckland",
+    "lat": -36.852095,
+    "lon": 174.7631803,
+    "country": "newzealand",
+    "slug": "aucklandnewzealand"
+  },
+  {
+    "name": "jamshedpur",
+    "lat": 22.8015194,
+    "lon": 86.2029579,
+    "country": "india",
+    "slug": "jamshedpurindia"
+  },
+  {
+    "name": "tabriz",
+    "lat": 38.0739964,
+    "lon": 46.2961952,
+    "country": "iran",
+    "slug": "tabriziran"
+  },
+  {
+    "name": "yinchuan",
+    "lat": 38.4852037,
+    "lon": 106.2261926,
+    "country": "china",
+    "slug": "yinchuanchina"
+  },
+  {
+    "name": "jilin",
+    "lat": 42.9995032,
+    "lon": 125.9816054,
+    "country": "china",
+    "slug": "jilinchina"
+  },
+  {
+    "name": "srinagar",
+    "lat": 34.0747444,
+    "lon": 74.8204443,
+    "country": "india",
+    "slug": "srinagarindia"
+  },
+  {
+    "name": "batam",
+    "lat": 1.1061034,
+    "lon": 104.0378246,
+    "country": "indonesia",
+    "slug": "batamindonesia"
+  },
+  {
+    "name": "ulaanbaatar",
+    "lat": 47.9490993,
+    "lon": 107.0222591,
+    "country": "mongolia",
+    "slug": "ulaanbaatarmongolia"
+  },
+  {
+    "name": "marseille",
+    "lat": 43.2961743,
+    "lon": 5.3699525,
+    "country": "france",
+    "slug": "marseillefrance"
+  },
+  {
+    "name": "makassar",
+    "lat": -5.1342962,
+    "lon": 119.4124282,
+    "country": "indonesia",
+    "slug": "makassarindonesia"
+  },
+  {
+    "name": "yichang",
+    "lat": 30.694088,
+    "lon": 111.2803074,
+    "country": "china",
+    "slug": "yichangchina"
+  },
+  {
+    "name": "aurangabad",
+    "lat": 19.877263,
+    "lon": 75.3390241,
+    "country": "india",
+    "slug": "aurangabadindia"
+  },
+  {
+    "name": "muscat",
+    "lat": 23.5882019,
+    "lon": 58.3829448,
+    "country": "oman",
+    "slug": "muscatoman"
+  },
+  {
+    "name": "qinhuangdao",
+    "lat": 39.9395724,
+    "lon": 119.5894129,
+    "country": "china",
+    "slug": "qinhuangdaochina"
+  },
+  {
+    "name": "philadelphia",
+    "lat": 39.9527237,
+    "lon": -75.1635262,
+    "country": "unitedstates",
+    "slug": "philadelphiaunitedstates"
+  },
+  {
+    "name": "cordoba",
+    "lat": -31.4173391,
+    "lon": -64.183319,
+    "country": "argentina",
+    "slug": "cordobaargentina"
+  },
+  {
+    "name": "qiqihaer",
+    "lat": 47.3523672,
+    "lon": 123.9164653,
+    "country": "china",
+    "slug": "qiqihaerchina"
+  },
+  {
+    "name": "xining",
+    "lat": 36.617331,
+    "lon": 101.7761976,
+    "country": "china",
+    "slug": "xiningchina"
+  },
+  {
+    "name": "karaj",
+    "lat": 35.8224892,
+    "lon": 50.9904681,
+    "country": "iran",
+    "slug": "karajiran"
+  },
+  {
+    "name": "sanantonio",
+    "lat": 29.4246002,
+    "lon": -98.4951405,
+    "country": "unitedstates",
+    "slug": "sanantoniounitedstates"
+  },
+  {
+    "name": "calgary",
+    "lat": 51.0460954,
+    "lon": -114.065465,
+    "country": "canada",
+    "slug": "calgarycanada"
+  },
+  {
+    "name": "hengyang",
+    "lat": 27.0782342,
+    "lon": 112.3356329,
+    "country": "china",
+    "slug": "hengyangchina"
+  },
+  {
+    "name": "daejon",
+    "lat": 36.3496,
+    "lon": 127.3848,
+    "country": "southkorea",
+    "slug": "daejonsouthkorea"
+  },
+  {
+    "name": "monrovia",
+    "lat": 6.328034,
+    "lon": -10.797788,
+    "country": "liberia",
+    "slug": "monrovialiberia"
+  },
+  {
+    "name": "tiruppur",
+    "lat": 11.1017815,
+    "lon": 77.345192,
+    "country": "india",
+    "slug": "tiruppurindia"
+  },
+  {
+    "name": "rosario",
+    "lat": -32.9595004,
+    "lon": -60.6615415,
+    "country": "argentina",
+    "slug": "rosarioargentina"
+  },
+  {
+    "name": "munich",
+    "lat": 48.1371079,
+    "lon": 11.5753822,
+    "country": "germany",
+    "slug": "munichgermany"
+  },
+  {
+    "name": "gaoxiong",
+    "lat": 22.6203348,
+    "lon": 120.3120375,
+    "country": "taiwan",
+    "slug": "gaoxiongtaiwan"
+  },
+  {
+    "name": "harare",
+    "lat": -17.831773,
+    "lon": 31.045686,
+    "country": "zimbabwe",
+    "slug": "hararezimbabwe"
+  },
+  {
+    "name": "ciudadjuarez",
+    "lat": 31.7097961,
+    "lon": -106.455581,
+    "country": "mexico",
+    "slug": "ciudadjuarezmexico"
+  },
+  {
+    "name": "anyang",
+    "lat": 36.1023552,
+    "lon": 114.33633,
+    "country": "china",
+    "slug": "anyangchina"
+  },
+  {
+    "name": "kananga",
+    "lat": -5.8951725,
+    "lon": 22.408589,
+    "country": "drcongo",
+    "slug": "kanangadrcongo"
+  },
+  {
+    "name": "gwangju",
+    "lat": 35.1595775,
+    "lon": 126.8515089,
+    "country": "southkorea",
+    "slug": "gwangjusouthkorea"
+  },
+  {
+    "name": "suqian",
+    "lat": 33.9646533,
+    "lon": 118.2697192,
+    "country": "china",
+    "slug": "suqianchina"
+  },
+  {
+    "name": "jiningshandong",
+    "lat": 35.4125047,
+    "lon": 116.5849266,
+    "country": "china",
+    "slug": "jiningshandongchina"
+  },
+  {
+    "name": "medina",
+    "lat": 24.471153,
+    "lon": 39.6111216,
+    "country": "saudiarabia",
+    "slug": "medinasaudiarabia"
+  },
+  {
+    "name": "yekaterinburg",
+    "lat": 56.839104,
+    "lon": 60.60825,
+    "country": "russia",
+    "slug": "yekaterinburgrussia"
+  },
+  {
+    "name": "abudhabi",
+    "lat": 24.4538352,
+    "lon": 54.3774014,
+    "country": "unitedarabemirates",
+    "slug": "abudhabiunitedarabemirates"
+  },
+  {
+    "name": "jodhpur",
+    "lat": 26.2967719,
+    "lon": 73.0351433,
+    "country": "india",
+    "slug": "jodhpurindia"
+  },
+  {
+    "name": "grandesaoluis",
+    "lat": -28.500238,
+    "lon": -53.586696,
+    "country": "brazil",
+    "slug": "grandesaoluisbrazil"
+  },
+  {
+    "name": "edmonton",
+    "lat": 53.535411,
+    "lon": -113.507996,
+    "country": "canada",
+    "slug": "edmontoncanada"
+  },
+  {
+    "name": "natal",
+    "lat": -5.805398,
+    "lon": -35.2080905,
+    "country": "brazil",
+    "slug": "natalbrazil"
+  },
+  {
+    "name": "tegucigalpa",
+    "lat": 14.1056861,
+    "lon": -87.204676,
+    "country": "honduras",
+    "slug": "tegucigalpahonduras"
+  },
+  {
+    "name": "onitsha",
+    "lat": 6.1461619,
+    "lon": 6.8019088,
+    "country": "nigeria",
+    "slug": "onitshanigeria"
+  },
+  {
+    "name": "ndjamena",
+    "lat": 11.72559,
+    "lon": 15.24422,
+    "country": "chad",
+    "slug": "ndjamenachad"
+  },
+  {
+    "name": "ranchi",
+    "lat": 23.3700354,
+    "lon": 85.3250132,
+    "country": "india",
+    "slug": "ranchiindia"
+  },
+  {
+    "name": "kathmandu",
+    "lat": 27.708317,
+    "lon": 85.3205817,
+    "country": "nepal",
+    "slug": "kathmandunepal"
+  },
+  {
+    "name": "jabalpur",
+    "lat": 23.1608938,
+    "lon": 79.9497702,
+    "country": "india",
+    "slug": "jabalpurindia"
+  },
+  {
+    "name": "mandalay",
+    "lat": 21.9812746,
+    "lon": 96.082375,
+    "country": "myanmar",
+    "slug": "mandalaymyanmar"
+  },
+  {
+    "name": "zhangjiakou",
+    "lat": 40.8228016,
+    "lon": 114.880567,
+    "country": "china",
+    "slug": "zhangjiakouchina"
+  },
+  {
+    "name": "huainan",
+    "lat": 32.5866826,
+    "lon": 117.0130019,
+    "country": "china",
+    "slug": "huainanchina"
+  },
+  {
+    "name": "asansol",
+    "lat": 23.6871297,
+    "lon": 86.9746587,
+    "country": "india",
+    "slug": "asansolindia"
+  },
+  {
+    "name": "chaozhou",
+    "lat": 23.6566146,
+    "lon": 116.6205482,
+    "country": "china",
+    "slug": "chaozhouchina"
+  },
+  {
+    "name": "kota",
+    "lat": 25.1968256,
+    "lon": 76.0008933,
+    "country": "india",
+    "slug": "kotaindia"
+  },
+  {
+    "name": "sandiego",
+    "lat": 32.7174202,
+    "lon": -117.1627728,
+    "country": "unitedstates",
+    "slug": "sandiegounitedstates"
+  },
+  {
+    "name": "kharkiv",
+    "lat": 49.9923181,
+    "lon": 36.2310146,
+    "country": "ukraine",
+    "slug": "kharkivukraine"
+  },
+  {
+    "name": "sanjose",
+    "lat": 37.3361905,
+    "lon": -121.890583,
+    "country": "costarica",
+    "slug": "sanjosecostarica"
+  },
+  {
+    "name": "chonburi",
+    "lat": 12.9546871,
+    "lon": 100.7746521,
+    "country": "thailand",
+    "slug": "chonburithailand"
+  },
+  {
+    "name": "allahabad",
+    "lat": 25.4381302,
+    "lon": 81.8338005,
+    "country": "india",
+    "slug": "allahabadindia"
+  },
+  {
+    "name": "gwalior",
+    "lat": 26.2037247,
+    "lon": 78.1573628,
+    "country": "india",
+    "slug": "gwaliorindia"
+  },
+  {
+    "name": "ottawa",
+    "lat": 45.4211435,
+    "lon": -75.6900574,
+    "country": "canada",
+    "slug": "ottawacanada"
+  },
+  {
+    "name": "zurich",
+    "lat": 47.3744489,
+    "lon": 8.5410422,
+    "country": "switzerland",
+    "slug": "zurichswitzerland"
+  },
+  {
+    "name": "belgrade",
+    "lat": 44.8178131,
+    "lon": 20.4568974,
+    "country": "serbia",
+    "slug": "belgradeserbia"
+  },
+  {
+    "name": "amritsar",
+    "lat": 31.6343083,
+    "lon": 74.8736788,
+    "country": "india",
+    "slug": "amritsarindia"
+  },
+  {
+    "name": "joaopessoa",
+    "lat": -7.1215981,
+    "lon": -34.882028,
+    "country": "brazil",
+    "slug": "joaopessoabrazil"
+  },
+  {
+    "name": "yiwu",
+    "lat": 29.3063535,
+    "lon": 120.0702682,
+    "country": "china",
+    "slug": "yiwuchina"
+  },
+  {
+    "name": "basra",
+    "lat": 30.4952371,
+    "lon": 47.8090981,
+    "country": "iraq",
+    "slug": "basrairaq"
+  },
+  {
+    "name": "taizhoujiangsu",
+    "lat": 32.4585613,
+    "lon": 119.9181228,
+    "country": "china",
+    "slug": "taizhoujiangsuchina"
+  },
+  {
+    "name": "nouakchott",
+    "lat": 18.0629628,
+    "lon": -15.9629106,
+    "country": "mauritania",
+    "slug": "nouakchottmauritania"
+  },
+  {
+    "name": "queretaro",
+    "lat": 20.5927744,
+    "lon": -100.3902245,
+    "country": "mexico",
+    "slug": "queretaromexico"
+  },
+  {
+    "name": "taianshandong",
+    "lat": 36.2002968,
+    "lon": 117.0809316,
+    "country": "china",
+    "slug": "taianshandongchina"
+  },
+  {
+    "name": "homs",
+    "lat": 34.7333334,
+    "lon": 36.7166667,
+    "country": "syria",
+    "slug": "homssyria"
+  },
+  {
+    "name": "copenhagen",
+    "lat": 55.6867243,
+    "lon": 12.5700724,
+    "country": "denmark",
+    "slug": "copenhagendenmark"
+  },
+  {
+    "name": "konya",
+    "lat": 37.8768277,
+    "lon": 32.4874202,
+    "country": "turkey",
+    "slug": "konyaturkey"
+  },
+  {
+    "name": "bucaramanga",
+    "lat": 7.1114611,
+    "lon": -73.1172869,
+    "country": "colombia",
+    "slug": "bucaramangacolombia"
+  },
+  {
+    "name": "dhanbad",
+    "lat": 23.7952809,
+    "lon": 86.4309638,
+    "country": "india",
+    "slug": "dhanbadindia"
+  },
+  {
+    "name": "weihai",
+    "lat": 37.5120997,
+    "lon": 122.1152599,
+    "country": "china",
+    "slug": "weihaichina"
+  },
+  {
+    "name": "dallas",
+    "lat": 32.7762719,
+    "lon": -96.7968559,
+    "country": "unitedstates",
+    "slug": "dallasunitedstates"
+  },
+  {
+    "name": "ganzhou",
+    "lat": 25.8332103,
+    "lon": 114.9287362,
+    "country": "china",
+    "slug": "ganzhouchina"
+  },
+  {
+    "name": "adelaide",
+    "lat": -34.9281805,
+    "lon": 138.5999312,
+    "country": "australia",
+    "slug": "adelaideaustralia"
+  },
+  {
+    "name": "haiphong",
+    "lat": 20.858864,
+    "lon": 106.6749591,
+    "country": "vietnam",
+    "slug": "haiphongvietnam"
+  },
+  {
+    "name": "mombasa",
+    "lat": -4.05052,
+    "lon": 39.667169,
+    "country": "kenya",
+    "slug": "mombasakenya"
+  },
+  {
+    "name": "taizhong",
+    "lat": 24.163162,
+    "lon": 120.6478282,
+    "country": "taiwan",
+    "slug": "taizhongtaiwan"
+  },
+  {
+    "name": "maceio",
+    "lat": -9.6476843,
+    "lon": -35.7339264,
+    "country": "brazil",
+    "slug": "maceiobrazil"
+  },
+  {
+    "name": "cochabamba",
+    "lat": -17.4012458,
+    "lon": -66.1675737,
+    "country": "bolivia",
+    "slug": "cochabambabolivia"
+  },
+  {
+    "name": "niamey",
+    "lat": 13.524834,
+    "lon": 2.109823,
+    "country": "niger",
+    "slug": "niameyniger"
+  },
+  {
+    "name": "suwon",
+    "lat": 37.266667,
+    "lon": 127.016667,
+    "country": "southkorea",
+    "slug": "suwonsouthkorea"
+  },
+  {
+    "name": "samutprakan",
+    "lat": 13.6531651,
+    "lon": 100.8182578,
+    "country": "thailand",
+    "slug": "samutprakanthailand"
+  },
+  {
+    "name": "joinville",
+    "lat": 48.4433253,
+    "lon": 5.1377537,
+    "country": "brazil",
+    "slug": "joinvillebrazil"
+  },
+  {
+    "name": "jiaxing",
+    "lat": 30.7474425,
+    "lon": 120.7510971,
+    "country": "china",
+    "slug": "jiaxingchina"
+  },
+  {
+    "name": "kaifeng",
+    "lat": 34.7961106,
+    "lon": 114.3472038,
+    "country": "china",
+    "slug": "kaifengchina"
+  },
+  {
+    "name": "helsinki",
+    "lat": 60.1674881,
+    "lon": 24.9427473,
+    "country": "finland",
+    "slug": "helsinkifinland"
+  },
+  {
+    "name": "porto",
+    "lat": 41.1494512,
+    "lon": -8.6107884,
+    "country": "portugal",
+    "slug": "portoportugal"
+  },
+  {
+    "name": "zhanjiang",
+    "lat": 21.2737079,
+    "lon": 110.3548318,
+    "country": "china",
+    "slug": "zhanjiangchina"
+  },
+  {
+    "name": "zunyi",
+    "lat": 27.7237996,
+    "lon": 106.9191408,
+    "country": "china",
+    "slug": "zunyichina"
+  },
+  {
+    "name": "rizhao",
+    "lat": 35.4150703,
+    "lon": 119.5214512,
+    "country": "china",
+    "slug": "rizhaochina"
+  },
+  {
+    "name": "kisangani",
+    "lat": 0.5184021,
+    "lon": 25.2057292,
+    "country": "drcongo",
+    "slug": "kisanganidrcongo"
+  },
+  {
+    "name": "prague",
+    "lat": 50.0874654,
+    "lon": 14.4212535,
+    "country": "czechrepublic",
+    "slug": "pragueczechrepublic"
+  },
+  {
+    "name": "dongying",
+    "lat": 37.4334738,
+    "lon": 118.6689349,
+    "country": "china",
+    "slug": "dongyingchina"
+  },
+  {
+    "name": "qom",
+    "lat": 34.6423117,
+    "lon": 50.8800969,
+    "country": "iran",
+    "slug": "qomiran"
+  },
+  {
+    "name": "mianyangsichuan",
+    "lat": 31.4627341,
+    "lon": 104.7463432,
+    "country": "china",
+    "slug": "mianyangsichuanchina"
+  },
+  {
+    "name": "nanchong",
+    "lat": 30.792362,
+    "lon": 106.0826662,
+    "country": "china",
+    "slug": "nanchongchina"
+  },
+  {
+    "name": "fushunliaoning",
+    "lat": 41.8692972,
+    "lon": 123.924157,
+    "country": "china",
+    "slug": "fushunliaoningchina"
+  },
+  {
+    "name": "antalya",
+    "lat": 36.9009641,
+    "lon": 30.6954846,
+    "country": "turkey",
+    "slug": "antalyaturkey"
+  },
+  {
+    "name": "bareilly",
+    "lat": 28.457876,
+    "lon": 79.4055709,
+    "country": "india",
+    "slug": "bareillyindia"
+  },
+  {
+    "name": "sofia",
+    "lat": 42.6978634,
+    "lon": 23.3221789,
+    "country": "bulgaria",
+    "slug": "sofiabulgaria"
+  },
+  {
+    "name": "shiyan",
+    "lat": 32.6314877,
+    "lon": 110.792752,
+    "country": "china",
+    "slug": "shiyanchina"
+  },
+  {
+    "name": "kazan",
+    "lat": 55.7823547,
+    "lon": 49.1242266,
+    "country": "russia",
+    "slug": "kazanrussia"
+  },
+  {
+    "name": "addammam",
+    "lat": 26.4367824,
+    "lon": 50.1039991,
+    "country": "saudiarabia",
+    "slug": "addammamsaudiarabia"
+  },
+  {
+    "name": "portelizabeth",
+    "lat": -33.9617051,
+    "lon": 25.6207519,
+    "country": "southafrica",
+    "slug": "portelizabethsouthafrica"
+  },
+  {
+    "name": "ahvaz",
+    "lat": 31.3229936,
+    "lon": 48.6793316,
+    "country": "iran",
+    "slug": "ahvaziran"
+  },
+  {
+    "name": "liuan",
+    "lat": 33.3705714,
+    "lon": 113.2720234,
+    "country": "china",
+    "slug": "liuanchina"
+  },
+  {
+    "name": "florianopolis",
+    "lat": -27.5973002,
+    "lon": -48.5496098,
+    "country": "brazil",
+    "slug": "florianopolisbrazil"
+  },
+  {
+    "name": "nizhniynovgorod",
+    "lat": 56.3264816,
+    "lon": 44.0051395,
+    "country": "russia",
+    "slug": "nizhniynovgorodrussia"
+  },
+  {
+    "name": "pointenoire",
+    "lat": -4.7975373,
+    "lon": 11.8503297,
+    "country": "republicofthecongo",
+    "slug": "pointenoirerepublicofthecongo"
+  },
+  {
+    "name": "yingkou",
+    "lat": 40.6747155,
+    "lon": 122.2357736,
+    "country": "china",
+    "slug": "yingkouchina"
+  },
+  {
+    "name": "fes",
+    "lat": 34.0346534,
+    "lon": -5.0161926,
+    "country": "morocco",
+    "slug": "fesmorocco"
+  },
+  {
+    "name": "aligarh",
+    "lat": 27.8769897,
+    "lon": 78.1372903,
+    "country": "india",
+    "slug": "aligarhindia"
+  },
+  {
+    "name": "liuyang",
+    "lat": 28.166416,
+    "lon": 113.6375778,
+    "country": "china",
+    "slug": "liuyangchina"
+  },
+  {
+    "name": "dublin",
+    "lat": 53.3497645,
+    "lon": -6.2602732,
+    "country": "ireland",
+    "slug": "dublinireland"
+  },
+  {
+    "name": "maoming",
+    "lat": 21.6656961,
+    "lon": 110.9209511,
+    "country": "china",
+    "slug": "maomingchina"
+  },
+  {
+    "name": "tanger",
+    "lat": 35.777103,
+    "lon": -5.803792,
+    "country": "morocco",
+    "slug": "tangermorocco"
+  },
+  {
+    "name": "pekanbaru",
+    "lat": 5.6394753,
+    "lon": 100.4815031,
+    "country": "indonesia",
+    "slug": "pekanbaruindonesia"
+  },
+  {
+    "name": "tengzhou",
+    "lat": 35.113997,
+    "lon": 117.1599113,
+    "country": "china",
+    "slug": "tengzhouchina"
+  },
+  {
+    "name": "freetown",
+    "lat": 8.479004,
+    "lon": -13.26795,
+    "country": "sierraleone",
+    "slug": "freetownsierraleone"
+  },
+  {
+    "name": "sanluispotosi",
+    "lat": 22.5000001,
+    "lon": -100.4949145,
+    "country": "mexico",
+    "slug": "sanluispotosimexico"
+  },
+  {
+    "name": "mysore",
+    "lat": 12.3051828,
+    "lon": 76.6553609,
+    "country": "india",
+    "slug": "mysoreindia"
+  },
+  {
+    "name": "chelyabinsk",
+    "lat": 55.1598408,
+    "lon": 61.4025547,
+    "country": "russia",
+    "slug": "chelyabinskrussia"
+  },
+  {
+    "name": "moradabad",
+    "lat": 28.8638424,
+    "lon": 78.8057783,
+    "country": "india",
+    "slug": "moradabadindia"
+  },
+  {
+    "name": "barquisimeto",
+    "lat": 10.0740372,
+    "lon": -69.3215667,
+    "country": "venezuela",
+    "slug": "barquisimetovenezuela"
+  },
+  {
+    "name": "durgbhilai",
+    "lat": 21.19,
+    "lon": 81.28,
+    "country": "india",
+    "slug": "durgbhilaiindia"
+  },
+  {
+    "name": "suzhou",
+    "lat": 31.3016935,
+    "lon": 120.5810725,
+    "country": "china",
+    "slug": "suzhouchina"
+  },
+  {
+    "name": "maracay",
+    "lat": 10.2375144,
+    "lon": -67.5890216,
+    "country": "venezuela",
+    "slug": "maracayvenezuela"
+  },
+  {
+    "name": "astana",
+    "lat": 51.1282205,
+    "lon": 71.4306682,
+    "country": "kazakhstan",
+    "slug": "astanakazakhstan"
+  },
+  {
+    "name": "zhuzhou",
+    "lat": 27.4989086,
+    "lon": 113.1529127,
+    "country": "china",
+    "slug": "zhuzhouchina"
+  },
+  {
+    "name": "ruian",
+    "lat": 27.7809047,
+    "lon": 120.6512652,
+    "country": "china",
+    "slug": "ruianchina"
+  },
+  {
+    "name": "uyo",
+    "lat": 5.0322447,
+    "lon": 7.924791,
+    "country": "nigeria",
+    "slug": "uyonigeria"
+  },
+  {
+    "name": "zhenjiangjiangsu",
+    "lat": 32.1901111,
+    "lon": 119.4200584,
+    "country": "china",
+    "slug": "zhenjiangjiangsuchina"
+  },
+  {
+    "name": "baoji",
+    "lat": 34.3645811,
+    "lon": 107.2332184,
+    "country": "china",
+    "slug": "baojichina"
+  },
+  {
+    "name": "jieyang",
+    "lat": 23.5528679,
+    "lon": 116.3680847,
+    "country": "china",
+    "slug": "jieyangchina"
+  },
+  {
+    "name": "chifeng",
+    "lat": 42.2799929,
+    "lon": 118.9426131,
+    "country": "china",
+    "slug": "chifengchina"
+  },
+  {
+    "name": "bhubaneswar",
+    "lat": 20.2667774,
+    "lon": 85.8435592,
+    "country": "india",
+    "slug": "bhubaneswarindia"
+  },
+  {
+    "name": "pingdingshanhenan",
+    "lat": 33.7374744,
+    "lon": 113.2981436,
+    "country": "china",
+    "slug": "pingdingshanhenanchina"
+  },
+  {
+    "name": "puning",
+    "lat": 23.3000046,
+    "lon": 116.1611114,
+    "country": "china",
+    "slug": "puningchina"
+  },
+  {
+    "name": "mendoza",
+    "lat": -34.787093,
+    "lon": -68.4381868,
+    "country": "argentina",
+    "slug": "mendozaargentina"
+  },
+  {
+    "name": "bogor",
+    "lat": -6.5962986,
+    "lon": 106.7972421,
+    "country": "indonesia",
+    "slug": "bogorindonesia"
+  },
+  {
+    "name": "chiangmai",
+    "lat": 18.7882778,
+    "lon": 98.9858802,
+    "country": "thailand",
+    "slug": "chiangmaithailand"
+  },
+  {
+    "name": "mwanza",
+    "lat": -2.5196915,
+    "lon": 32.9014417,
+    "country": "tanzania",
+    "slug": "mwanzatanzania"
+  },
+  {
+    "name": "tiruchirappalli",
+    "lat": 10.804973,
+    "lon": 78.6870296,
+    "country": "india",
+    "slug": "tiruchirappalliindia"
+  },
+  {
+    "name": "omsk",
+    "lat": 54.991375,
+    "lon": 73.371529,
+    "country": "russia",
+    "slug": "omskrussia"
+  },
+  {
+    "name": "merida",
+    "lat": 38.9174665,
+    "lon": -6.3443977,
+    "country": "mexico",
+    "slug": "meridamexico"
+  },
+  {
+    "name": "benxi",
+    "lat": 41.297577,
+    "lon": 123.7646562,
+    "country": "china",
+    "slug": "benxichina"
+  },
+  {
+    "name": "huaibei",
+    "lat": 33.9566098,
+    "lon": 116.7928916,
+    "country": "china",
+    "slug": "huaibeichina"
+  },
+  {
+    "name": "lilongwe",
+    "lat": -13.9875107,
+    "lon": 33.768144,
+    "country": "malawi",
+    "slug": "lilongwemalawi"
+  },
+  {
+    "name": "nanyanghenan",
+    "lat": 33.0010496,
+    "lon": 112.5292693,
+    "country": "china",
+    "slug": "nanyanghenanchina"
+  },
+  {
+    "name": "jinhua",
+    "lat": 29.1080344,
+    "lon": 119.6486487,
+    "country": "china",
+    "slug": "jinhuachina"
+  },
+  {
+    "name": "xiangtanhunan",
+    "lat": 27.8328352,
+    "lon": 112.9388078,
+    "country": "china",
+    "slug": "xiangtanhunanchina"
+  },
+  {
+    "name": "kigali",
+    "lat": -1.950851,
+    "lon": 30.061507,
+    "country": "rwanda",
+    "slug": "kigalirwanda"
+  },
+  {
+    "name": "tripoli",
+    "lat": 32.896672,
+    "lon": 13.1777923,
+    "country": "libya",
+    "slug": "tripolilibya"
+  },
+  {
+    "name": "chandigarh",
+    "lat": 30.7334421,
+    "lon": 76.7797143,
+    "country": "india",
+    "slug": "chandigarhindia"
+  },
+  {
+    "name": "jinzhou",
+    "lat": 41.108528,
+    "lon": 121.1194219,
+    "country": "china",
+    "slug": "jinzhouchina"
+  },
+  {
+    "name": "islamabad",
+    "lat": 33.6938118,
+    "lon": 73.0651511,
+    "country": "pakistan",
+    "slug": "islamabadpakistan"
+  },
+  {
+    "name": "samara",
+    "lat": 53.198627,
+    "lon": 50.113987,
+    "country": "russia",
+    "slug": "samararussia"
+  },
+  {
+    "name": "amsterdam",
+    "lat": 52.3727598,
+    "lon": 4.8936041,
+    "country": "netherlands",
+    "slug": "amsterdamnetherlands"
+  },
+  {
+    "name": "danang",
+    "lat": 16.068,
+    "lon": 108.212,
+    "country": "vietnam",
+    "slug": "danangvietnam"
+  },
+  {
+    "name": "haifa",
+    "lat": 32.8191218,
+    "lon": 34.9983856,
+    "country": "israel",
+    "slug": "haifaisrael"
+  },
+  {
+    "name": "guilin",
+    "lat": 25.2383172,
+    "lon": 110.1752245,
+    "country": "china",
+    "slug": "guilinchina"
+  },
+  {
+    "name": "krasnoyarsk",
+    "lat": 63.3233807,
+    "lon": 97.0979974,
+    "country": "russia",
+    "slug": "krasnoyarskrussia"
+  },
+  {
+    "name": "mexicali",
+    "lat": 32.6248622,
+    "lon": -115.448325,
+    "country": "mexico",
+    "slug": "mexicalimexico"
+  },
+  {
+    "name": "ufa",
+    "lat": 54.7261409,
+    "lon": 55.947499,
+    "country": "russia",
+    "slug": "ufarussia"
+  },
+  {
+    "name": "rostovondon",
+    "lat": 47.2213858,
+    "lon": 39.7114196,
+    "country": "russia",
+    "slug": "rostovondonrussia"
+  },
+  {
+    "name": "hublidharwad",
+    "lat": 15.3518378,
+    "lon": 75.1379848,
+    "country": "india",
+    "slug": "hublidharwadindia"
+  },
+  {
+    "name": "guwahati",
+    "lat": 26.1805978,
+    "lon": 91.753943,
+    "country": "india",
+    "slug": "guwahatiindia"
+  },
+  {
+    "name": "kaduna",
+    "lat": 10.3825318,
+    "lon": 7.8533226,
+    "country": "nigeria",
+    "slug": "kadunanigeria"
+  },
+  {
+    "name": "bukavu",
+    "lat": -2.5103908,
+    "lon": 28.8336436,
+    "country": "drcongo",
+    "slug": "bukavudrcongo"
+  },
+  {
+    "name": "liupanshui",
+    "lat": 26.5963778,
+    "lon": 104.8279652,
+    "country": "china",
+    "slug": "liupanshuichina"
+  },
+  {
+    "name": "quetta",
+    "lat": 30.1957677,
+    "lon": 67.0172447,
+    "country": "pakistan",
+    "slug": "quettapakistan"
+  },
+  {
+    "name": "cologne",
+    "lat": 50.938361,
+    "lon": 6.959974,
+    "country": "germany",
+    "slug": "colognegermany"
+  },
+  {
+    "name": "aguascalientes",
+    "lat": 22.0000001,
+    "lon": -102.5000001,
+    "country": "mexico",
+    "slug": "aguascalientesmexico"
+  },
+  {
+    "name": "binzhou",
+    "lat": 37.3821206,
+    "lon": 117.9647262,
+    "country": "china",
+    "slug": "binzhouchina"
+  },
+  {
+    "name": "salem",
+    "lat": 44.9391565,
+    "lon": -123.033121,
+    "country": "india",
+    "slug": "salemindia"
+  },
+  {
+    "name": "abomeycalavi",
+    "lat": 6.4153695,
+    "lon": 2.3062284,
+    "country": "benin",
+    "slug": "abomeycalavibenin"
+  },
+  {
+    "name": "maputo",
+    "lat": -25.966213,
+    "lon": 32.56745,
+    "country": "mozambique",
+    "slug": "maputomozambique"
+  },
+  {
+    "name": "bandarlampung",
+    "lat": -5.4460713,
+    "lon": 105.2643742,
+    "country": "indonesia",
+    "slug": "bandarlampungindonesia"
+  },
+  {
+    "name": "aba",
+    "lat": 5.112735,
+    "lon": 7.364349,
+    "country": "nigeria",
+    "slug": "abanigeria"
+  },
+  {
+    "name": "pizhou",
+    "lat": 34.3402702,
+    "lon": 118.0068173,
+    "country": "china",
+    "slug": "pizhouchina"
+  },
+  {
+    "name": "nnewi",
+    "lat": 6.019531,
+    "lon": 6.917181,
+    "country": "nigeria",
+    "slug": "nnewinigeria"
+  },
+  {
+    "name": "tasikmalaya",
+    "lat": -7.3262484,
+    "lon": 108.2201154,
+    "country": "indonesia",
+    "slug": "tasikmalayaindonesia"
+  },
+  {
+    "name": "sansalvador",
+    "lat": 13.6989939,
+    "lon": -89.1914249,
+    "country": "elsalvador",
+    "slug": "sansalvadorelsalvador"
+  },
+  {
+    "name": "yongin",
+    "lat": 37.2405741,
+    "lon": 127.1785572,
+    "country": "southkorea",
+    "slug": "yonginsouthkorea"
+  },
+  {
+    "name": "zaozhuang",
+    "lat": 34.8113006,
+    "lon": 117.3178278,
+    "country": "china",
+    "slug": "zaozhuangchina"
+  },
+  {
+    "name": "xinxiang",
+    "lat": 35.3021133,
+    "lon": 113.9202062,
+    "country": "china",
+    "slug": "xinxiangchina"
+  },
+  {
+    "name": "yueqing",
+    "lat": 28.1154378,
+    "lon": 120.9833927,
+    "country": "china",
+    "slug": "yueqingchina"
+  },
+  {
+    "name": "luohe",
+    "lat": 33.5720554,
+    "lon": 114.0285163,
+    "country": "china",
+    "slug": "luohechina"
+  },
+  {
+    "name": "saharanpur",
+    "lat": 29.9880774,
+    "lon": 77.5081299,
+    "country": "india",
+    "slug": "saharanpurindia"
+  },
+  {
+    "name": "shimkent",
+    "lat": 42.3337389,
+    "lon": 69.5169406,
+    "country": "kazakhstan",
+    "slug": "shimkentkazakhstan"
+  },
+  {
+    "name": "cuernavaca",
+    "lat": 18.9218274,
+    "lon": -99.2342282,
+    "country": "mexico",
+    "slug": "cuernavacamexico"
+  },
+  {
+    "name": "yerevan",
+    "lat": 40.1776245,
+    "lon": 44.5126174,
+    "country": "armenia",
+    "slug": "yerevanarmenia"
+  },
+  {
+    "name": "goyang",
+    "lat": 37.6581862,
+    "lon": 126.8319452,
+    "country": "southkorea",
+    "slug": "goyangsouthkorea"
+  },
+  {
+    "name": "tbilisi",
+    "lat": 41.6934591,
+    "lon": 44.8014495,
+    "country": "georgia",
+    "slug": "tbilisigeorgia"
+  },
+  {
+    "name": "chihuahua",
+    "lat": 28.5000001,
+    "lon": -106.0000001,
+    "country": "mexico",
+    "slug": "chihuahuamexico"
+  },
+  {
+    "name": "panjin",
+    "lat": 41.1169056,
+    "lon": 122.0655098,
+    "country": "china",
+    "slug": "panjinchina"
+  },
+  {
+    "name": "perm",
+    "lat": 58.5951603,
+    "lon": 56.3159546,
+    "country": "russia",
+    "slug": "permrussia"
+  },
+  {
+    "name": "bujumbura",
+    "lat": -3.3638125,
+    "lon": 29.3675028,
+    "country": "burundi",
+    "slug": "bujumburaburundi"
+  },
+  {
+    "name": "jalandhar",
+    "lat": 31.2920107,
+    "lon": 75.5680577,
+    "country": "india",
+    "slug": "jalandharindia"
+  },
+  {
+    "name": "managua",
+    "lat": 12.1459907,
+    "lon": -86.2746665,
+    "country": "nicaragua",
+    "slug": "managuanicaragua"
+  },
+  {
+    "name": "voronezh",
+    "lat": 51.6605982,
+    "lon": 39.2005858,
+    "country": "russia",
+    "slug": "voronezhrussia"
+  },
+  {
+    "name": "cartagena",
+    "lat": 10.4195841,
+    "lon": -75.5271224,
+    "country": "colombia",
+    "slug": "cartagenacolombia"
+  },
+  {
+    "name": "wenling",
+    "lat": 28.3754144,
+    "lon": 121.3812013,
+    "country": "china",
+    "slug": "wenlingchina"
+  },
+  {
+    "name": "lille",
+    "lat": 50.6365654,
+    "lon": 3.0635282,
+    "country": "france",
+    "slug": "lillefrance"
+  },
+  {
+    "name": "fuyang",
+    "lat": 32.8926763,
+    "lon": 115.8090001,
+    "country": "china",
+    "slug": "fuyangchina"
+  },
+  {
+    "name": "bishkek",
+    "lat": 42.8765615,
+    "lon": 74.6070079,
+    "country": "kyrgyzstan",
+    "slug": "bishkekkyrgyzstan"
+  },
+  {
+    "name": "diyarbakir",
+    "lat": 37.9162222,
+    "lon": 40.2363542,
+    "country": "turkey",
+    "slug": "diyarbakirturkey"
+  },
+  {
+    "name": "bazhong",
+    "lat": 31.8689322,
+    "lon": 106.7416618,
+    "country": "china",
+    "slug": "bazhongchina"
+  },
+  {
+    "name": "siliguri",
+    "lat": 26.7164127,
+    "lon": 88.4309916,
+    "country": "india",
+    "slug": "siliguriindia"
+  },
+  {
+    "name": "oslo",
+    "lat": 59.9133301,
+    "lon": 10.7389701,
+    "country": "norway",
+    "slug": "oslonorway"
+  },
+  {
+    "name": "shangrao",
+    "lat": 28.4582821,
+    "lon": 117.9381305,
+    "country": "china",
+    "slug": "shangraochina"
+  },
+  {
+    "name": "changwon",
+    "lat": 35.227956,
+    "lon": 128.6818586,
+    "country": "southkorea",
+    "slug": "changwonsouthkorea"
+  },
+  {
+    "name": "jingzhouhubei",
+    "lat": 30.3375134,
+    "lon": 112.2337792,
+    "country": "china",
+    "slug": "jingzhouhubeichina"
+  },
+  {
+    "name": "maanshan",
+    "lat": 31.6866105,
+    "lon": 118.5048377,
+    "country": "china",
+    "slug": "maanshanchina"
+  },
+  {
+    "name": "zhaoqing",
+    "lat": 23.0496201,
+    "lon": 112.4593053,
+    "country": "china",
+    "slug": "zhaoqingchina"
+  },
+  {
+    "name": "antwerp",
+    "lat": 51.2211097,
+    "lon": 4.3997081,
+    "country": "belgium",
+    "slug": "antwerpbelgium"
+  },
+  {
+    "name": "kermanshah",
+    "lat": 34.3789744,
+    "lon": 46.7010122,
+    "country": "iran",
+    "slug": "kermanshahiran"
+  },
+  {
+    "name": "xiongan",
+    "lat": 39.0480479,
+    "lon": 115.9075331,
+    "country": "china",
+    "slug": "xionganchina"
+  },
+  {
+    "name": "bienhoa",
+    "lat": 10.9560264,
+    "lon": 106.8529805,
+    "country": "vietnam",
+    "slug": "bienhoavietnam"
+  },
+  {
+    "name": "johorbahru",
+    "lat": 1.4728119,
+    "lon": 103.7642651,
+    "country": "malaysia",
+    "slug": "johorbahrumalaysia"
+  },
+  {
+    "name": "solapur",
+    "lat": 17.8499067,
+    "lon": 75.2763203,
+    "country": "india",
+    "slug": "solapurindia"
+  },
+  {
+    "name": "samarinda",
+    "lat": -0.5017804,
+    "lon": 117.1393089,
+    "country": "indonesia",
+    "slug": "samarindaindonesia"
+  },
+  {
+    "name": "toulouse",
+    "lat": 43.6044622,
+    "lon": 1.4442469,
+    "country": "france",
+    "slug": "toulousefrance"
+  },
+  {
+    "name": "mersin",
+    "lat": 36.8117583,
+    "lon": 34.6292679,
+    "country": "turkey",
+    "slug": "mersinturkey"
+  },
+  {
+    "name": "hargeysa",
+    "lat": 9.561733,
+    "lon": 44.061803,
+    "country": "somalia",
+    "slug": "hargeysasomalia"
+  },
+  {
+    "name": "teresina",
+    "lat": -5.0896403,
+    "lon": -42.809588,
+    "country": "brazil",
+    "slug": "teresinabrazil"
+  },
+  {
+    "name": "kirkuk",
+    "lat": 35.4703415,
+    "lon": 44.395723,
+    "country": "iraq",
+    "slug": "kirkukiraq"
+  },
+  {
+    "name": "fuzhoujiangxi",
+    "lat": 27.9511188,
+    "lon": 116.3530413,
+    "country": "china",
+    "slug": "fuzhoujiangxichina"
+  },
+  {
+    "name": "aracaju",
+    "lat": -10.9162061,
+    "lon": -37.0774655,
+    "country": "brazil",
+    "slug": "aracajubrazil"
+  },
+  {
+    "name": "bobodioulasso",
+    "lat": 11.1757783,
+    "lon": -4.2957591,
+    "country": "burkinafaso",
+    "slug": "bobodioulassoburkinafaso"
+  },
+  {
+    "name": "leshan",
+    "lat": 29.5851296,
+    "lon": 103.747791,
+    "country": "china",
+    "slug": "leshanchina"
+  },
+  {
+    "name": "yueyang",
+    "lat": 29.3594838,
+    "lon": 113.1229551,
+    "country": "china",
+    "slug": "yueyangchina"
+  },
+  {
+    "name": "dezhou",
+    "lat": 37.4486676,
+    "lon": 116.305416,
+    "country": "china",
+    "slug": "dezhouchina"
+  },
+  {
+    "name": "marrakech",
+    "lat": 31.6267948,
+    "lon": -8.0030243,
+    "country": "morocco",
+    "slug": "marrakechmorocco"
+  },
+  {
+    "name": "tampico",
+    "lat": 22.2329889,
+    "lon": -97.8614802,
+    "country": "mexico",
+    "slug": "tampicomexico"
+  },
+  {
+    "name": "huzhou",
+    "lat": 30.8942995,
+    "lon": 120.0851114,
+    "country": "china",
+    "slug": "huzhouchina"
+  },
+  {
+    "name": "rotterdam",
+    "lat": 51.9244424,
+    "lon": 4.47775,
+    "country": "netherlands",
+    "slug": "rotterdamnetherlands"
+  },
+  {
+    "name": "aden",
+    "lat": 12.789585,
+    "lon": 45.028504,
+    "country": "yemen",
+    "slug": "adenyemen"
+  },
+  {
+    "name": "austin",
+    "lat": 30.2711286,
+    "lon": -97.7436995,
+    "country": "unitedstates",
+    "slug": "austinunitedstates"
+  },
+  {
+    "name": "sanjose",
+    "lat": 37.3361905,
+    "lon": -121.890583,
+    "country": "unitedstates",
+    "slug": "sanjoseunitedstates"
+  },
+  {
+    "name": "denpasar",
+    "lat": -8.6524973,
+    "lon": 115.2191175,
+    "country": "indonesia",
+    "slug": "denpasarindonesia"
+  },
+  {
+    "name": "odesa",
+    "lat": 46.4873195,
+    "lon": 30.7392776,
+    "country": "ukraine",
+    "slug": "odesaukraine"
+  },
+  {
+    "name": "chenzhou",
+    "lat": 25.7733598,
+    "lon": 113.0094337,
+    "country": "china",
+    "slug": "chenzhouchina"
+  },
+  {
+    "name": "xuchang",
+    "lat": 34.0457133,
+    "lon": 113.8225908,
+    "country": "china",
+    "slug": "xuchangchina"
+  },
+  {
+    "name": "volgograd",
+    "lat": 48.7081906,
+    "lon": 44.5153353,
+    "country": "russia",
+    "slug": "volgogradrussia"
+  },
+  {
+    "name": "saltillo",
+    "lat": 25.4230425,
+    "lon": -100.9927509,
+    "country": "mexico",
+    "slug": "saltillomexico"
+  },
+  {
+    "name": "sanmigueldetucuman",
+    "lat": -26.8303703,
+    "lon": -65.2038133,
+    "country": "argentina",
+    "slug": "sanmigueldetucumanargentina"
+  },
+  {
+    "name": "asmara",
+    "lat": 15.3389667,
+    "lon": 38.9326763,
+    "country": "eritrea",
+    "slug": "asmaraeritrea"
+  },
+  {
+    "name": "padang",
+    "lat": -0.9247587,
+    "lon": 100.3632561,
+    "country": "indonesia",
+    "slug": "padangindonesia"
+  },
+  {
+    "name": "cebucity",
+    "lat": 10.2931062,
+    "lon": 123.9020773,
+    "country": "philippines",
+    "slug": "cebucityphilippines"
+  },
+  {
+    "name": "acapulcodejuarez",
+    "lat": 16.8680495,
+    "lon": -99.8940182,
+    "country": "mexico",
+    "slug": "acapulcodejuarezmexico"
+  },
+  {
+    "name": "valparaiso",
+    "lat": -33.0458456,
+    "lon": -71.6196749,
+    "country": "chile",
+    "slug": "valparaisochile"
+  },
+  {
+    "name": "sekonditakoradi",
+    "lat": 4.927456,
+    "lon": -1.7490216,
+    "country": "ghana",
+    "slug": "sekonditakoradighana"
+  },
+  {
+    "name": "ikorodu",
+    "lat": 6.6191233,
+    "lon": 3.5041271,
+    "country": "nigeria",
+    "slug": "ikorodunigeria"
+  },
+  {
+    "name": "kayseri",
+    "lat": 38.6582232,
+    "lon": 35.5546374,
+    "country": "turkey",
+    "slug": "kayseriturkey"
+  },
+  {
+    "name": "warangal",
+    "lat": 17.9819448,
+    "lon": 79.5969982,
+    "country": "india",
+    "slug": "warangalindia"
+  },
+  {
+    "name": "changshu",
+    "lat": 31.6572954,
+    "lon": 120.7480757,
+    "country": "china",
+    "slug": "changshuchina"
+  },
+  {
+    "name": "bordeaux",
+    "lat": 44.841225,
+    "lon": -0.5800364,
+    "country": "france",
+    "slug": "bordeauxfrance"
+  },
+  {
+    "name": "songkhla",
+    "lat": 6.8790221,
+    "lon": 100.5498542,
+    "country": "thailand",
+    "slug": "songkhlathailand"
+  },
+  {
+    "name": "qujing",
+    "lat": 25.4936418,
+    "lon": 103.7943084,
+    "country": "china",
+    "slug": "qujingchina"
+  },
+  {
+    "name": "nonthaburi",
+    "lat": 13.8610918,
+    "lon": 100.3456772,
+    "country": "thailand",
+    "slug": "nonthaburithailand"
+  },
+  {
+    "name": "yichunjiangxi",
+    "lat": 27.81697,
+    "lon": 114.4112498,
+    "country": "china",
+    "slug": "yichunjiangxichina"
+  },
+  {
+    "name": "krasnodar",
+    "lat": 45.0352566,
+    "lon": 38.9764814,
+    "country": "russia",
+    "slug": "krasnodarrussia"
+  },
+  {
+    "name": "ilorin",
+    "lat": 8.4963657,
+    "lon": 4.5480484,
+    "country": "nigeria",
+    "slug": "ilorinnigeria"
+  },
+  {
+    "name": "cancun",
+    "lat": 21.1617854,
+    "lon": -86.8510468,
+    "country": "mexico",
+    "slug": "cancunmexico"
+  },
+  {
+    "name": "tshikapa",
+    "lat": -6.4230495,
+    "lon": 20.7887691,
+    "country": "drcongo",
+    "slug": "tshikapadrcongo"
+  },
+  {
+    "name": "nyala",
+    "lat": 12.0505098,
+    "lon": 24.8795115,
+    "country": "sudan",
+    "slug": "nyalasudan"
+  },
+  {
+    "name": "xintai",
+    "lat": 35.9068588,
+    "lon": 117.76243,
+    "country": "china",
+    "slug": "xintaichina"
+  },
+  {
+    "name": "jixiheilongjiang",
+    "lat": 45.2928513,
+    "lon": 130.9619259,
+    "country": "china",
+    "slug": "jixiheilongjiangchina"
+  },
+  {
+    "name": "blantyrelimbe",
+    "lat": -15.8241847,
+    "lon": 35.053104,
+    "country": "malawi",
+    "slug": "blantyrelimbemalawi"
+  },
+  {
+    "name": "morelia",
+    "lat": 19.7027116,
+    "lon": -101.1923818,
+    "country": "mexico",
+    "slug": "moreliamexico"
+  },
+  {
+    "name": "pingxiangjiangxi",
+    "lat": 27.6603206,
+    "lon": 113.8830806,
+    "country": "china",
+    "slug": "pingxiangjiangxichina"
+  },
+  {
+    "name": "dnipro",
+    "lat": 48.4680221,
+    "lon": 35.0417711,
+    "country": "ukraine",
+    "slug": "dniproukraine"
+  },
+  {
+    "name": "khulna",
+    "lat": 22.9372087,
+    "lon": 89.2852741,
+    "country": "bangladesh",
+    "slug": "khulnabangladesh"
+  },
+  {
+    "name": "jerusalem",
+    "lat": 31.7788242,
+    "lon": 35.2257626,
+    "country": "israel",
+    "slug": "jerusalemisrael"
+  },
+  {
+    "name": "cucuta",
+    "lat": 45.9893785,
+    "lon": 23.2575051,
+    "country": "colombia",
+    "slug": "cucutacolombia"
+  },
+  {
+    "name": "nice",
+    "lat": 43.7009358,
+    "lon": 7.2683912,
+    "country": "france",
+    "slug": "nicefrance"
+  },
+  {
+    "name": "dehradun",
+    "lat": 30.3255646,
+    "lon": 78.0436813,
+    "country": "india",
+    "slug": "dehradunindia"
+  },
+  {
+    "name": "seongnam",
+    "lat": 37.4201556,
+    "lon": 127.1262092,
+    "country": "southkorea",
+    "slug": "seongnamsouthkorea"
+  },
+  {
+    "name": "fortworth",
+    "lat": 32.753177,
+    "lon": -97.3327459,
+    "country": "unitedstates",
+    "slug": "fortworthunitedstates"
+  },
+  {
+    "name": "agadir",
+    "lat": 30.4211144,
+    "lon": -9.5830626,
+    "country": "morocco",
+    "slug": "agadirmorocco"
+  },
+  {
+    "name": "mudanjiang",
+    "lat": 44.5498406,
+    "lon": 129.6259558,
+    "country": "china",
+    "slug": "mudanjiangchina"
+  },
+  {
+    "name": "hamah",
+    "lat": 23.3515642,
+    "lon": 58.7213422,
+    "country": "syria",
+    "slug": "hamahsyria"
+  },
+  {
+    "name": "dushanbe",
+    "lat": 38.5762709,
+    "lon": 68.7863573,
+    "country": "tajikistan",
+    "slug": "dushanbetajikistan"
+  },
+  {
+    "name": "guiping",
+    "lat": 23.3916357,
+    "lon": 110.074064,
+    "country": "china",
+    "slug": "guipingchina"
+  },
+  {
+    "name": "jiujiang",
+    "lat": 29.6653828,
+    "lon": 115.9474861,
+    "country": "china",
+    "slug": "jiujiangchina"
+  },
+  {
+    "name": "southampton",
+    "lat": 50.9025349,
+    "lon": -1.404189,
+    "country": "unitedkingdom",
+    "slug": "southamptonunitedkingdom"
+  },
+  {
+    "name": "laiwu",
+    "lat": 36.2030789,
+    "lon": 117.654083,
+    "country": "china",
+    "slug": "laiwuchina"
+  },
+  {
+    "name": "arequipa",
+    "lat": -16.3988667,
+    "lon": -71.5369607,
+    "country": "peru",
+    "slug": "arequipaperu"
+  },
+  {
+    "name": "ciudadguayana",
+    "lat": 8.3223763,
+    "lon": -62.6896622,
+    "country": "venezuela",
+    "slug": "ciudadguayanavenezuela"
+  },
+  {
+    "name": "zamboangacity",
+    "lat": 6.9046909,
+    "lon": 122.076462,
+    "country": "philippines",
+    "slug": "zamboangacityphilippines"
+  },
+  {
+    "name": "veracruz",
+    "lat": 19.333333,
+    "lon": -96.666667,
+    "country": "mexico",
+    "slug": "veracruzmexico"
+  },
+  {
+    "name": "jacksonville",
+    "lat": 30.3321838,
+    "lon": -81.655651,
+    "country": "unitedstates",
+    "slug": "jacksonvilleunitedstates"
+  },
+  {
+    "name": "sanpedrosula",
+    "lat": 15.5062156,
+    "lon": -88.0248937,
+    "country": "honduras",
+    "slug": "sanpedrosulahonduras"
+  },
+  {
+    "name": "zhucheng",
+    "lat": 27.702973,
+    "lon": 115.49664,
+    "country": "china",
+    "slug": "zhuchengchina"
+  },
+  {
+    "name": "pathumthani",
+    "lat": 14.048667,
+    "lon": 100.5640405,
+    "country": "thailand",
+    "slug": "pathumthanithailand"
+  },
+  {
+    "name": "rajshahi",
+    "lat": 24.4611511,
+    "lon": 88.6888703,
+    "country": "bangladesh",
+    "slug": "rajshahibangladesh"
+  },
+  {
+    "name": "chengde",
+    "lat": 40.957718,
+    "lon": 117.9543248,
+    "country": "china",
+    "slug": "chengdechina"
+  },
+  {
+    "name": "misratah",
+    "lat": 32.3745318,
+    "lon": 15.0904886,
+    "country": "libya",
+    "slug": "misratahlibya"
+  },
+  {
+    "name": "guigang",
+    "lat": 23.1144539,
+    "lon": 109.5946193,
+    "country": "china",
+    "slug": "guigangchina"
+  },
+  {
+    "name": "jos",
+    "lat": 9.9175125,
+    "lon": 8.8979401,
+    "country": "nigeria",
+    "slug": "josnigeria"
+  },
+  {
+    "name": "reynosa",
+    "lat": 26.0704018,
+    "lon": -98.2963932,
+    "country": "mexico",
+    "slug": "reynosamexico"
+  },
+  {
+    "name": "bengbu",
+    "lat": 32.9176422,
+    "lon": 117.3825673,
+    "country": "china",
+    "slug": "bengbuchina"
+  },
+  {
+    "name": "columbus",
+    "lat": 39.9622601,
+    "lon": -83.0007065,
+    "country": "unitedstates",
+    "slug": "columbusunitedstates"
+  },
+  {
+    "name": "villahermosa",
+    "lat": 18.0018152,
+    "lon": -92.9330401,
+    "country": "mexico",
+    "slug": "villahermosamexico"
+  },
+  {
+    "name": "yangjiang",
+    "lat": 21.8603337,
+    "lon": 111.9776773,
+    "country": "china",
+    "slug": "yangjiangchina"
+  },
+  {
+    "name": "charlotte",
+    "lat": 35.2272086,
+    "lon": -80.8430827,
+    "country": "unitedstates",
+    "slug": "charlotteunitedstates"
+  },
+  {
+    "name": "ulsan",
+    "lat": 35.5391697,
+    "lon": 129.3119136,
+    "country": "southkorea",
+    "slug": "ulsansouthkorea"
+  },
+  {
+    "name": "bangui",
+    "lat": 4.3907153,
+    "lon": 18.5509126,
+    "country": "centralafricanrepublic",
+    "slug": "banguicentralafricanrepublic"
+  },
+  {
+    "name": "oran",
+    "lat": 35.7032751,
+    "lon": -0.6492976,
+    "country": "algeria",
+    "slug": "oranalgeria"
+  },
+  {
+    "name": "westrand",
+    "lat": 43.3545179,
+    "lon": 42.4311796,
+    "country": "southafrica",
+    "slug": "westrandsouthafrica"
+  },
+  {
+    "name": "owerri",
+    "lat": 5.489736,
+    "lon": 7.0341973,
+    "country": "nigeria",
+    "slug": "owerrinigeria"
+  },
+  {
+    "name": "campogrande",
+    "lat": -20.4640173,
+    "lon": -54.6162947,
+    "country": "brazil",
+    "slug": "campograndebrazil"
+  },
+  {
+    "name": "liverpool",
+    "lat": 53.4071991,
+    "lon": -2.99168,
+    "country": "unitedkingdom",
+    "slug": "liverpoolunitedkingdom"
+  },
+  {
+    "name": "antipolo",
+    "lat": 14.5870262,
+    "lon": 121.1758611,
+    "country": "philippines",
+    "slug": "antipolophilippines"
+  },
+  {
+    "name": "najaf",
+    "lat": 32.0010227,
+    "lon": 44.3299926,
+    "country": "iraq",
+    "slug": "najafiraq"
+  },
+  {
+    "name": "zhangzhou",
+    "lat": 24.5164639,
+    "lon": 117.6424895,
+    "country": "china",
+    "slug": "zhangzhouchina"
+  },
+  {
+    "name": "bergamo",
+    "lat": 45.7566557,
+    "lon": 9.7542192,
+    "country": "italy",
+    "slug": "bergamoitaly"
+  },
+  {
+    "name": "donetsk",
+    "lat": 48.0158753,
+    "lon": 37.8013407,
+    "country": "ukraine",
+    "slug": "donetskukraine"
+  },
+  {
+    "name": "tianmen",
+    "lat": 30.6635516,
+    "lon": 113.1616191,
+    "country": "china",
+    "slug": "tianmenchina"
+  },
+  {
+    "name": "warri",
+    "lat": 5.517,
+    "lon": 5.75,
+    "country": "nigeria",
+    "slug": "warrinigeria"
+  },
+  {
+    "name": "londrina",
+    "lat": -23.3112878,
+    "lon": -51.1595023,
+    "country": "brazil",
+    "slug": "londrinabrazil"
+  },
+  {
+    "name": "leiyang",
+    "lat": 26.40396,
+    "lon": 112.934066,
+    "country": "china",
+    "slug": "leiyangchina"
+  },
+  {
+    "name": "malang",
+    "lat": -7.9771206,
+    "lon": 112.6340291,
+    "country": "indonesia",
+    "slug": "malangindonesia"
+  },
+  {
+    "name": "laplata",
+    "lat": -34.9206797,
+    "lon": -57.9537638,
+    "country": "argentina",
+    "slug": "laplataargentina"
+  },
+  {
+    "name": "concepcion",
+    "lat": -36.8270795,
+    "lon": -73.0502399,
+    "country": "chile",
+    "slug": "concepcionchile"
+  },
+  {
+    "name": "hengshui",
+    "lat": 37.7364305,
+    "lon": 115.6677229,
+    "country": "china",
+    "slug": "hengshuichina"
+  },
+  {
+    "name": "linfen",
+    "lat": 36.0885338,
+    "lon": 111.512998,
+    "country": "china",
+    "slug": "linfenchina"
+  },
+  {
+    "name": "xinyu",
+    "lat": 27.853572,
+    "lon": 114.8867147,
+    "country": "china",
+    "slug": "xinyuchina"
+  },
+  {
+    "name": "sylhet",
+    "lat": 24.5910781,
+    "lon": 91.7177362,
+    "country": "bangladesh",
+    "slug": "sylhetbangladesh"
+  },
+  {
+    "name": "dandong",
+    "lat": 40.128668,
+    "lon": 124.3863404,
+    "country": "china",
+    "slug": "dandongchina"
+  },
+  {
+    "name": "indianapolis",
+    "lat": 39.7683331,
+    "lon": -86.1583502,
+    "country": "unitedstates",
+    "slug": "indianapolisunitedstates"
+  },
+  {
+    "name": "nampula",
+    "lat": -14.966969,
+    "lon": 39.2707752,
+    "country": "mozambique",
+    "slug": "nampulamozambique"
+  },
+  {
+    "name": "deyang",
+    "lat": 31.1244028,
+    "lon": 104.39013,
+    "country": "china",
+    "slug": "deyangchina"
+  },
+  {
+    "name": "hermosillo",
+    "lat": 29.0948207,
+    "lon": -110.9692202,
+    "country": "mexico",
+    "slug": "hermosillomexico"
+  },
+  {
+    "name": "sanfrancisco",
+    "lat": 37.7790262,
+    "lon": -122.419906,
+    "country": "unitedstates",
+    "slug": "sanfranciscounitedstates"
+  },
+  {
+    "name": "trujillo",
+    "lat": 39.4605657,
+    "lon": -5.8816626,
+    "country": "peru",
+    "slug": "trujilloperu"
+  },
+  {
+    "name": "taiz",
+    "lat": 13.4115414,
+    "lon": 43.5570871,
+    "country": "yemen",
+    "slug": "taizyemen"
+  },
+  {
+    "name": "guntur",
+    "lat": 16.2915189,
+    "lon": 80.4541588,
+    "country": "india",
+    "slug": "gunturindia"
+  },
+  {
+    "name": "jiangyin",
+    "lat": 31.9092756,
+    "lon": 120.2630426,
+    "country": "china",
+    "slug": "jiangyinchina"
+  },
+  {
+    "name": "bhiwandi",
+    "lat": 19.3625308,
+    "lon": 73.0784747,
+    "country": "india",
+    "slug": "bhiwandiindia"
+  },
+  {
+    "name": "lubango",
+    "lat": -14.9191779,
+    "lon": 13.4896316,
+    "country": "angola",
+    "slug": "lubangoangola"
+  },
+  {
+    "name": "liaoyang",
+    "lat": 41.273887,
+    "lon": 123.1693463,
+    "country": "china",
+    "slug": "liaoyangchina"
+  },
+  {
+    "name": "bahawalpur",
+    "lat": 29.394644,
+    "lon": 71.6638747,
+    "country": "pakistan",
+    "slug": "bahawalpurpakistan"
+  },
+  {
+    "name": "changzhi",
+    "lat": 36.1829336,
+    "lon": 113.0985394,
+    "country": "china",
+    "slug": "changzhichina"
+  },
+  {
+    "name": "tyumen",
+    "lat": 57.153534,
+    "lon": 65.542274,
+    "country": "russia",
+    "slug": "tyumenrussia"
+  },
+  {
+    "name": "soshanguve",
+    "lat": -25.5263889,
+    "lon": 28.0994444,
+    "country": "southafrica",
+    "slug": "soshanguvesouthafrica"
+  },
+  {
+    "name": "tuxtlagutierrez",
+    "lat": 16.753801,
+    "lon": -93.115959,
+    "country": "mexico",
+    "slug": "tuxtlagutierrezmexico"
+  },
+  {
+    "name": "ashgabat",
+    "lat": 37.9404648,
+    "lon": 58.3823487,
+    "country": "turkmenistan",
+    "slug": "ashgabatturkmenistan"
+  },
+  {
+    "name": "erbil",
+    "lat": 36.1911624,
+    "lon": 44.0094652,
+    "country": "iraq",
+    "slug": "erbiliraq"
+  },
+  {
+    "name": "baishan",
+    "lat": 41.9316387,
+    "lon": 126.4200169,
+    "country": "china",
+    "slug": "baishanchina"
+  },
+  {
+    "name": "liling",
+    "lat": 27.6500795,
+    "lon": 113.4923249,
+    "country": "china",
+    "slug": "lilingchina"
+  },
+  {
+    "name": "tainan",
+    "lat": 22.9912348,
+    "lon": 120.184982,
+    "country": "taiwan",
+    "slug": "tainantaiwan"
+  },
+  {
+    "name": "puducherry",
+    "lat": 11.9340568,
+    "lon": 79.8306447,
+    "country": "india",
+    "slug": "puducherryindia"
+  },
+  {
+    "name": "culiacan",
+    "lat": 24.7978965,
+    "lon": -107.393395,
+    "country": "mexico",
+    "slug": "culiacanmexico"
+  },
+  {
+    "name": "changde",
+    "lat": 29.034552,
+    "lon": 111.6928724,
+    "country": "china",
+    "slug": "changdechina"
+  },
+  {
+    "name": "fuxin",
+    "lat": 42.0151733,
+    "lon": 121.6452868,
+    "country": "china",
+    "slug": "fuxinchina"
+  },
+  {
+    "name": "palermo",
+    "lat": 38.1112268,
+    "lon": 13.3524434,
+    "country": "italy",
+    "slug": "palermoitaly"
+  },
+  {
+    "name": "shangqiu",
+    "lat": 34.4168215,
+    "lon": 115.6507447,
+    "country": "china",
+    "slug": "shangqiuchina"
+  },
+  {
+    "name": "xingtai",
+    "lat": 37.0616519,
+    "lon": 114.499746,
+    "country": "china",
+    "slug": "xingtaichina"
+  },
+  {
+    "name": "hufufmubarraz",
+    "lat": 25.4100012,
+    "lon": 49.580833,
+    "country": "saudiarabia",
+    "slug": "hufufmubarrazsaudiarabia"
+  },
+  {
+    "name": "firozabad",
+    "lat": 27.1773663,
+    "lon": 78.389912,
+    "country": "india",
+    "slug": "firozabadindia"
+  },
+  {
+    "name": "libreville",
+    "lat": 0.390002,
+    "lon": 9.454001,
+    "country": "gabon",
+    "slug": "librevillegabon"
+  },
+  {
+    "name": "huangshi",
+    "lat": 30.200255,
+    "lon": 115.0333466,
+    "country": "china",
+    "slug": "huangshichina"
+  },
+  {
+    "name": "saratov",
+    "lat": 51.530018,
+    "lon": 46.034683,
+    "country": "russia",
+    "slug": "saratovrussia"
+  },
+  {
+    "name": "banghazi",
+    "lat": 31.9553965,
+    "lon": 35.8906094,
+    "country": "libya",
+    "slug": "banghazilibya"
+  },
+  {
+    "name": "valencia",
+    "lat": 39.4697065,
+    "lon": -0.3763353,
+    "country": "spain",
+    "slug": "valenciaspain"
+  },
+  {
+    "name": "luzhou",
+    "lat": 28.8744722,
+    "lon": 105.4385063,
+    "country": "china",
+    "slug": "luzhouchina"
+  },
+  {
+    "name": "quebeccity",
+    "lat": 46.8137431,
+    "lon": -71.2084061,
+    "country": "canada",
+    "slug": "quebeccitycanada"
+  },
+  {
+    "name": "yibin",
+    "lat": 28.7701941,
+    "lon": 104.6289601,
+    "country": "china",
+    "slug": "yibinchina"
+  },
+  {
+    "name": "bucheon",
+    "lat": 37.5014422,
+    "lon": 126.7660139,
+    "country": "southkorea",
+    "slug": "bucheonsouthkorea"
+  },
+  {
+    "name": "ipoh",
+    "lat": 4.5986817,
+    "lon": 101.0900236,
+    "country": "malaysia",
+    "slug": "ipohmalaysia"
+  },
+  {
+    "name": "winnipeg",
+    "lat": 49.8955367,
+    "lon": -97.1384584,
+    "country": "canada",
+    "slug": "winnipegcanada"
+  },
+  {
+    "name": "bogra",
+    "lat": 24.8500662,
+    "lon": 89.3728431,
+    "country": "bangladesh",
+    "slug": "bograbangladesh"
+  },
+  {
+    "name": "cabinda",
+    "lat": -5.056395,
+    "lon": 12.3211749,
+    "country": "angola",
+    "slug": "cabindaangola"
+  },
+  {
+    "name": "umuahia",
+    "lat": 5.5324032,
+    "lon": 7.4924165,
+    "country": "nigeria",
+    "slug": "umuahianigeria"
+  },
+  {
+    "name": "xinyang",
+    "lat": 32.127372,
+    "lon": 114.0676596,
+    "country": "china",
+    "slug": "xinyangchina"
+  },
+  {
+    "name": "xinghua",
+    "lat": 32.9139151,
+    "lon": 119.8476035,
+    "country": "china",
+    "slug": "xinghuachina"
+  },
+  {
+    "name": "newcastleupontyne",
+    "lat": 54.9738474,
+    "lon": -1.6131572,
+    "country": "unitedkingdom",
+    "slug": "newcastleupontyneunitedkingdom"
+  },
+  {
+    "name": "yangquan",
+    "lat": 37.85862,
+    "lon": 113.5730276,
+    "country": "china",
+    "slug": "yangquanchina"
+  },
+  {
+    "name": "thessaloniki",
+    "lat": 40.6403167,
+    "lon": 22.9352716,
+    "country": "greece",
+    "slug": "thessalonikigreece"
+  },
+  {
+    "name": "yongzhou",
+    "lat": 26.423568,
+    "lon": 111.6081495,
+    "country": "china",
+    "slug": "yongzhouchina"
+  },
+  {
+    "name": "bologna",
+    "lat": 44.4938203,
+    "lon": 11.3426327,
+    "country": "italy",
+    "slug": "bolognaitaly"
+  },
+  {
+    "name": "orumiyeh",
+    "lat": 37.5493473,
+    "lon": 45.0682863,
+    "country": "iran",
+    "slug": "orumiyehiran"
+  },
+  {
+    "name": "xiaogan",
+    "lat": 30.919414,
+    "lon": 113.9516901,
+    "country": "china",
+    "slug": "xiaoganchina"
+  },
+  {
+    "name": "heze",
+    "lat": 35.2477266,
+    "lon": 115.4464761,
+    "country": "china",
+    "slug": "hezechina"
+  },
+  {
+    "name": "barcelonapuertolacruz",
+    "lat": 10.1898503,
+    "lon": -64.7087416,
+    "country": "venezuela",
+    "slug": "barcelonapuertolacruzvenezuela"
+  },
+  {
+    "name": "maiduguri",
+    "lat": 11.8395375,
+    "lon": 13.1536214,
+    "country": "nigeria",
+    "slug": "maidugurinigeria"
+  },
+  {
+    "name": "kuerle",
+    "lat": 41.7238743,
+    "lon": 86.173541,
+    "country": "china",
+    "slug": "kuerlechina"
+  },
+  {
+    "name": "niigata",
+    "lat": 37.6452283,
+    "lon": 138.7669125,
+    "country": "japan",
+    "slug": "niigatajapan"
+  },
+  {
+    "name": "eskisehir",
+    "lat": 39.7666813,
+    "lon": 30.5255947,
+    "country": "turkey",
+    "slug": "eskisehirturkey"
+  },
+  {
+    "name": "cherthala",
+    "lat": 9.740204,
+    "lon": 76.3324672,
+    "country": "india",
+    "slug": "cherthalaindia"
+  },
+  {
+    "name": "quzhou",
+    "lat": 28.9268429,
+    "lon": 118.8759775,
+    "country": "china",
+    "slug": "quzhouchina"
+  },
+  {
+    "name": "zhuji",
+    "lat": 29.7296617,
+    "lon": 120.1805427,
+    "country": "china",
+    "slug": "zhujichina"
+  },
+  {
+    "name": "sorocaba",
+    "lat": -23.5003451,
+    "lon": -47.4582864,
+    "country": "brazil",
+    "slug": "sorocababrazil"
+  },
+  {
+    "name": "haicheng",
+    "lat": 40.8515302,
+    "lon": 122.7475513,
+    "country": "china",
+    "slug": "haichengchina"
+  },
+  {
+    "name": "enugu",
+    "lat": 6.5536094,
+    "lon": 7.4143061,
+    "country": "nigeria",
+    "slug": "enugunigeria"
+  },
+  {
+    "name": "nottingham",
+    "lat": 52.9534193,
+    "lon": -1.1496461,
+    "country": "unitedkingdom",
+    "slug": "nottinghamunitedkingdom"
+  },
+  {
+    "name": "tianshui",
+    "lat": 34.5797531,
+    "lon": 105.7062921,
+    "country": "china",
+    "slug": "tianshuichina"
+  },
+  {
+    "name": "huludao",
+    "lat": 40.7515443,
+    "lon": 120.8404789,
+    "country": "china",
+    "slug": "huludaochina"
+  },
+  {
+    "name": "xalapa",
+    "lat": 19.5408338,
+    "lon": -96.9146374,
+    "country": "mexico",
+    "slug": "xalapamexico"
+  },
+  {
+    "name": "bikaner",
+    "lat": 28.0159286,
+    "lon": 73.3171367,
+    "country": "india",
+    "slug": "bikanerindia"
+  },
+  {
+    "name": "frankfurt",
+    "lat": 50.1106444,
+    "lon": 8.6820917,
+    "country": "germany",
+    "slug": "frankfurtgermany"
+  },
+  {
+    "name": "huaihua",
+    "lat": 27.5611227,
+    "lon": 109.963365,
+    "country": "china",
+    "slug": "huaihuachina"
+  },
+  {
+    "name": "nakhonratchasima",
+    "lat": 15.2241917,
+    "lon": 101.9313754,
+    "country": "thailand",
+    "slug": "nakhonratchasimathailand"
+  },
+  {
+    "name": "vereeniging",
+    "lat": -26.6747222,
+    "lon": 27.9261111,
+    "country": "southafrica",
+    "slug": "vereenigingsouthafrica"
+  },
+  {
+    "name": "liaocheng",
+    "lat": 36.4441808,
+    "lon": 115.9642007,
+    "country": "china",
+    "slug": "liaochengchina"
+  },
+  {
+    "name": "seattle",
+    "lat": 47.6038321,
+    "lon": -122.3300624,
+    "country": "unitedstates",
+    "slug": "seattleunitedstates"
+  },
+  {
+    "name": "jiaozuo",
+    "lat": 35.2075729,
+    "lon": 113.2533977,
+    "country": "china",
+    "slug": "jiaozuochina"
+  },
+  {
+    "name": "bozhou",
+    "lat": 33.8579594,
+    "lon": 115.772453,
+    "country": "china",
+    "slug": "bozhouchina"
+  },
+  {
+    "name": "nellore",
+    "lat": 14.4493717,
+    "lon": 79.9873763,
+    "country": "india",
+    "slug": "nelloreindia"
+  },
+  {
+    "name": "hamilton",
+    "lat": 43.2560802,
+    "lon": -79.8728583,
+    "country": "canada",
+    "slug": "hamiltoncanada"
+  },
+  {
+    "name": "gebze",
+    "lat": 40.8006696,
+    "lon": 29.431767,
+    "country": "turkey",
+    "slug": "gebzeturkey"
+  },
+  {
+    "name": "taixing",
+    "lat": 32.1738588,
+    "lon": 120.0466771,
+    "country": "china",
+    "slug": "taixingchina"
+  },
+  {
+    "name": "cagayandeorocity",
+    "lat": 8.4756417,
+    "lon": 124.6421532,
+    "country": "philippines",
+    "slug": "cagayandeorocityphilippines"
+  },
+  {
+    "name": "krakow",
+    "lat": 50.0619474,
+    "lon": 19.9368564,
+    "country": "poland",
+    "slug": "krakowpoland"
+  },
+  {
+    "name": "kunshan",
+    "lat": 31.3869323,
+    "lon": 120.9764683,
+    "country": "china",
+    "slug": "kunshanchina"
+  },
+  {
+    "name": "shaoguan",
+    "lat": 24.8136095,
+    "lon": 113.5922116,
+    "country": "china",
+    "slug": "shaoguanchina"
+  },
+  {
+    "name": "gorakhpur",
+    "lat": 26.6711433,
+    "lon": 83.3645724,
+    "country": "india",
+    "slug": "gorakhpurindia"
+  },
+  {
+    "name": "dasmarinas",
+    "lat": 14.3270819,
+    "lon": 120.9370871,
+    "country": "philippines",
+    "slug": "dasmarinasphilippines"
+  },
+  {
+    "name": "amravati",
+    "lat": 21.1545412,
+    "lon": 77.6442962,
+    "country": "india",
+    "slug": "amravatiindia"
+  },
+  {
+    "name": "jincheng",
+    "lat": 35.493783,
+    "lon": 112.8519862,
+    "country": "china",
+    "slug": "jinchengchina"
+  },
+  {
+    "name": "langfang",
+    "lat": 39.5128345,
+    "lon": 116.6997446,
+    "country": "china",
+    "slug": "langfangchina"
+  },
+  {
+    "name": "ansan",
+    "lat": 43.6908432,
+    "lon": 0.7735233,
+    "country": "southkorea",
+    "slug": "ansansouthkorea"
+  },
+  {
+    "name": "arrayyan",
+    "lat": 24.9304741,
+    "lon": 50.9776888,
+    "country": "qatar",
+    "slug": "arrayyanqatar"
+  },
+  {
+    "name": "sulaimaniya",
+    "lat": 35.5574725,
+    "lon": 45.435202,
+    "country": "iraq",
+    "slug": "sulaimaniyairaq"
+  },
+  {
+    "name": "cuttack",
+    "lat": 20.4686,
+    "lon": 85.8792,
+    "country": "india",
+    "slug": "cuttackindia"
+  },
+  {
+    "name": "bursaid",
+    "lat": 31.263235,
+    "lon": 32.305505,
+    "country": "egypt",
+    "slug": "bursaidegypt"
+  },
+  {
+    "name": "denver",
+    "lat": 39.7392364,
+    "lon": -104.9848623,
+    "country": "unitedstates",
+    "slug": "denverunitedstates"
+  },
+  {
+    "name": "meishan",
+    "lat": 30.079061,
+    "lon": 103.8458201,
+    "country": "china",
+    "slug": "meishanchina"
+  },
+  {
+    "name": "zhumadian",
+    "lat": 33.0115818,
+    "lon": 114.0164565,
+    "country": "china",
+    "slug": "zhumadianchina"
+  },
+  {
+    "name": "zigong",
+    "lat": 29.3419256,
+    "lon": 104.7761224,
+    "country": "china",
+    "slug": "zigongchina"
+  },
+  {
+    "name": "benguela",
+    "lat": -12.9104657,
+    "lon": 14.0356608,
+    "country": "angola",
+    "slug": "benguelaangola"
+  },
+  {
+    "name": "gaomi",
+    "lat": 36.3654065,
+    "lon": 119.8005385,
+    "country": "china",
+    "slug": "gaomichina"
+  },
+  {
+    "name": "anqing",
+    "lat": 30.6592336,
+    "lon": 116.6302585,
+    "country": "china",
+    "slug": "anqingchina"
+  },
+  {
+    "name": "qingyuan",
+    "lat": 23.6832984,
+    "lon": 113.0505994,
+    "country": "china",
+    "slug": "qingyuanchina"
+  },
+  {
+    "name": "banjarmasin",
+    "lat": -3.3187496,
+    "lon": 114.5925828,
+    "country": "indonesia",
+    "slug": "banjarmasinindonesia"
+  },
+  {
+    "name": "hanchuan",
+    "lat": 30.6751205,
+    "lon": 113.8323146,
+    "country": "china",
+    "slug": "hanchuanchina"
+  },
+  {
+    "name": "danyang",
+    "lat": 32.0109736,
+    "lon": 119.6012702,
+    "country": "china",
+    "slug": "danyangchina"
+  },
+  {
+    "name": "muzaffarnagar",
+    "lat": 29.4480063,
+    "lon": 77.740685,
+    "country": "india",
+    "slug": "muzaffarnagarindia"
+  },
+  {
+    "name": "lokoja",
+    "lat": 7.802355,
+    "lon": 6.7430327,
+    "country": "nigeria",
+    "slug": "lokojanigeria"
+  },
+  {
+    "name": "kumamoto",
+    "lat": 32.6450475,
+    "lon": 130.6341345,
+    "country": "japan",
+    "slug": "kumamotojapan"
+  },
+  {
+    "name": "kottayam",
+    "lat": 9.6287383,
+    "lon": 76.6455326,
+    "country": "india",
+    "slug": "kottayamindia"
+  },
+  {
+    "name": "belgaum",
+    "lat": 15.8572666,
+    "lon": 74.5069343,
+    "country": "india",
+    "slug": "belgaumindia"
+  },
+  {
+    "name": "zarqa",
+    "lat": 32.0668425,
+    "lon": 36.0885771,
+    "country": "jordan",
+    "slug": "zarqajordan"
+  },
+  {
+    "name": "zaria",
+    "lat": 11.0248119,
+    "lon": 7.6518533,
+    "country": "nigeria",
+    "slug": "zarianigeria"
+  },
+  {
+    "name": "sheffield",
+    "lat": 53.3806626,
+    "lon": -1.4702278,
+    "country": "unitedkingdom",
+    "slug": "sheffieldunitedkingdom"
+  },
+  {
+    "name": "zanzibar",
+    "lat": -6.0999443,
+    "lon": 39.3209443,
+    "country": "tanzania",
+    "slug": "zanzibartanzania"
+  },
+  {
+    "name": "gaza",
+    "lat": 31.5128679,
+    "lon": 34.4581358,
+    "country": "palestine",
+    "slug": "gazapalestine"
+  },
+  {
+    "name": "zaragoza",
+    "lat": 41.6521342,
+    "lon": -0.8809428,
+    "country": "spain",
+    "slug": "zaragozaspain"
+  },
+  {
+    "name": "linhai",
+    "lat": 28.8602058,
+    "lon": 121.1419179,
+    "country": "china",
+    "slug": "linhaichina"
+  },
+  {
+    "name": "zaporizhzhya",
+    "lat": 47.8507859,
+    "lon": 35.1182867,
+    "country": "ukraine",
+    "slug": "zaporizhzhyaukraine"
+  },
+  {
+    "name": "malegaon",
+    "lat": 20.5902502,
+    "lon": 74.5714979,
+    "country": "india",
+    "slug": "malegaonindia"
+  },
+  {
+    "name": "saojosedoscampos",
+    "lat": -23.1860383,
+    "lon": -45.8866816,
+    "country": "brazil",
+    "slug": "saojosedoscamposbrazil"
+  },
+  {
+    "name": "oshogbo",
+    "lat": 7.7791666,
+    "lon": 4.5538891,
+    "country": "nigeria",
+    "slug": "oshogbonigeria"
+  },
+  {
+    "name": "ordoscity",
+    "lat": 39.604,
+    "lon": 109.785,
+    "country": "china",
+    "slug": "ordoscitychina"
+  },
+  {
+    "name": "shaoyang",
+    "lat": 26.958944,
+    "lon": 111.283087,
+    "country": "china",
+    "slug": "shaoyangchina"
+  },
+  {
+    "name": "kayamkulam",
+    "lat": 9.172188,
+    "lon": 76.5008685,
+    "country": "india",
+    "slug": "kayamkulamindia"
+  },
+  {
+    "name": "jiamusi",
+    "lat": 46.8087794,
+    "lon": 130.3734556,
+    "country": "china",
+    "slug": "jiamusichina"
+  },
+  {
+    "name": "mangalore",
+    "lat": 12.8698101,
+    "lon": 74.8430082,
+    "country": "india",
+    "slug": "mangaloreindia"
+  },
+  {
+    "name": "okayama",
+    "lat": 34.6553944,
+    "lon": 133.9194595,
+    "country": "japan",
+    "slug": "okayamajapan"
+  },
+  {
+    "name": "ribeiraopreto",
+    "lat": -21.178333,
+    "lon": -47.8066671,
+    "country": "brazil",
+    "slug": "ribeiraopretobrazil"
+  },
+  {
+    "name": "xianyangshaanxi",
+    "lat": 34.3075655,
+    "lon": 108.7234362,
+    "country": "china",
+    "slug": "xianyangshaanxichina"
+  },
+  {
+    "name": "bunia",
+    "lat": 1.5557893,
+    "lon": 30.2519376,
+    "country": "drcongo",
+    "slug": "buniadrcongo"
+  },
+  {
+    "name": "lviv",
+    "lat": 49.841952,
+    "lon": 24.0315921,
+    "country": "ukraine",
+    "slug": "lvivukraine"
+  },
+  {
+    "name": "rasht",
+    "lat": 37.2793607,
+    "lon": 49.5846102,
+    "country": "iran",
+    "slug": "rashtiran"
+  },
+  {
+    "name": "anqiu",
+    "lat": 36.4794705,
+    "lon": 119.2129818,
+    "country": "china",
+    "slug": "anqiuchina"
+  },
+  {
+    "name": "tongliao",
+    "lat": 43.6428995,
+    "lon": 122.2558324,
+    "country": "china",
+    "slug": "tongliaochina"
+  },
+  {
+    "name": "cheongju",
+    "lat": 36.6421169,
+    "lon": 127.4891742,
+    "country": "southkorea",
+    "slug": "cheongjusouthkorea"
+  },
+  {
+    "name": "sialkot",
+    "lat": 32.4935378,
+    "lon": 74.5411575,
+    "country": "pakistan",
+    "slug": "sialkotpakistan"
+  },
+  {
+    "name": "maturin",
+    "lat": 9.7452286,
+    "lon": -63.1799873,
+    "country": "venezuela",
+    "slug": "maturinvenezuela"
+  },
+  {
+    "name": "buffalocity",
+    "lat": 44.23052,
+    "lon": -91.864325,
+    "country": "southafrica",
+    "slug": "buffalocitysouthafrica"
+  },
+  {
+    "name": "panzhihua",
+    "lat": 26.5860102,
+    "lon": 101.7179276,
+    "country": "china",
+    "slug": "panzhihuachina"
+  },
+  {
+    "name": "suiningsichuan",
+    "lat": 30.5061493,
+    "lon": 105.574542,
+    "country": "china",
+    "slug": "suiningsichuanchina"
+  },
+  {
+    "name": "yanji",
+    "lat": 42.8888552,
+    "lon": 129.5008425,
+    "country": "china",
+    "slug": "yanjichina"
+  },
+  {
+    "name": "tongling",
+    "lat": 30.9474457,
+    "lon": 117.8057282,
+    "country": "china",
+    "slug": "tonglingchina"
+  },
+  {
+    "name": "wuzhou",
+    "lat": 23.5715402,
+    "lon": 111.0139268,
+    "country": "china",
+    "slug": "wuzhouchina"
+  },
+  {
+    "name": "oaxacadejuarez",
+    "lat": 17.0604663,
+    "lon": -96.7253575,
+    "country": "mexico",
+    "slug": "oaxacadejuarezmexico"
+  },
+  {
+    "name": "washington",
+    "lat": 38.8950368,
+    "lon": -77.0365427,
+    "country": "unitedstates",
+    "slug": "washingtonunitedstates"
+  },
+  {
+    "name": "sargodha",
+    "lat": 32.0898005,
+    "lon": 72.6782574,
+    "country": "pakistan",
+    "slug": "sargodhapakistan"
+  },
+  {
+    "name": "bhavnagar",
+    "lat": 21.7718836,
+    "lon": 72.1416449,
+    "country": "india",
+    "slug": "bhavnagarindia"
+  },
+  {
+    "name": "goldcoast",
+    "lat": -28.0023731,
+    "lon": 153.4145987,
+    "country": "australia",
+    "slug": "goldcoastaustralia"
+  },
+  {
+    "name": "yanan",
+    "lat": 36.5853932,
+    "lon": 109.4828549,
+    "country": "china",
+    "slug": "yananchina"
+  },
+  {
+    "name": "kitwe",
+    "lat": -12.8104186,
+    "lon": 28.2068361,
+    "country": "zambia",
+    "slug": "kitwezambia"
+  },
+  {
+    "name": "florence",
+    "lat": 43.7698712,
+    "lon": 11.2555757,
+    "country": "italy",
+    "slug": "florenceitaly"
+  },
+  {
+    "name": "jammu",
+    "lat": 32.7185614,
+    "lon": 74.8580917,
+    "country": "india",
+    "slug": "jammuindia"
+  },
+  {
+    "name": "yulinshaanxi",
+    "lat": 38.2851657,
+    "lon": 109.7290619,
+    "country": "china",
+    "slug": "yulinshaanxichina"
+  },
+  {
+    "name": "nandedwaghala",
+    "lat": 19.169335,
+    "lon": 77.311013,
+    "country": "india",
+    "slug": "nandedwaghalaindia"
+  },
+  {
+    "name": "dazhou",
+    "lat": 31.216036,
+    "lon": 107.5027564,
+    "country": "china",
+    "slug": "dazhouchina"
+  },
+  {
+    "name": "tirupati",
+    "lat": 13.6316368,
+    "lon": 79.4231711,
+    "country": "india",
+    "slug": "tirupatiindia"
+  },
+  {
+    "name": "bacoor",
+    "lat": 14.4589855,
+    "lon": 120.9398889,
+    "country": "philippines",
+    "slug": "bacoorphilippines"
+  },
+  {
+    "name": "malanje",
+    "lat": -9.535332,
+    "lon": 16.9364293,
+    "country": "angola",
+    "slug": "malanjeangola"
+  },
+  {
+    "name": "dengzhou",
+    "lat": 32.6880537,
+    "lon": 112.0818901,
+    "country": "china",
+    "slug": "dengzhouchina"
+  },
+  {
+    "name": "thehague",
+    "lat": 52.0799838,
+    "lon": 4.3113461,
+    "country": "netherlands",
+    "slug": "thehaguenetherlands"
+  },
+  {
+    "name": "longyan",
+    "lat": 25.0767425,
+    "lon": 117.0123483,
+    "country": "china",
+    "slug": "longyanchina"
+  },
+  {
+    "name": "yuncheng",
+    "lat": 35.027637,
+    "lon": 111.002141,
+    "country": "china",
+    "slug": "yunchengchina"
+  },
+  {
+    "name": "seville",
+    "lat": 37.3886303,
+    "lon": -5.9953403,
+    "country": "spain",
+    "slug": "sevillespain"
+  },
+  {
+    "name": "cotonou",
+    "lat": 6.3676953,
+    "lon": 2.4252507,
+    "country": "benin",
+    "slug": "cotonoubenin"
+  },
+  {
+    "name": "dongtai",
+    "lat": 32.8536216,
+    "lon": 120.3122464,
+    "country": "china",
+    "slug": "dongtaichina"
+  },
+  {
+    "name": "tolyatti",
+    "lat": 53.51495,
+    "lon": 49.407574,
+    "country": "russia",
+    "slug": "tolyattirussia"
+  },
+  {
+    "name": "salta",
+    "lat": -25.1076701,
+    "lon": -64.3494964,
+    "country": "argentina",
+    "slug": "saltaargentina"
+  },
+  {
+    "name": "merca",
+    "lat": 42.222633,
+    "lon": -7.9049545,
+    "country": "somalia",
+    "slug": "mercasomalia"
+  },
+  {
+    "name": "bali",
+    "lat": 48.8588897,
+    "lon": 2.320041,
+    "country": "indonesia",
+    "slug": "baliindonesia"
+  },
+  {
+    "name": "yuyao",
+    "lat": 30.0393082,
+    "lon": 121.1501449,
+    "country": "china",
+    "slug": "yuyaochina"
+  },
+  {
+    "name": "boston",
+    "lat": 42.3602534,
+    "lon": -71.0582912,
+    "country": "unitedstates",
+    "slug": "bostonunitedstates"
+  },
+  {
+    "name": "uberlandia",
+    "lat": -18.9188041,
+    "lon": -48.2767837,
+    "country": "brazil",
+    "slug": "uberlandiabrazil"
+  },
+  {
+    "name": "taif",
+    "lat": 21.270278,
+    "lon": 40.415833,
+    "country": "saudiarabia",
+    "slug": "taifsaudiarabia"
+  },
+  {
+    "name": "yuxi",
+    "lat": 30.9182867,
+    "lon": 111.9278808,
+    "country": "china",
+    "slug": "yuxichina"
+  },
+  {
+    "name": "vientiane",
+    "lat": 17.9640988,
+    "lon": 102.6133707,
+    "country": "laos",
+    "slug": "vientianelaos"
+  },
+  {
+    "name": "bristol",
+    "lat": 51.4538022,
+    "lon": -2.5972985,
+    "country": "unitedkingdom",
+    "slug": "bristolunitedkingdom"
+  },
+  {
+    "name": "akure",
+    "lat": -9.0478679,
+    "lon": -70.5264976,
+    "country": "nigeria",
+    "slug": "akurenigeria"
+  },
+  {
+    "name": "ibb",
+    "lat": 14.1419291,
+    "lon": 44.1389849,
+    "country": "yemen",
+    "slug": "ibbyemen"
+  },
+  {
+    "name": "celaya",
+    "lat": 20.5218445,
+    "lon": -100.8139609,
+    "country": "mexico",
+    "slug": "celayamexico"
+  },
+  {
+    "name": "alhudaydah",
+    "lat": 14.7978677,
+    "lon": 42.9544872,
+    "country": "yemen",
+    "slug": "alhudaydahyemen"
+  },
+  {
+    "name": "cheonan",
+    "lat": 36.8150283,
+    "lon": 127.1140654,
+    "country": "southkorea",
+    "slug": "cheonansouthkorea"
+  },
+  {
+    "name": "jundiai",
+    "lat": -23.1887668,
+    "lon": -46.884506,
+    "country": "brazil",
+    "slug": "jundiaibrazil"
+  },
+  {
+    "name": "gulbarga",
+    "lat": 17.166667,
+    "lon": 77.083333,
+    "country": "india",
+    "slug": "gulbargaindia"
+  },
+  {
+    "name": "huambo",
+    "lat": -12.6076318,
+    "lon": 15.7411039,
+    "country": "angola",
+    "slug": "huamboangola"
+  },
+  {
+    "name": "padova",
+    "lat": 45.4077172,
+    "lon": 11.8734455,
+    "country": "italy",
+    "slug": "padovaitaly"
+  },
+  {
+    "name": "durgapur",
+    "lat": 23.5350475,
+    "lon": 87.3380425,
+    "country": "india",
+    "slug": "durgapurindia"
+  },
+  {
+    "name": "kurnool",
+    "lat": 15.8309251,
+    "lon": 78.0425373,
+    "country": "india",
+    "slug": "kurnoolindia"
+  },
+  {
+    "name": "elpaso",
+    "lat": 31.7754152,
+    "lon": -106.464634,
+    "country": "unitedstates",
+    "slug": "elpasounitedstates"
+  },
+  {
+    "name": "nantes",
+    "lat": 47.2186371,
+    "lon": -1.5541362,
+    "country": "france",
+    "slug": "nantesfrance"
+  },
+  {
+    "name": "buraydah",
+    "lat": 26.331667,
+    "lon": 43.971667,
+    "country": "saudiarabia",
+    "slug": "buraydahsaudiarabia"
+  },
+  {
+    "name": "zagreb",
+    "lat": 45.8131847,
+    "lon": 15.9771774,
+    "country": "croatia",
+    "slug": "zagrebcroatia"
+  },
+  {
+    "name": "zhangjiagang",
+    "lat": 31.8782976,
+    "lon": 120.5514595,
+    "country": "china",
+    "slug": "zhangjiagangchina"
+  },
+  {
+    "name": "pontianak",
+    "lat": -0.0226903,
+    "lon": 109.3447488,
+    "country": "indonesia",
+    "slug": "pontianakindonesia"
+  },
+  {
+    "name": "amara",
+    "lat": 44.6173543,
+    "lon": 27.314991,
+    "country": "iraq",
+    "slug": "amarairaq"
+  },
+  {
+    "name": "liege",
+    "lat": 50.6451381,
+    "lon": 5.5734203,
+    "country": "belgium",
+    "slug": "liegebelgium"
+  },
+  {
+    "name": "taicang",
+    "lat": 31.4590371,
+    "lon": 121.1264772,
+    "country": "china",
+    "slug": "taicangchina"
+  },
+  {
+    "name": "nashville",
+    "lat": 36.1622767,
+    "lon": -86.7742984,
+    "country": "unitedstates",
+    "slug": "nashvilleunitedstates"
+  },
+  {
+    "name": "genoa",
+    "lat": 44.40726,
+    "lon": 8.9338624,
+    "country": "italy",
+    "slug": "genoaitaly"
+  },
+  {
+    "name": "ezhou",
+    "lat": 30.3925379,
+    "lon": 114.8898988,
+    "country": "china",
+    "slug": "ezhouchina"
+  },
+  {
+    "name": "santiago",
+    "lat": 9.8694792,
+    "lon": -83.7980749,
+    "country": "dominicanrepublic",
+    "slug": "santiagodominicanrepublic"
+  },
+  {
+    "name": "mardelplata",
+    "lat": -37.9977225,
+    "lon": -57.5482703,
+    "country": "argentina",
+    "slug": "mardelplataargentina"
+  },
+  {
+    "name": "tamale",
+    "lat": 9.4051992,
+    "lon": -0.8423986,
+    "country": "ghana",
+    "slug": "tamaleghana"
+  },
+  {
+    "name": "zhoukou",
+    "lat": 33.6306299,
+    "lon": 114.6423617,
+    "country": "china",
+    "slug": "zhoukouchina"
+  },
+  {
+    "name": "lodz",
+    "lat": 51.7687323,
+    "lon": 19.4569911,
+    "country": "poland",
+    "slug": "lodzpoland"
+  },
+  {
+    "name": "goma",
+    "lat": -1.6665685,
+    "lon": 29.225652,
+    "country": "drcongo",
+    "slug": "gomadrcongo"
+  },
+  {
+    "name": "oklahomacity",
+    "lat": 35.4729886,
+    "lon": -97.5170536,
+    "country": "unitedstates",
+    "slug": "oklahomacityunitedstates"
+  },
+  {
+    "name": "lattakia",
+    "lat": 35.5200185,
+    "lon": 35.7781044,
+    "country": "syria",
+    "slug": "lattakiasyria"
+  },
+  {
+    "name": "lasvegas",
+    "lat": 36.1672559,
+    "lon": -115.148516,
+    "country": "unitedstates",
+    "slug": "lasvegasunitedstates"
+  },
+  {
+    "name": "tabuk",
+    "lat": 28.3251866,
+    "lon": 37.6328648,
+    "country": "saudiarabia",
+    "slug": "tabuksaudiarabia"
+  },
+  {
+    "name": "ankang",
+    "lat": 32.7165184,
+    "lon": 108.9912989,
+    "country": "china",
+    "slug": "ankangchina"
+  },
+  {
+    "name": "generalsantoscity",
+    "lat": 6.112331,
+    "lon": 125.1717145,
+    "country": "philippines",
+    "slug": "generalsantoscityphilippines"
+  },
+  {
+    "name": "renqiu",
+    "lat": 38.7063767,
+    "lon": 116.1062203,
+    "country": "china",
+    "slug": "renqiuchina"
+  },
+  {
+    "name": "detroit",
+    "lat": 42.3315509,
+    "lon": -83.0466403,
+    "country": "unitedstates",
+    "slug": "detroitunitedstates"
+  },
+  {
+    "name": "manama",
+    "lat": 26.2235041,
+    "lon": 50.5822436,
+    "country": "bahrain",
+    "slug": "manamabahrain"
+  },
+  {
+    "name": "loudi",
+    "lat": 27.6995215,
+    "lon": 111.9890658,
+    "country": "china",
+    "slug": "loudichina"
+  },
+  {
+    "name": "jeonju",
+    "lat": 35.8242715,
+    "lon": 127.1480657,
+    "country": "southkorea",
+    "slug": "jeonjusouthkorea"
+  },
+  {
+    "name": "bijie",
+    "lat": 27.2858633,
+    "lon": 105.2865997,
+    "country": "china",
+    "slug": "bijiechina"
+  },
+  {
+    "name": "portland",
+    "lat": 45.5202471,
+    "lon": -122.6741949,
+    "country": "unitedstates",
+    "slug": "portlandunitedstates"
+  },
+  {
+    "name": "sokoto",
+    "lat": 13.0611195,
+    "lon": 5.3152203,
+    "country": "nigeria",
+    "slug": "sokotonigeria"
+  },
+  {
+    "name": "qinzhou",
+    "lat": 21.9647835,
+    "lon": 108.620787,
+    "country": "china",
+    "slug": "qinzhouchina"
+  },
+  {
+    "name": "macao",
+    "lat": 22.1757605,
+    "lon": 113.5514142,
+    "country": "macau",
+    "slug": "macaomacau"
+  },
+  {
+    "name": "samsun",
+    "lat": 41.2946149,
+    "lon": 36.3320596,
+    "country": "turkey",
+    "slug": "samsunturkey"
+  },
+  {
+    "name": "denizli",
+    "lat": 37.7733197,
+    "lon": 29.0869273,
+    "country": "turkey",
+    "slug": "denizliturkey"
+  },
+  {
+    "name": "zhoushan",
+    "lat": 29.9873344,
+    "lon": 122.2030363,
+    "country": "china",
+    "slug": "zhoushanchina"
+  },
+  {
+    "name": "bustoarsizio",
+    "lat": 45.6119057,
+    "lon": 8.8520522,
+    "country": "italy",
+    "slug": "bustoarsizioitaly"
+  },
+  {
+    "name": "tongxiang",
+    "lat": 30.6316971,
+    "lon": 120.5610365,
+    "country": "china",
+    "slug": "tongxiangchina"
+  },
+  {
+    "name": "longhai",
+    "lat": 24.4490237,
+    "lon": 117.8132438,
+    "country": "china",
+    "slug": "longhaichina"
+  },
+  {
+    "name": "puyang",
+    "lat": 35.7631348,
+    "lon": 115.0234071,
+    "country": "china",
+    "slug": "puyangchina"
+  },
+  {
+    "name": "hezhou",
+    "lat": 24.3705146,
+    "lon": 111.3590955,
+    "country": "china",
+    "slug": "hezhouchina"
+  },
+  {
+    "name": "jhansi",
+    "lat": 25.5310311,
+    "lon": 78.652689,
+    "country": "india",
+    "slug": "jhansiindia"
+  },
+  {
+    "name": "neijiang",
+    "lat": 29.5827203,
+    "lon": 105.0544575,
+    "country": "china",
+    "slug": "neijiangchina"
+  },
+  {
+    "name": "izhevsk",
+    "lat": 56.866557,
+    "lon": 53.2094166,
+    "country": "russia",
+    "slug": "izhevskrussia"
+  },
+  {
+    "name": "memphis",
+    "lat": 35.1490215,
+    "lon": -90.0516285,
+    "country": "unitedstates",
+    "slug": "memphisunitedstates"
+  },
+  {
+    "name": "jamnagar",
+    "lat": 22.4732415,
+    "lon": 70.0552102,
+    "country": "india",
+    "slug": "jamnagarindia"
+  },
+  {
+    "name": "assuways",
+    "lat": 13.322312,
+    "lon": 43.252987,
+    "country": "egypt",
+    "slug": "assuwaysegypt"
+  },
+  {
+    "name": "erode",
+    "lat": 11.3692044,
+    "lon": 77.6766269,
+    "country": "india",
+    "slug": "erodeindia"
+  },
+  {
+    "name": "doha",
+    "lat": 25.2856329,
+    "lon": 51.5264162,
+    "country": "qatar",
+    "slug": "dohaqatar"
+  },
+  {
+    "name": "pachucadesoto",
+    "lat": 20.1165413,
+    "lon": -98.7413535,
+    "country": "mexico",
+    "slug": "pachucadesotomexico"
+  },
+  {
+    "name": "haimen",
+    "lat": 31.8729183,
+    "lon": 121.1771295,
+    "country": "china",
+    "slug": "haimenchina"
+  },
+  {
+    "name": "chongjin",
+    "lat": 41.7829291,
+    "lon": 129.7825241,
+    "country": "northkorea",
+    "slug": "chongjinnorthkorea"
+  },
+  {
+    "name": "chiclayo",
+    "lat": -6.766417,
+    "lon": -79.8408308,
+    "country": "peru",
+    "slug": "chiclayoperu"
+  },
+  {
+    "name": "wuhai",
+    "lat": 39.6540161,
+    "lon": 106.7879045,
+    "country": "china",
+    "slug": "wuhaichina"
+  },
+  {
+    "name": "hegang",
+    "lat": 47.3355856,
+    "lon": 130.2836718,
+    "country": "china",
+    "slug": "hegangchina"
+  },
+  {
+    "name": "sanya",
+    "lat": 18.2534658,
+    "lon": 109.5034392,
+    "country": "china",
+    "slug": "sanyachina"
+  },
+  {
+    "name": "beersheva",
+    "lat": 31.2457442,
+    "lon": 34.7925181,
+    "country": "israel",
+    "slug": "beershevaisrael"
+  },
+  {
+    "name": "durango",
+    "lat": 24.833333,
+    "lon": -104.833333,
+    "country": "mexico",
+    "slug": "durangomexico"
+  },
+  {
+    "name": "bokarosteelcity",
+    "lat": 23.6579595,
+    "lon": 86.0839161,
+    "country": "india",
+    "slug": "bokarosteelcityindia"
+  },
+  {
+    "name": "wroclaw",
+    "lat": 51.1263106,
+    "lon": 16.9781963,
+    "country": "poland",
+    "slug": "wroclawpoland"
+  },
+  {
+    "name": "irkutsk",
+    "lat": 52.289597,
+    "lon": 104.280586,
+    "country": "russia",
+    "slug": "irkutskrussia"
+  },
+  {
+    "name": "barnaul",
+    "lat": 53.347402,
+    "lon": 83.7784496,
+    "country": "russia",
+    "slug": "barnaulrussia"
+  },
+  {
+    "name": "naypyitaw",
+    "lat": 19.7540045,
+    "lon": 96.1344976,
+    "country": "myanmar",
+    "slug": "naypyitawmyanmar"
+  },
+  {
+    "name": "bulawayo",
+    "lat": -20.1560599,
+    "lon": 28.5887063,
+    "country": "zimbabwe",
+    "slug": "bulawayozimbabwe"
+  },
+  {
+    "name": "miluo",
+    "lat": 28.8101339,
+    "lon": 113.0613336,
+    "country": "china",
+    "slug": "miluochina"
+  },
+  {
+    "name": "venezia",
+    "lat": 45.4371908,
+    "lon": 12.3345898,
+    "country": "italy",
+    "slug": "veneziaitaly"
+  },
+  {
+    "name": "jambi",
+    "lat": -1.611572,
+    "lon": 102.779699,
+    "country": "indonesia",
+    "slug": "jambiindonesia"
+  },
+  {
+    "name": "safaqis",
+    "lat": 25.2689153,
+    "lon": 55.3152795,
+    "country": "tunisia",
+    "slug": "safaqistunisia"
+  },
+  {
+    "name": "khabarovsk",
+    "lat": 48.481403,
+    "lon": 135.076935,
+    "country": "russia",
+    "slug": "khabarovskrussia"
+  },
+  {
+    "name": "herat",
+    "lat": 34.3508273,
+    "lon": 62.2164003,
+    "country": "afghanistan",
+    "slug": "heratafghanistan"
+  },
+  {
+    "name": "duesseldorf",
+    "lat": 51.2254018,
+    "lon": 6.7763137,
+    "country": "germany",
+    "slug": "duesseldorfgermany"
+  },
+  {
+    "name": "belfast",
+    "lat": 54.596391,
+    "lon": -5.9301829,
+    "country": "unitedkingdom",
+    "slug": "belfastunitedkingdom"
+  },
+  {
+    "name": "nasiriyah",
+    "lat": 31.0440068,
+    "lon": 46.2575523,
+    "country": "iraq",
+    "slug": "nasiriyahiraq"
+  },
+  {
+    "name": "stuttgart",
+    "lat": 48.7784485,
+    "lon": 9.1800132,
+    "country": "germany",
+    "slug": "stuttgartgermany"
+  },
+  {
+    "name": "verona",
+    "lat": 45.4384958,
+    "lon": 10.9924122,
+    "country": "italy",
+    "slug": "veronaitaly"
+  },
+  {
+    "name": "raurkela",
+    "lat": 22.2142849,
+    "lon": 84.8724369,
+    "country": "india",
+    "slug": "raurkelaindia"
+  },
+  {
+    "name": "jubayl",
+    "lat": 32.6075,
+    "lon": 43.910833,
+    "country": "saudiarabia",
+    "slug": "jubaylsaudiarabia"
+  },
+  {
+    "name": "riga",
+    "lat": 56.9493977,
+    "lon": 24.1051846,
+    "country": "latvia",
+    "slug": "rigalatvia"
+  },
+  {
+    "name": "bandarabbas",
+    "lat": 27.1793466,
+    "lon": 56.2781423,
+    "country": "iran",
+    "slug": "bandarabbasiran"
+  },
+  {
+    "name": "kolhapur",
+    "lat": 16.7028412,
+    "lon": 74.2405329,
+    "country": "india",
+    "slug": "kolhapurindia"
+  },
+  {
+    "name": "bacolod",
+    "lat": 10.6762836,
+    "lon": 122.9513786,
+    "country": "philippines",
+    "slug": "bacolodphilippines"
+  },
+  {
+    "name": "seregno",
+    "lat": 45.649723,
+    "lon": 9.2053919,
+    "country": "italy",
+    "slug": "seregnoitaly"
+  },
+  {
+    "name": "ulyanovsk",
+    "lat": 54.3107593,
+    "lon": 48.3642771,
+    "country": "russia",
+    "slug": "ulyanovskrussia"
+  },
+  {
+    "name": "uvira",
+    "lat": -3.1982504,
+    "lon": 29.0071409,
+    "country": "drcongo",
+    "slug": "uviradrcongo"
+  },
+  {
+    "name": "alain",
+    "lat": 24.2258413,
+    "lon": 55.7474052,
+    "country": "unitedarabemirates",
+    "slug": "alainunitedarabemirates"
+  },
+  {
+    "name": "bari",
+    "lat": 41.1257843,
+    "lon": 16.8620293,
+    "country": "italy",
+    "slug": "bariitaly"
+  },
+  {
+    "name": "yulinguangxi",
+    "lat": 22.6570263,
+    "lon": 110.1765019,
+    "country": "china",
+    "slug": "yulinguangxichina"
+  },
+  {
+    "name": "ajmer",
+    "lat": 26.4691,
+    "lon": 74.639,
+    "country": "india",
+    "slug": "ajmerindia"
+  },
+  {
+    "name": "kuching",
+    "lat": 1.5574127,
+    "lon": 110.3439862,
+    "country": "malaysia",
+    "slug": "kuchingmalaysia"
+  },
+  {
+    "name": "bissau",
+    "lat": 11.861324,
+    "lon": -15.583055,
+    "country": "guineabissau",
+    "slug": "bissauguineabissau"
+  },
+  {
+    "name": "bauchi",
+    "lat": 10.6228284,
+    "lon": 10.0287754,
+    "country": "nigeria",
+    "slug": "bauchinigeria"
+  },
+  {
+    "name": "geneva",
+    "lat": 46.2017559,
+    "lon": 6.1466014,
+    "country": "switzerland",
+    "slug": "genevaswitzerland"
+  },
+  {
+    "name": "enshi",
+    "lat": 30.2745483,
+    "lon": 109.4833079,
+    "country": "china",
+    "slug": "enshichina"
+  },
+  {
+    "name": "anshun",
+    "lat": 26.254911,
+    "lon": 105.9437773,
+    "country": "china",
+    "slug": "anshunchina"
+  },
+  {
+    "name": "colombo",
+    "lat": 6.9387469,
+    "lon": 79.8541134,
+    "country": "srilanka",
+    "slug": "colombosrilanka"
+  },
+  {
+    "name": "sihui",
+    "lat": 23.4423808,
+    "lon": 112.6997273,
+    "country": "china",
+    "slug": "sihuichina"
+  },
+  {
+    "name": "hanzhong",
+    "lat": 33.069049,
+    "lon": 107.018889,
+    "country": "china",
+    "slug": "hanzhongchina"
+  },
+  {
+    "name": "ujjain",
+    "lat": 23.1885131,
+    "lon": 75.7716562,
+    "country": "india",
+    "slug": "ujjainindia"
+  },
+  {
+    "name": "gothenburg",
+    "lat": 57.7072326,
+    "lon": 11.9670171,
+    "country": "sweden",
+    "slug": "gothenburgsweden"
+  },
+  {
+    "name": "jinzhong",
+    "lat": 37.6866796,
+    "lon": 112.7383414,
+    "country": "china",
+    "slug": "jinzhongchina"
+  },
+  {
+    "name": "patiala",
+    "lat": 30.2090874,
+    "lon": 76.3398721,
+    "country": "india",
+    "slug": "patialaindia"
+  },
+  {
+    "name": "zahedan",
+    "lat": 29.4928874,
+    "lon": 60.8503017,
+    "country": "iran",
+    "slug": "zahedaniran"
+  },
+  {
+    "name": "bilaspur",
+    "lat": 28.8680526,
+    "lon": 79.298385,
+    "country": "india",
+    "slug": "bilaspurindia"
+  },
+  {
+    "name": "louisville",
+    "lat": 38.2542376,
+    "lon": -85.759407,
+    "country": "unitedstates",
+    "slug": "louisvilleunitedstates"
+  },
+  {
+    "name": "sanjosedelmonte",
+    "lat": 14.8110432,
+    "lon": 121.0491569,
+    "country": "philippines",
+    "slug": "sanjosedelmontephilippines"
+  },
+  {
+    "name": "hillah",
+    "lat": 15.239041,
+    "lon": 44.145513,
+    "country": "iraq",
+    "slug": "hillahiraq"
+  },
+  {
+    "name": "kryvyirih",
+    "lat": 47.9102734,
+    "lon": 33.3917703,
+    "country": "ukraine",
+    "slug": "kryvyirihukraine"
+  },
+  {
+    "name": "yaroslavl",
+    "lat": 57.6263877,
+    "lon": 39.8933705,
+    "country": "russia",
+    "slug": "yaroslavlrussia"
+  },
+  {
+    "name": "brighton",
+    "lat": 50.8214626,
+    "lon": -0.1400561,
+    "country": "unitedkingdom",
+    "slug": "brightonunitedkingdom"
+  },
+  {
+    "name": "feiradesantana",
+    "lat": -12.2578934,
+    "lon": -38.9598047,
+    "country": "brazil",
+    "slug": "feiradesantanabrazil"
+  },
+  {
+    "name": "vladivostok",
+    "lat": 43.1150678,
+    "lon": 131.8855768,
+    "country": "russia",
+    "slug": "vladivostokrussia"
+  },
+  {
+    "name": "comilla",
+    "lat": 23.4610615,
+    "lon": 91.1808748,
+    "country": "bangladesh",
+    "slug": "comillabangladesh"
+  },
+  {
+    "name": "tlaxcala",
+    "lat": 19.416667,
+    "lon": -98.166667,
+    "country": "mexico",
+    "slug": "tlaxcalamexico"
+  },
+  {
+    "name": "siping",
+    "lat": 43.1669821,
+    "lon": 124.364739,
+    "country": "china",
+    "slug": "sipingchina"
+  },
+  {
+    "name": "sanhe",
+    "lat": 39.9815552,
+    "lon": 117.0714873,
+    "country": "china",
+    "slug": "sanhechina"
+  },
+  {
+    "name": "calabar",
+    "lat": 4.9795999,
+    "lon": 8.3373597,
+    "country": "nigeria",
+    "slug": "calabarnigeria"
+  },
+  {
+    "name": "mathura",
+    "lat": 27.633333,
+    "lon": 77.583333,
+    "country": "india",
+    "slug": "mathuraindia"
+  },
+  {
+    "name": "abakaliki",
+    "lat": 6.3208897,
+    "lon": 8.1133202,
+    "country": "nigeria",
+    "slug": "abakalikinigeria"
+  },
+  {
+    "name": "xinmi",
+    "lat": 34.5307313,
+    "lon": 113.3761237,
+    "country": "china",
+    "slug": "xinmichina"
+  },
+  {
+    "name": "skopje",
+    "lat": 41.9960924,
+    "lon": 21.4316495,
+    "country": "northmacedonia",
+    "slug": "skopjenorthmacedonia"
+  },
+  {
+    "name": "makhachkala",
+    "lat": 42.9830241,
+    "lon": 47.5048717,
+    "country": "russia",
+    "slug": "makhachkalarussia"
+  },
+  {
+    "name": "tomsk",
+    "lat": 58.6124279,
+    "lon": 82.0475315,
+    "country": "russia",
+    "slug": "tomskrussia"
+  },
+  {
+    "name": "jingjiang",
+    "lat": 32.0165721,
+    "lon": 120.2693683,
+    "country": "china",
+    "slug": "jingjiangchina"
+  },
+  {
+    "name": "shishi",
+    "lat": 24.7337639,
+    "lon": 118.6439351,
+    "country": "china",
+    "slug": "shishichina"
+  },
+  {
+    "name": "fuqing",
+    "lat": 25.6301525,
+    "lon": 119.3756376,
+    "country": "china",
+    "slug": "fuqingchina"
+  },
+  {
+    "name": "sanliurfa",
+    "lat": 37.2595198,
+    "lon": 39.0408174,
+    "country": "turkey",
+    "slug": "sanliurfaturkey"
+  },
+  {
+    "name": "leipzig",
+    "lat": 51.3406321,
+    "lon": 12.3747329,
+    "country": "germany",
+    "slug": "leipziggermany"
+  },
+  {
+    "name": "agartala",
+    "lat": 23.8312377,
+    "lon": 91.2823821,
+    "country": "india",
+    "slug": "agartalaindia"
+  },
+  {
+    "name": "xiantao",
+    "lat": 30.3635622,
+    "lon": 113.4170705,
+    "country": "china",
+    "slug": "xiantaochina"
+  },
+  {
+    "name": "yichunheilongjiang",
+    "lat": 47.7231316,
+    "lon": 128.8785919,
+    "country": "china",
+    "slug": "yichunheilongjiangchina"
+  },
+  {
+    "name": "imphal",
+    "lat": 24.7991162,
+    "lon": 93.9364419,
+    "country": "india",
+    "slug": "imphalindia"
+  },
+  {
+    "name": "daye",
+    "lat": 30.0981854,
+    "lon": 114.9747162,
+    "country": "china",
+    "slug": "dayechina"
+  },
+  {
+    "name": "mbeya",
+    "lat": -8.9740144,
+    "lon": 33.3915834,
+    "country": "tanzania",
+    "slug": "mbeyatanzania"
+  },
+  {
+    "name": "cenxi",
+    "lat": 22.9212029,
+    "lon": 110.9898501,
+    "country": "china",
+    "slug": "cenxichina"
+  },
+  {
+    "name": "kingston",
+    "lat": 17.9712148,
+    "lon": -76.7928128,
+    "country": "jamaica",
+    "slug": "kingstonjamaica"
+  },
+  {
+    "name": "sangli",
+    "lat": 16.8502534,
+    "lon": 74.5948885,
+    "country": "india",
+    "slug": "sangliindia"
+  },
+  {
+    "name": "cuiaba",
+    "lat": -15.5986686,
+    "lon": -56.0991301,
+    "country": "brazil",
+    "slug": "cuiababrazil"
+  },
+  {
+    "name": "samarkand",
+    "lat": 39.6550017,
+    "lon": 66.9756954,
+    "country": "uzbekistan",
+    "slug": "samarkanduzbekistan"
+  },
+  {
+    "name": "malaga",
+    "lat": 36.7213028,
+    "lon": -4.4216366,
+    "country": "spain",
+    "slug": "malagaspain"
+  },
+  {
+    "name": "ibague",
+    "lat": 4.4386453,
+    "lon": -75.2105974,
+    "country": "colombia",
+    "slug": "ibaguecolombia"
+  },
+  {
+    "name": "dortmund",
+    "lat": 51.5142273,
+    "lon": 7.4652789,
+    "country": "germany",
+    "slug": "dortmundgermany"
+  },
+  {
+    "name": "kagoshima",
+    "lat": 31.521587,
+    "lon": 130.5474077,
+    "country": "japan",
+    "slug": "kagoshimajapan"
+  },
+  {
+    "name": "cabimas",
+    "lat": 10.395075,
+    "lon": -71.4414049,
+    "country": "venezuela",
+    "slug": "cabimasvenezuela"
+  },
+  {
+    "name": "qitaihe",
+    "lat": 45.7700345,
+    "lon": 131.0074987,
+    "country": "china",
+    "slug": "qitaihechina"
+  },
+  {
+    "name": "milwaukee",
+    "lat": 43.0349931,
+    "lon": -87.922497,
+    "country": "unitedstates",
+    "slug": "milwaukeeunitedstates"
+  },
+  {
+    "name": "catania",
+    "lat": 37.5023612,
+    "lon": 15.0873718,
+    "country": "italy",
+    "slug": "cataniaitaly"
+  },
+  {
+    "name": "samutsakhon",
+    "lat": 13.5708192,
+    "lon": 100.2585874,
+    "country": "thailand",
+    "slug": "samutsakhonthailand"
+  },
+  {
+    "name": "likasi",
+    "lat": -10.9891601,
+    "lon": 26.7397418,
+    "country": "drcongo",
+    "slug": "likasidrcongo"
+  },
+  {
+    "name": "beira",
+    "lat": -19.828707,
+    "lon": 34.841782,
+    "country": "mozambique",
+    "slug": "beiramozambique"
+  },
+  {
+    "name": "hamadan",
+    "lat": 34.973321,
+    "lon": 48.6555779,
+    "country": "iran",
+    "slug": "hamadaniran"
+  },
+  {
+    "name": "shuozhou",
+    "lat": 39.3307915,
+    "lon": 112.4235469,
+    "country": "china",
+    "slug": "shuozhouchina"
+  },
+  {
+    "name": "tonghua",
+    "lat": 41.7225544,
+    "lon": 125.9170455,
+    "country": "china",
+    "slug": "tonghuachina"
+  },
+  {
+    "name": "djibouti",
+    "lat": 11.8145966,
+    "lon": 42.8453061,
+    "country": "djibouti",
+    "slug": "djiboutidjibouti"
+  },
+  {
+    "name": "essen",
+    "lat": 51.4582235,
+    "lon": 7.0158171,
+    "country": "germany",
+    "slug": "essengermany"
+  },
+  {
+    "name": "toulon",
+    "lat": 43.1257311,
+    "lon": 5.9304919,
+    "country": "france",
+    "slug": "toulonfrance"
+  },
+  {
+    "name": "dresden",
+    "lat": 51.0493286,
+    "lon": 13.7381437,
+    "country": "germany",
+    "slug": "dresdengermany"
+  },
+  {
+    "name": "juizdefora",
+    "lat": -21.7609533,
+    "lon": -43.3501129,
+    "country": "brazil",
+    "slug": "juizdeforabrazil"
+  },
+  {
+    "name": "bouake",
+    "lat": 7.6906058,
+    "lon": -5.0298408,
+    "country": "ivorycoast",
+    "slug": "bouakeivorycoast"
+  },
+  {
+    "name": "pereira",
+    "lat": 4.8142613,
+    "lon": -75.6946776,
+    "country": "colombia",
+    "slug": "pereiracolombia"
+  },
+  {
+    "name": "udaipur",
+    "lat": 24.578721,
+    "lon": 73.6862571,
+    "country": "india",
+    "slug": "udaipurindia"
+  },
+  {
+    "name": "sanmenxia",
+    "lat": 34.7678842,
+    "lon": 111.1908398,
+    "country": "china",
+    "slug": "sanmenxiachina"
+  },
+  {
+    "name": "vellore",
+    "lat": 12.7948109,
+    "lon": 79.0006411,
+    "country": "india",
+    "slug": "velloreindia"
+  },
+  {
+    "name": "dongyang",
+    "lat": 29.2908082,
+    "lon": 120.2366509,
+    "country": "china",
+    "slug": "dongyangchina"
+  },
+  {
+    "name": "ardabil",
+    "lat": 38.4583983,
+    "lon": 47.9313001,
+    "country": "iran",
+    "slug": "ardabiliran"
+  },
+  {
+    "name": "thoothukkudi",
+    "lat": 8.7567452,
+    "lon": 78.0797527,
+    "country": "india",
+    "slug": "thoothukkudiindia"
+  },
+  {
+    "name": "bloemfontein",
+    "lat": -29.116395,
+    "lon": 26.215496,
+    "country": "southafrica",
+    "slug": "bloemfonteinsouthafrica"
+  },
+  {
+    "name": "xinyi",
+    "lat": 22.4277951,
+    "lon": 111.1032678,
+    "country": "china",
+    "slug": "xinyichina"
+  }
+]

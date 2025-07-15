@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spain City Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>.back-to-explore {
+      display: inline-block;
+      position: absolute;
+      top: 22px;
+      left: 36px;
+      background: #fff4;
+      color: #6B4226;
+      font-weight: bold;
+      padding: 0.5em 1.3em 0.5em 0.8em;
+      border-radius: 1.6em;
+      font-size: 1.15em;
+      text-decoration: none;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s;
+      z-index: 1201;
+    }
+    .back-to-explore:hover {
+      background: #e3d8c8;
+      color: #A9746E;
+    }
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: #FAF9F6;
+      color: #4B3425;
+      min-height: 100vh;
+      position: relative;
+    }
+    
+    .country-bottom-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      background: #fff;
+      border-top: 1px solid #E3D8C8;
+      box-shadow: 0 -2px 16px rgba(107,66,38,0.05);
+      padding: 0.7em 0 0.7em 0;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 1200;
+      gap: 2vw;
+    }
+    .nav-btn {
+      font-size: 1.19em;
+      font-family: inherit;
+      background: none;
+      border: none;
+      color: #A9746E;
+      font-weight: 700;
+      padding: 0.5em 2.2em;
+      border-radius: 1.6em;
+      margin: 0 0.7em;
+      cursor: pointer;
+      transition: background 0.13s, color 0.13s;
+      text-decoration: none;
+      outline: none;
+      box-shadow: none;
+    }
+    .nav-btn.active,
+    .nav-btn:focus,
+    .nav-btn:hover {
+      background: #D9CFC1;
+      color: #6B4226;
+    }
+    #country-map {
+      width: 100vw;
+      max-width: 100vw;
+      height: 420px;
+      margin: 0 0 2em 0;
+      background: #e8e1d1;
+      border-bottom: 2px solid #E3D8C8;
+    }
+    @media (max-width: 600px) {
+      #country-map { height: 260px; }
+      .country-bottom-nav { font-size: 1em; padding: 0.5em 0; }
+      .nav-btn { padding: 0.4em 1.2em; font-size: 1em; }
+    }
+    .cityguide-searchbar {
+      width: 96vw;
+      max-width: 420px;
+      margin: 2.1em auto 2.5em auto;
+      display: flex;
+      justify-content: center;
+    }
+    .cityguide-searchbar input {
+      width: 100%;
+      padding: 0.7em 1.5em;
+      border-radius: 2em;
+      border: 1.6px solid #E3D8C8;
+      font-size: 1.2em;
+      font-family: inherit;
+      outline: none;
+      background: #fcf7f0;
+      color: #4B3425;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+    }
+    .cities-section {
+      width: 96vw;
+      max-width: 1080px;
+      margin: 0 auto 4em auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2.6em;
+    }
+    .citycard {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      overflow: hidden;
+      align-items: stretch;
+      min-height: 220px;
+    }
+    .citycard.reverse { flex-direction: row-reverse; }
+    .citycard-img {
+      flex: 1.6;
+      min-width: 200px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .citycard-img img {
+      max-width: 100%;
+      max-height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+    }
+    .citycard-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(250,249,246,0.82);
+      color: #6B4226;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 2px 12px rgba(107,66,38,0.04);
+    }
+    .citycard-content {
+      flex: 2.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2.1em 2.4em;
+    }
+    .citycard-title {
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      margin-bottom: 0.4em;
+      margin-top: 0.2em;
+      letter-spacing: 0.04em;
+    }
+    .citycard-about {
+      font-size: 1.1em;
+      color: #4B3425;
+      line-height: 1.6;
+      margin-bottom: 0.5em;
+    }
+    .geography-blurb {
+      width: 96vw;
+      max-width: 780px;
+      margin: 2.5em auto 6em auto;
+      padding: 2.2em 2em 2.4em 2em;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px rgba(107,66,38,0.06);
+      border: 1.5px solid #E3D8C8;
+      font-size: 1.17em;
+      color: #4B3425;
+      line-height: 1.74;
+      text-align: center;
+      min-height: 180px;
+    }
+    body { padding-bottom: 84px; }
+  
+    .country-identifier {
+      max-width: 800px;
+      margin: 32px auto 16px auto;
+      padding: 1em 0.7em;
+      border: 4px solid #6B4226;
+      border-radius: 1em;
+      background: #fffbe8;
+      font-size: 2.2em;
+      font-weight: 900;
+      color: #6B4226;
+      text-align: center;
+      letter-spacing: 0.03em;
+      box-shadow: 0 4px 20px rgba(107,66,38,0.09);
+    }</style>
+</head>
+<body>
+<a class="back-to-explore" href="../../Atlas.html">← Back to Explore</a>
+
+  
+  <div id="country-map"></div>
+  <div class="country-identifier">Spain</div>
+  <div class="cityguide-searchbar">
+    <input type="text" placeholder="Search cities..." id="cityguide-search-input" oninput="filterCities()" />
+  </div>
+  <div class="cities-section">
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/cities/MadridSpain.html"><img src="https://images.unsplash.com/photo-1687064400777-59260246c266?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxSb3lhbCUyMFBhbGFjZSUyME1hZHJpZCUyMFNwYWlufGVufDB8fHx8MTc1MDk5NDg1Nnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Royal Palace: Official residence of Spanish Royal Family with ornate rooms."></a>
+        <div class="citycard-caption">Royal Palace: Official residence of Spanish Royal Family with ornate rooms.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/MadridSpain.html">Madrid</a>
+        <div class="citycard-about">Welcome to the vibrant city of Madrid, where the sun-soaked streets are lined with mouthwatering tapas bars, stunning architecture, and a contagious zest for life! From the world-class art collection at the Prado Museum to the lively atmosphere of Plaza Mayor, Madrid seamlessly blends centuries-old traditions with modern cosmopolitan flair. Whether you&#x27;re admiring the grandeur of the Royal Palace, catching a flamenco show, or simply strolling through the picturesque Retiro Park, every corner of this city tells a story waiting to be explored. So grab a churro, sip on some sangria, and immerse yourself in the irresistible charm of Madrid – ¡Viva España!</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/cities/BarcelonaSpain.html"><img src="https://images.unsplash.com/photo-1660855562147-2f2eab48c0c7?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxTYWdyYWRhJTIwRmFtaWxpYSUyMEJhcmNlbG9uYSUyMFNwYWlufGVufDB8fHx8MTc1MDk5ODcyMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Sagrada Familia: Famous basilica designed by Gaudi, still under construction."></a>
+        <div class="citycard-caption">Sagrada Familia: Famous basilica designed by Gaudi, still under construction.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/BarcelonaSpain.html">Barcelona</a>
+        <div class="citycard-about">Barcelona is a visual feast for the soul, blending historic charm with modern vibrancy seamlessly. From the iconic Sagrada Familia to the lively La Boqueria market, the city offers a kaleidoscope of experiences. Wander through the enchanting streets of the Gothic Quarter, savoring tapas at cozy cafes along the way, or soak up the sun at the bustling Barceloneta beach. Whether you&#x27;re captivated by the whimsical architecture of Park Güell or swept away by the passion of a flamenco performance, Barcelona is a city that ignites the senses and leaves you craving more.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/cities/ValenciaSpain.html"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="City view"></a>
+        <div class="citycard-caption">City view</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/ValenciaSpain.html">Valencia</a>
+        <div class="citycard-about">Discover the city of Valencia in Spain.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/cities/ZaragozaSpain.html"><img src="https://images.unsplash.com/photo-1678702638510-1d3d90bba9e1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxCYXNpbGljYSUyMG9mJTIwT3VyJTIwTGFkeSUyMG9mJTIwdGhlJTIwUGlsbGFyJTIwWmFyYWdvemElMjBTcGFpbnxlbnwwfHx8fDE3NTEyNjg4Nzd8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Basilica of Our Lady of the Pillar: Roman Catholic church with baroque architecture and stunning river views."></a>
+        <div class="citycard-caption">Basilica of Our Lady of the Pillar: Roman Catholic church with baroque architecture and stunning river views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/ZaragozaSpain.html">Zaragoza</a>
+        <div class="citycard-about">Zaragoza, a hidden gem in northeastern Spain, offers a delightful mix of ancient history and modern charm. From the stunning Basilica del Pilar and the impressive Aljafería Palace to the lively tapas bars lining its picturesque streets, this city has something for every traveler. Explore the vibrant local markets, wander through the tranquil parks along the Ebro River, and soak in the authentic Spanish atmosphere. Whether you&#x27;re a history buff, a foodie, or simply seeking a unique destination off the beaten path, Zaragoza will captivate you with its distinct character and warm hospitality.</div>
+      </div>
+    </div>
+<div class="citycard">
+      <div class="citycard-img">
+        <a href="/cities/SevilleSpain.html"><img src="https://images.unsplash.com/photo-1533459401064-4bc8bf54324c?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBbGMlQzMlQTF6YXIlMjBvZiUyMFNldmlsbGUlMjBTZXZpbGxlJTIwU3BhaW58ZW58MHx8fHwxNzUxMjg4NDkzfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Alcázar of Seville: Stunning royal palace featuring exquisite Mudejar architecture."></a>
+        <div class="citycard-caption">Alcázar of Seville: Stunning royal palace featuring exquisite Mudejar architecture.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/SevilleSpain.html">Seville</a>
+        <div class="citycard-about">Seville, a vibrant gem in southern Spain, effortlessly blends rich history with modern charm. Lose yourself in the labyrinthine streets of the Santa Cruz neighborhood, where colorful houses and lively tapas bars tempt you at every turn. Marvel at the grandeur of the Alcázar Palace and the intricate details of the Cathedral of Seville, both UNESCO World Heritage Sites. Immerse yourself in the passionate rhythms of flamenco and savor the city&#x27;s culinary delights, from crispy churros dipped in thick chocolate to refreshing glasses of sangria. With its warm Mediterranean climate and infectious energy, Seville is a destination that will capture your heart and leave you longing for more.</div>
+      </div>
+    </div>
+<div class="citycard reverse">
+      <div class="citycard-img">
+        <a href="/cities/MalagaSpain.html"><img src="https://images.unsplash.com/photo-1588775841569-41ae0d3340dd?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w3Njg2MDV8MHwxfHNlYXJjaHwxfHxBbGNhemFiYSUyME1hbGFnYSUyMFNwYWlufGVufDB8fHx8MTc1MTM1NTM1OXww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Alcazaba: Ancient Moorish fortress with stunning gardens and views."></a>
+        <div class="citycard-caption">Alcazaba: Ancient Moorish fortress with stunning gardens and views.</div>
+      </div>
+      <div class="citycard-content">
+        <a class="citycard-title" href="/cities/MalagaSpain.html">Malaga</a>
+        <div class="citycard-about">Nestled along the sparkling shores of the Costa del Sol, Malaga effortlessly blends its rich history with vibrant modern energy. From exploring the ancient Alcazaba fortress to indulging in tantalizing tapas at bustling local markets, every corner of this coastal gem beckons with charm and cultural allure. Whether strolling through Picasso&#x27;s birthplace or soaking up the sun on La Malagueta beach, Malaga captivates with its intoxicating mix of art, history, and laid-back Mediterranean ambiance. Embrace the irresistible rhythm of this coastal paradise and let Malaga&#x27;s warm hospitality and endless sunshine leave you utterly enchanted.</div>
+      </div>
+    </div>
+</div>
+  <nav class="country-bottom-nav">
+    <a class="nav-btn" href="spainhome.html">Home</a>
+    <a class="nav-btn" href="spainmore.html">More</a>
+    <a class="nav-btn active" href="spaincityguide.html">Cityguide</a>
+  </nav>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('country-map').setView([39.50522873333333, -2.20006755], 4);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+L.marker([40.4167047,-3.7035825]).addTo(map)
+  .bindPopup('<a href="/cities/MadridSpain.html">Madrid</a>')
+  .on('click', function(){ window.location.href = "/cities/MadridSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([41.3828939,2.1774322]).addTo(map)
+  .bindPopup('<a href="/cities/BarcelonaSpain.html">Barcelona</a>')
+  .on('click', function(){ window.location.href = "/cities/BarcelonaSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([39.4697065,-0.3763353]).addTo(map)
+  .bindPopup('<a href="/cities/ValenciaSpain.html">Valencia</a>')
+  .on('click', function(){ window.location.href = "/cities/ValenciaSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([41.6521342,-0.8809428]).addTo(map)
+  .bindPopup('<a href="/cities/ZaragozaSpain.html">Zaragoza</a>')
+  .on('click', function(){ window.location.href = "/cities/ZaragozaSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([37.3886303,-5.9953403]).addTo(map)
+  .bindPopup('<a href="/cities/SevilleSpain.html">Seville</a>')
+  .on('click', function(){ window.location.href = "/cities/SevilleSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+L.marker([36.7213028,-4.4216366]).addTo(map)
+  .bindPopup('<a href="/cities/MalagaSpain.html">Malaga</a>')
+  .on('click', function(){ window.location.href = "/cities/MalagaSpain.html"; })
+  .on('mouseover', function(e){ this.openPopup(); })
+  .on('mouseout', function(e){ this.closePopup(); });
+
+    function filterCities() {
+      var q = document.getElementById('cityguide-search-input').value.toLowerCase();
+      var allcards = document.querySelectorAll('.citycard');
+      for (var i = 0; i < allcards.length; i++) {
+        var card = allcards[i];
+        var text = card.innerText.toLowerCase();
+        card.style.display = text.includes(q) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>

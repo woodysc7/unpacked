@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Content Blocked – Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown-dark: #6B4226;
+      --brown-medium: #A9746E;
+      --brown-light: #D9CFC1;
+      --background: #FAF9F6;
+      --surface: #fff;
+      --text: #4B3425;
+      --muted: #A9746E;
+      --accent: #6B4226;
+      --border: #E3D8C8;
+      --shadow: 0 2px 18px rgba(107,66,38,0.06);
+      --popup-bg: rgba(250,249,246,0.98);
+      --popup-z: 1100;
+      --tour-bg: #f3ede7;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      height: 100vh;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .blocked-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.5em;
+      box-shadow: var(--shadow);
+      padding: 3.5em 2.5em 2.5em 2.5em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 400px;
+      width: 92vw;
+    }
+    .blocked-title {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--brown-dark);
+      margin-bottom: 0.55em;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .blocked-msg {
+      font-size: 1.18rem;
+      color: var(--brown-medium);
+      margin-bottom: 2em;
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .blocked-actions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.1em;
+    }
+    .blocked-link, .blocked-back {
+      display: inline-block;
+      padding: 0.95em 2.1em;
+      font-size: 1.13em;
+      font-weight: 800;
+      border-radius: 2em;
+      background: var(--brown-medium);
+      color: #fff;
+      border: none;
+      text-decoration: none;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px rgba(107,66,38,0.06);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      margin-bottom: 0.15em;
+    }
+    .blocked-link:hover, .blocked-back:hover {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(107,66,38,0.15);
+    }
+    .blocked-back {
+      background: var(--brown-light);
+      color: var(--accent);
+      font-weight: 700;
+      border: 1px solid var(--border);
+      margin-top: 0.6em;
+    }
+    .blocked-back:hover {
+      background: var(--brown-medium);
+      color: #fff;
+    }
+    @media (max-width: 600px) {
+      .blocked-container {
+        padding: 2em 0.5em 2em 0.5em;
+        max-width: 98vw;
+      }
+      .blocked-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blocked-container">
+    <div class="blocked-title">Explore More with Atlas Premium</div>
+    <div class="blocked-msg">
+      Looks like you’ve reached one of our premium destinations!<br>
+      Upgrade to unlock every country and city guide, plus exclusive features to plan your perfect trip.
+    </div>
+    <div class="blocked-actions">
+      <a class="blocked-link" href="signup.html">Unlock Full Access</a>
+      <a class="blocked-back" href="Atlas.html">← Back to Map</a>
+    </div>
+  </div>
+</body>
+</html>

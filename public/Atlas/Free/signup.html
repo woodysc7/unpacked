@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up / Login</title>
+  <!-- REMOVE type="module" for firebase.js and signup.js; load firebase from CDN for browser compatibility -->
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"></script>
+  <script src="../../firebase.js"></script>
+  <style>
+    body { font-family: Montserrat, Arial, sans-serif; background: #faf9f6; color: #4B3425; }
+    .auth-container { max-width: 400px; margin: 90px auto; background: #fff; padding: 2em; border-radius: 18px; box-shadow: 0 2px 12px #0001; }
+    input, button { font-size: 1.1em; margin: 0.4em 0; padding: 0.6em; width: 100%; border-radius: 8px; border: 1px solid #E3D8C8;}
+    button { background: #6B4226; color: #fff; font-weight: 700; border: none; cursor: pointer; margin-top: 1em;}
+    button:hover { background: #A9746E;}
+    .error { color: #cf1b1b; margin-top: 0.8em;}
+    .success { color: #2d902d; margin-top: 0.8em;}
+    #pay-btn { background: #e3d8c8; color: #a17160; margin-top: 1.5em; border: none; font-weight: 700;}
+    #pay-btn:hover { background: #c3b4a5; }
+    #free-btn { background: #6B4226; color: #fff; margin-top: 1em; border: none; font-weight: 700; font-size: 1.1em; padding: 0.6em; width: 100%; border-radius: 8px; cursor: pointer;}
+    #free-btn:hover { background: #A9746E; }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Sign Up / Login</h2>
+    <form id="authForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit" id="loginBtn">Login</button>
+      <button type="button" id="signupBtn">Sign Up</button>
+      <div class="error" id="errorMsg"></div>
+      <div class="success" id="successMsg"></div>
+    </form>
+    <button id="pay-btn" style="display:none;">Upgrade to Premium</button>
+    <button id="free-btn" onclick="window.location.href='Atlas.html'">Continue to Free Atlas</button>
+  </div>
+  <script>
+    // Login and Signup handlers
+    const authForm = document.getElementById('authForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successMsg = document.getElementById('successMsg');
+    const payBtn = document.getElementById('pay-btn');
+
+    // Helper: Show/Hide Pay button depending on auth state
+    function updatePayButton() {
+      if (firebase.auth().currentUser) {
+        payBtn.style.display = 'block';
+      } else {
+        payBtn.style.display = 'none';
+      }
+    }
+
+    // Listen for real-time auth state changes
+    firebase.auth().onAuthStateChanged(user => {
+      updatePayButton();
+    });
+
+    // Login
+    authForm.onsubmit = function(e) {
+      e.preventDefault();
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+      loginBtn.disabled = true;
+      signupBtn.disabled = true;
+      firebase.auth().signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+        .then(() => {
+          successMsg.textContent = "Logged in successfully!";
+          updatePayButton();
+        })
+        .catch(error => {
+          errorMsg.textContent = error.message;
+        })
+        .finally(() => {
+          loginBtn.disabled = false;
+          signupBtn.disabled = false;
+        });
+    };
+
+    // Signup
+    signupBtn.onclick = function(e) {
+      e.preventDefault();
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+      loginBtn.disabled = true;
+      signupBtn.disabled = true;
+      firebase.auth().createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+        .then(() => {
+          successMsg.textContent = "Account created & signed in!";
+          updatePayButton();
+        })
+        .catch(error => {
+          errorMsg.textContent = error.message;
+        })
+        .finally(() => {
+          loginBtn.disabled = false;
+          signupBtn.disabled = false;
+        });
+    };
+
+    // Payment (Upgrade) Button
+    payBtn.onclick = async function() {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        alert("Please sign in first!");
+        return;
+      }
+      payBtn.disabled = true;
+      payBtn.textContent = "Redirecting...";
+      try {
+        const token = await user.getIdToken();
+        const response = await fetch('/.netlify/functions/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            token
+          })
+        });
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          errorMsg.textContent = data.error || "Could not create checkout session.";
+          payBtn.disabled = false;
+          payBtn.textContent = "Upgrade to Premium";
+        }
+      } catch (err) {
+        errorMsg.textContent = err.message;
+        payBtn.disabled = false;
+        payBtn.textContent = "Upgrade to Premium";
+      }
+    };
+  </script>
+</body>
+</html>
