@@ -22,9 +22,50 @@ async function checkUserAccess(event) {
   console.log('Headers:', JSON.stringify(event.headers, null, 2));
   console.log('Query params:', event.queryStringParameters);
   
-  // IMMEDIATE BYPASS - GRANT ACCESS TO EVERYONE
-  console.log('GRANTING ACCESS TO ALL - DEBUGGING MODE');
-  return true;
+  // Check for whitelisted email cookie
+  const cookies = event.headers.cookie || '';
+  const authEmailMatch = cookies.match(/auth_email=([^;]+)/);
+  if (authEmailMatch) {
+    const email = decodeURIComponent(authEmailMatch[1]);
+    console.log('Found auth_email cookie:', email);
+    
+    // Check if email is whitelisted
+    const whitelistedEmails = ['woodysc7@gmail.com'];
+    if (whitelistedEmails.includes(email)) {
+      console.log('Email is whitelisted, granting access');
+      return true;
+    }
+  }
+  
+  // Check for paid access cookie
+  const paidCookieMatch = cookies.match(/paid_access=([^;]+)/);
+  if (paidCookieMatch) {
+    const paidStatus = paidCookieMatch[1];
+    console.log('Found paid_access cookie:', paidStatus);
+    if (paidStatus === 'true') {
+      return true;
+    }
+  }
+  
+  // Check Firebase ID token if available
+  const authHeader = event.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const idToken = authHeader.split('Bearer ')[1];
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      console.log('Firebase token verified for user:', decodedToken.email);
+      
+      // Check if user has paid access
+      if (decodedToken.paid_access === true) {
+        return true;
+      }
+    } catch (error) {
+      console.log('Firebase token verification failed:', error.message);
+    }
+  }
+  
+  console.log('No valid authentication found, denying access');
+  return false;
 }
 
 function getAccessDeniedPage() {
@@ -96,12 +137,19 @@ exports.handler = async (event, context) => {
   // If no page parameter, extract from path
   if (!page && event.path) {
     const pathParts = event.path.split('/');
-    if (pathParts.includes('Paid') || pathParts.includes('paid')) {
-      // Get everything after /Paid/ or /paid/
-      const paidIndex = pathParts.findIndex(part => part.toLowerCase() === 'paid');
-      if (paidIndex >= 0 && paidIndex < pathParts.length - 1) {
-        page = pathParts.slice(paidIndex + 1).join('/');
-      }
+    
+    // Handle /Paid/, /paid/, or /PaidContent/ paths
+    let contentIndex = -1;
+    if (pathParts.includes('Paid')) {
+      contentIndex = pathParts.findIndex(part => part === 'Paid');
+    } else if (pathParts.includes('paid')) {
+      contentIndex = pathParts.findIndex(part => part === 'paid');
+    } else if (pathParts.includes('PaidContent')) {
+      contentIndex = pathParts.findIndex(part => part === 'PaidContent');
+    }
+    
+    if (contentIndex >= 0 && contentIndex < pathParts.length - 1) {
+      page = pathParts.slice(contentIndex + 1).join('/');
     }
   }
 
@@ -154,9 +202,9 @@ exports.handler = async (event, context) => {
       
       if (!fs.existsSync(filePath)) {
         // File not found in function directory, redirect to static version
-        let staticUrl = `/paidcontent/${page.toLowerCase()}`;
-        if (staticUrl.endsWith('.html')) {
-          staticUrl = staticUrl.replace('.html', '');
+        let staticUrl = `/PaidContent/${page}`;
+        if (!staticUrl.endsWith('.html') && !staticUrl.endsWith('.json')) {
+          staticUrl += '.html';
         }
         
         // Preserve query parameters in redirect
@@ -195,9 +243,9 @@ exports.handler = async (event, context) => {
       console.error('Error reading file:', fileError);
       
       // Fallback to static content redirect
-      let staticUrl = `/paidcontent/${page.toLowerCase()}`;
-      if (staticUrl.endsWith('.html')) {
-        staticUrl = staticUrl.replace('.html', '');
+      let staticUrl = `/PaidContent/${page}`;
+      if (!staticUrl.endsWith('.html') && !staticUrl.endsWith('.json')) {
+        staticUrl += '.html';
       }
       
       // Preserve query parameters in redirect

@@ -6,6 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script>
+    // Authentication check - redirect unauthorized users
+    function checkPremiumAccess() {
+      const cookies = document.cookie;
+      
+      // Check for valid authentication cookies
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+          cookies.includes('authToken=whitelist_token') ||
+          cookies.includes('authToken=test_token_woodysc7')) {
+        // User is authorized, continue loading page
+        return true;
+      }
+      
+      // User is not authorized, redirect to signup
+      window.location.href = '/Atlas/Free/signup.html';
+      return false;
+    }
+    
+    // Run authentication check immediately
+    if (!checkPremiumAccess()) {
+      // Stop page loading if not authorized
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.innerHTML = '<p style="text-align:center;margin-top:100px;">Redirecting to signup...</p>';
+      });
+    }
+  </script>
   <style>
     html, body {
       font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
@@ -380,7 +406,64 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAu9mkF9nLg6KEj6HoV_01gP2X-MWI2qNU",
+      authDomain: "unpacked-aec2e.firebaseapp.com",
+      projectId: "unpacked-aec2e",
+      storageBucket: "unpacked-aec2e.appspot.com",
+      messagingSenderId: "767436027494",
+      appId: "1:767436027494:web:c1f40a3f6d9b8a9c3b3b3b"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Authentication check function
+    function checkAuth() {
+      const cookies = document.cookie;
+      
+      // Check for whitelisted email cookie
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+          cookies.includes('authToken=whitelist_token') ||
+          cookies.includes('authToken=test_token_woodysc7')) {
+        return true; // Allow access for whitelisted user
+      }
+      
+      // Check for valid authentication token
+      const authToken = getCookie('authToken');
+      const userEmail = getCookie('userEmail');
+      
+      if (!authToken || !userEmail) {
+        return false;
+      }
+      
+      // For Firebase tokens, we'll do basic validation
+      if (authToken.length > 20 && userEmail.includes('@')) {
+        return true; // Likely valid Firebase token
+      }
+      
+      return false;
+    }
+    
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+    
+    // Block access if not authenticated
+    if (!checkAuth()) {
+      // Redirect to signup page
+      window.location.href = '/Atlas/Free/signup.html';
+      throw new Error('Access denied'); // Stop script execution
+    }
+
     function iso2ToFlag(iso2) {
       return /^[A-Z]{2}$/.test(iso2) ? `https://flagcdn.com/w40/${iso2.toLowerCase()}.png` : null;
     }

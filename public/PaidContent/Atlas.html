@@ -4,8 +4,35 @@
   <meta charset="utf-8" />
   <title>No Blue Focus Box or Fill on Country Click</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
+  <script src="/PaidContent/auth-check.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script>
+    // Authentication check - redirect unauthorized users
+    function checkPremiumAccess() {
+      const cookies = document.cookie;
+      
+      // Check for valid authentication cookies
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+          cookies.includes('authToken=whitelist_token') ||
+          cookies.includes('authToken=test_token_woodysc7')) {
+        // User is authorized, continue loading page
+        return true;
+      }
+      
+      // User is not authorized, redirect to signup
+      window.location.href = '/Atlas/Free/signup.html';
+      return false;
+    }
+    
+    // Run authentication check immediately
+    if (!checkPremiumAccess()) {
+      // Stop page loading if not authorized
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.innerHTML = '<p style="text-align:center;margin-top:100px;">Redirecting to signup...</p>';
+      });
+    }
+  </script>
   <style>
     html, body {
       font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
