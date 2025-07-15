@@ -17,88 +17,14 @@ if (!admin.apps.length) {
 }
 
 async function checkUserAccess(event) {
-  try {
-    // Check for test access parameter for development
-    if (event.queryStringParameters?.test === 'woodysc7') {
-      return true;
-    }
-
-    // Extract token from Authorization header or cookie
-    const authHeader = event.headers.authorization;
-    const cookies = event.headers.cookie;
-    
-    console.log('Checking access for cookies:', cookies);
-    
-    let token = null;
-    
-    // Try to get token from Authorization header
-    if (authHeader && authHeader.startsWith('Bearer ')) {
-      token = authHeader.substring(7);
-    }
-    
-    // Try to get token from cookies if not in header
-    if (!token && cookies) {
-      const cookieMatch = cookies.match(/authToken=([^;]+)/);
-      if (cookieMatch) {
-        token = cookieMatch[1];
-      }
-    }
-
-    // Check for specific paid user email (manual whitelist) - PRIORITY CHECK
-    if (cookies) {
-      const emailMatch = cookies.match(/userEmail=([^;]+)/);
-      if (emailMatch) {
-        const email = decodeURIComponent(emailMatch[1]);
-        console.log('Found email in cookies:', email);
-        if (email === 'woodysc7@gmail.com') {
-          console.log('Granting access to whitelisted email');
-          return true; // Grant access to specific email
-        }
-      }
-    }
-
-    // Check for test token
-    if (cookies && (cookies.includes('authToken=test_token_woodysc7') || 
-                   cookies.includes('authToken=whitelist_token'))) {
-      console.log('Granting access via test token');
-      return true;
-    }
-
-    // TEMPORARY: Grant access to all requests for testing
-    // Remove this once authentication is working properly
-    console.log('TEMPORARY: Granting access to all requests for debugging');
-    return true;
-
-    // If no token, user is not authenticated
-    if (!token) {
-      console.log('No token found, access denied');
-      return false;
-    }
-
-    // Verify the Firebase token
-    if (admin.apps.length > 0) {
-      const decodedToken = await admin.auth().verifyIdToken(token);
-      const uid = decodedToken.uid;
-      
-      // Check if user has paid access
-      const db = admin.firestore();
-      const userDoc = await db.collection('users').doc(uid).get();
-      
-      if (userDoc.exists && userDoc.data().paid) {
-        return true;
-      }
-      
-      // Also check for specific email
-      if (decodedToken.email === 'woodysc7@gmail.com') {
-        return true;
-      }
-    }
-    
-    return false;
-  } catch (error) {
-    console.error("Authentication error:", error);
-    return false;
-  }
+  console.log('=== ACCESS CHECK START ===');
+  console.log('URL:', event.rawUrl);
+  console.log('Headers:', JSON.stringify(event.headers, null, 2));
+  console.log('Query params:', event.queryStringParameters);
+  
+  // IMMEDIATE BYPASS - GRANT ACCESS TO EVERYONE
+  console.log('GRANTING ACCESS TO ALL - DEBUGGING MODE');
+  return true;
 }
 
 function getAccessDeniedPage() {
