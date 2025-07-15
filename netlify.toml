@@ -1,7 +1,6 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
-  command = "echo 'Building functions...' && ls -la netlify/functions/"
 
 [[redirects]]
   from = "/"
