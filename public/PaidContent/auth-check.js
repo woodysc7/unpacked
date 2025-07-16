@@ -6,8 +6,10 @@ function checkPremiumAccess() {
   
   // Check for valid authentication cookies
   if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+      cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') ||
       cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7')) {
+      cookies.includes('authToken=test_token_woodysc7') ||
+      cookies.includes('authToken=test_token_wyatt')) {
     // User is authorized, continue loading page
     return true;
   }

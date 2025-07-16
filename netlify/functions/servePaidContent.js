@@ -324,6 +324,14 @@ exports.handler = async (event, context) => {
               <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=woodysc7" class="nav-link">🏛️ London</a>
               <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=woodysc7" class="nav-link">🗼 Paris</a>
               <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=woodysc7" class="nav-link">🏯 Tokyo</a>
+              <br><br>
+              <div style="font-size: 0.9em; color: #888;">
+                <strong>Wyatt access:</strong>
+                <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗽 NYC</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏛️ London</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗼 Paris</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏯 Tokyo</a>
+              </div>
             </div>
 
             <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;">
@@ -412,6 +420,7 @@ exports.handler = async (event, context) => {
 
             <div style="text-align: center; margin: 30px 0;">
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7" class="nav-link">🗺️ Full Atlas</a>
+              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=wyatt" class="nav-link">🗺️ Full Atlas (Wyatt)</a>
               <a href="/Atlas/Free/Atlas.html" class="nav-link">🆓 Free Version</a>
             </div>
           </div>

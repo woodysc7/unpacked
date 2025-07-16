@@ -21,8 +21,10 @@
           
           // Check if user already has auth cookies for your email
           if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+              cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') ||
               cookies.includes('authToken=whitelist_token') ||
-              cookies.includes('authToken=test_token_woodysc7')) {
+              cookies.includes('authToken=test_token_woodysc7') ||
+              cookies.includes('authToken=test_token_wyatt')) {
             // Redirect to premium content
             window.location.href = '/premium-atlas-direct.html';
             return;
@@ -39,6 +41,22 @@
             
             // Add debug info
             console.log('Setting cookies for auto-login');
+            console.log('Cookies after setting:', document.cookie);
+            
+            // Small delay to ensure cookies are set
+            setTimeout(() => {
+              window.location.href = '/premium-atlas-direct.html';
+            }, 100);
+            return;
+          }
+          
+          if (autoLogin === 'wyatt') {
+            // Set authentication cookies for wyatt access
+            document.cookie = `authToken=test_token_wyatt; path=/; max-age=86400; samesite=strict`;
+            document.cookie = `userEmail=${encodeURIComponent('Wyattlorenzen123@gmail.com')}; path=/; max-age=86400; samesite=strict`;
+            
+            // Add debug info
+            console.log('Setting cookies for wyatt auto-login');
             console.log('Cookies after setting:', document.cookie);
             
             // Small delay to ensure cookies are set

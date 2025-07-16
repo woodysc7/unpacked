@@ -31,8 +31,8 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // For testing - mark woodysc7@gmail.com as paid
-    if (email === "woodysc7@gmail.com") {
+    // For testing - mark woodysc7@gmail.com or Wyattlorenzen123@gmail.com as paid
+    if (email === "woodysc7@gmail.com" || email === "Wyattlorenzen123@gmail.com") {
       // Find user by email
       const userQuery = await admin.auth().getUserByEmail(email);
       const uid = userQuery.uid;

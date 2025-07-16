@@ -22,14 +22,23 @@ async function checkUserAccess(event) {
   console.log('Headers:', JSON.stringify(event.headers, null, 2));
   console.log('Query params:', event.queryStringParameters);
   
+  // Check for test parameter access first
+  const testParam = event.queryStringParameters?.test;
+  if (testParam === 'woodysc7' || testParam === 'wyatt') {
+    console.log('Test parameter access granted for:', testParam);
+    return true;
+  }
+  
   // Check for authentication cookies (matching client-side auth-check.js)
   const cookies = event.headers.cookie || '';
   console.log('Checking cookies:', cookies);
   
   // Check for whitelisted email cookie (userEmail format)
   if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+      cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') ||
       cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7')) {
+      cookies.includes('authToken=test_token_woodysc7') ||
+      cookies.includes('authToken=test_token_wyatt')) {
     console.log('Found whitelisted auth cookies, granting access');
     return true;
   }

@@ -103,7 +103,9 @@
       
       // Check if user is already authenticated with valid cookies
       const cookies = document.cookie;
-      if (cookies.includes('userEmail=woodysc7%40gmail.com') || cookies.includes('authToken=whitelist_token')) {
+      if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+          cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') || 
+          cookies.includes('authToken=whitelist_token')) {
         // User is already authenticated, redirect to premium
         window.location.href = `/premium-atlas-direct.html`;
         return;
