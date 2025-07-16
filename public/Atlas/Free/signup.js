@@ -20,16 +20,24 @@ loginBtn.onclick = async (e) => {
     
     console.log('=== LOGIN SUCCESS ===');
     console.log('User:', user.email, 'UID:', user.uid);
+    console.log('Current timestamp:', new Date().toISOString());
     
     // Use server-side access check for reliability
     let hasAccess = false;
     let accessType = '';
     
     // Temporary fix for known whitelisted user
+    console.log('Checking if user matches hardcoded whitelist...');
+    console.log('UID matches:', user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1');
+    console.log('Email matches:', user.email === 'scwood26@g.holycross.edu');
+    
     if (user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1' || user.email === 'scwood26@g.holycross.edu') {
-      console.log('Detected known whitelisted user, granting access immediately');
+      console.log('🎉 HARDCODED WHITELIST MATCH - GRANTING ACCESS!');
       hasAccess = true;
       accessType = 'whitelist';
+      console.log('Access granted via hardcoded check');
+    } else {
+      console.log('❌ No hardcoded match found');
     }
     
     // Use server-side access check for reliability (if not already granted above)
