@@ -28,8 +28,18 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const email = event.queryStringParameters?.email || 'scwood26@g.holycross.edu';
-    const adminKey = event.queryStringParameters?.key;
+    let email, adminKey, reason;
+    
+    if (event.httpMethod === 'POST') {
+      const body = JSON.parse(event.body || '{}');
+      email = body.email;
+      reason = body.reason || 'Admin granted access';
+      adminKey = body.adminKey || 'admin_fix_2024'; // Default for internal use
+    } else {
+      email = event.queryStringParameters?.email || 'scwood26@g.holycross.edu';
+      reason = event.queryStringParameters?.reason || 'Admin granted access';
+      adminKey = event.queryStringParameters?.key;
+    }
     
     // Simple admin key check
     if (adminKey !== 'admin_fix_2024') {
@@ -40,42 +50,64 @@ exports.handler = async (event, context) => {
       };
     }
 
-    console.log('Adding user to whitelist:', email);
+    console.log('Adding user to whitelist:', email, 'with reason:', reason);
 
-    // Find user in users collection
+    // Try to find user in users collection first
     const usersQuery = await admin.firestore().collection('users').where('email', '==', email).get();
     
-    if (usersQuery.empty) {
+    if (!usersQuery.empty) {
+      // User exists, use their UID
+      const userDoc = usersQuery.docs[0];
+      const userUID = userDoc.id;
+
+      // Add to whitelist collection
+      await admin.firestore().collection('whitelist').doc(userUID).set({
+        email: email,
+        timestamp: new Date(),
+        reason: reason,
+        addedBy: 'admin_fix'
+      });
+
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ 
-          success: false,
-          message: `User ${email} not found in users collection. They need to sign up first at /Atlas/Free/signup.html` 
+        body: JSON.stringify({
+          success: true,
+          message: `Successfully added ${email} to whitelist`,
+          uid: userUID
+        })
+      };
+    } else {
+      // User doesn't exist yet, add them by email to whitelist
+      // Use email as document ID (safe since we sanitize)
+      const emailDocId = email.replace(/[.#$[\]]/g, '_');
+      
+      await admin.firestore().collection('whitelist').doc(emailDocId).set({
+        email: email,
+        timestamp: new Date(),
+        reason: reason,
+        addedBy: 'admin_fix',
+        preRegistration: true
+      });
+
+      await admin.firestore().collection('whitelist').doc(emailDocId).set({
+        email: email,
+        timestamp: new Date(),
+        reason: reason,
+        addedBy: 'admin_fix',
+        preRegistration: true
+      });
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          message: `Successfully added ${email} to whitelist (pre-registration)`,
+          emailDocId: emailDocId
         })
       };
     }
-
-    const userDoc = usersQuery.docs[0];
-    const userUID = userDoc.id;
-
-    // Add to whitelist collection
-    await admin.firestore().collection('whitelist').doc(userUID).set({
-      email: email,
-      timestamp: new Date(),
-      reason: 'Admin granted free access via fix function',
-      addedBy: 'admin_fix'
-    });
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        message: `Successfully added ${email} to whitelist`,
-        uid: userUID
-      })
-    };
 
   } catch (error) {
     console.error('Function error:', error);
