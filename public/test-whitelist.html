@@ -95,7 +95,7 @@
                 // Check users collection
                 try {
                     const userDoc = await db.collection('users').doc(user.uid).get();
-                    if (userDoc.exists) {
+                    if (userDoc.exists()) {
                         const userData = userDoc.data();
                         result += `<p class="info">Users collection data:</p>`;
                         result += `<pre>${JSON.stringify(userData, null, 2)}</pre>`;

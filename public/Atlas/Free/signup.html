@@ -123,7 +123,7 @@
         // For other users, try to check Firestore (with error handling)
         try {
           const userDoc = await db.collection('users').doc(user.uid).get();
-          if (userDoc.exists && userDoc.data().paid) {
+          if (userDoc.exists() && userDoc.data().paid) {
             successMsg.textContent = 'Login successful! Redirecting to paid content...';
             
             // Get Firebase ID token for authentication

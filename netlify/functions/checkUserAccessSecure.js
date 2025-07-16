@@ -105,12 +105,12 @@ exports.handler = async (event, context) => {
     if (!hasAccess) {
       try {
         const userDoc = await db.collection('users').doc(uid).get();
-        if (userDoc.exists && userDoc.data().paid === true) {
+        if (userDoc.exists() && userDoc.data().paid === true) {
           console.log('User has paid access in users collection');
           hasAccess = true;
           accessType = 'users_paid';
           details.users = userDoc.data();
-        } else if (userDoc.exists) {
+        } else if (userDoc.exists()) {
           details.users = userDoc.data();
         }
       } catch (error) {
