@@ -108,7 +108,7 @@ async function checkUserAccess(event) {
       // Check if user is marked as paid in users collection
       try {
         const userDoc = await admin.firestore().collection('users').doc(decodedToken.uid).get();
-        if (userDoc.exists() && userDoc.data().paid === true) {
+        if (userDoc.exists && userDoc.data().paid === true) {
           console.log('User has paid access in users collection, granting access');
           return true;
         }
@@ -160,7 +160,7 @@ async function checkUserAccess(event) {
       // Check if user is marked as paid in users collection
       try {
         const userDoc = await admin.firestore().collection('users').doc(decodedToken.uid).get();
-        if (userDoc.exists() && userDoc.data().paid === true) {
+        if (userDoc.exists && userDoc.data().paid === true) {
           console.log('User has paid access in users collection, granting access');
           return true;
         }

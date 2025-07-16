@@ -21,6 +21,10 @@ loginBtn.onclick = async (e) => {
     console.log('=== LOGIN SUCCESS ===');
     console.log('User:', user.email, 'UID:', user.uid);
     
+    // Use server-side access check for reliability
+    let hasAccess = false;
+    let accessType = '';
+    
     // Temporary fix for known whitelisted user
     if (user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1' || user.email === 'scwood26@g.holycross.edu') {
       console.log('Detected known whitelisted user, granting access immediately');
