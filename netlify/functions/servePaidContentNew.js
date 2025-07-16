@@ -82,6 +82,17 @@ async function checkUserAccess(event) {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       console.log('Firebase token verified for user:', decodedToken.email);
       
+      // Check Firebase whitelist collection
+      try {
+        const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
+        if (whitelistDoc.exists) {
+          console.log('User is in Firebase whitelist, granting access');
+          return true;
+        }
+      } catch (whitelistError) {
+        console.log('Error checking Firebase whitelist:', whitelistError.message);
+      }
+      
       // Check if user has paid access
       if (decodedToken.paid_access === true) {
         return true;
