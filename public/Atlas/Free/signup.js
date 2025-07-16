@@ -22,66 +22,34 @@ loginBtn.onclick = async (e) => {
     console.log('User:', user.email, 'UID:', user.uid);
     console.log('Current timestamp:', new Date().toISOString());
     
-    // Use server-side access check for reliability
+    // Check access via server-side function (handles whitelist, paid status, etc.)
     let hasAccess = false;
     let accessType = '';
     
-    // Temporary fix for known whitelisted user
-    console.log('Checking if user matches hardcoded whitelist...');
-    console.log('UID matches:', user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1');
-    console.log('Email matches:', user.email === 'scwood26@g.holycross.edu');
-    
-    if (user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1' || user.email === 'scwood26@g.holycross.edu') {
-      console.log('🎉 HARDCODED WHITELIST MATCH - GRANTING ACCESS!');
-      hasAccess = true;
-      accessType = 'whitelist';
-      console.log('Access granted via hardcoded check');
-    } else {
-      console.log('❌ No hardcoded match found');
-    }
-    
-    // Use server-side access check for reliability (if not already granted above)
-    if (!hasAccess) {
-      try {
-        console.log('Checking access via server-side function...');
-        const idToken = await user.getIdToken();
-        const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ idToken })
-        });
-        
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Server-side access check result:', result);
-          hasAccess = result.hasAccess;
-          accessType = result.accessType;
-          console.log('Access granted:', hasAccess, 'Type:', accessType);
-        } else {
-          console.log('Server-side access check failed:', response.status);
-          const errorText = await response.text();
-          console.log('Error response:', errorText);
-        }
-      } catch (fetchError) {
-        console.log('Error calling server-side access check:', fetchError);
+    try {
+      console.log('Checking access via server-side function...');
+      const idToken = await user.getIdToken();
+      const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken })
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Server-side access check result:', result);
+        hasAccess = result.hasAccess;
+        accessType = result.accessType;
+        console.log('Access granted:', hasAccess, 'Type:', accessType);
+      } else {
+        console.log('Server-side access check failed:', response.status);
+        const errorText = await response.text();
+        console.log('Error response:', errorText);
       }
-    }
-    
-    // Fallback to client-side check if server-side fails
-    if (!hasAccess) {
-      console.log('Server-side check failed, trying client-side...');
-      try {
-        const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-        if (whitelistDoc.exists) {
-          console.log('Found in whitelist via client-side check');
-          hasAccess = true;
-          accessType = 'whitelist';
-        }
-      } catch (clientError) {
-        console.log('Client-side check also failed:', clientError);
-      }
+    } catch (fetchError) {
+      console.log('Error calling server-side access check:', fetchError);
     }
     
     console.log('=== FINAL RESULTS ===');

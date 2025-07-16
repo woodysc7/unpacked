@@ -107,26 +107,7 @@
         console.log('User:', user.email, 'UID:', user.uid);
         console.log('Current timestamp:', new Date().toISOString());
         
-        // Special handling for scwood26@g.holycross.edu - bypass Firestore check
-        if (user.email === 'scwood26@g.holycross.edu' || user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1') {
-          console.log('🎉 HARDCODED WHITELIST MATCH - GRANTING ACCESS!');
-          successMsg.textContent = 'Login successful! You have free access. Redirecting...';
-          
-          // Get Firebase ID token for authentication
-          const idToken = await user.getIdToken();
-          
-          // Set authentication cookies
-          document.cookie = `authToken=${idToken}; path=/; secure; samesite=strict`;
-          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
-          
-          console.log('Setting auth cookies and redirecting to paid content...');
-          setTimeout(() => {
-            window.location.href = `/.netlify/functions/servePaidContentNew?page=Atlas`;
-          }, 1000);
-          return;
-        }
-        
-        // Try server-side access check first
+        // Check access via server-side function (handles whitelist, paid status, etc.)
         let hasAccess = false;
         let accessType = '';
         
@@ -146,28 +127,27 @@
             console.log('Server-side access check result:', result);
             hasAccess = result.hasAccess;
             accessType = result.accessType;
+            
+            if (hasAccess) {
+              successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
+              
+              // Set authentication cookies
+              document.cookie = `authToken=${idToken}; path=/; secure; samesite=strict`;
+              document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
+              
+              console.log('Access granted via', accessType, '- redirecting to paid content...');
+              setTimeout(() => {
+                window.location.href = `/.netlify/functions/servePaidContentNew?page=Atlas`;
+              }, 1500);
+              return;
+            }
           } else {
             console.log('Server-side access check failed:', response.status);
+            const errorText = await response.text();
+            console.log('Server error response:', errorText);
           }
         } catch (fetchError) {
           console.log('Error calling server-side access check:', fetchError);
-        }
-        
-        if (hasAccess) {
-          successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
-          
-          // Get Firebase ID token for authentication
-          const idToken = await user.getIdToken();
-          
-          // Set authentication cookies
-          document.cookie = `authToken=${idToken}; path=/; secure; samesite=strict`;
-          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
-          
-          console.log('Access granted, redirecting to paid content...');
-          setTimeout(() => {
-            window.location.href = `/.netlify/functions/servePaidContentNew?page=Atlas`;
-          }, 1000);
-          return;
         }
         
         // For other users, try to check Firestore (with error handling)
