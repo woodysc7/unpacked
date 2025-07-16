@@ -18,11 +18,55 @@ loginBtn.onclick = async (e) => {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
     
-    // Check if user has paid status
-    const userDoc = await db.collection('users').doc(user.uid).get();
-    if (userDoc.exists() && userDoc.data().paid) {
-      successMsg.textContent = 'Login successful! Redirecting to paid content...';
-      setTimeout(() => window.location.href = '/.netlify/functions/servePaidContent?page=Atlas', 1000);
+    // Check access in order: whitelist, paid collection, users.paid field
+    let hasAccess = false;
+    let accessType = '';
+    
+    // Check whitelist collection first (free access)
+    try {
+      const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+      if (whitelistDoc.exists) {
+        hasAccess = true;
+        accessType = 'whitelist';
+      }
+    } catch (error) {
+      console.log('Error checking whitelist:', error);
+    }
+    
+    // Check paid collection if not whitelisted
+    if (!hasAccess) {
+      try {
+        const paidDoc = await db.collection('paid').doc(user.uid).get();
+        if (paidDoc.exists) {
+          hasAccess = true;
+          accessType = 'paid';
+        }
+      } catch (error) {
+        console.log('Error checking paid collection:', error);
+      }
+    }
+    
+    // Check users collection paid field if not found elsewhere
+    if (!hasAccess) {
+      try {
+        const userDoc = await db.collection('users').doc(user.uid).get();
+        if (userDoc.exists() && userDoc.data().paid === true) {
+          hasAccess = true;
+          accessType = 'users_paid';
+        }
+      } catch (error) {
+        console.log('Error checking users collection:', error);
+      }
+    }
+    
+    if (hasAccess) {
+      // Set authentication cookies for the Netlify function
+      const token = await user.getIdToken();
+      document.cookie = `authToken=${token}; path=/; secure; samesite=strict`;
+      document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
+      
+      successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
+      setTimeout(() => window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas', 1000);
     } else {
       successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
       setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 1000);

@@ -67,10 +67,63 @@ async function checkUserAccess(event) {
     const userEmail = decodeURIComponent(userEmailMatch[1]);
     console.log('Found authToken and userEmail:', authToken, userEmail);
     
-    // For Firebase tokens, do basic validation
-    if (authToken.length > 20 && userEmail.includes('@')) {
-      console.log('Valid Firebase token format, granting access');
-      return true;
+    // Try to verify Firebase ID token from cookie
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(authToken);
+      console.log('Firebase token from cookie verified for user:', decodedToken.email);
+      
+      // Check Firebase whitelist collection (by UID)
+      try {
+        const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
+        if (whitelistDoc.exists) {
+          console.log('User is in Firebase whitelist by UID, granting access');
+          return true;
+        }
+      } catch (whitelistError) {
+        console.log('Error checking Firebase whitelist by UID:', whitelistError.message);
+      }
+      
+      // Check Firebase whitelist collection by email
+      try {
+        const whitelistQuery = await admin.firestore().collection('whitelist').where('email', '==', decodedToken.email).get();
+        if (!whitelistQuery.empty) {
+          console.log('User is in Firebase whitelist by email, granting access');
+          return true;
+        }
+      } catch (whitelistError) {
+        console.log('Error checking Firebase whitelist by email:', whitelistError.message);
+      }
+      
+      // Check if user is in the paid collection
+      try {
+        const paidDoc = await admin.firestore().collection('paid').doc(decodedToken.uid).get();
+        if (paidDoc.exists) {
+          console.log('User is in paid collection, granting access');
+          return true;
+        }
+      } catch (paidError) {
+        console.log('Error checking paid collection:', paidError.message);
+      }
+      
+      // Check if user is marked as paid in users collection
+      try {
+        const userDoc = await admin.firestore().collection('users').doc(decodedToken.uid).get();
+        if (userDoc.exists() && userDoc.data().paid === true) {
+          console.log('User has paid access in users collection, granting access');
+          return true;
+        }
+      } catch (userError) {
+        console.log('Error checking users collection:', userError.message);
+      }
+      
+    } catch (firebaseError) {
+      console.log('Firebase token verification from cookie failed:', firebaseError.message);
+      
+      // Fallback: For Firebase tokens, do basic validation
+      if (authToken.length > 20 && userEmail.includes('@')) {
+        console.log('Valid Firebase token format, granting access');
+        return true;
+      }
     }
   }
   
