@@ -209,6 +209,30 @@ window.testWhitelistAccess = async function() {
     if (whitelistDoc.exists) {
       console.log('Whitelist data:', whitelistDoc.data());
       alert('✅ Found in whitelist by UID! Should have access.');
+      
+      // Also test the server-side function
+      console.log('Testing server-side access check...');
+      try {
+        const idToken = await user.getIdToken();
+        const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idToken })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Server-side result:', result);
+          alert(`Server-side check: hasAccess=${result.hasAccess}, accessType=${result.accessType}`);
+        } else {
+          console.log('Server-side check failed:', response.status);
+          alert('Server-side check failed');
+        }
+      } catch (error) {
+        console.log('Server-side check error:', error);
+        alert('Server-side check error: ' + error.message);
+      }
+      
       return;
     }
     
