@@ -103,19 +103,69 @@
         const userCredential = await auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value);
         const user = userCredential.user;
         
-        // Special handling for your email - bypass Firestore check
-        if (user.email === 'woodysc7@gmail.com') {
-          successMsg.textContent = 'Login successful! Redirecting to paid content...';
+        console.log('=== LOGIN SUCCESS ===');
+        console.log('User:', user.email, 'UID:', user.uid);
+        console.log('Current timestamp:', new Date().toISOString());
+        
+        // Special handling for scwood26@g.holycross.edu - bypass Firestore check
+        if (user.email === 'scwood26@g.holycross.edu' || user.uid === 'sSvmHLbNI4beXS9S669TZRRgGOq1') {
+          console.log('🎉 HARDCODED WHITELIST MATCH - GRANTING ACCESS!');
+          successMsg.textContent = 'Login successful! You have free access. Redirecting...';
           
           // Get Firebase ID token for authentication
           const idToken = await user.getIdToken();
           
           // Set authentication cookies
-          document.cookie = `authToken=${idToken}; path=/; max-age=3600; secure; samesite=strict`;
-          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=3600; secure; samesite=strict`;
+          document.cookie = `authToken=${idToken}; path=/; secure; samesite=strict`;
+          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
           
+          console.log('Setting auth cookies and redirecting to paid content...');
           setTimeout(() => {
-            window.location.href = `/premium-atlas-direct.html`;
+            window.location.href = `/.netlify/functions/servePaidContentNew?page=Atlas`;
+          }, 1000);
+          return;
+        }
+        
+        // Try server-side access check first
+        let hasAccess = false;
+        let accessType = '';
+        
+        try {
+          console.log('Checking access via server-side function...');
+          const idToken = await user.getIdToken();
+          const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ idToken })
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            console.log('Server-side access check result:', result);
+            hasAccess = result.hasAccess;
+            accessType = result.accessType;
+          } else {
+            console.log('Server-side access check failed:', response.status);
+          }
+        } catch (fetchError) {
+          console.log('Error calling server-side access check:', fetchError);
+        }
+        
+        if (hasAccess) {
+          successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
+          
+          // Get Firebase ID token for authentication
+          const idToken = await user.getIdToken();
+          
+          // Set authentication cookies
+          document.cookie = `authToken=${idToken}; path=/; secure; samesite=strict`;
+          document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
+          
+          console.log('Access granted, redirecting to paid content...');
+          setTimeout(() => {
+            window.location.href = `/.netlify/functions/servePaidContentNew?page=Atlas`;
           }, 1000);
           return;
         }
