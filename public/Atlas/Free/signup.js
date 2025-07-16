@@ -22,33 +22,58 @@ loginBtn.onclick = async (e) => {
     console.log('User:', user.email, 'UID:', user.uid);
     console.log('Current timestamp:', new Date().toISOString());
     
-    // Check access via server-side function (handles whitelist, paid status, etc.)
+    // Check whitelist directly using client-side Firebase
     let hasAccess = false;
     let accessType = '';
     
     try {
-      console.log('Checking access via server-side function...');
-      const response = await fetch('/.netlify/functions/checkWhitelistSimple', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ uid: user.uid, email: user.email })
-      });
+      console.log('Checking whitelist via client-side Firebase...');
       
-      if (response.ok) {
-        const result = await response.json();
-        console.log('Server-side access check result:', result);
-        hasAccess = result.hasAccess;
-        accessType = result.accessType;
-        console.log('Access granted:', hasAccess, 'Type:', accessType);
+      // Check whitelist by UID first
+      const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+      console.log('Whitelist by UID - exists:', whitelistDoc.exists(), 'data:', whitelistDoc.data());
+      
+      if (whitelistDoc.exists()) {
+        hasAccess = true;
+        accessType = 'whitelist';
+        console.log('✅ Found in whitelist by UID');
       } else {
-        console.log('Server-side access check failed:', response.status);
-        const errorText = await response.text();
-        console.log('Error response:', errorText);
+        // Check whitelist by email as fallback
+        console.log('Checking whitelist by email...');
+        const emailQuery = await db.collection('whitelist').where('email', '==', user.email).get();
+        console.log('Email query size:', emailQuery.size);
+        
+        if (!emailQuery.empty) {
+          hasAccess = true;
+          accessType = 'whitelist';
+          console.log('✅ Found in whitelist by email');
+        } else {
+          // Check paid collection
+          console.log('Checking paid collection...');
+          const paidDoc = await db.collection('paid').doc(user.uid).get();
+          console.log('Paid by UID - exists:', paidDoc.exists(), 'data:', paidDoc.data());
+          
+          if (paidDoc.exists()) {
+            hasAccess = true;
+            accessType = 'paid';
+            console.log('✅ Found in paid collection');
+          } else {
+            // Check users collection paid field
+            console.log('Checking users collection...');
+            const userDoc = await db.collection('users').doc(user.uid).get();
+            console.log('User doc - exists:', userDoc.exists(), 'data:', userDoc.data());
+            
+            if (userDoc.exists() && userDoc.data().paid === true) {
+              hasAccess = true;
+              accessType = 'users_paid';
+              console.log('✅ Found paid flag in users collection');
+            }
+          }
+        }
       }
-    } catch (fetchError) {
-      console.log('Error calling server-side access check:', fetchError);
+    } catch (firestoreError) {
+      console.error('Firestore error:', firestoreError);
+      console.log('❌ Client-side Firestore check failed');
     }
     
     console.log('=== FINAL RESULTS ===');
