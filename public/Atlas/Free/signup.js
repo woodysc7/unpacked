@@ -24,6 +24,9 @@ loginBtn.onclick = async (e) => {
     
     console.log('Checking access for user:', user.uid, user.email);
     
+    // Try client-side checks first, fallback to server-side if permissions fail
+    let permissionError = false;
+    
     // Check whitelist collection first (free access)
     try {
       // Check by UID first
@@ -64,10 +67,13 @@ loginBtn.onclick = async (e) => {
       }
     } catch (error) {
       console.log('Error checking whitelist:', error);
+      if (error.message.includes('permission') || error.message.includes('insufficient')) {
+        permissionError = true;
+      }
     }
     
     // Check paid collection if not whitelisted
-    if (!hasAccess) {
+    if (!hasAccess && !permissionError) {
       try {
         const paidDoc = await db.collection('paid').doc(user.uid).get();
         console.log('Paid check - doc exists:', paidDoc.exists);
@@ -78,11 +84,14 @@ loginBtn.onclick = async (e) => {
         }
       } catch (error) {
         console.log('Error checking paid collection:', error);
+        if (error.message.includes('permission') || error.message.includes('insufficient')) {
+          permissionError = true;
+        }
       }
     }
     
     // Check users collection paid field if not found elsewhere
-    if (!hasAccess) {
+    if (!hasAccess && !permissionError) {
       try {
         const userDoc = await db.collection('users').doc(user.uid).get();
         console.log('Users check - doc exists:', userDoc.exists);
@@ -95,6 +104,35 @@ loginBtn.onclick = async (e) => {
         }
       } catch (error) {
         console.log('Error checking users collection:', error);
+        if (error.message.includes('permission') || error.message.includes('insufficient')) {
+          permissionError = true;
+        }
+      }
+    }
+    
+    // If we hit permission errors, use server-side function
+    if (permissionError) {
+      console.log('Permission errors detected, using server-side access check...');
+      try {
+        const idToken = await user.getIdToken();
+        const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ idToken })
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Server-side access check result:', result);
+          hasAccess = result.hasAccess;
+          accessType = result.accessType;
+        } else {
+          console.log('Server-side access check failed:', response.status);
+        }
+      } catch (fetchError) {
+        console.log('Error calling server-side access check:', fetchError);
       }
     }
     
