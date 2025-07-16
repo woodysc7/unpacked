@@ -100,7 +100,16 @@ loginBtn.onclick = async (e) => {
       
       setTimeout(() => {
         console.log('Redirecting to paid content...');
-        window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas';
+        console.log('About to redirect to paid Atlas page directly...');
+        try {
+          // Try direct redirect to the actual paid content
+          window.location.href = '/PaidContent/Atlas.html';
+        } catch (redirectError) {
+          console.error('Redirect error:', redirectError);
+          // Fallback to premium atlas
+          console.log('Trying premium atlas fallback...');
+          window.location.replace('/premium-atlas-direct.html');
+        }
       }, 2000);
     } else {
       console.log('No access found, redirecting to purchase');
