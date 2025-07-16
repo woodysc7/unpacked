@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Allow access to free content
+Allow: /Atlas/Free/
+Allow: /Atlas/Free/Countries/unitedstates/
+Allow: /Atlas/Free/Countries/spain/
+Allow: /Atlas/Free/cities/dublinireland.html
+Allow: /Atlas/Free/cities/bostonunitedstates.html
+
+# Block admin and test pages
+Disallow: /admin.html
+Disallow: /test-static.html
+Disallow: /*backup*
+
+# Sitemap location
+Sitemap: https://unpacked.today/sitemap-index.xml
