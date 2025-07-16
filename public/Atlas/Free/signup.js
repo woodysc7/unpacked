@@ -100,15 +100,15 @@ loginBtn.onclick = async (e) => {
       
       setTimeout(() => {
         console.log('Redirecting to paid content...');
-        console.log('About to redirect to paid Atlas page directly...');
+        console.log('About to redirect to premium atlas page...');
         try {
-          // Try direct redirect to the actual paid content
-          window.location.href = '/PaidContent/Atlas.html';
+          // Try redirect to premium atlas page that we know works
+          window.location.href = '/premium-atlas-direct.html';
         } catch (redirectError) {
           console.error('Redirect error:', redirectError);
           // Fallback to premium atlas
-          console.log('Trying premium atlas fallback...');
-          window.location.replace('/premium-atlas-direct.html');
+          console.log('Trying other premium page fallback...');
+          window.location.replace('/premium-atlas.html');
         }
       }, 2000);
     } else {
