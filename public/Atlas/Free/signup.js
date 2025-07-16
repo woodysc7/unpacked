@@ -18,121 +18,51 @@ loginBtn.onclick = async (e) => {
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
     const user = userCredential.user;
     
-    // Check access in order: whitelist, paid collection, users.paid field
+    console.log('=== LOGIN SUCCESS ===');
+    console.log('User:', user.email, 'UID:', user.uid);
+    
+    // Use server-side access check for reliability
     let hasAccess = false;
     let accessType = '';
     
-    console.log('Checking access for user:', user.uid, user.email);
-    
-    // Try client-side checks first, fallback to server-side if permissions fail
-    let permissionError = false;
-    
-    // Check whitelist collection first (free access)
     try {
-      // Check by UID first
-      const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-      console.log('Whitelist check by UID - doc exists:', whitelistDoc.exists);
-      if (whitelistDoc.exists) {
-        console.log('Whitelist doc data:', whitelistDoc.data());
-        hasAccess = true;
-        accessType = 'whitelist';
+      console.log('Checking access via server-side function...');
+      const idToken = await user.getIdToken();
+      const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken })
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Server-side access check result:', result);
+        hasAccess = result.hasAccess;
+        accessType = result.accessType;
+        console.log('Access granted:', hasAccess, 'Type:', accessType);
       } else {
-        // Check by email with case-insensitive comparison
-        const userEmailLower = user.email.toLowerCase().trim();
-        console.log('Checking whitelist by email:', userEmailLower);
-        
-        const whitelistQuery = await db.collection('whitelist').where('email', '==', user.email).get();
-        console.log('Whitelist check by email (exact) - query size:', whitelistQuery.size);
-        
-        if (!whitelistQuery.empty) {
-          console.log('Found whitelist entry by email (exact match)');
+        console.log('Server-side access check failed:', response.status);
+        const errorText = await response.text();
+        console.log('Error response:', errorText);
+      }
+    } catch (fetchError) {
+      console.log('Error calling server-side access check:', fetchError);
+    }
+    
+    // Fallback to client-side check if server-side fails
+    if (!hasAccess) {
+      console.log('Server-side check failed, trying client-side...');
+      try {
+        const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+        if (whitelistDoc.exists) {
+          console.log('Found in whitelist via client-side check');
           hasAccess = true;
           accessType = 'whitelist';
-        } else {
-          // Try case-insensitive search by getting all whitelist docs and checking manually
-          console.log('Trying case-insensitive whitelist search...');
-          const allWhitelistDocs = await db.collection('whitelist').get();
-          console.log('Total whitelist docs to check:', allWhitelistDocs.size);
-          
-          allWhitelistDocs.forEach(doc => {
-            const docData = doc.data();
-            console.log('Checking whitelist doc:', doc.id, docData);
-            if (docData.email && docData.email.toLowerCase().trim() === userEmailLower) {
-              console.log('Found whitelist match with case-insensitive comparison!');
-              hasAccess = true;
-              accessType = 'whitelist';
-            }
-          });
         }
-      }
-    } catch (error) {
-      console.log('Error checking whitelist:', error);
-      if (error.message.includes('permission') || error.message.includes('insufficient')) {
-        permissionError = true;
-      }
-    }
-    
-    // Check paid collection if not whitelisted
-    if (!hasAccess && !permissionError) {
-      try {
-        const paidDoc = await db.collection('paid').doc(user.uid).get();
-        console.log('Paid check - doc exists:', paidDoc.exists);
-        if (paidDoc.exists) {
-          console.log('Paid doc data:', paidDoc.data());
-          hasAccess = true;
-          accessType = 'paid';
-        }
-      } catch (error) {
-        console.log('Error checking paid collection:', error);
-        if (error.message.includes('permission') || error.message.includes('insufficient')) {
-          permissionError = true;
-        }
-      }
-    }
-    
-    // Check users collection paid field if not found elsewhere
-    if (!hasAccess && !permissionError) {
-      try {
-        const userDoc = await db.collection('users').doc(user.uid).get();
-        console.log('Users check - doc exists:', userDoc.exists);
-        if (userDoc.exists) {
-          console.log('Users doc data:', userDoc.data());
-          if (userDoc.data().paid === true) {
-            hasAccess = true;
-            accessType = 'users_paid';
-          }
-        }
-      } catch (error) {
-        console.log('Error checking users collection:', error);
-        if (error.message.includes('permission') || error.message.includes('insufficient')) {
-          permissionError = true;
-        }
-      }
-    }
-    
-    // If we hit permission errors, use server-side function
-    if (permissionError) {
-      console.log('Permission errors detected, using server-side access check...');
-      try {
-        const idToken = await user.getIdToken();
-        const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ idToken })
-        });
-        
-        if (response.ok) {
-          const result = await response.json();
-          console.log('Server-side access check result:', result);
-          hasAccess = result.hasAccess;
-          accessType = result.accessType;
-        } else {
-          console.log('Server-side access check failed:', response.status);
-        }
-      } catch (fetchError) {
-        console.log('Error calling server-side access check:', fetchError);
+      } catch (clientError) {
+        console.log('Client-side check also failed:', clientError);
       }
     }
     
@@ -149,14 +79,14 @@ loginBtn.onclick = async (e) => {
       document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
       
       console.log('Setting auth cookies for user with access:', user.email);
+      console.log('Cookies set:', document.cookie);
+      
       successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
       
-      // Add a manual verification step before redirect
-      console.log('Cookies set:', document.cookie);
       setTimeout(() => {
         console.log('Redirecting to paid content...');
         window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas';
-      }, 1500);
+      }, 2000);
     } else {
       console.log('No access found, redirecting to purchase');
       successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
@@ -164,10 +94,11 @@ loginBtn.onclick = async (e) => {
       // Add a button to manually test whitelist access
       successMsg.innerHTML += '<br><button onclick="testWhitelistAccess()" style="margin-top: 10px; padding: 8px 16px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer;">🔍 Debug Whitelist Access</button>';
       
-      setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 3000);
+      setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 4000);
     }
   } catch (err) {
     errorMsg.textContent = err.message;
+    console.error('Login error:', err);
   }
 };
 
