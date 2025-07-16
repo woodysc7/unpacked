@@ -28,13 +28,12 @@ loginBtn.onclick = async (e) => {
     
     try {
       console.log('Checking access via server-side function...');
-      const idToken = await user.getIdToken();
-      const response = await fetch('/.netlify/functions/checkUserAccessSecure', {
+      const response = await fetch('/.netlify/functions/checkWhitelistSimple', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ idToken })
+        body: JSON.stringify({ uid: user.uid, email: user.email })
       });
       
       if (response.ok) {
