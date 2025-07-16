@@ -98,7 +98,11 @@ loginBtn.onclick = async (e) => {
       }
     }
     
-    console.log('Final access result:', hasAccess, accessType, 'for user:', user.email, user.uid);
+    console.log('=== FINAL RESULTS ===');
+    console.log('User:', user.email, 'UID:', user.uid);
+    console.log('Has Access:', hasAccess);
+    console.log('Access Type:', accessType);
+    console.log('================');
     
     if (hasAccess) {
       // Set authentication cookies for the Netlify function
@@ -108,11 +112,21 @@ loginBtn.onclick = async (e) => {
       
       console.log('Setting auth cookies for user with access:', user.email);
       successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
-      setTimeout(() => window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas', 1000);
+      
+      // Add a manual verification step before redirect
+      console.log('Cookies set:', document.cookie);
+      setTimeout(() => {
+        console.log('Redirecting to paid content...');
+        window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas';
+      }, 1500);
     } else {
       console.log('No access found, redirecting to purchase');
       successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
-      setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 1000);
+      
+      // Add a button to manually test whitelist access
+      successMsg.innerHTML += '<br><button onclick="testWhitelistAccess()" style="margin-top: 10px; padding: 8px 16px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer;">🔍 Debug Whitelist Access</button>';
+      
+      setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 3000);
     }
   } catch (err) {
     errorMsg.textContent = err.message;
@@ -136,5 +150,52 @@ signupBtn.onclick = async (e) => {
     successMsg.textContent = 'Sign up successful! Please log in.';
   } catch (err) {
     errorMsg.textContent = err.message;
+  }
+};
+
+// Manual test function for debugging whitelist access
+window.testWhitelistAccess = async function() {
+  console.log('=== MANUAL WHITELIST TEST ===');
+  const user = auth.currentUser;
+  if (!user) {
+    console.log('No user logged in');
+    return;
+  }
+  
+  console.log('Testing whitelist access for:', user.email, user.uid);
+  
+  try {
+    // Direct whitelist check by UID
+    const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+    console.log('Direct UID check result:', whitelistDoc.exists);
+    if (whitelistDoc.exists) {
+      console.log('Whitelist data:', whitelistDoc.data());
+      alert('✅ Found in whitelist by UID! Should have access.');
+      return;
+    }
+    
+    // Check by email
+    const whitelistQuery = await db.collection('whitelist').where('email', '==', user.email).get();
+    console.log('Email query result size:', whitelistQuery.size);
+    if (!whitelistQuery.empty) {
+      whitelistQuery.forEach(doc => {
+        console.log('Found by email - Doc ID:', doc.id, 'Data:', doc.data());
+      });
+      alert('✅ Found in whitelist by email! Should have access.');
+      return;
+    }
+    
+    // Show all whitelist entries for debugging
+    const allWhitelist = await db.collection('whitelist').get();
+    console.log('All whitelist entries:');
+    allWhitelist.forEach(doc => {
+      console.log('Doc ID:', doc.id, 'Data:', doc.data());
+    });
+    
+    alert('❌ Not found in whitelist. Check console for all whitelist entries.');
+    
+  } catch (error) {
+    console.error('Error in manual test:', error);
+    alert('Error: ' + error.message);
   }
 };
