@@ -33,9 +33,10 @@ loginBtn.onclick = async (e) => {
       
       // Check whitelist by UID first
       const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-      console.log('Whitelist by UID - exists:', whitelistDoc.exists(), 'data:', whitelistDoc.data());
+      const whitelistExists = whitelistDoc && whitelistDoc.data() !== undefined;
+      console.log('Whitelist by UID - exists:', whitelistExists, 'data:', whitelistDoc.data());
       
-      if (whitelistDoc.exists()) {
+      if (whitelistExists) {
         hasAccess = true;
         accessType = 'whitelist';
         console.log('✅ Found in whitelist by UID');
@@ -53,9 +54,10 @@ loginBtn.onclick = async (e) => {
           // Check paid collection
           console.log('Checking paid collection...');
           const paidDoc = await db.collection('paid').doc(user.uid).get();
-          console.log('Paid by UID - exists:', paidDoc.exists(), 'data:', paidDoc.data());
+          const paidExists = paidDoc && paidDoc.data() !== undefined;
+          console.log('Paid by UID - exists:', paidExists, 'data:', paidDoc.data());
           
-          if (paidDoc.exists()) {
+          if (paidExists) {
             hasAccess = true;
             accessType = 'paid';
             console.log('✅ Found in paid collection');
@@ -63,9 +65,10 @@ loginBtn.onclick = async (e) => {
             // Check users collection paid field
             console.log('Checking users collection...');
             const userDoc = await db.collection('users').doc(user.uid).get();
-            console.log('User doc - exists:', userDoc.exists(), 'data:', userDoc.data());
+            const userExists = userDoc && userDoc.data() !== undefined;
+            console.log('User doc - exists:', userExists, 'data:', userDoc.data());
             
-            if (userDoc.exists() && userDoc.data().paid === true) {
+            if (userExists && userDoc.data().paid === true) {
               hasAccess = true;
               accessType = 'users_paid';
               console.log('✅ Found paid flag in users collection');
@@ -148,8 +151,9 @@ window.testWhitelistAccess = async function() {
   try {
     // Direct whitelist check by UID
     const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-    console.log('Direct UID check result:', whitelistDoc.exists());
-    if (whitelistDoc.exists()) {
+    const whitelistExists = whitelistDoc && whitelistDoc.data() !== undefined;
+    console.log('Direct UID check result:', whitelistExists);
+    if (whitelistExists) {
       console.log('Whitelist data:', whitelistDoc.data());
       alert('✅ Found in whitelist by UID! Should have access.');
       
