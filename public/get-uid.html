@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Firebase UID</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="/firebase.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .info-box { background: #f5f5f5; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005a87; }
+        .error { color: red; }
+        .success { color: green; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+    </style>
+</head>
+<body>
+    <h1>Firebase UID Helper</h1>
+    
+    <div class="info-box">
+        <h3>Step 1: Login to get your UID</h3>
+        <input type="email" id="email" placeholder="Your email" value="woodysc7@gmail.com">
+        <input type="password" id="password" placeholder="Your password">
+        <button onclick="login()">Login & Get UID</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="info-box">
+        <h3>Step 2: Fix Firestore Structure</h3>
+        <p>Current UID: <span id="currentUID">Not logged in</span></p>
+        <button onclick="fixFirestore()" id="fixBtn" disabled>Fix Firestore Collections</button>
+        <div id="firestoreResult"></div>
+    </div>
+
+    <div class="info-box">
+        <h3>Step 3: Test Access</h3>
+        <button onclick="testAccess()" id="testBtn" disabled>Test Access to Paid Content</button>
+        <div id="testResult"></div>
+    </div>
+
+    <script>
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        let currentUser = null;
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('loginResult');
+            
+            if (!email || !password) {
+                resultDiv.innerHTML = '<span class="error">Please enter email and password</span>';
+                return;
+            }
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                currentUser = userCredential.user;
+                
+                resultDiv.innerHTML = `
+                    <span class="success">✓ Logged in successfully!</span><br>
+                    <strong>Your UID:</strong> ${currentUser.uid}<br>
+                    <strong>Email:</strong> ${currentUser.email}
+                `;
+                
+                document.getElementById('currentUID').textContent = currentUser.uid;
+                document.getElementById('fixBtn').disabled = false;
+                document.getElementById('testBtn').disabled = false;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">Login failed: ${error.message}</span>`;
+            }
+        }
+
+        async function fixFirestore() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+
+            const resultDiv = document.getElementById('firestoreResult');
+            resultDiv.innerHTML = 'Fixing Firestore structure...';
+
+            try {
+                // Delete the old temp_uid document from paid collection
+                try {
+                    await db.collection('paid').doc('temp_uid').delete();
+                    console.log('Deleted temp_uid document');
+                } catch (e) {
+                    console.log('temp_uid document may not exist:', e.message);
+                }
+
+                // Create proper paid document with user's actual UID
+                await db.collection('paid').doc(currentUser.uid).set({
+                    email: currentUser.email,
+                    paid: true,
+                    timestamp: new Date(),
+                    subscriptionType: 'admin'
+                });
+
+                // Update users collection to remove paid field (keep it clean)
+                await db.collection('users').doc(currentUser.uid).set({
+                    email: currentUser.email,
+                    createdAt: new Date(),
+                    lastLogin: new Date()
+                }, { merge: true });
+
+                resultDiv.innerHTML = `
+                    <span class="success">✓ Firestore structure fixed!</span><br>
+                    • Deleted old temp_uid document<br>
+                    • Created paid document with UID: ${currentUser.uid}<br>
+                    • Updated users collection<br>
+                `;
+
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">Error fixing Firestore: ${error.message}</span>`;
+            }
+        }
+
+        async function testAccess() {
+            if (!currentUser) {
+                alert('Please login first');
+                return;
+            }
+
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = 'Testing access...';
+
+            try {
+                // Get Firebase ID token
+                const idToken = await currentUser.getIdToken();
+                
+                // Test the Netlify function
+                const response = await fetch('/.netlify/functions/servePaidContentNew?page=Atlas', {
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <span class="success">✓ Access granted!</span><br>
+                        Your paid content access is working correctly.
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <span class="error">Access denied</span><br>
+                        Status: ${response.status}<br>
+                        Response: ${errorText}
+                    `;
+                }
+
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">Error testing access: ${error.message}</span>`;
+            }
+        }
+
+        // Auto-login if user is already authenticated
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('currentUID').textContent = user.uid;
+                document.getElementById('fixBtn').disabled = false;
+                document.getElementById('testBtn').disabled = false;
+                document.getElementById('loginResult').innerHTML = `
+                    <span class="success">✓ Already logged in!</span><br>
+                    <strong>Your UID:</strong> ${user.uid}<br>
+                    <strong>Email:</strong> ${user.email}
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

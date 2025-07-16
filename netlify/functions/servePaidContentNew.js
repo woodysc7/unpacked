@@ -115,6 +115,17 @@ async function checkUserAccess(event) {
         console.log('Error checking users collection:', userError.message);
       }
       
+      // Check if user is in the paid collection
+      try {
+        const paidDoc = await admin.firestore().collection('paid').doc(decodedToken.uid).get();
+        if (paidDoc.exists) {
+          console.log('User is in paid collection, granting access');
+          return true;
+        }
+      } catch (paidError) {
+        console.log('Error checking paid collection:', paidError.message);
+      }
+      
       // Check if user has paid access
       if (decodedToken.paid_access === true) {
         return true;
