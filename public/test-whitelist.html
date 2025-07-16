@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Whitelist Access</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="/firebase.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .test-box { background: #f5f5f5; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        input { padding: 8px; margin: 5px; width: 250px; }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #007cba; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Test Whitelist Access</h1>
+    <p>This page helps debug whitelist access issues.</p>
+    
+    <div class="test-box">
+        <h3>Quick Login Test</h3>
+        <input type="email" id="testEmail" placeholder="Email" value="scwood26@g.holycross.edu">
+        <input type="password" id="testPassword" placeholder="Password">
+        <button onclick="testLogin()">Test Login & Access Check</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="test-box">
+        <h3>Debug Info</h3>
+        <button onclick="showDebugInfo()">Show Current User & Cookies</button>
+        <div id="debugInfo"></div>
+    </div>
+
+    <script>
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        async function testLogin() {
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            const resultDiv = document.getElementById('loginResult');
+            
+            resultDiv.innerHTML = '<p class="info">Testing login and access...</p>';
+            
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                let result = `<p class="success">✓ Login successful for ${user.email}</p>`;
+                result += `<p><strong>UID:</strong> ${user.uid}</p>`;
+                
+                // Check whitelist
+                try {
+                    const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+                    if (whitelistDoc.exists) {
+                        result += `<p class="success">✓ Found in whitelist by UID</p>`;
+                        result += `<pre>${JSON.stringify(whitelistDoc.data(), null, 2)}</pre>`;
+                    } else {
+                        result += `<p class="error">✗ NOT in whitelist by UID</p>`;
+                        
+                        // Check by email
+                        const whitelistQuery = await db.collection('whitelist').where('email', '==', user.email).get();
+                        if (!whitelistQuery.empty) {
+                            result += `<p class="success">✓ Found in whitelist by email</p>`;
+                            whitelistQuery.forEach(doc => {
+                                result += `<pre>${JSON.stringify(doc.data(), null, 2)}</pre>`;
+                            });
+                        } else {
+                            result += `<p class="error">✗ NOT in whitelist by email either</p>`;
+                        }
+                    }
+                } catch (error) {
+                    result += `<p class="error">Error checking whitelist: ${error.message}</p>`;
+                }
+                
+                // Check paid collection
+                try {
+                    const paidDoc = await db.collection('paid').doc(user.uid).get();
+                    if (paidDoc.exists) {
+                        result += `<p class="success">✓ Found in paid collection</p>`;
+                        result += `<pre>${JSON.stringify(paidDoc.data(), null, 2)}</pre>`;
+                    } else {
+                        result += `<p class="error">✗ NOT in paid collection</p>`;
+                    }
+                } catch (error) {
+                    result += `<p class="error">Error checking paid: ${error.message}</p>`;
+                }
+                
+                // Check users collection
+                try {
+                    const userDoc = await db.collection('users').doc(user.uid).get();
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        result += `<p class="info">Users collection data:</p>`;
+                        result += `<pre>${JSON.stringify(userData, null, 2)}</pre>`;
+                        if (userData.paid === true) {
+                            result += `<p class="success">✓ Has paid flag in users collection</p>`;
+                        } else {
+                            result += `<p class="error">✗ No paid flag in users collection</p>`;
+                        }
+                    } else {
+                        result += `<p class="error">✗ NOT found in users collection</p>`;
+                    }
+                } catch (error) {
+                    result += `<p class="error">Error checking users: ${error.message}</p>`;
+                }
+                
+                resultDiv.innerHTML = result;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">Login failed: ${error.message}</p>`;
+            }
+        }
+
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('debugInfo');
+            
+            const user = auth.currentUser;
+            let info = '';
+            
+            if (user) {
+                info += `<p><strong>Current User:</strong> ${user.email} (${user.uid})</p>`;
+            } else {
+                info += `<p>No user currently logged in</p>`;
+            }
+            
+            info += `<p><strong>Cookies:</strong></p>`;
+            info += `<pre>${document.cookie}</pre>`;
+            
+            debugDiv.innerHTML = info;
+        }
+
+        // Auto-show debug info on page load
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                showDebugInfo();
+            }
+        });
+    </script>
+</body>
+</html>

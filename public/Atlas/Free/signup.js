@@ -26,12 +26,22 @@ loginBtn.onclick = async (e) => {
     
     // Check whitelist collection first (free access)
     try {
+      // Check by UID first
       const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-      console.log('Whitelist check - doc exists:', whitelistDoc.exists);
+      console.log('Whitelist check by UID - doc exists:', whitelistDoc.exists);
       if (whitelistDoc.exists) {
         console.log('Whitelist doc data:', whitelistDoc.data());
         hasAccess = true;
         accessType = 'whitelist';
+      } else {
+        // Also check by email in case UID doesn't match
+        const whitelistQuery = await db.collection('whitelist').where('email', '==', user.email).get();
+        console.log('Whitelist check by email - query size:', whitelistQuery.size);
+        if (!whitelistQuery.empty) {
+          console.log('Found whitelist entry by email');
+          hasAccess = true;
+          accessType = 'whitelist';
+        }
       }
     } catch (error) {
       console.log('Error checking whitelist:', error);
@@ -69,7 +79,7 @@ loginBtn.onclick = async (e) => {
       }
     }
     
-    console.log('Final access result:', hasAccess, accessType);
+    console.log('Final access result:', hasAccess, accessType, 'for user:', user.email, user.uid);
     
     if (hasAccess) {
       // Set authentication cookies for the Netlify function
@@ -77,9 +87,11 @@ loginBtn.onclick = async (e) => {
       document.cookie = `authToken=${token}; path=/; secure; samesite=strict`;
       document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; secure; samesite=strict`;
       
+      console.log('Setting auth cookies for user with access:', user.email);
       successMsg.textContent = `Login successful! You have ${accessType === 'whitelist' ? 'free' : 'paid'} access. Redirecting...`;
       setTimeout(() => window.location.href = '/.netlify/functions/servePaidContentNew?page=Atlas', 1000);
     } else {
+      console.log('No access found, redirecting to purchase');
       successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
       setTimeout(() => window.location.href = '/.netlify/functions/create-checkout-session', 1000);
     }
