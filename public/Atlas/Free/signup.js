@@ -22,10 +22,14 @@ loginBtn.onclick = async (e) => {
     let hasAccess = false;
     let accessType = '';
     
+    console.log('Checking access for user:', user.uid, user.email);
+    
     // Check whitelist collection first (free access)
     try {
       const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+      console.log('Whitelist check - doc exists:', whitelistDoc.exists);
       if (whitelistDoc.exists) {
+        console.log('Whitelist doc data:', whitelistDoc.data());
         hasAccess = true;
         accessType = 'whitelist';
       }
@@ -37,7 +41,9 @@ loginBtn.onclick = async (e) => {
     if (!hasAccess) {
       try {
         const paidDoc = await db.collection('paid').doc(user.uid).get();
+        console.log('Paid check - doc exists:', paidDoc.exists);
         if (paidDoc.exists) {
+          console.log('Paid doc data:', paidDoc.data());
           hasAccess = true;
           accessType = 'paid';
         }
@@ -50,14 +56,20 @@ loginBtn.onclick = async (e) => {
     if (!hasAccess) {
       try {
         const userDoc = await db.collection('users').doc(user.uid).get();
-        if (userDoc.exists() && userDoc.data().paid === true) {
-          hasAccess = true;
-          accessType = 'users_paid';
+        console.log('Users check - doc exists:', userDoc.exists);
+        if (userDoc.exists()) {
+          console.log('Users doc data:', userDoc.data());
+          if (userDoc.data().paid === true) {
+            hasAccess = true;
+            accessType = 'users_paid';
+          }
         }
       } catch (error) {
         console.log('Error checking users collection:', error);
       }
     }
+    
+    console.log('Final access result:', hasAccess, accessType);
     
     if (hasAccess) {
       // Set authentication cookies for the Netlify function
