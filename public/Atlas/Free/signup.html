@@ -176,32 +176,10 @@
           return;
         }
         
-        // For other users, try to check Firestore (with error handling)
-        try {
-          const userDoc = await db.collection('users').doc(user.uid).get();
-          if (userDoc.exists() && userDoc.data().paid) {
-            successMsg.textContent = 'Login successful! Redirecting to paid content...';
-            
-            // Get Firebase ID token for authentication
-            const idToken = await user.getIdToken();
-            
-            // Set authentication cookies
-            document.cookie = `authToken=${idToken}; path=/; max-age=3600; secure; samesite=strict`;
-            document.cookie = `userEmail=${encodeURIComponent(user.email)}; path=/; max-age=3600; secure; samesite=strict`;
-            
-            setTimeout(() => {
-              window.location.href = `/premium-atlas-direct.html`;
-            }, 1000);
-          } else {
-            successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
-            payBtn.style.display = 'block';
-          }
-        } catch (firestoreError) {
-          console.error('Firestore error:', firestoreError);
-          // Fallback: show payment option
-          successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
-          payBtn.style.display = 'block';
-        }
+        // If no access found, show purchase option
+        successMsg.textContent = 'Login successful! Please purchase access to view paid content.';
+        payBtn.style.display = 'block';
+        
       } catch (error) {
         errorMsg.textContent = error.message;
       } finally {
