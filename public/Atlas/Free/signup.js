@@ -34,13 +34,32 @@ loginBtn.onclick = async (e) => {
         hasAccess = true;
         accessType = 'whitelist';
       } else {
-        // Also check by email in case UID doesn't match
+        // Check by email with case-insensitive comparison
+        const userEmailLower = user.email.toLowerCase().trim();
+        console.log('Checking whitelist by email:', userEmailLower);
+        
         const whitelistQuery = await db.collection('whitelist').where('email', '==', user.email).get();
-        console.log('Whitelist check by email - query size:', whitelistQuery.size);
+        console.log('Whitelist check by email (exact) - query size:', whitelistQuery.size);
+        
         if (!whitelistQuery.empty) {
-          console.log('Found whitelist entry by email');
+          console.log('Found whitelist entry by email (exact match)');
           hasAccess = true;
           accessType = 'whitelist';
+        } else {
+          // Try case-insensitive search by getting all whitelist docs and checking manually
+          console.log('Trying case-insensitive whitelist search...');
+          const allWhitelistDocs = await db.collection('whitelist').get();
+          console.log('Total whitelist docs to check:', allWhitelistDocs.size);
+          
+          allWhitelistDocs.forEach(doc => {
+            const docData = doc.data();
+            console.log('Checking whitelist doc:', doc.id, docData);
+            if (docData.email && docData.email.toLowerCase().trim() === userEmailLower) {
+              console.log('Found whitelist match with case-insensitive comparison!');
+              hasAccess = true;
+              accessType = 'whitelist';
+            }
+          });
         }
       }
     } catch (error) {
