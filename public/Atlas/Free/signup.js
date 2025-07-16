@@ -57,7 +57,7 @@ loginBtn.onclick = async (e) => {
       try {
         const userDoc = await db.collection('users').doc(user.uid).get();
         console.log('Users check - doc exists:', userDoc.exists);
-        if (userDoc.exists()) {
+        if (userDoc.exists) {
           console.log('Users doc data:', userDoc.data());
           if (userDoc.data().paid === true) {
             hasAccess = true;
