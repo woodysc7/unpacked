@@ -1,12 +1,14 @@
-// Use Firebase v8 syntax to match firebase.js
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Wait for DOM to be ready and Firebase to be initialized
+document.addEventListener('DOMContentLoaded', function() {
+  // Use Firebase v8 syntax to match firebase.js
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-const authForm = document.getElementById('authForm');
-const loginBtn = document.getElementById('loginBtn');
-const signupBtn = document.getElementById('signupBtn');
-const errorMsg = document.getElementById('errorMsg');
-const successMsg = document.getElementById('successMsg');
+  const authForm = document.getElementById('authForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+  const errorMsg = document.getElementById('errorMsg');
+  const successMsg = document.getElementById('successMsg');
 
 loginBtn.onclick = async (e) => {
   e.preventDefault();
@@ -202,3 +204,5 @@ window.testWhitelistAccess = async function() {
     alert('Error: ' + error.message);
   }
 };
+
+}); // End DOMContentLoaded
