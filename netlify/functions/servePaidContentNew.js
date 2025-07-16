@@ -82,15 +82,37 @@ async function checkUserAccess(event) {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       console.log('Firebase token verified for user:', decodedToken.email);
       
-      // Check Firebase whitelist collection
+      // Check Firebase whitelist collection (by UID)
       try {
         const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
         if (whitelistDoc.exists) {
-          console.log('User is in Firebase whitelist, granting access');
+          console.log('User is in Firebase whitelist by UID, granting access');
           return true;
         }
       } catch (whitelistError) {
-        console.log('Error checking Firebase whitelist:', whitelistError.message);
+        console.log('Error checking Firebase whitelist by UID:', whitelistError.message);
+      }
+      
+      // Check Firebase whitelist collection by email
+      try {
+        const whitelistQuery = await admin.firestore().collection('whitelist').where('email', '==', decodedToken.email).get();
+        if (!whitelistQuery.empty) {
+          console.log('User is in Firebase whitelist by email, granting access');
+          return true;
+        }
+      } catch (whitelistError) {
+        console.log('Error checking Firebase whitelist by email:', whitelistError.message);
+      }
+      
+      // Check if user is marked as paid in users collection
+      try {
+        const userDoc = await admin.firestore().collection('users').doc(decodedToken.uid).get();
+        if (userDoc.exists() && userDoc.data().paid === true) {
+          console.log('User has paid access in users collection, granting access');
+          return true;
+        }
+      } catch (userError) {
+        console.log('Error checking users collection:', userError.message);
       }
       
       // Check if user has paid access
