@@ -146,8 +146,8 @@ window.testWhitelistAccess = async function() {
   try {
     // Direct whitelist check by UID
     const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
-    console.log('Direct UID check result:', whitelistDoc.exists);
-    if (whitelistDoc.exists) {
+    console.log('Direct UID check result:', whitelistDoc.exists());
+    if (whitelistDoc.exists()) {
       console.log('Whitelist data:', whitelistDoc.data());
       alert('✅ Found in whitelist by UID! Should have access.');
       
