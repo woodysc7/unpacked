@@ -41,7 +41,7 @@ async function checkUserAccess(event) {
     console.log('Found auth_email cookie:', email);
     
     // Check if email is whitelisted
-    const whitelistedEmails = ['woodysc7@gmail.com'];
+    const whitelistedEmails = ['woodysc7@gmail.com', 'Wyattlorenzen123@gmail.com'];
     if (whitelistedEmails.includes(email)) {
       console.log('Email is whitelisted, granting access');
       return true;

@@ -90,14 +90,6 @@ exports.handler = async (event, context) => {
         preRegistration: true
       });
 
-      await admin.firestore().collection('whitelist').doc(emailDocId).set({
-        email: email,
-        timestamp: new Date(),
-        reason: reason,
-        addedBy: 'admin_fix',
-        preRegistration: true
-      });
-
       return {
         statusCode: 200,
         headers,
