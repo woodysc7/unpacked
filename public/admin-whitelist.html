@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Whitelist Management</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="/firebase.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007cba;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="email"], input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a8b;
+        }
+        button.danger {
+            background: #dc3545;
+        }
+        button.danger:hover {
+            background: #c82333;
+        }
+        .whitelist-entry {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #007cba;
+            border-radius: 4px;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Whitelist Management - unpacked.today</h1>
+        
+        <div class="section">
+            <h2>Add User to Whitelist</h2>
+            <div class="form-group">
+                <label for="addEmail">Email Address:</label>
+                <input type="email" id="addEmail" placeholder="user@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="addReason">Reason:</label>
+                <select id="addReason">
+                    <option value="editor">Editor</option>
+                    <option value="admin">Admin</option>
+                    <option value="free_access">Free Access</option>
+                    <option value="testing">Testing</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <button onclick="addToWhitelist()">➕ Add to Whitelist</button>
+        </div>
+
+        <div class="section">
+            <h2>Current Whitelist</h2>
+            <button onclick="loadWhitelist()">🔄 Refresh Whitelist</button>
+            <div id="whitelistContainer">
+                <div class="message loading">Click "Refresh Whitelist" to load current entries...</div>
+            </div>
+        </div>
+
+        <div id="messageContainer"></div>
+    </div>
+
+    <script>
+        // Wait for Firebase to initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+
+            window.addToWhitelist = async function() {
+                const email = document.getElementById('addEmail').value.trim();
+                const reason = document.getElementById('addReason').value;
+                
+                if (!email) {
+                    showMessage('Please enter an email address', 'error');
+                    return;
+                }
+
+                showMessage('Adding user to whitelist...', 'loading');
+
+                try {
+                    const response = await fetch('/.netlify/functions/addToWhitelist', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            reason: reason,
+                            adminKey: 'admin_fix_2024'
+                        })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        showMessage(`✅ ${result.message}`, 'success');
+                        document.getElementById('addEmail').value = '';
+                        loadWhitelist(); // Refresh the list
+                    } else {
+                        const error = await response.json();
+                        showMessage(`❌ Error: ${error.error || 'Unknown error'}`, 'error');
+                    }
+                } catch (error) {
+                    showMessage(`❌ Network error: ${error.message}`, 'error');
+                }
+            };
+
+            window.loadWhitelist = async function() {
+                const container = document.getElementById('whitelistContainer');
+                container.innerHTML = '<div class="message loading">Loading whitelist entries...</div>';
+
+                try {
+                    // Use client-side Firebase to load whitelist
+                    const whitelistSnapshot = await db.collection('whitelist').get();
+                    
+                    if (whitelistSnapshot.empty) {
+                        container.innerHTML = '<div class="message">No whitelist entries found.</div>';
+                        return;
+                    }
+
+                    let html = '';
+                    whitelistSnapshot.forEach(doc => {
+                        const data = doc.data();
+                        const isPreReg = data.preRegistration === true;
+                        
+                        html += `
+                            <div class="whitelist-entry">
+                                <strong>📧 ${data.email || 'No email'}</strong>
+                                ${isPreReg ? '<span style="color: #856404; background: #fff3cd; padding: 2px 6px; border-radius: 3px; font-size: 0.8em;">PRE-REGISTRATION</span>' : ''}
+                                <br>
+                                <small>
+                                    📋 Reason: ${data.reason || 'Not specified'} | 
+                                    📅 Added: ${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleString() : 'Unknown'} |
+                                    👤 By: ${data.addedBy || 'Unknown'} |
+                                    🆔 Doc ID: ${doc.id}
+                                </small>
+                            </div>
+                        `;
+                    });
+                    
+                    container.innerHTML = html;
+                    showMessage(`Loaded ${whitelistSnapshot.size} whitelist entries`, 'success');
+
+                } catch (error) {
+                    console.error('Error loading whitelist:', error);
+                    container.innerHTML = '<div class="message error">❌ Error loading whitelist. Check console for details.</div>';
+                    showMessage(`❌ Error: ${error.message}`, 'error');
+                }
+            };
+
+            function showMessage(text, type) {
+                const container = document.getElementById('messageContainer');
+                container.innerHTML = `<div class="message ${type}">${text}</div>`;
+                
+                // Auto-clear success/loading messages after 5 seconds
+                if (type === 'success' || type === 'loading') {
+                    setTimeout(() => {
+                        container.innerHTML = '';
+                    }, 5000);
+                }
+            }
+
+            // Load whitelist on page load
+            loadWhitelist();
+        });
+    </script>
+</body>
+</html>

@@ -134,15 +134,69 @@ signupBtn.onclick = async (e) => {
   const password = document.getElementById('password').value;
   try {
     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-    // Create user record in Firestore (mark as not paid yet)
-    await db.collection('users').doc(userCredential.user.uid).set({
+    const user = userCredential.user;
+    
+    console.log('=== SIGNUP SUCCESS ===');
+    console.log('New user:', user.email, 'UID:', user.uid);
+    
+    // Check if this email was pre-registered in whitelist
+    let wasPreRegistered = false;
+    try {
+      console.log('Checking for pre-registered whitelist entry...');
+      const emailQuery = await db.collection('whitelist').where('email', '==', user.email).get();
+      
+      if (!emailQuery.empty) {
+        console.log('Found pre-registered whitelist entry!');
+        
+        // Get the first matching document
+        const preRegDoc = emailQuery.docs[0];
+        const preRegData = preRegDoc.data();
+        
+        if (preRegData.preRegistration === true) {
+          console.log('Moving pre-registration to UID-based entry...');
+          
+          // Create new UID-based whitelist entry
+          await db.collection('whitelist').doc(user.uid).set({
+            email: user.email,
+            reason: preRegData.reason || 'pre-registered',
+            timestamp: preRegData.timestamp || new Date(),
+            addedBy: preRegData.addedBy || 'system',
+            linkedFrom: preRegDoc.id,
+            linkedAt: new Date()
+          });
+          
+          // Delete the old email-based entry
+          await preRegDoc.ref.delete();
+          
+          wasPreRegistered = true;
+          console.log('✅ Successfully linked pre-registration to new UID');
+        }
+      }
+    } catch (whitelistError) {
+      console.warn('Could not check whitelist during signup:', whitelistError);
+    }
+    
+    // Create user record in Firestore (mark as not paid yet, unless pre-registered)
+    await db.collection('users').doc(user.uid).set({
       email: email,
       paid: false,
-      createdAt: new Date()
+      createdAt: new Date(),
+      wasPreRegistered: wasPreRegistered
     });
-    successMsg.textContent = 'Sign up successful! Please log in.';
+    
+    if (wasPreRegistered) {
+      successMsg.textContent = '🎉 Sign up successful! You have been pre-approved for free access. Please log in.';
+      successMsg.style.color = '#28a745';
+    } else {
+      successMsg.textContent = 'Sign up successful! Please log in.';
+    }
+    
+    console.log('=== SIGNUP COMPLETE ===');
+    console.log('Was pre-registered:', wasPreRegistered);
+    
   } catch (err) {
     errorMsg.textContent = err.message;
+    console.error('Signup error:', err);
   }
 };
 
