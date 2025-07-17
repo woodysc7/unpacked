@@ -20,14 +20,25 @@ async function checkUserAccess(event) {
   console.log('Headers:', JSON.stringify(event.headers, null, 2));
   console.log('Query params:', event.queryStringParameters);
   
+  // Check for test parameter access first
+  const testParam = event.queryStringParameters?.test;
+  if (testParam === 'woodysc7' || testParam === 'wyatt' || testParam === 'scwood26') {
+    console.log('Test parameter access granted for:', testParam);
+    return true;
+  }
+  
   // Check for authentication cookies (matching client-side auth-check.js)
   const cookies = event.headers.cookie || '';
   console.log('Checking cookies:', cookies);
   
   // Check for whitelisted email cookie (userEmail format)
   if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
+      cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') ||
+      cookies.includes('userEmail=scwood26%40g.holycross.edu') ||
       cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7')) {
+      cookies.includes('authToken=test_token_woodysc7') ||
+      cookies.includes('authToken=test_token_wyatt') ||
+      cookies.includes('authToken=test_token_scwood26')) {
     console.log('Found whitelisted auth cookies, granting access');
     return true;
   }
@@ -332,6 +343,13 @@ exports.handler = async (event, context) => {
                 <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗼 Paris</a>
                 <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏯 Tokyo</a>
               </div>
+              <div style="font-size: 0.9em; color: #888; margin-top: 10px;">
+                <strong>scwood26 access:</strong>
+                <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=scwood26" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗽 NYC</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=scwood26" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏛️ London</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=scwood26" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗼 Paris</a>
+                <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=scwood26" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏯 Tokyo</a>
+              </div>
             </div>
 
             <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;">
@@ -421,6 +439,7 @@ exports.handler = async (event, context) => {
             <div style="text-align: center; margin: 30px 0;">
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7" class="nav-link">🗺️ Full Atlas</a>
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=wyatt" class="nav-link">🗺️ Full Atlas (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=scwood26" class="nav-link">🗺️ Full Atlas (scwood26)</a>
               <a href="/Atlas/Free/Atlas.html" class="nav-link">🆓 Free Version</a>
             </div>
           </div>

@@ -85,7 +85,7 @@
     // Auto-redirect for whitelisted users on page load
     window.onload = function() {
       // Check if this is a whitelisted email (you can expand this list)
-      const whitelistedEmails = ['woodysc7@gmail.com', 'Wyattlorenzen123@gmail.com', 'their-email@example.com'];
+      const whitelistedEmails = ['woodysc7@gmail.com', 'Wyattlorenzen123@gmail.com', 'scwood26@g.holycross.edu', 'their-email@example.com'];
       
       // Check URL parameters for email hint
       const urlParams = new URLSearchParams(window.location.search);
@@ -105,6 +105,7 @@
       const cookies = document.cookie;
       if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
           cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') || 
+          cookies.includes('userEmail=scwood26%40g.holycross.edu') ||
           cookies.includes('authToken=whitelist_token')) {
         // User is already authenticated, redirect to premium
         window.location.href = `/premium-atlas-direct.html`;

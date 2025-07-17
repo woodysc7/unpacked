@@ -23,7 +23,8 @@ exports.handler = async (event, context) => {
 
     // Check for test access (temporary for development)
     const testAccess = event.queryStringParameters?.test === 'woodysc7' ||
-                      event.queryStringParameters?.test === 'wyatt';
+                      event.queryStringParameters?.test === 'wyatt' ||
+                      event.queryStringParameters?.test === 'scwood26';
     
     if (!testAccess) {
       return {
@@ -181,6 +182,7 @@ exports.handler = async (event, context) => {
               <h3>🗺️ Navigation</h3>
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7" class="nav-link">🌍 Full Atlas</a>
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=wyatt" class="nav-link">🌍 Full Atlas (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=scwood26" class="nav-link">🌍 Full Atlas (scwood26)</a>
               <a href="/Atlas/Free/Atlas.html" class="nav-link">🆓 Free Version</a>
             </div>
           </div>
