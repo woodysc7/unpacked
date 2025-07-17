@@ -3,15 +3,14 @@
 
 function checkPremiumAccess() {
   const cookies = document.cookie;
+  const cookiesLower = cookies.toLowerCase();
   
-  // Check for valid authentication cookies
-  if (cookies.includes('userEmail=woodysc7%40gmail.com') || 
-      cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') ||
-      cookies.includes('userEmail=scwood26%40g.holycross.edu') ||
+  // Check for valid authentication cookies (case insensitive for emails)
+  if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
+      cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
       cookies.includes('authToken=whitelist_token') ||
       cookies.includes('authToken=test_token_woodysc7') ||
-      cookies.includes('authToken=test_token_wyatt') ||
-      cookies.includes('authToken=test_token_scwood26')) {
+      cookies.includes('authToken=test_token_wyatt')) {
     // User is authorized, continue loading page
     return true;
   }

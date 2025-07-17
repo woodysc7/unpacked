@@ -14,8 +14,7 @@ exports.handler = async (event, context) => {
   try {
     // Simple authentication check
     const hasTestAccess = event.queryStringParameters?.test === 'woodysc7' || 
-                         event.queryStringParameters?.test === 'wyatt' ||
-                         event.queryStringParameters?.test === 'scwood26';
+                         event.queryStringParameters?.test === 'wyatt';
     
     if (!hasTestAccess) {
       return {
@@ -38,7 +37,6 @@ exports.handler = async (event, context) => {
                 <p>This content requires authentication.</p>
                 <p><a href="?test=woodysc7">Click here for test access (woodysc7)</a></p>
                 <p><a href="?test=wyatt">Click here for test access (wyatt)</a></p>
-                <p><a href="?test=scwood26">Click here for test access (scwood26)</a></p>
               </div>
             </body>
           </html>

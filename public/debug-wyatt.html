@@ -23,7 +23,8 @@
 
     <div class="test-section">
         <h3>Authentication Tests</h3>
-        <button onclick="setWyattCookies()">Set Wyatt Auth Cookies</button>
+        <button onclick="setWyattCookies()">Set Wyatt Auth Cookies (Uppercase W)</button>
+        <button onclick="setWyattCookiesLowercase()">Set Wyatt Auth Cookies (Lowercase w)</button>
         <button onclick="clearCookies()">Clear All Cookies</button>
         <button onclick="testPremiumAccess()">Test Premium Access</button>
         <div id="authResults"></div>
@@ -44,15 +45,30 @@
         }
 
         function setWyattCookies() {
-            // Set the exact same cookies as the auto-login system
+            // Set the exact same cookies as the auto-login system (Uppercase W)
             document.cookie = `authToken=test_token_wyatt; path=/; max-age=86400; samesite=strict`;
             document.cookie = `userEmail=${encodeURIComponent('Wyattlorenzen123@gmail.com')}; path=/; max-age=86400; samesite=strict`;
             
             document.getElementById('authResults').innerHTML = `
                 <div class="result success">
-                    ✅ Wyatt authentication cookies set!<br>
+                    ✅ Wyatt authentication cookies set (Uppercase W)!<br>
                     authToken=test_token_wyatt<br>
                     userEmail=Wyattlorenzen123%40gmail.com
+                </div>
+            `;
+            displayCookies();
+        }
+
+        function setWyattCookiesLowercase() {
+            // Set cookies with lowercase wyatt email to test case sensitivity
+            document.cookie = `authToken=test_token_wyatt; path=/; max-age=86400; samesite=strict`;
+            document.cookie = `userEmail=${encodeURIComponent('wyattlorenzen123@gmail.com')}; path=/; max-age=86400; samesite=strict`;
+            
+            document.getElementById('authResults').innerHTML = `
+                <div class="result success">
+                    ✅ Wyatt authentication cookies set (lowercase w)!<br>
+                    authToken=test_token_wyatt<br>
+                    userEmail=wyattlorenzen123%40gmail.com
                 </div>
             `;
             displayCookies();
@@ -72,7 +88,8 @@
 
         function testPremiumAccess() {
             const cookies = document.cookie;
-            const hasAccess = cookies.includes('userEmail=Wyattlorenzen123%40gmail.com') || 
+            const cookiesLower = cookies.toLowerCase();
+            const hasAccess = cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') || 
                             cookies.includes('authToken=test_token_wyatt') ||
                             cookies.includes('authToken=whitelist_token');
             
@@ -80,14 +97,15 @@
                 document.getElementById('authResults').innerHTML = `
                     <div class="result success">
                         ✅ Premium access GRANTED for Wyatt!<br>
-                        Cookie check passed.
+                        Cookie check passed (case insensitive).
                     </div>
                 `;
             } else {
                 document.getElementById('authResults').innerHTML = `
                     <div class="result error">
                         ❌ Premium access DENIED for Wyatt<br>
-                        No valid authentication cookies found.
+                        No valid authentication cookies found.<br>
+                        <small>Looking for: useremail=wyattlorenzen123%40gmail.com (case insensitive) or authToken=test_token_wyatt</small>
                     </div>
                 `;
             }

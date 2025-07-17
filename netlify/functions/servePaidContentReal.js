@@ -26,8 +26,7 @@ exports.handler = async (event, context) => {
 
     // Check for test access (temporary for development)
     const testAccess = event.queryStringParameters?.test === 'woodysc7' ||
-                      event.queryStringParameters?.test === 'wyatt' ||
-                      event.queryStringParameters?.test === 'scwood26';
+                      event.queryStringParameters?.test === 'wyatt';
     
     // TODO: Add proper Firebase authentication check here
     if (!testAccess) {

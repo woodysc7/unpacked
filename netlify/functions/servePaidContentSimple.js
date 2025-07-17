@@ -77,8 +77,7 @@ function getAccessDeniedPage() {
             </div>
             <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
               For testing: <a href="?test=woodysc7" style="color: #6B4226;">Click here for test access (woody)</a> | 
-              <a href="?test=wyatt" style="color: #6B4226;">Test access (wyatt)</a> | 
-              <a href="?test=scwood26" style="color: #6B4226;">Test access (scwood26)</a>
+              <a href="?test=wyatt" style="color: #6B4226;">Test access (wyatt)</a>
             </p>
           </div>
         </div>

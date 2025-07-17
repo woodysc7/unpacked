@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
       reason = body.reason || 'Admin granted access';
       adminKey = body.adminKey || 'admin_fix_2024'; // Default for internal use
     } else {
-      email = event.queryStringParameters?.email || 'scwood26@g.holycross.edu';
+      email = event.queryStringParameters?.email || 'woodysc7@gmail.com';
       reason = event.queryStringParameters?.reason || 'Admin granted access';
       adminKey = event.queryStringParameters?.key;
     }
