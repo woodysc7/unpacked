@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Access Test</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="firebase.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .test-link {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .test-link:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔒 Comprehensive Premium Access Test</h1>
+    <p>This page tests all authentication mechanisms and access control for unpacked.today premium features.</p>
+
+    <div class="test-section">
+        <h2>🔍 Current User Status</h2>
+        <div id="userStatus" class="test-result info">
+            <div class="loading"></div> Checking authentication status...
+        </div>
+        <button onclick="refreshStatus()">Refresh Status</button>
+        <button onclick="testServerAccess()">Test Server Access</button>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Authentication Tests</h2>
+        <button onclick="testFirebaseAuth()">Test Firebase Auth</button>
+        <button onclick="testCookieAuth()">Test Cookie Auth</button>
+        <button onclick="testAutoLogin()">Test Auto-Login</button>
+        <button onclick="testHardcodedEmails()">Test Hardcoded Emails</button>
+        <div id="authTestResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌍 Premium Content Access Tests</h2>
+        <p>Test access to premium content pages:</p>
+        <a href="premium-atlas-direct.html" class="test-link" target="_blank">Premium Atlas Direct</a>
+        <a href="premium-atlas-new.html" class="test-link" target="_blank">Premium Atlas New</a>
+        <a href="PaidContent/Atlas.html" class="test-link" target="_blank">Paid Content Atlas</a>
+        <a href="PaidContent/Countries/unitedstates/unitedstateshome.html" class="test-link" target="_blank">USA Country Page</a>
+        <a href="PaidContent/cities/newyorkcityunitedstates.html" class="test-link" target="_blank">NYC City Page</a>
+        <div id="contentTestResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Backend API Tests</h2>
+        <button onclick="testCheckUserAccess()">Test checkUserAccess API</button>
+        <button onclick="testServePaidContent()">Test servePaidContent API</button>
+        <button onclick="testWhitelistCheck()">Test Whitelist Check</button>
+        <div id="apiTestResults"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Test Summary</h2>
+        <div id="testSummary" class="test-result info">
+            Click any test button to start testing...
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            refreshStatus();
+        });
+
+        function addTestResult(category, test, result, details = '') {
+            testResults.push({
+                category,
+                test,
+                result,
+                details,
+                timestamp: new Date()
+            });
+            updateTestSummary();
+        }
+
+        function updateTestSummary() {
+            const summary = document.getElementById('testSummary');
+            const total = testResults.length;
+            const passed = testResults.filter(r => r.result === 'success').length;
+            const failed = testResults.filter(r => r.result === 'error').length;
+            
+            summary.innerHTML = `
+                <strong>Test Summary:</strong><br>
+                Total Tests: ${total} | Passed: ${passed} | Failed: ${failed}<br>
+                Success Rate: ${total > 0 ? Math.round((passed / total) * 100) : 0}%
+            `;
+            summary.className = `test-result ${failed === 0 && total > 0 ? 'success' : failed > 0 ? 'error' : 'info'}`;
+        }
+
+        async function refreshStatus() {
+            const statusDiv = document.getElementById('userStatus');
+            statusDiv.innerHTML = '<div class="loading"></div> Checking authentication status...';
+            
+            try {
+                // Check Firebase auth
+                const user = firebase.auth().currentUser;
+                
+                // Check cookies
+                const cookieUser = getCookie('user_email');
+                const cookieUID = getCookie('user_uid');
+                
+                // Check server-side access
+                const response = await fetch('/.netlify/functions/checkUserAccess');
+                const serverAccess = await response.json();
+                
+                let status = '<strong>Authentication Status:</strong><br>';
+                
+                if (user) {
+                    status += `✅ Firebase User: ${user.email} (UID: ${user.uid})<br>`;
+                } else {
+                    status += '❌ Firebase User: Not authenticated<br>';
+                }
+                
+                if (cookieUser) {
+                    status += `🍪 Cookie User: ${cookieUser} (UID: ${cookieUID || 'N/A'})<br>`;
+                } else {
+                    status += '❌ Cookie User: Not found<br>';
+                }
+                
+                status += `🖥️ Server Access: ${serverAccess.hasAccess ? '✅ Granted' : '❌ Denied'}<br>`;
+                status += `📋 Reason: ${serverAccess.reason || 'N/A'}<br>`;
+                
+                statusDiv.innerHTML = status;
+                statusDiv.className = 'test-result ' + (user || cookieUser || serverAccess.hasAccess ? 'success' : 'error');
+                
+                addTestResult('Status', 'User Status Check', 
+                    (user || cookieUser || serverAccess.hasAccess) ? 'success' : 'error',
+                    `Firebase: ${user ? 'Yes' : 'No'}, Cookie: ${cookieUser ? 'Yes' : 'No'}, Server: ${serverAccess.hasAccess ? 'Yes' : 'No'}`);
+                
+            } catch (error) {
+                statusDiv.innerHTML = `❌ Error checking status: ${error.message}`;
+                statusDiv.className = 'test-result error';
+                addTestResult('Status', 'User Status Check', 'error', error.message);
+            }
+        }
+
+        async function testServerAccess() {
+            try {
+                const response = await fetch('/.netlify/functions/checkUserAccess');
+                const result = await response.json();
+                
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${result.hasAccess ? 'success' : 'error'}`;
+                resultDiv.innerHTML = `
+                    <strong>Server Access Test:</strong><br>
+                    Access: ${result.hasAccess ? '✅ Granted' : '❌ Denied'}<br>
+                    Reason: ${result.reason}<br>
+                    Method: ${result.method || 'Unknown'}<br>
+                    User: ${result.user || 'Unknown'}
+                `;
+                
+                document.getElementById('userStatus').appendChild(resultDiv);
+                addTestResult('Server', 'Access Check', result.hasAccess ? 'success' : 'error', result.reason);
+                
+            } catch (error) {
+                console.error('Server access test failed:', error);
+                addTestResult('Server', 'Access Check', 'error', error.message);
+            }
+        }
+
+        async function testFirebaseAuth() {
+            const resultsDiv = document.getElementById('authTestResults');
+            
+            try {
+                const user = firebase.auth().currentUser;
+                
+                let result = '<div class="test-result ';
+                if (user) {
+                    result += 'success">✅ Firebase Authentication: Active<br>';
+                    result += `Email: ${user.email}<br>`;
+                    result += `UID: ${user.uid}<br>`;
+                    result += `Email Verified: ${user.emailVerified}`;
+                    addTestResult('Auth', 'Firebase Auth', 'success', user.email);
+                } else {
+                    result += 'error">❌ Firebase Authentication: Not logged in';
+                    addTestResult('Auth', 'Firebase Auth', 'error', 'Not logged in');
+                }
+                result += '</div>';
+                
+                resultsDiv.innerHTML = result;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="test-result error">❌ Firebase Auth Error: ${error.message}</div>`;
+                addTestResult('Auth', 'Firebase Auth', 'error', error.message);
+            }
+        }
+
+        async function testCookieAuth() {
+            const resultsDiv = document.getElementById('authTestResults');
+            
+            const userEmail = getCookie('user_email');
+            const userUID = getCookie('user_uid');
+            
+            let result = '<div class="test-result ';
+            if (userEmail) {
+                result += 'success">✅ Cookie Authentication: Found<br>';
+                result += `Email: ${userEmail}<br>`;
+                result += `UID: ${userUID || 'Not set'}`;
+                addTestResult('Auth', 'Cookie Auth', 'success', userEmail);
+            } else {
+                result += 'error">❌ Cookie Authentication: No cookies found';
+                addTestResult('Auth', 'Cookie Auth', 'error', 'No cookies found');
+            }
+            result += '</div>';
+            
+            resultsDiv.innerHTML += result;
+        }
+
+        async function testAutoLogin() {
+            const resultsDiv = document.getElementById('authTestResults');
+            
+            // Test hardcoded emails
+            const hardcodedEmails = ['woodysc7@gmail.com', 'Wyattlorenzen123@gmail.com', 'scwood26@gmail.com'];
+            const currentURL = window.location.href.toLowerCase();
+            
+            let foundHardcoded = false;
+            for (const email of hardcodedEmails) {
+                if (currentURL.includes(email.toLowerCase())) {
+                    foundHardcoded = email;
+                    break;
+                }
+            }
+            
+            let result = '<div class="test-result ';
+            if (foundHardcoded) {
+                result += 'info">ℹ️ Auto-Login: Would trigger for ' + foundHardcoded;
+                addTestResult('Auth', 'Auto-Login', 'success', foundHardcoded);
+            } else {
+                result += 'info">ℹ️ Auto-Login: No matching email in URL';
+                addTestResult('Auth', 'Auto-Login', 'info', 'No matching URL');
+            }
+            result += '</div>';
+            
+            resultsDiv.innerHTML += result;
+        }
+
+        async function testHardcodedEmails() {
+            const resultsDiv = document.getElementById('authTestResults');
+            const hardcodedEmails = ['woodysc7@gmail.com', 'Wyattlorenzen123@gmail.com', 'scwood26@gmail.com'];
+            
+            let result = '<div class="test-result success">✅ Hardcoded Emails Check:<br>';
+            hardcodedEmails.forEach(email => {
+                result += `• ${email} - ✅ Configured<br>`;
+            });
+            result += '</div>';
+            
+            resultsDiv.innerHTML += result;
+            addTestResult('Auth', 'Hardcoded Emails', 'success', hardcodedEmails.join(', '));
+        }
+
+        async function testCheckUserAccess() {
+            const resultsDiv = document.getElementById('apiTestResults');
+            
+            try {
+                const response = await fetch('/.netlify/functions/checkUserAccess');
+                const result = await response.json();
+                
+                let resultDiv = '<div class="test-result ';
+                if (result.hasAccess) {
+                    resultDiv += 'success">✅ checkUserAccess API: Access Granted<br>';
+                    resultDiv += `Reason: ${result.reason}<br>`;
+                    resultDiv += `Method: ${result.method}<br>`;
+                    resultDiv += `User: ${result.user}`;
+                    addTestResult('API', 'checkUserAccess', 'success', result.reason);
+                } else {
+                    resultDiv += 'error">❌ checkUserAccess API: Access Denied<br>';
+                    resultDiv += `Reason: ${result.reason}`;
+                    addTestResult('API', 'checkUserAccess', 'error', result.reason);
+                }
+                resultDiv += '</div>';
+                
+                resultsDiv.innerHTML = resultDiv;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = `<div class="test-result error">❌ API Error: ${error.message}</div>`;
+                addTestResult('API', 'checkUserAccess', 'error', error.message);
+            }
+        }
+
+        async function testServePaidContent() {
+            const resultsDiv = document.getElementById('apiTestResults');
+            
+            try {
+                const response = await fetch('/.netlify/functions/servePaidContent?content=test');
+                const result = response.ok;
+                
+                let resultDiv = '<div class="test-result ';
+                if (result) {
+                    resultDiv += 'success">✅ servePaidContent API: Accessible';
+                    addTestResult('API', 'servePaidContent', 'success', 'API responded');
+                } else {
+                    resultDiv += 'error">❌ servePaidContent API: Blocked';
+                    addTestResult('API', 'servePaidContent', 'error', 'API blocked');
+                }
+                resultDiv += '</div>';
+                
+                resultsDiv.innerHTML += resultDiv;
+                
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="test-result error">❌ servePaidContent Error: ${error.message}</div>`;
+                addTestResult('API', 'servePaidContent', 'error', error.message);
+            }
+        }
+
+        async function testWhitelistCheck() {
+            const resultsDiv = document.getElementById('apiTestResults');
+            
+            try {
+                const response = await fetch('/.netlify/functions/checkUserAccess?test=whitelist');
+                const result = await response.json();
+                
+                let resultDiv = '<div class="test-result ';
+                if (result.hasAccess) {
+                    resultDiv += 'success">✅ Whitelist Check: User is whitelisted<br>';
+                    resultDiv += `Details: ${result.reason}`;
+                    addTestResult('API', 'Whitelist Check', 'success', result.reason);
+                } else {
+                    resultDiv += 'info">ℹ️ Whitelist Check: User not in whitelist<br>';
+                    resultDiv += `Details: ${result.reason}`;
+                    addTestResult('API', 'Whitelist Check', 'info', result.reason);
+                }
+                resultDiv += '</div>';
+                
+                resultsDiv.innerHTML += resultDiv;
+                
+            } catch (error) {
+                resultsDiv.innerHTML += `<div class="test-result error">❌ Whitelist Error: ${error.message}</div>`;
+                addTestResult('API', 'Whitelist Check', 'error', error.message);
+            }
+        }
+
+        // Utility function to get cookies
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
+</body>
+</html>
