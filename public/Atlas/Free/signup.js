@@ -139,26 +139,51 @@ signupBtn.onclick = async (e) => {
     console.log('=== SIGNUP SUCCESS ===');
     console.log('New user:', user.email, 'UID:', user.uid);
     
-    // Check if this email was pre-registered in whitelist
+    // Transfer any pre-registration access using the enhanced system
+    let transferResult = null;
+    try {
+      console.log('Transferring pre-registration access...');
+      const transferResponse = await fetch('/.netlify/functions/transferPreRegistration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          uid: user.uid
+        })
+      });
+      
+      if (transferResponse.ok) {
+        transferResult = await transferResponse.json();
+        console.log('Transfer result:', transferResult);
+      } else {
+        console.log('Transfer response not ok:', transferResponse.status);
+      }
+    } catch (transferError) {
+      console.warn('Could not transfer pre-registration access:', transferError);
+    }
+    
+    // Legacy: Check if this email was pre-registered in whitelist (old system compatibility)
     let wasPreRegistered = false;
     try {
-      console.log('Checking for pre-registered whitelist entry...');
+      console.log('Checking for legacy pre-registered whitelist entry...');
       const emailQuery = await db.collection('whitelist').where('email', '==', user.email).get();
       
       if (!emailQuery.empty) {
-        console.log('Found pre-registered whitelist entry!');
+        console.log('Found legacy pre-registered whitelist entry!');
         
         // Get the first matching document
         const preRegDoc = emailQuery.docs[0];
         const preRegData = preRegDoc.data();
         
         if (preRegData.preRegistration === true) {
-          console.log('Moving pre-registration to UID-based entry...');
+          console.log('Moving legacy pre-registration to UID-based entry...');
           
           // Create new UID-based whitelist entry
           await db.collection('whitelist').doc(user.uid).set({
             email: user.email,
-            reason: preRegData.reason || 'pre-registered',
+            reason: preRegData.reason || 'pre-registered (legacy)',
             timestamp: preRegData.timestamp || new Date(),
             addedBy: preRegData.addedBy || 'system',
             linkedFrom: preRegDoc.id,
@@ -169,22 +194,31 @@ signupBtn.onclick = async (e) => {
           await preRegDoc.ref.delete();
           
           wasPreRegistered = true;
-          console.log('✅ Successfully linked pre-registration to new UID');
+          console.log('✅ Successfully linked legacy pre-registration to new UID');
         }
       }
     } catch (whitelistError) {
-      console.warn('Could not check whitelist during signup:', whitelistError);
+      console.warn('Could not check legacy whitelist during signup:', whitelistError);
     }
     
-    // Create user record in Firestore (mark as not paid yet, unless pre-registered)
+    // Create user record in Firestore
+    const hasTransferredAccess = transferResult && transferResult.transferredAccess && transferResult.transferredAccess.length > 0;
+    const hasPaidAccess = hasTransferredAccess && transferResult.transferredAccess.includes('paid');
+    
     await db.collection('users').doc(user.uid).set({
       email: email,
-      paid: false,
+      paid: hasPaidAccess || false,
       createdAt: new Date(),
-      wasPreRegistered: wasPreRegistered
+      wasPreRegistered: wasPreRegistered || hasTransferredAccess,
+      transferredAccess: transferResult ? transferResult.transferredAccess : []
     });
     
-    if (wasPreRegistered) {
+    // Show appropriate success message
+    if (hasTransferredAccess) {
+      const accessTypes = transferResult.transferredAccess.join(' and ');
+      successMsg.textContent = `🎉 Sign up successful! You have been pre-approved for ${accessTypes} access. Please log in.`;
+      successMsg.style.color = '#28a745';
+    } else if (wasPreRegistered) {
       successMsg.textContent = '🎉 Sign up successful! You have been pre-approved for free access. Please log in.';
       successMsg.style.color = '#28a745';
     } else {
@@ -192,7 +226,8 @@ signupBtn.onclick = async (e) => {
     }
     
     console.log('=== SIGNUP COMPLETE ===');
-    console.log('Was pre-registered:', wasPreRegistered);
+    console.log('Was pre-registered (legacy):', wasPreRegistered);
+    console.log('Transferred access:', transferResult ? transferResult.transferredAccess : 'none');
     
   } catch (err) {
     errorMsg.textContent = err.message;

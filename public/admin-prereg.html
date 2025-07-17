@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Registration Whitelist Admin</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="email"], 
+        input[type="text"], 
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="email"]:focus, 
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .message {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info-box {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            color: #0d47a1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .bulk-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            min-height: 120px;
+            font-family: monospace;
+        }
+        .example {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Pre-Registration Access Admin</h1>
+        
+        <div class="info-box">
+            <h3>✨ How This Works</h3>
+            <p><strong>Add users BEFORE they create accounts!</strong> When they eventually sign up with the email you specify, they'll automatically get premium access.</p>
+            <ul>
+                <li><strong>Whitelist:</strong> Free premium access</li>
+                <li><strong>Paid:</strong> Full paid user status</li>
+            </ul>
+            <p>No more waiting for users to create accounts first! 🚀</p>
+        </div>
+
+        <!-- Single User Addition -->
+        <form id="addUserForm">
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" required placeholder="user@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="accessType">Access Type:</label>
+                <select id="accessType" required>
+                    <option value="whitelist">Whitelist (Free Premium)</option>
+                    <option value="paid">Paid User Status</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="reason">Reason (Optional):</label>
+                <input type="text" id="reason" placeholder="e.g., Beta tester, Special invitation, etc.">
+            </div>
+            
+            <button type="submit" class="btn" id="addBtn">Add User to Pre-Registration</button>
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <!-- Bulk Addition -->
+        <div class="bulk-section">
+            <h3>📝 Bulk Addition</h3>
+            <div class="form-group">
+                <label for="bulkEmails">Email Addresses (one per line):</label>
+                <textarea id="bulkEmails" placeholder="user1@example.com&#10;user2@example.com&#10;user3@example.com"></textarea>
+                <div class="example">Example: Enter multiple emails, one per line</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="bulkAccessType">Access Type for All:</label>
+                <select id="bulkAccessType">
+                    <option value="whitelist">Whitelist (Free Premium)</option>
+                    <option value="paid">Paid User Status</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="bulkReason">Reason for All (Optional):</label>
+                <input type="text" id="bulkReason" placeholder="e.g., Beta testers batch">
+            </div>
+            
+            <button type="button" class="btn" id="bulkAddBtn">Add All Users</button>
+        </div>
+
+        <div id="bulkMessage" class="message"></div>
+    </div>
+
+    <script>
+        const adminKey = 'admin_fix_2024';
+
+        function showMessage(elementId, message, isSuccess = true) {
+            const msgElement = document.getElementById(elementId);
+            msgElement.textContent = message;
+            msgElement.className = `message ${isSuccess ? 'success' : 'error'}`;
+            msgElement.style.display = 'block';
+            
+            setTimeout(() => {
+                msgElement.style.display = 'none';
+            }, 5000);
+        }
+
+        async function addUserToPreRegistration(email, accessType, reason) {
+            try {
+                const response = await fetch('/.netlify/functions/addToWhitelistEnhanced', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email.trim(),
+                        accessType: accessType,
+                        reason: reason || `Pre-registration ${accessType} access`,
+                        adminKey: adminKey
+                    })
+                });
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                throw new Error(`Failed to add ${email}: ${error.message}`);
+            }
+        }
+
+        // Single user form
+        document.getElementById('addUserForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const accessType = document.getElementById('accessType').value;
+            const reason = document.getElementById('reason').value;
+            const addBtn = document.getElementById('addBtn');
+            
+            addBtn.disabled = true;
+            addBtn.textContent = 'Adding...';
+            
+            try {
+                const result = await addUserToPreRegistration(email, accessType, reason);
+                
+                if (result.success) {
+                    showMessage('message', `✅ ${result.message}`, true);
+                    document.getElementById('addUserForm').reset();
+                } else {
+                    showMessage('message', `❌ ${result.error || 'Failed to add user'}`, false);
+                }
+            } catch (error) {
+                showMessage('message', `❌ ${error.message}`, false);
+            } finally {
+                addBtn.disabled = false;
+                addBtn.textContent = 'Add User to Pre-Registration';
+            }
+        });
+
+        // Bulk addition
+        document.getElementById('bulkAddBtn').addEventListener('click', async () => {
+            const emails = document.getElementById('bulkEmails').value
+                .split('\n')
+                .map(email => email.trim())
+                .filter(email => email && email.includes('@'));
+            
+            const accessType = document.getElementById('bulkAccessType').value;
+            const reason = document.getElementById('bulkReason').value;
+            const bulkBtn = document.getElementById('bulkAddBtn');
+            
+            if (emails.length === 0) {
+                showMessage('bulkMessage', '❌ Please enter at least one valid email address', false);
+                return;
+            }
+            
+            bulkBtn.disabled = true;
+            bulkBtn.textContent = `Adding ${emails.length} users...`;
+            
+            let successCount = 0;
+            let errors = [];
+            
+            for (const email of emails) {
+                try {
+                    const result = await addUserToPreRegistration(email, accessType, reason);
+                    if (result.success) {
+                        successCount++;
+                    } else {
+                        errors.push(`${email}: ${result.error}`);
+                    }
+                } catch (error) {
+                    errors.push(`${email}: ${error.message}`);
+                }
+            }
+            
+            let message = `✅ Successfully added ${successCount}/${emails.length} users`;
+            if (errors.length > 0) {
+                message += `\n❌ Errors: ${errors.join(', ')}`;
+            }
+            
+            showMessage('bulkMessage', message, errors.length === 0);
+            
+            if (successCount > 0) {
+                document.getElementById('bulkEmails').value = '';
+                document.getElementById('bulkReason').value = '';
+            }
+            
+            bulkBtn.disabled = false;
+            bulkBtn.textContent = 'Add All Users';
+        });
+    </script>
+</body>
+</html>

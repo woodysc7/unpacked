@@ -97,6 +97,42 @@ exports.handler = async (event, context) => {
       result.access.usersPaid = true;
     }
 
+    // Additional check: Look for email-based whitelist/paid entries (pre-registration)
+    const emailDocId = email.toLowerCase().replace(/[.#$[\]@]/g, '_');
+    
+    try {
+      const emailWhitelistDoc = await admin.firestore().collection('whitelist').doc(emailDocId).get();
+      if (emailWhitelistDoc.exists()) {
+        result.access.whitelist = true;
+        result.whitelistData = emailWhitelistDoc.data();
+        console.log('Found email-based whitelist entry for:', email);
+      }
+    } catch (error) {
+      console.log('Error checking email-based whitelist:', error);
+    }
+    
+    try {
+      const preRegWhitelistDoc = await admin.firestore().collection('preregistration_whitelist').doc(emailDocId).get();
+      if (preRegWhitelistDoc.exists()) {
+        result.access.whitelist = true;
+        result.preRegWhitelistData = preRegWhitelistDoc.data();
+        console.log('Found pre-registration whitelist entry for:', email);
+      }
+    } catch (error) {
+      console.log('Error checking pre-registration whitelist:', error);
+    }
+    
+    try {
+      const preRegPaidDoc = await admin.firestore().collection('preregistration_paid').doc(emailDocId).get();
+      if (preRegPaidDoc.exists()) {
+        result.access.paid = true;
+        result.preRegPaidData = preRegPaidDoc.data();
+        console.log('Found pre-registration paid entry for:', email);
+      }
+    } catch (error) {
+      console.log('Error checking pre-registration paid:', error);
+    }
+
     // Determine overall access
     result.hasAccess = result.access.whitelist || result.access.paid || result.access.usersPaid;
     result.accessType = result.access.whitelist ? 'whitelist' : 
