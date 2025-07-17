@@ -11,16 +11,145 @@
         padding: 100px 40px; 
       }
     </style>
+    <!-- Firebase v8 SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="/firebase.js"></script>
+    <script src="/firebase-auth-enhanced.js"></script>
 </head>
 <body>
     <p>Checking access level...</p>
     <script>
-        // Check if user is whitelisted based on cookies
-        function checkAccess() {
+        // Comprehensive authentication check using enhanced Firebase module
+        async function checkAccess() {
+          console.log('=== STARTING COMPREHENSIVE AUTH CHECK ===');
+          
+          // First, check Firebase authentication using enhanced module
+          if (typeof firebase !== 'undefined' && firebase.auth && window.firebaseAuthEnhanced) {
+            try {
+              console.log('Checking Firebase authentication with enhanced module...');
+              const firebaseAuthResult = await window.firebaseAuthEnhanced.getAuthStatus();
+              if (firebaseAuthResult.hasAccess) {
+                console.log('Firebase auth granted access:', firebaseAuthResult.reason);
+                redirectToPremium();
+                return;
+              } else {
+                console.log('Firebase user not authenticated or no permissions:', firebaseAuthResult.reason);
+              }
+            } catch (error) {
+              console.log('Enhanced Firebase authentication check failed:', error);
+            }
+          }
+          
+          // Fallback: Legacy Firebase check
+          const legacyFirebaseResult = await checkFirebaseAuth();
+          if (legacyFirebaseResult.hasAccess) {
+            console.log('Legacy Firebase auth granted access:', legacyFirebaseResult.reason);
+            setAuthCookies(legacyFirebaseResult.email, legacyFirebaseResult.token);
+            redirectToPremium();
+            return;
+          }
+          
+          // Second, check existing cookies
+          const cookieAuthResult = checkCookieAuth();
+          if (cookieAuthResult.hasAccess) {
+            console.log('Cookie auth granted access:', cookieAuthResult.reason);
+            redirectToPremium();
+            return;
+          }
+          
+          // Third, check URL parameters for auto-login
+          const autoLoginResult = checkAutoLogin();
+          if (autoLoginResult.hasAccess) {
+            console.log('Auto-login granted access:', autoLoginResult.reason);
+            return; // Auto-login handles its own redirect
+          }
+          
+          // No access granted, redirect to signup
+          console.log('No access granted, redirecting to signup');
+          window.location.href = '/Atlas/Free/signup.html';
+        }
+        
+        // Check Firebase authentication and Firestore access
+        function checkFirebaseAuth() {
+          return new Promise((resolve) => {
+            firebase.auth().onAuthStateChanged(async (user) => {
+              if (!user) {
+                console.log('No Firebase user signed in');
+                resolve({ hasAccess: false, reason: 'No Firebase user' });
+                return;
+              }
+              
+              console.log('Firebase user found:', user.email);
+              
+              try {
+                const db = firebase.firestore();
+                
+                // Check whitelist
+                const whitelistDoc = await db.collection('whitelist').doc(user.uid).get();
+                if (whitelistDoc.exists()) {
+                  console.log('User is in Firebase whitelist');
+                  const token = await user.getIdToken();
+                  resolve({ 
+                    hasAccess: true, 
+                    reason: 'Firebase whitelist', 
+                    email: user.email,
+                    token: token
+                  });
+                  return;
+                }
+                
+                // Check paid collection
+                const paidDoc = await db.collection('paid').doc(user.uid).get();
+                if (paidDoc.exists()) {
+                  console.log('User is in paid collection');
+                  const token = await user.getIdToken();
+                  resolve({ 
+                    hasAccess: true, 
+                    reason: 'Firebase paid collection', 
+                    email: user.email,
+                    token: token
+                  });
+                  return;
+                }
+                
+                // Check users collection for paid status
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists() && userDoc.data().paid === true) {
+                  console.log('User has paid status in users collection');
+                  const token = await user.getIdToken();
+                  resolve({ 
+                    hasAccess: true, 
+                    reason: 'Firebase users paid status', 
+                    email: user.email,
+                    token: token
+                  });
+                  return;
+                }
+                
+                console.log('Firebase user found but no access permissions');
+                resolve({ hasAccess: false, reason: 'No Firebase permissions' });
+                
+              } catch (error) {
+                console.error('Error checking Firebase permissions:', error);
+                resolve({ hasAccess: false, reason: 'Firebase error: ' + error.message });
+              }
+            });
+            
+            // Timeout after 3 seconds if no auth state change
+            setTimeout(() => {
+              resolve({ hasAccess: false, reason: 'Firebase auth timeout' });
+            }, 3000);
+          });
+        }
+        
+        // Check existing cookie authentication
+        function checkCookieAuth() {
           const cookies = document.cookie;
           const cookiesLower = cookies.toLowerCase();
           
-          // Check if user already has auth cookies for your email (case insensitive)
+          // Check if user already has auth cookies for known emails (case insensitive)
           if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
               cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
               cookiesLower.includes('useremail=scwood26%40g.holycross.edu') ||
@@ -28,67 +157,54 @@
               cookies.includes('authToken=test_token_woodysc7') ||
               cookies.includes('authToken=test_token_wyatt') ||
               cookies.includes('authToken=test_token_scwood26')) {
-            // Redirect to premium content
-            window.location.href = '/premium-atlas-direct.html';
-            return;
+            return { hasAccess: true, reason: 'Valid cookies found' };
           }
           
-          // Check URL parameters for auto-login
+          return { hasAccess: false, reason: 'No valid cookies' };
+        }
+        
+        // Check URL parameters for auto-login
+        function checkAutoLogin() {
           const urlParams = new URLSearchParams(window.location.search);
           const autoLogin = urlParams.get('auto');
           
           if (autoLogin === 'woody') {
-            // Set authentication cookies for your access (remove secure flag for testing)
-            document.cookie = `authToken=whitelist_token; path=/; max-age=86400; samesite=strict`;
-            document.cookie = `userEmail=${encodeURIComponent('woodysc7@gmail.com')}; path=/; max-age=86400; samesite=strict`;
-            
-            // Add debug info
-            console.log('Setting cookies for auto-login');
-            console.log('Cookies after setting:', document.cookie);
-            
-            // Small delay to ensure cookies are set
-            setTimeout(() => {
-              window.location.href = '/premium-atlas-direct.html';
-            }, 100);
-            return;
+            setAuthCookies('woodysc7@gmail.com', 'whitelist_token');
+            redirectToPremium();
+            return { hasAccess: true, reason: 'Auto-login woody' };
           }
           
           if (autoLogin === 'wyatt') {
-            // Set authentication cookies for wyatt access
-            document.cookie = `authToken=test_token_wyatt; path=/; max-age=86400; samesite=strict`;
-            document.cookie = `userEmail=${encodeURIComponent('Wyattlorenzen123@gmail.com')}; path=/; max-age=86400; samesite=strict`;
-            
-            // Add debug info
-            console.log('Setting cookies for wyatt auto-login');
-            console.log('Cookies after setting:', document.cookie);
-            
-            // Small delay to ensure cookies are set
-            setTimeout(() => {
-              window.location.href = '/premium-atlas-direct.html';
-            }, 100);
-            return;
+            setAuthCookies('Wyattlorenzen123@gmail.com', 'test_token_wyatt');
+            redirectToPremium();
+            return { hasAccess: true, reason: 'Auto-login wyatt' };
           }
           
           if (autoLogin === 'scwood26') {
-            // Set authentication cookies for scwood26 access
-            document.cookie = `authToken=test_token_scwood26; path=/; max-age=86400; samesite=strict`;
-            document.cookie = `userEmail=${encodeURIComponent('scwood26@g.holycross.edu')}; path=/; max-age=86400; samesite=strict`;
-            
-            // Add debug info
-            console.log('Setting cookies for scwood26 auto-login');
-            console.log('Cookies after setting:', document.cookie);
-            
-            // Small delay to ensure cookies are set
-            setTimeout(() => {
-              window.location.href = '/premium-atlas-direct.html';
-            }, 100);
-            return;
+            setAuthCookies('scwood26@g.holycross.edu', 'test_token_scwood26');
+            redirectToPremium();
+            return { hasAccess: true, reason: 'Auto-login scwood26' };
           }
           
-          // Default: redirect to signup page
-          window.location.href = '/Atlas/Free/signup.html';
+          return { hasAccess: false, reason: 'No auto-login parameter' };
         }
         
+        // Set authentication cookies
+        function setAuthCookies(email, token) {
+          document.cookie = `authToken=${token}; path=/; max-age=86400; samesite=strict`;
+          document.cookie = `userEmail=${encodeURIComponent(email)}; path=/; max-age=86400; samesite=strict`;
+          console.log('Set auth cookies for:', email);
+        }
+        
+        // Redirect to premium content
+        function redirectToPremium() {
+          console.log('Redirecting to premium content');
+          setTimeout(() => {
+            window.location.href = '/premium-atlas-direct.html';
+          }, 100);
+        }
+        
+        // Start the authentication check
         checkAccess();
     </script>
 </body>

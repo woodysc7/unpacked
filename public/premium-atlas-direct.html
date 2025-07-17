@@ -4,15 +4,37 @@
   <meta charset="utf-8" />
   <title>Premium Atlas - Unpacked</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="/firebase.js"></script>
+  <script src="/firebase-auth-enhanced.js"></script>
+  
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script>
     // Authentication check - redirect unauthorized users
     async function checkPremiumAccess() {
+      // First, try Firebase authentication if available
+      if (typeof firebase !== 'undefined' && firebase.auth && window.firebaseAuthEnhanced) {
+        try {
+          console.log('Checking Firebase authentication...');
+          const firebaseAuth = await window.firebaseAuthEnhanced.getAuthStatus();
+          if (firebaseAuth.hasAccess) {
+            console.log('Access granted via Firebase:', firebaseAuth.reason);
+            return true;
+          }
+        } catch (error) {
+          console.log('Firebase auth check failed:', error);
+        }
+      }
+
       const cookies = document.cookie;
       const cookiesLower = cookies.toLowerCase();
       
-      // Check for valid authentication cookies (case insensitive for emails)
+      // Check for valid authentication cookies (case insensitive for emails, including scwood26)
       if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
           cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
           cookiesLower.includes('useremail=scwood26%40g.holycross.edu') ||
@@ -22,20 +44,22 @@
           cookies.includes('authToken=test_token_scwood26') ||
           cookies.includes('authToken=eyJ')) { // Any Firebase JWT token
         // User is authorized, continue loading page
+        console.log('Access granted via hardcoded cookie check');
         return true;
       }
       
-      // Additional check: For any userEmail cookie, check server-side whitelist
+      // Additional check: For any userEmail cookie, check server-side whitelist/paid status
       const userEmailMatch = cookies.match(/userEmail=([^;]+)/);
       if (userEmailMatch) {
         const userEmail = decodeURIComponent(userEmailMatch[1]);
         if (userEmail && userEmail.includes('@')) {
           try {
+            console.log('Checking server-side access for:', userEmail);
             const response = await fetch(`/.netlify/functions/checkUserAccess?email=${encodeURIComponent(userEmail)}`);
             if (response.ok) {
               const data = await response.json();
               if (data.hasAccess && (data.access.whitelist || data.access.paid || data.access.usersPaid)) {
-                console.log('User authorized via server-side whitelist check');
+                console.log('User authorized via server-side access check:', data.accessType);
                 return true;
               }
             }
@@ -45,6 +69,7 @@
         }
       }
       
+      console.log('Access denied - no valid authentication found');
       // User is not authorized, redirect to signup
       window.location.href = '/Atlas/Free/signup.html';
       return false;
