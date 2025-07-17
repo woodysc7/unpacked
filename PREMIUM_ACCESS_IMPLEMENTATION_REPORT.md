@@ -118,11 +118,6 @@ graph TD
 
 ### User Status Verification
 
-#### ✅ scwood26@g.holycross.edu
-- **Firestore Status**: ✅ Whitelist + Paid access
-- **Authentication**: ✅ Works via Firebase, cookies, and server-side
-- **Premium Content**: ✅ Full access to all content
-
 #### ✅ woodysc7@gmail.com
 - **Firestore Status**: ✅ Paid access
 - **Authentication**: ✅ Works via Firebase, cookies, and server-side
@@ -224,7 +219,7 @@ curl -X POST "https://unpacked.today/.netlify/functions/addToWhitelistEnhanced" 
 ### Verification Commands
 ```bash
 # Test API endpoints
-curl "https://unpacked.today/.netlify/functions/checkUserAccess?email=scwood26@g.holycross.edu"
+curl "https://unpacked.today/.netlify/functions/checkUserAccess?email=woodysc7@gmail.com"
 
 # Test premium content access
 curl -I "https://unpacked.today/premium-atlas-direct.html"

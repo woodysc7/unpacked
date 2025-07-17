@@ -152,11 +152,9 @@
           // Check if user already has auth cookies for known emails (case insensitive)
           if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
               cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
-              cookiesLower.includes('useremail=scwood26%40g.holycross.edu') ||
               cookies.includes('authToken=whitelist_token') ||
               cookies.includes('authToken=test_token_woodysc7') ||
-              cookies.includes('authToken=test_token_wyatt') ||
-              cookies.includes('authToken=test_token_scwood26')) {
+              cookies.includes('authToken=test_token_wyatt')) {
             return { hasAccess: true, reason: 'Valid cookies found' };
           }
           
@@ -178,12 +176,6 @@
             setAuthCookies('Wyattlorenzen123@gmail.com', 'test_token_wyatt');
             redirectToPremium();
             return { hasAccess: true, reason: 'Auto-login wyatt' };
-          }
-          
-          if (autoLogin === 'scwood26') {
-            setAuthCookies('scwood26@g.holycross.edu', 'test_token_scwood26');
-            redirectToPremium();
-            return { hasAccess: true, reason: 'Auto-login scwood26' };
           }
           
           return { hasAccess: false, reason: 'No auto-login parameter' };
