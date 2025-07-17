@@ -75,10 +75,89 @@ async function checkUserAccess(event) {
     const userEmail = decodeURIComponent(userEmailMatch[1]);
     console.log('Found authToken and userEmail:', authToken, userEmail);
     
-    // For Firebase tokens, do basic validation
+    // For Firebase tokens, try to verify and check whitelist
     if (authToken.length > 20 && userEmail.includes('@')) {
-      console.log('Valid Firebase token format, granting access');
-      return true;
+      try {
+        // Try to verify Firebase token
+        const decodedToken = await admin.auth().verifyIdToken(authToken);
+        console.log('Firebase token verified for user:', decodedToken.email);
+        
+        // Check Firebase whitelist collection
+        try {
+          const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
+          if (whitelistDoc.exists) {
+            console.log('User is in Firebase whitelist, granting access');
+            return true;
+          }
+        } catch (whitelistError) {
+          console.log('Error checking Firebase whitelist:', whitelistError.message);
+        }
+        
+        // Check if user has paid access
+        if (decodedToken.paid_access === true) {
+          console.log('User has paid access via token, granting access');
+          return true;
+        }
+        
+        // Check paid collection
+        try {
+          const paidDoc = await admin.firestore().collection('paid').doc(decodedToken.uid).get();
+          if (paidDoc.exists) {
+            console.log('User is in paid collection, granting access');
+            return true;
+          }
+        } catch (paidError) {
+          console.log('Error checking paid collection:', paidError.message);
+        }
+        
+      } catch (tokenError) {
+        console.log('Firebase token verification failed:', tokenError.message);
+        // Fall back to basic validation for test tokens
+        if (authToken.length > 20) {
+          console.log('Valid token format (non-Firebase), granting access');
+          return true;
+        }
+      }
+    }
+  }
+  
+  // Additional check: For any user with userEmail cookie, check if they're in whitelist by email
+  if (userEmailMatch) {
+    const userEmail = decodeURIComponent(userEmailMatch[1]);
+    console.log('Checking whitelist for email:', userEmail);
+    
+    try {
+      // Find user by email in users collection
+      const usersQuery = await admin.firestore().collection('users').where('email', '==', userEmail).get();
+      
+      if (!usersQuery.empty) {
+        const userDoc = usersQuery.docs[0];
+        const userUID = userDoc.id;
+        console.log('Found user UID:', userUID);
+        
+        // Check if user is in whitelist
+        const whitelistDoc = await admin.firestore().collection('whitelist').doc(userUID).get();
+        if (whitelistDoc.exists) {
+          console.log('User found in Firebase whitelist by email, granting access');
+          return true;
+        }
+        
+        // Check if user is in paid collection
+        const paidDoc = await admin.firestore().collection('paid').doc(userUID).get();
+        if (paidDoc.exists) {
+          console.log('User found in paid collection by email, granting access');
+          return true;
+        }
+        
+        // Check users.paid field
+        const userData = userDoc.data();
+        if (userData.paid === true) {
+          console.log('User has paid field set to true, granting access');
+          return true;
+        }
+      }
+    } catch (emailCheckError) {
+      console.log('Error checking whitelist by email:', emailCheckError.message);
     }
   }
 

@@ -23,9 +23,11 @@
           // Check if user already has auth cookies for your email (case insensitive)
           if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
               cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
+              cookiesLower.includes('useremail=scwood26%40g.holycross.edu') ||
               cookies.includes('authToken=whitelist_token') ||
               cookies.includes('authToken=test_token_woodysc7') ||
-              cookies.includes('authToken=test_token_wyatt')) {
+              cookies.includes('authToken=test_token_wyatt') ||
+              cookies.includes('authToken=test_token_scwood26')) {
             // Redirect to premium content
             window.location.href = '/premium-atlas-direct.html';
             return;
@@ -58,6 +60,22 @@
             
             // Add debug info
             console.log('Setting cookies for wyatt auto-login');
+            console.log('Cookies after setting:', document.cookie);
+            
+            // Small delay to ensure cookies are set
+            setTimeout(() => {
+              window.location.href = '/premium-atlas-direct.html';
+            }, 100);
+            return;
+          }
+          
+          if (autoLogin === 'scwood26') {
+            // Set authentication cookies for scwood26 access
+            document.cookie = `authToken=test_token_scwood26; path=/; max-age=86400; samesite=strict`;
+            document.cookie = `userEmail=${encodeURIComponent('scwood26@g.holycross.edu')}; path=/; max-age=86400; samesite=strict`;
+            
+            // Add debug info
+            console.log('Setting cookies for scwood26 auto-login');
             console.log('Cookies after setting:', document.cookie);
             
             // Small delay to ensure cookies are set
