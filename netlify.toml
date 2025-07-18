@@ -21,7 +21,4 @@
   to = "/.netlify/functions/servePaidContentNew?page=:splat"
   status = 200
 
-[[redirects]]
-  from = "/PaidContent/*"
-  to = "/.netlify/functions/servePaidContentNew?page=:splat"
-  status = 200
+# Note: /PaidContent/* serves static files directly with client-side auth-check.js

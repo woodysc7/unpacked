@@ -25,14 +25,11 @@ async function checkPremiumAccess() {
   const cookies = document.cookie;
   const cookiesLower = cookies.toLowerCase();
   
-  // Check for valid authentication cookies (case insensitive for emails)
-  if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
-      cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
-      cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7') ||
-      cookies.includes('authToken=test_token_wyatt')) {
+  // Check for valid authentication cookies
+  if (cookies.includes('authToken=whitelist_token') ||
+      cookies.includes('paid_access=true')) {
     // User is authorized, continue loading page
-    console.log('✅ Access granted via hardcoded cookie check');
+    console.log('✅ Access granted via cookie check');
     return true;
   }
   
