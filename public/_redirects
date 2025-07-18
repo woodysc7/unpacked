@@ -1,7 +1,8 @@
-# Protect paid content - redirect all paid access to function  
+# Protect paid content - redirect only generic paths to function  
 /Paid/*  /.netlify/functions/servePaidContentNew  200
 /paid/*  /.netlify/functions/servePaidContentNew  200
-/PaidContent/*  /.netlify/functions/servePaidContentNew  200
+
+# Note: /PaidContent/* files serve static HTML with client-side authentication
 
 # Root redirect to signup
 /  /Atlas/Free/signup.html  200

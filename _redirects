@@ -1,6 +1,8 @@
-# Protect paid content - redirect all paid access to function  
-/Paid/*  /.netlify/functions/servePaidContent?page=:splat  200!
-/paid/*  /.netlify/functions/servePaidContent?page=:splat  200!
+# Protect paid content - redirect only generic paths to function  
+/Paid/*  /.netlify/functions/servePaidContentNew?page=:splat  200!
+/paid/*  /.netlify/functions/servePaidContentNew?page=:splat  200!
 
-# Root redirect to signup
-/  /Free/signup.html  200
+# Note: /PaidContent/* files serve static HTML with client-side authentication
+
+# Root redirect to index
+/  /index.html  200
