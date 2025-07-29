@@ -1,5 +1,13 @@
 // Wait for DOM to be ready and Firebase to be initialized
 document.addEventListener('DOMContentLoaded', function() {
+    const freeBtn = document.getElementById('free-btn');
+  if (freeBtn) {
+    freeBtn.onclick = function () {
+      console.log("Free Atlas button clicked. Redirecting...");
+      window.location.href = 'Atlas.html';
+    };
+  }
+
   // Use Firebase v8 syntax to match firebase.js
   const auth = firebase.auth();
   const db = firebase.firestore();
