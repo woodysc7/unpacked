@@ -31,9 +31,9 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // For testing - mark woodysc7@gmail.com or wyattlorenzen123@gmail.com as paid (case insensitive)
+    // For testing - mark woodysc7@gmail.com, wyattlorenzen123@gmail.com and bmcapo26@g.holycross.edu as paid (case insensitive)
     const emailLower = email.toLowerCase();
-    if (emailLower === "woodysc7@gmail.com" || emailLower === "wyattlorenzen123@gmail.com") {
+    if (emailLower === "woodysc7@gmail.com" || emailLower==="bmcapo26@g.holycross.edu"|| emailLower === "wyattlorenzen123@gmail.com") {
       // Find user by email
       const userQuery = await admin.auth().getUserByEmail(email);
       const uid = userQuery.uid;

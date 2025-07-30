@@ -24,7 +24,7 @@ async function checkUserAccess(event) {
   
   // Check for test parameter access first
   const testParam = event.queryStringParameters?.test;
-  if (testParam === 'woodysc7' || testParam === 'wyatt') {
+  if (testParam === 'woodysc7' || testParam === 'wyatt' || testParam === 'bmcapo26') {
     console.log('Test parameter access granted for:', testParam);
     return true;
   }
@@ -35,15 +35,19 @@ async function checkUserAccess(event) {
   
   // Check for whitelisted email cookie (userEmail format) - case insensitive
   const cookiesLower = cookies.toLowerCase();
-  if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
-      cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
-      cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7') ||
-      cookies.includes('authToken=test_token_wyatt')) {
+  if (
+    cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
+    cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
+    cookiesLower.includes('useremail=bmcapo26%40g.holycross.edu') ||
+    cookies.includes('authToken=whitelist_token') ||
+    cookies.includes('authToken=test_token_woodysc7') ||
+    cookies.includes('authToken=test_token_wyatt') ||
+    cookies.includes('authToken=test_token_bmcapo26')
+  ) {
     console.log('Found whitelisted auth cookies, granting access');
     return true;
   }
-  
+
   // Also check for legacy auth_email format
   const authEmailMatch = cookies.match(/auth_email=([^;]+)/);
   if (authEmailMatch) {
@@ -51,7 +55,7 @@ async function checkUserAccess(event) {
     console.log('Found auth_email cookie:', email);
     
     // Check if email is whitelisted (case insensitive)
-    const whitelistedEmails = ['woodysc7@gmail.com', 'wyattlorenzen123@gmail.com'];
+    const whitelistedEmails = ['woodysc7@gmail.com', 'wyattlorenzen123@gmail.com', 'bmcapo26@g.holycross.edu'];
     if (whitelistedEmails.some(whitelistedEmail => whitelistedEmail.toLowerCase() === email.toLowerCase())) {
       console.log('Email is whitelisted, granting access');
       return true;

@@ -149,14 +149,18 @@
           const cookies = document.cookie;
           const cookiesLower = cookies.toLowerCase();
           
-          // Check if user already has auth cookies for known emails (case insensitive)
-          if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
-              cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
-              cookies.includes('authToken=whitelist_token') ||
-              cookies.includes('authToken=test_token_woodysc7') ||
-              cookies.includes('authToken=test_token_wyatt')) {
-            return { hasAccess: true, reason: 'Valid cookies found' };
-          }
+// Check if user already has auth cookies for known emails (case insensitive)
+if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
+    cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
+    cookiesLower.includes('useremail=bmcapo26%40g.holycross.edu') ||
+    cookies.includes('authToken=whitelist_token') ||
+    cookies.includes('authToken=test_token_woodysc7') ||
+    cookies.includes('authToken=test_token_wyatt') ||
+    cookies.includes('authToken=test_token_ben')) {
+  return { hasAccess: true, reason: 'Valid cookies found' };
+}
+
+
           
           return { hasAccess: false, reason: 'No valid cookies' };
         }
@@ -166,18 +170,24 @@
           const urlParams = new URLSearchParams(window.location.search);
           const autoLogin = urlParams.get('auto');
           
-          if (autoLogin === 'woody') {
-            setAuthCookies('woodysc7@gmail.com', 'whitelist_token');
-            redirectToPremium();
-            return { hasAccess: true, reason: 'Auto-login woody' };
-          }
-          
-          if (autoLogin === 'wyatt') {
-            setAuthCookies('Wyattlorenzen123@gmail.com', 'test_token_wyatt');
-            redirectToPremium();
-            return { hasAccess: true, reason: 'Auto-login wyatt' };
-          }
-          
+         if (autoLogin === 'woody') {
+  setAuthCookies('woodysc7@gmail.com', 'whitelist_token');
+  redirectToPremium();
+  return { hasAccess: true, reason: 'Auto-login woody' };
+}
+
+if (autoLogin === 'wyatt') {
+  setAuthCookies('Wyattlorenzen123@gmail.com', 'test_token_wyatt');
+  redirectToPremium();
+  return { hasAccess: true, reason: 'Auto-login wyatt' };
+}
+
+if (autoLogin === 'ben') {
+  setAuthCookies('bmcapo26@g.holycross.edu', 'test_token_ben');
+  redirectToPremium();
+  return { hasAccess: true, reason: 'Auto-login ben' };
+}
+
           return { hasAccess: false, reason: 'No auto-login parameter' };
         }
         

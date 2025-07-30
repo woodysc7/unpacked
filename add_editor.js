@@ -19,7 +19,7 @@ if (!admin.apps.length) {
 
 async function addEditorToWhitelist() {
   try {
-    const email = "Wyattlorenzen123@gmail.com";
+    const email = "bmcapo26@g.holycross.edu";
     const reason = "editor";
     
     console.log(`Adding ${email} to whitelist with reason: ${reason}`);

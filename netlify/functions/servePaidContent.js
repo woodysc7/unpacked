@@ -20,9 +20,9 @@ async function checkUserAccess(event) {
   console.log('Headers:', JSON.stringify(event.headers, null, 2));
   console.log('Query params:', event.queryStringParameters);
   
-  // Check for test parameter access first
+  // Check for test parameter access first (woodysc7, wyatt, bmcapo26)
   const testParam = event.queryStringParameters?.test;
-  if (testParam === 'woodysc7' || testParam === 'wyatt') {
+  if (testParam === 'woodysc7' || testParam === 'wyatt' || testParam === 'bmcapo26') {
     console.log('Test parameter access granted for:', testParam);
     return true;
   }
@@ -31,25 +31,39 @@ async function checkUserAccess(event) {
   const cookies = event.headers.cookie || '';
   console.log('Checking cookies:', cookies);
   
-  // Check for whitelisted email cookie (userEmail format) - case insensitive
+  // Lowercase for case-insensitive email cookie checks
   const cookiesLower = cookies.toLowerCase();
-  if (cookiesLower.includes('useremail=woodysc7%40gmail.com') || 
-      cookiesLower.includes('useremail=wyattlorenzen123%40gmail.com') ||
-      cookies.includes('authToken=whitelist_token') ||
-      cookies.includes('authToken=test_token_woodysc7') ||
-      cookies.includes('authToken=test_token_wyatt')) {
+
+  // Whitelisted emails (urlencoded in cookies)
+  const whitelistedEmailsEncoded = [
+    'woodysc7%40gmail.com',
+    'wyattlorenzen123%40gmail.com',
+    'bmcapo26%40g.holycross.edu'  // Ben's email added here
+  ];
+  
+  if (
+    whitelistedEmailsEncoded.some(emailEncoded => cookiesLower.includes('useremail=' + emailEncoded)) ||
+    // Also check authToken cookies for known test tokens for all 3 users
+    cookies.includes('authToken=whitelist_token') ||
+    cookies.includes('authToken=test_token_woodysc7') ||
+    cookies.includes('authToken=test_token_wyatt') ||
+    cookies.includes('authToken=test_token_bmcapo26')  // Added Ben’s test token here
+  ) {
     console.log('Found whitelisted auth cookies, granting access');
     return true;
   }
   
-  // Also check for legacy auth_email format
+  // Check for legacy auth_email cookie (decode for check)
   const authEmailMatch = cookies.match(/auth_email=([^;]+)/);
   if (authEmailMatch) {
     const email = decodeURIComponent(authEmailMatch[1]);
     console.log('Found auth_email cookie:', email);
     
-    // Check if email is whitelisted (case insensitive)
-    const whitelistedEmails = ['woodysc7@gmail.com', 'wyattlorenzen123@gmail.com'];
+    const whitelistedEmails = [
+      'woodysc7@gmail.com', 
+      'wyattlorenzen123@gmail.com',
+      'bmcapo26@g.holycross.edu'  // Ben's email here too
+    ];
     if (whitelistedEmails.some(whitelistedEmail => whitelistedEmail.toLowerCase() === email.toLowerCase())) {
       console.log('Email is whitelisted, granting access');
       return true;
@@ -66,7 +80,7 @@ async function checkUserAccess(event) {
     }
   }
   
-  // Check for authToken and userEmail cookies more thoroughly
+  // Check for authToken and userEmail cookies together
   const authTokenMatch = cookies.match(/authToken=([^;]+)/);
   const userEmailMatch = cookies.match(/userEmail=([^;]+)/);
   
@@ -75,14 +89,12 @@ async function checkUserAccess(event) {
     const userEmail = decodeURIComponent(userEmailMatch[1]);
     console.log('Found authToken and userEmail:', authToken, userEmail);
     
-    // For Firebase tokens, try to verify and check whitelist
     if (authToken.length > 20 && userEmail.includes('@')) {
       try {
-        // Try to verify Firebase token
         const decodedToken = await admin.auth().verifyIdToken(authToken);
         console.log('Firebase token verified for user:', decodedToken.email);
         
-        // Check Firebase whitelist collection
+        // Check whitelist collection
         try {
           const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
           if (whitelistDoc.exists) {
@@ -93,7 +105,7 @@ async function checkUserAccess(event) {
           console.log('Error checking Firebase whitelist:', whitelistError.message);
         }
         
-        // Check if user has paid access
+        // Check paid_access claim
         if (decodedToken.paid_access === true) {
           console.log('User has paid access via token, granting access');
           return true;
@@ -112,7 +124,7 @@ async function checkUserAccess(event) {
         
       } catch (tokenError) {
         console.log('Firebase token verification failed:', tokenError.message);
-        // Fall back to basic validation for test tokens
+        // Fall back to basic valid token length check
         if (authToken.length > 20) {
           console.log('Valid token format (non-Firebase), granting access');
           return true;
@@ -121,35 +133,33 @@ async function checkUserAccess(event) {
     }
   }
   
-  // Additional check: For any user with userEmail cookie, check if they're in whitelist by email
+  // Check whitelist by userEmail cookie if exists
   if (userEmailMatch) {
     const userEmail = decodeURIComponent(userEmailMatch[1]);
     console.log('Checking whitelist for email:', userEmail);
     
     try {
-      // Find user by email in users collection
       const usersQuery = await admin.firestore().collection('users').where('email', '==', userEmail).get();
-      
       if (!usersQuery.empty) {
         const userDoc = usersQuery.docs[0];
         const userUID = userDoc.id;
         console.log('Found user UID:', userUID);
         
-        // Check if user is in whitelist
+        // Check whitelist
         const whitelistDoc = await admin.firestore().collection('whitelist').doc(userUID).get();
         if (whitelistDoc.exists) {
           console.log('User found in Firebase whitelist by email, granting access');
           return true;
         }
         
-        // Check if user is in paid collection
+        // Check paid collection
         const paidDoc = await admin.firestore().collection('paid').doc(userUID).get();
         if (paidDoc.exists) {
           console.log('User found in paid collection by email, granting access');
           return true;
         }
         
-        // Check users.paid field
+        // Check paid field in user doc
         const userData = userDoc.data();
         if (userData.paid === true) {
           console.log('User has paid field set to true, granting access');
@@ -161,7 +171,7 @@ async function checkUserAccess(event) {
     }
   }
 
-  // Check Firebase ID token if available
+  // Check Firebase ID token in Authorization header
   const authHeader = event.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const idToken = authHeader.split('Bearer ')[1];
@@ -169,18 +179,12 @@ async function checkUserAccess(event) {
       const decodedToken = await admin.auth().verifyIdToken(idToken);
       console.log('Firebase token verified for user:', decodedToken.email);
       
-      // Check Firebase whitelist collection
-      try {
-        const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
-        if (whitelistDoc.exists) {
-          console.log('User is in Firebase whitelist, granting access');
-          return true;
-        }
-      } catch (whitelistError) {
-        console.log('Error checking Firebase whitelist:', whitelistError.message);
+      const whitelistDoc = await admin.firestore().collection('whitelist').doc(decodedToken.uid).get();
+      if (whitelistDoc.exists) {
+        console.log('User is in Firebase whitelist, granting access');
+        return true;
       }
       
-      // Check if user has paid access
       if (decodedToken.paid_access === true) {
         return true;
       }
@@ -386,41 +390,53 @@ exports.handler = async (event, context) => {
 
             <div class="grid">
               <div class="card">
-                <h3>� North America</h3>
+                <h3>🌎 North America</h3>
                 <p>Explore the United States, Canada, and Mexico with detailed city guides and travel information.</p>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/unitedstates/unitedstateshome&test=woodysc7" class="nav-link">🇺🇸 USA</a>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/canada/canadahome&test=woodysc7" class="nav-link">🇨🇦 Canada</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/unitedstates/unitedstateshome&test=woodysc7" class="nav-link">🇺🇸 USA (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/unitedstates/unitedstateshome&test=wyatt" class="nav-link">🇺🇸 USA (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/unitedstates/unitedstateshome&test=bmcapo26" class="nav-link">🇺🇸 USA (Ben)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/canada/canadahome&test=woodysc7" class="nav-link">🇨🇦 Canada (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/canada/canadahome&test=wyatt" class="nav-link">🇨🇦 Canada (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/canada/canadahome&test=bmcapo26" class="nav-link">🇨🇦 Canada (Ben)</a>
               </div>
               
               <div class="card">
-                <h3>� Europe</h3>
+                <h3>🌍 Europe</h3>
                 <p>Discover European capitals, cultural sites, and hidden gems across the continent.</p>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/france/francehome&test=woodysc7" class="nav-link">🇫🇷 France</a>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/italy/italyhome&test=woodysc7" class="nav-link">�🇹 Italy</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/france/francehome&test=woodysc7" class="nav-link">🇫🇷 France (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/france/francehome&test=wyatt" class="nav-link">🇫🇷 France (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/france/francehome&test=bmcapo26" class="nav-link">🇫🇷 France (Ben)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/italy/italyhome&test=woodysc7" class="nav-link">🇮🇹 Italy (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/italy/italyhome&test=wyatt" class="nav-link">🇮🇹 Italy (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/italy/italyhome&test=bmcapo26" class="nav-link">🇮🇹 Italy (Ben)</a>
               </div>
               
               <div class="card">
-                <h3>� Asia</h3>
+                <h3>🌏 Asia</h3>
                 <p>Journey through diverse Asian cultures, from bustling cities to serene landscapes.</p>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/japan/japanhome&test=woodysc7" class="nav-link">🇯🇵 Japan</a>
-                <a href="/.netlify/functions/servePaidContent?page=Countries/china/chinahome&test=woodysc7" class="nav-link">🇨🇳 China</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/japan/japanhome&test=woodysc7" class="nav-link">🇯🇵 Japan (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/japan/japanhome&test=wyatt" class="nav-link">🇯🇵 Japan (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/japan/japanhome&test=bmcapo26" class="nav-link">🇯🇵 Japan (Ben)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/china/chinahome&test=woodysc7" class="nav-link">🇨🇳 China (Sam)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/china/chinahome&test=wyatt" class="nav-link">🇨🇳 China (Wyatt)</a>
+                <a href="/.netlify/functions/servePaidContent?page=Countries/china/chinahome&test=bmcapo26" class="nav-link">🇨🇳 China (Ben)</a>
               </div>
             </div>
 
             <div style="text-align: center; margin: 40px 0;">
               <h3>🏙️ Popular Cities</h3>
-              <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=woodysc7" class="nav-link">🗽 New York</a>
-              <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=woodysc7" class="nav-link">🏛️ London</a>
-              <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=woodysc7" class="nav-link">🗼 Paris</a>
-              <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=woodysc7" class="nav-link">🏯 Tokyo</a>
-              <br><br>
-              <div style="font-size: 0.9em; color: #888;">
-                <strong>Wyatt access:</strong>
-                <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗽 NYC</a>
-                <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏛️ London</a>
-                <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🗼 Paris</a>
-                <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=wyatt" class="nav-link" style="font-size: 0.9em; padding: 8px 16px;">🏯 Tokyo</a>
-              </div>
+              <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=woodysc7" class="nav-link">🗽 New York (Sam)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=wyatt" class="nav-link">🗽 New York (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/newyorkunitedstates&test=bmcapo26" class="nav-link">🗽 New York (Ben)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=woodysc7" class="nav-link">🏛️ London (Sam)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=wyatt" class="nav-link">🏛️ London (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/londonunitedkingdom&test=bmcapo26" class="nav-link">🏛️ London (Ben)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=woodysc7" class="nav-link">🗼 Paris (Sam)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=wyatt" class="nav-link">🗼 Paris (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/parisfrench&test=bmcapo26" class="nav-link">🗼 Paris (Ben)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=woodysc7" class="nav-link">🏯 Tokyo (Sam)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=wyatt" class="nav-link">🏯 Tokyo (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=cities/tokyojapan&test=bmcapo26" class="nav-link">🏯 Tokyo (Ben)</a>
             </div>
 
             <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #eee;">
@@ -431,7 +447,6 @@ exports.handler = async (event, context) => {
         </html>
       `;
     } else {
-      // For any other page, serve a generic premium content page
       content = `
         <!DOCTYPE html>
         <html lang="en">
@@ -508,8 +523,9 @@ exports.handler = async (event, context) => {
             </div>
 
             <div style="text-align: center; margin: 30px 0;">
-              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7" class="nav-link">🗺️ Full Atlas</a>
+              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=woodysc7" class="nav-link">🗺️ Full Atlas (Sam)</a>
               <a href="/.netlify/functions/servePaidContent?page=Atlas&test=wyatt" class="nav-link">🗺️ Full Atlas (Wyatt)</a>
+              <a href="/.netlify/functions/servePaidContent?page=Atlas&test=bmcapo26" class="nav-link">🗺️ Full Atlas (Ben)</a>
               <a href="/Atlas/Free/Atlas.html" class="nav-link">🆓 Free Version</a>
             </div>
           </div>
@@ -517,7 +533,7 @@ exports.handler = async (event, context) => {
         </html>
       `;
     }
-    
+
     return {
       statusCode: 200,
       headers: { 
