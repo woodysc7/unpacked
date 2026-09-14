@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "City",
+  "description": "City entity in UNPACKED knowledge base",
+  "type": "object",
+  "required": ["city_id", "name", "country_id", "coordinates", "knowledge_status", "sources", "confidence", "date_added"],
+  "properties": {
+    "city_id": {
+      "type": "string",
+      "description": "Canonical deterministic identifier for the city"
+    },
+    "name": {
+      "type": "string",
+      "description": "City name"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug for the city"
+    },
+    "aliases": {
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "country_id": {
+      "type": "string",
+      "description": "Reference to country_id"
+    },
+    "coordinates": {
+        "oneOf": [
+            {
+                "type": "object",
+                "required": ["lat", "lon"],
+                "properties": {
+                    "lat": {
+                        "type": "number",
+                        "minimum": -90,
+                        "maximum": 90
+                    },
+                    "lon": {
+                        "type": "number",
+                        "minimum": -180,
+                        "maximum": 180
+                    }
+                }
+            },
+            {
+                "type": "null"
+            }
+        ]
+    },
+    "overview": {
+      "type": "string",
+      "description": "Description text about the city"
+    },
+    "tourscore": {
+      "type": "number",
+      "description": "0-100 rating from legacy content",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "population": {
+      "type": "integer",
+      "description": "Estimated population"
+    },
+    "time_zone": {
+      "type": "string",
+      "description": "IANA time zone"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string", "enum": ["alternate_spelling", "variant", "native_name", "historical"]}
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "source.schema.json"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "unknown"],
+      "description": "Confidence level in the data"
+    },
+    "knowledge_status": {
+      "type": "string",
+      "enum": ["geographic_only", "legacy_content", "partially_verified", "verified"],
+      "description": "Status of knowledge verification"
+    },
+    "date_added": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this record was added to knowledge base"
+    },
+    "date_verified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When data was last verified"
+    }
+  }
+}

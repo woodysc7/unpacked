@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Source",
+  "description": "Source metadata for provenance tracking",
+  "type": "object",
+  "required": ["source_type", "source_id", "date_added"],
+  "properties": {
+    "source_type": {
+      "type": "string",
+      "enum": ["legacy_unpacked", "official_source", "external_source", "personal_experience", "user_input", "agent_research"],
+      "description": "Type of data source"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Identifier for the specific source (e.g., HTML filename, API endpoint)"
+    },
+    "source_identifier": {
+      "type": "string",
+      "description": "Original stable identifier from source if available"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable source name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Source description"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source URL if applicable"
+    },
+    "author": {
+      "type": "string",
+      "description": "Who created this source"
+    },
+    "created_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When source was originally created"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When source was last updated"
+    },
+    "extraction_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When data was extracted from this source"
+    },
+    "extraction_method": {
+      "type": "string",
+      "description": "Method used for extraction (e.g., automated_html_parser, manual_entry)"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "unknown"],
+      "description": "Confidence in this specific source"
+    },
+    "fields_provided": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Fields this source provided"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context about the source"
+    },
+    "date_added": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this source record was added to knowledge base"
+    },
+    "last_verified": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When this source was last verified"
+    }
+  }
+}

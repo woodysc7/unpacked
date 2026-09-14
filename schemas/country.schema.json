@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Country",
+  "description": "Country entity in UNPACKED knowledge base",
+  "type": "object",
+  "required": ["country_id", "name", "sources", "confidence", "knowledge_status", "date_added"],
+  "properties": {
+    "country_id": {
+      "type": "string",
+      "description": "Canonical deterministic identifier for the country"
+    },
+    "name": {
+      "type": "string",
+      "description": "Common name of the country"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug for the country"
+    },
+    "aliases": {
+        "type": "array",
+        "items": {
+            "type": "string"
+        }
+    },
+    "name_official": {
+      "type": "string",
+      "description": "Official country name"
+    },
+    "iso2": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 code",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "iso3": {
+      "type": "string", 
+      "description": "ISO 3166-1 alpha-3 code",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "capital_city_id": {
+      "type": "string",
+      "description": "Reference to city_id of capital"
+    },
+    "region": {
+      "type": "string",
+      "description": "Geographic region"
+    },
+    "subregion": {
+      "type": "string",
+      "description": "Geographic subregion"
+    },
+    "overview": {
+      "type": "string",
+      "description": "Description text about the country"
+    },
+    "tourscore": {
+      "type": "integer",
+      "description": "0-100 rating from legacy content",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "price_level": {
+      "type": "string",
+      "description": "Price category",
+      "enum": ["Affordable", "Moderate", "Expensive", "Unknown"]
+    },
+    "safety_level": {
+      "type": "string",
+      "description": "Safety assessment",
+      "enum": ["Very Safe", "Safe", "Risky", "Dangerous", "Unknown"]
+    },
+    "weather_summary": {
+      "type": "string",
+      "description": "General weather description"
+    },
+    "primary_language": {
+      "type": "string",
+      "description": "Main language(s)"
+    },
+    "accessibility_note": {
+      "type": "string",
+      "description": "Accessibility assessment (e.g., 'Should I bring Grandma?')"
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code"
+    },
+    "population": {
+      "type": "integer",
+      "description": "Estimated population"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "type": {"type": "string", "enum": ["alternate_spelling", "variant", "native_name", "historical"]}
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "source.schema.json"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low", "unknown"],
+      "description": "Confidence level in the data"
+    },
+    "knowledge_status": {
+      "type": "string",
+      "enum": ["geographic_only", "legacy_content", "partially_verified", "verified"],
+      "description": "Status of knowledge verification"
+    },
+    "date_added": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this record was added to knowledge base"
+    },
+    "date_verified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When data was last verified"
+    }
+  }
+}

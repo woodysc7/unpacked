@@ -1,0 +1,347 @@
+[
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-japan-home-html",
+    "date_added": "2026-09-13T19:08:34.870Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: japan",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.870Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-france-home-html",
+    "date_added": "2026-09-13T19:08:34.876Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: france",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.876Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-unitedstates-home-html",
+    "date_added": "2026-09-13T19:08:34.880Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: unitedstates",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.880Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-brazil-home-html",
+    "date_added": "2026-09-13T19:08:34.883Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: brazil",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.883Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-egypt-home-html",
+    "date_added": "2026-09-13T19:08:34.885Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: egypt",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.885Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-australia-home-html",
+    "date_added": "2026-09-13T19:08:34.888Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: australia",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.888Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-india-home-html",
+    "date_added": "2026-09-13T19:08:34.890Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: india",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.890Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-mexico-home-html",
+    "date_added": "2026-09-13T19:08:34.891Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: mexico",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.891Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-thailand-home-html",
+    "date_added": "2026-09-13T19:08:34.894Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: thailand",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.894Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-southafrica-home-html",
+    "date_added": "2026-09-13T19:08:34.896Z",
+    "confidence": "medium",
+    "name": "UNPACKED Country Home: southafrica",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.896Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore",
+      "price_level",
+      "safety_level",
+      "weather",
+      "language",
+      "accessibility_note"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-cities-json",
+    "date_added": "2026-09-13T19:08:34.898Z",
+    "confidence": "medium",
+    "name": "UNPACKED Cities Geographic Database",
+    "source_identifier": "tokyo",
+    "extraction_method": "json_parse",
+    "extraction_date": "2026-09-13T19:08:34.898Z",
+    "fields_provided": [
+      "name",
+      "coordinates",
+      "country"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-tokyojapan-html",
+    "date_added": "2026-09-13T19:08:34.903Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: tokyojapan",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.903Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-parisfrance-html",
+    "date_added": "2026-09-13T19:08:34.906Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: parisfrance",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.906Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-newyorkcityunitedstates-html",
+    "date_added": "2026-09-13T19:08:34.912Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: newyorkcityunitedstates",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.912Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-riodejaneirobrazil-html",
+    "date_added": "2026-09-13T19:08:34.915Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: riodejaneirobrazil",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.915Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-cairoegypt-html",
+    "date_added": "2026-09-13T19:08:34.917Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: cairoegypt",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.917Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-sydneyaustralia-html",
+    "date_added": "2026-09-13T19:08:34.923Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: sydneyaustralia",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.923Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-delhiindia-html",
+    "date_added": "2026-09-13T19:08:34.931Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: delhiindia",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.931Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-mexicocitymexico-html",
+    "date_added": "2026-09-13T19:08:34.934Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: mexicocitymexico",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.934Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-bangkokthailand-html",
+    "date_added": "2026-09-13T19:08:34.936Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: bangkokthailand",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.936Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  },
+  {
+    "source_type": "legacy_unpacked",
+    "source_id": "unpacked-capetownsouthafrica-html",
+    "date_added": "2026-09-13T19:08:34.939Z",
+    "confidence": "medium",
+    "name": "UNPACKED City Guide: capetownsouthafrica",
+    "extraction_method": "automated_html_parser",
+    "extraction_date": "2026-09-13T19:08:34.939Z",
+    "fields_provided": [
+      "name",
+      "overview",
+      "tourscore"
+    ]
+  }
+]

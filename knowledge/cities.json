@@ -1,0 +1,6532 @@
+[
+  {
+    "city_id": "829cf75f35908d40682504e0a96c6aa8dd7d022f",
+    "name": "tokyo",
+    "slug": "tokyo-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 35.6828387,
+      "lon": 139.7594549
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tokyo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.721Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a78db9670330875dc9bcb6a0a368906e80a3265d",
+    "name": "delhi",
+    "slug": "delhi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.6517178,
+      "lon": 77.2219388
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "delhi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2fd9549d42aee889dbaaccbbcca2916417dfb44f",
+    "name": "saopaulo",
+    "slug": "saopaulo-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -23.5506507,
+      "lon": -46.6333824
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "saopaulo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7cdcee9784c304ac1ba6a395acd30f765262ffe5",
+    "name": "mexicocity",
+    "slug": "mexicocity-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.4326296,
+      "lon": -99.1331785
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mexicocity",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1cded27e05e5092f3977f929db7c29b444dc936f",
+    "name": "cairo",
+    "slug": "cairo-egypt",
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.0443879,
+      "lon": 31.2357257
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cairo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "edcc93bd83199d58457da15add2c368c6c5a7d42",
+    "name": "mumbai",
+    "slug": "mumbai-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.0759899,
+      "lon": 72.8773928
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mumbai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "19a03d59d1ddfbfcdb5b233d030e9ca5d4cf4a79",
+    "name": "osaka",
+    "slug": "osaka-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.6198813,
+      "lon": 135.490357
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "osaka",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d98ff79831978d88dd6c4c279e1ba297a09cafb4",
+    "name": "kolkata",
+    "slug": "kolkata-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.5414185,
+      "lon": 88.3576912
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kolkata",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2150a3e7c62e9bae51948f347d20981c53a40e37",
+    "name": "riodejaneiro",
+    "slug": "riodejaneiro-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -22.9110137,
+      "lon": -43.2093727
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "riodejaneiro",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2a87054bee4488a36d3ac5008b44b980b5b090e8",
+    "name": "bangalore",
+    "slug": "bangalore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 12.9767936,
+      "lon": 77.590082
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bangalore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e841353556d9d3ee4b828020d86c985283e267d6",
+    "name": "chennai",
+    "slug": "chennai-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.0836939,
+      "lon": 80.270186
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chennai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "52e72b8ce0ea5b86e88dbd57cd06ae69de3c2ae1",
+    "name": "paris",
+    "slug": "paris-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 48.8588897,
+      "lon": 2.320041
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "paris",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "672ecfc323149a480a0fe6a22134744fa19a2cc4",
+    "name": "bangkok",
+    "slug": "bangkok-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.7525438,
+      "lon": 100.4934734
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bangkok",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "49ea5ff0b844f991e7f631420a9d42cca8e6f24e",
+    "name": "hyderabad",
+    "slug": "hyderabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.360589,
+      "lon": 78.4740613
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "hyderabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1d72b926e7e1f680f231a2885c51dcd0573117d3",
+    "name": "nagoya",
+    "slug": "nagoya-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 35.1851045,
+      "lon": 136.8998438
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nagoya",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a62f6d6d85e7c6d7aa16a18e10be9db224d63ee6",
+    "name": "ahmedabad",
+    "slug": "ahmedabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.0216238,
+      "lon": 72.5797068
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ahmedabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "097edd71d8e07ce69ef49e6d0b8c6b9f36abf08f",
+    "name": "newyorkcity",
+    "slug": "newyorkcity-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 40.7127281,
+      "lon": -74.0060152
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "newyorkcity",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2bd670301f0539722822784cb00f495b1c8ac03c",
+    "name": "surat",
+    "slug": "surat-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 45.9383,
+      "lon": 3.2553
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "surat",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7b1aa496f747f5c80d770b8781ecc6e505ff790f",
+    "name": "pune",
+    "slug": "pune-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 18.521428,
+      "lon": 73.8544541
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "pune",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ef4525ae00c13a1aca21f7f9945f3fa0fcd293e8",
+    "name": "belohorizonte",
+    "slug": "belohorizonte-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -19.9227318,
+      "lon": -43.9450948
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "belohorizonte",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "978c0cf5be519edbb719097f522ee47a4af609ec",
+    "name": "johannesburg",
+    "slug": "johannesburg-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -26.205,
+      "lon": 28.049722
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "johannesburg",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "fec622a0b2145968da25bf51aaa639ac7998cf98",
+    "name": "fukuoka",
+    "slug": "fukuoka-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 33.6251241,
+      "lon": 130.6180016
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "fukuoka",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "464bf9653ccd52feac9dfe92ef01f729dd8c3ede",
+    "name": "alexandria",
+    "slug": "alexandria-egypt",
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.199004,
+      "lon": 29.894378
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "alexandria",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e7756eda730d739d8c8b59afd83cc91b60e7d9f2",
+    "name": "guadalajara",
+    "slug": "guadalajara-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.6720375,
+      "lon": -103.338396
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "guadalajara",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a8708eff6a02f1f90703e58f181089795bf9cf51",
+    "name": "melbourne",
+    "slug": "melbourne-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -37.8142176,
+      "lon": 144.9631608
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "melbourne",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a3e6f237e78ec433bb14f9ccdf8a982f9e836e39",
+    "name": "sydney",
+    "slug": "sydney-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -33.768528,
+      "lon": 150.956856
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sydney",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "452751cc374335736ba5f340488e8cc13ccbe801",
+    "name": "monterrey",
+    "slug": "monterrey-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.6802019,
+      "lon": -100.315258
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "monterrey",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "271bcd1dd49182a7b75ea317da77ee30bc506325",
+    "name": "brasilia",
+    "slug": "brasilia-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -10.3333333,
+      "lon": -53.2
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "brasilia",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a236af3226cd75333772cb82d1b746470fabda78",
+    "name": "capetown",
+    "slug": "capetown-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -33.928992,
+      "lon": 18.417396
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "capetown",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "189a3679db761d9ca2298204fb7b7f65f364bfb6",
+    "name": "recife",
+    "slug": "recife-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -8.0584933,
+      "lon": -34.8848193
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "recife",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "41fda378fc3b9b20808e8f6d2141a0b0ab7bbf92",
+    "name": "portoalegre",
+    "slug": "portoalegre-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -30.0324999,
+      "lon": -51.2303767
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "portoalegre",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "106872816609e387f35e5f1c353695d1afbab040",
+    "name": "fortaleza",
+    "slug": "fortaleza-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -3.7304512,
+      "lon": -38.5217989
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "fortaleza",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "63110bb5a5d0821cd2e06c6237afafd2ec73290a",
+    "name": "jaipur",
+    "slug": "jaipur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.9154576,
+      "lon": 75.8189817
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jaipur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "25ea38328665c2a5addf364bb7c927196594180e",
+    "name": "losangeles",
+    "slug": "losangeles-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.0536909,
+      "lon": -118.242766
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "losangeles",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c3093be6bdbcb5125d5fa94994de4eba1c663411",
+    "name": "ekurhuleni",
+    "slug": "ekurhuleni-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -26.184765,
+      "lon": 28.3210725
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ekurhuleni",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "5ffce5e8cc0717bc0151d2ad25c589999b33df51",
+    "name": "salvador",
+    "slug": "salvador-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.8000382,
+      "lon": -88.9140683
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "salvador",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d5cae015c5fa617c0cc69d1eca0d5f693f07a554",
+    "name": "lucknow",
+    "slug": "lucknow-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.8381,
+      "lon": 80.9346001
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "lucknow",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "cfbb52c5695efe185654555af764eb0bd24cde86",
+    "name": "kozhikode",
+    "slug": "kozhikode-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.2450558,
+      "lon": 75.7754716
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kozhikode",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "cdf1d8bac10373496cea638908754efaafac8461",
+    "name": "curitiba",
+    "slug": "curitiba-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -25.4295963,
+      "lon": -49.2712724
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "curitiba",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b5da8830320b027ce4504be092c69494c4b26a0b",
+    "name": "malappuram",
+    "slug": "malappuram-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.1068448,
+      "lon": 76.1099551
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "malappuram",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f051135d409cca75f6929a6815fd508176a4af46",
+    "name": "campinas",
+    "slug": "campinas-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -22.90556,
+      "lon": -47.06083
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "campinas",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "357e802c9e7e0f91ed647236ded020d447ce20ef",
+    "name": "puebla",
+    "slug": "puebla-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 18.833333,
+      "lon": -98
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "puebla",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2c29fa1755b3484a6fc685312f41c0e6eb7966bc",
+    "name": "thrissur",
+    "slug": "thrissur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 10.5256264,
+      "lon": 76.2132542
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "thrissur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f337c838c746191d9ade44de87c8c38e3a5dbf9f",
+    "name": "kochi",
+    "slug": "kochi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 9.931308,
+      "lon": 76.2674136
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kochi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "683d49d93f6d712e15b0b8b23f44b821bca23b08",
+    "name": "durban",
+    "slug": "durban-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -29.861825,
+      "lon": 31.009909
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "durban",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8cf69b7e3de03c87a4bddebeee9ded696656e9aa",
+    "name": "kanpur",
+    "slug": "kanpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.4609135,
+      "lon": 80.3217588
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kanpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e2d08634f770aaff2d3fb4c1b7b5cafd2de2a77d",
+    "name": "indore",
+    "slug": "indore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.7203616,
+      "lon": 75.8681996
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "indore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1c78e188d9e6218ace6bbca7bb0267969db167f6",
+    "name": "nagpur",
+    "slug": "nagpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.1498134,
+      "lon": 79.0820556
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nagpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0a698748f37a3c7b23357769f7937727de97b9cc",
+    "name": "shizuoka",
+    "slug": "shizuoka-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.979149,
+      "lon": 138.38299
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "shizuoka",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4584c1636799a7e27b0b90e9e52961cfadab12a1",
+    "name": "coimbatore",
+    "slug": "coimbatore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.0018115,
+      "lon": 76.9628425
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "coimbatore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bea611dbfbe66b178db6603c8c95e7f6a73b9b31",
+    "name": "goiania",
+    "slug": "goiania-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -16.680882,
+      "lon": -49.2532691
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "goiania",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "3af5e2d76d4006bb7f9f031c8f562ad13145d241",
+    "name": "thiruvananthapuram",
+    "slug": "thiruvananthapuram-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 8.5241122,
+      "lon": 76.9360573
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "thiruvananthapuram",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "887cf66f4117cd873e56db13a8a97b38dafbcc29",
+    "name": "chicago",
+    "slug": "chicago-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 41.8755616,
+      "lon": -87.6244212
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chicago",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "99e7a0766234301e5f9d16bad916f29734023e19",
+    "name": "sapporo",
+    "slug": "sapporo-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.061936,
+      "lon": 141.3542924
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sapporo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ffa90cd4f683a8b6fc552c8c9b0939d0d1ed4f5a",
+    "name": "pretoria",
+    "slug": "pretoria-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -25.7459374,
+      "lon": 28.1879444
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "pretoria",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f238ce63d9400ded3b96636838ecb70361c7a120",
+    "name": "tolucadelerdo",
+    "slug": "tolucadelerdo-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.292545,
+      "lon": -99.6569007
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tolucadelerdo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "58b8e644072c01a7d332a961c2009479f44964c6",
+    "name": "patna",
+    "slug": "patna-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.6093239,
+      "lon": 85.1235252
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "patna",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4c5df72c6475120bd8a0e60102c98adaec4babc8",
+    "name": "bhopal",
+    "slug": "bhopal-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.2584857,
+      "lon": 77.401989
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bhopal",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "53f0fe2bbf9966d18209cfa8190bbc645b4d179e",
+    "name": "brisbane",
+    "slug": "brisbane-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -27.4689682,
+      "lon": 153.0234991
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "brisbane",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "3f57f01d9451bad446755eaa3816c3459078b5cd",
+    "name": "belem",
+    "slug": "belem-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.7043556,
+      "lon": 35.2061876
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "belem",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e525f149ff012c636794a51eb27b49b0204499e4",
+    "name": "sendai",
+    "slug": "sendai-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 38.2677554,
+      "lon": 140.8691498
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sendai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "12f5e514c832013eba272bc25eb8d5ce2b907e55",
+    "name": "houston",
+    "slug": "houston-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.7589382,
+      "lon": -95.3676974
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "houston",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "20b3ea199f66b55532d36dd62669a398a26c46b3",
+    "name": "manaus",
+    "slug": "manaus-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -3.1316333,
+      "lon": -59.9825041
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "manaus",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9cbcae0abae087baa0c564cb2b7121b4fcdf849b",
+    "name": "agra",
+    "slug": "agra-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 27.1752554,
+      "lon": 78.0098161
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "agra",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9d694a8b8d8b475ea23f570bf392bf98b91a6457",
+    "name": "vadodara",
+    "slug": "vadodara-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.2973142,
+      "lon": 73.1942567
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "vadodara",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1ccb89b6d4a00a1e53e44dfcc057d849ff6e4f25",
+    "name": "kannur",
+    "slug": "kannur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.8762254,
+      "lon": 75.3738043
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kannur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d1d91f16046da33f505bbfeb0c03619db4e3bf41",
+    "name": "visakhapatnam",
+    "slug": "visakhapatnam-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.7231276,
+      "lon": 83.3012842
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "visakhapatnam",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0548c644820872f6f6ca7e807a814878d9b72f70",
+    "name": "tijuana",
+    "slug": "tijuana-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.5010188,
+      "lon": -116.964662
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tijuana",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8fb9be30db790cc4d9731b9e01822bc78229d9f7",
+    "name": "nashik",
+    "slug": "nashik-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.0112475,
+      "lon": 73.7902364
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nashik",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b98d9f3da0e74142d2b01cdb163e95fc8bebe5f0",
+    "name": "grandevitoria",
+    "slug": "grandevitoria-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -3.1559361,
+      "lon": -59.2794889
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "grandevitoria",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "58bae8b8e721d023fc3612538db8199ae9deb702",
+    "name": "vijayawada",
+    "slug": "vijayawada-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.5087586,
+      "lon": 80.6185102
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "vijayawada",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a5fbac4abe43355f7c4d79abe85f538430f58e81",
+    "name": "hiroshima",
+    "slug": "hiroshima-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.3916058,
+      "lon": 132.4518156
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "hiroshima",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "fd56d49b1e8b5017154e04994cb9924e73cbd18a",
+    "name": "perth",
+    "slug": "perth-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -31.9527121,
+      "lon": 115.8604796
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "perth",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8903b4ee0c719e480e412e37001abb208dab3205",
+    "name": "kollam",
+    "slug": "kollam-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 8.8879509,
+      "lon": 76.5955013
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kollam",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1826c2db2648ab79793ab77dd841384c9fa8ab7c",
+    "name": "rajkot",
+    "slug": "rajkot-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.3053263,
+      "lon": 70.8028377
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "rajkot",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bc60392db474bb999949e997dea36629601cd4af",
+    "name": "baixadasantista",
+    "slug": "baixadasantista-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -24.0443878,
+      "lon": -46.7040929
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "baixadasantista",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7787b392e927b0fac81c3d778d1b20b9171753eb",
+    "name": "ludhiana",
+    "slug": "ludhiana-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.9090157,
+      "lon": 75.851601
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ludhiana",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "5ff076387fcd114333bcda0df963d7ff0159fe35",
+    "name": "leondelosaldamas",
+    "slug": "leondelosaldamas-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.0962497,
+      "lon": -99.2763436
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "leondelosaldamas",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4efa2c09084678dc02cb658431a5a9d5710b2eb4",
+    "name": "madurai",
+    "slug": "madurai-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 9.9261153,
+      "lon": 78.1140983
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "madurai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9d93b2074b0a6262a9c7df38ca7af3c11e9dc1a8",
+    "name": "phoenix",
+    "slug": "phoenix-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 33.4484367,
+      "lon": -112.0741417
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "phoenix",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "57d8b25bdd3625c4c5cd2229b2f5a0727d52cb1e",
+    "name": "lyon",
+    "slug": "lyon-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 45.7578137,
+      "lon": 4.8320114
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "lyon",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "507efec3232bc970a83960e5070364a485b0d4a5",
+    "name": "meerut",
+    "slug": "meerut-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.0006525,
+      "lon": 77.7682288
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "meerut",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "40942145ea7ee55819e9c6d1ede96be480a37d7b",
+    "name": "raipur",
+    "slug": "raipur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.2379469,
+      "lon": 81.6336833
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "raipur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8f6e0233016cca41ddfc3f0e608d02be40385aa2",
+    "name": "varanasi",
+    "slug": "varanasi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.3356491,
+      "lon": 83.0076292
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "varanasi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a3500c94778fa2ac8c911c2c8502b6c4764ff7fe",
+    "name": "lalaguna",
+    "slug": "lalaguna-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.54275967,
+      "lon": -103.4068701
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "lalaguna",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d06c584c934410f931c1cd10919e5ff98142deae",
+    "name": "jamshedpur",
+    "slug": "jamshedpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.8015194,
+      "lon": 86.2029579
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jamshedpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9e2b80fe567f490ee82608b592544a4b6d9a951d",
+    "name": "srinagar",
+    "slug": "srinagar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.0747444,
+      "lon": 74.8204443
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "srinagar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9ef0d82b6bcd07154fc9093c58e0e6259b66067c",
+    "name": "marseille",
+    "slug": "marseille-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.2961743,
+      "lon": 5.3699525
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "marseille",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ad69be12c5e4e7c400f79d0d52e1aa0e78f5048b",
+    "name": "aurangabad",
+    "slug": "aurangabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.877263,
+      "lon": 75.3390241
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "aurangabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0122795492d02187c68222c6ae39369ffc89ae7a",
+    "name": "philadelphia",
+    "slug": "philadelphia-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 39.9527237,
+      "lon": -75.1635262
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "philadelphia",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f92752ab91b7cb09a995bf94c1c37485b1635be4",
+    "name": "sanantonio",
+    "slug": "sanantonio-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.4246002,
+      "lon": -98.4951405
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sanantonio",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bd9ec5bc990174906a0b3d62c87a332c60b7a117",
+    "name": "tiruppur",
+    "slug": "tiruppur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.1017815,
+      "lon": 77.345192
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tiruppur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "01d386ddc4805c9d53d270591cfbf7171a20fbd0",
+    "name": "ciudadjuarez",
+    "slug": "ciudadjuarez-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.7097961,
+      "lon": -106.455581
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ciudadjuarez",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.722Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.722Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c953752b3c3b3ced8a672c5cf65ababd72fe4c8a",
+    "name": "jodhpur",
+    "slug": "jodhpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.2967719,
+      "lon": 73.0351433
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jodhpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e435208d9b2900c4d5b7e696c014462e57222bc8",
+    "name": "grandesaoluis",
+    "slug": "grandesaoluis-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -28.500238,
+      "lon": -53.586696
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "grandesaoluis",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "59c8f3b2fc97e1d55bb1ce4817a023a3e8874ec7",
+    "name": "natal",
+    "slug": "natal-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -5.805398,
+      "lon": -35.2080905
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "natal",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0c00a484ad3eeb4d861eb0bb66486dd119847228",
+    "name": "ranchi",
+    "slug": "ranchi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.3700354,
+      "lon": 85.3250132
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ranchi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "fea1556fc9d593583445da57184c3df1c7d9c603",
+    "name": "jabalpur",
+    "slug": "jabalpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.1608938,
+      "lon": 79.9497702
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jabalpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "83b1e5a91c62edd0277a2b35f57056cfa851d133",
+    "name": "asansol",
+    "slug": "asansol-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.6871297,
+      "lon": 86.9746587
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "asansol",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f98052996692aecd828767e247d6bff88ec1e044",
+    "name": "kota",
+    "slug": "kota-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.1968256,
+      "lon": 76.0008933
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kota",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "253e474ac25bf94089f064f510f47f7b15fe0950",
+    "name": "sandiego",
+    "slug": "sandiego-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.7174202,
+      "lon": -117.1627728
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sandiego",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9d85291fc7583133bc1e0b2e3857dd85554c3871",
+    "name": "chonburi",
+    "slug": "chonburi-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 12.9546871,
+      "lon": 100.7746521
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chonburi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "357ae5467cce8de423c0fdc87c2d999b5a883de5",
+    "name": "allahabad",
+    "slug": "allahabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.4381302,
+      "lon": 81.8338005
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "allahabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2ea0bfee4e043ae58a9800d91a237207c7d8390c",
+    "name": "gwalior",
+    "slug": "gwalior-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.2037247,
+      "lon": 78.1573628
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "gwalior",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "94183ee83a8bd1237f2c8aa99b2305c111ff28f5",
+    "name": "amritsar",
+    "slug": "amritsar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.6343083,
+      "lon": 74.8736788
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "amritsar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b020ee42ce04813c5de32a8141bba49a602483ef",
+    "name": "joaopessoa",
+    "slug": "joaopessoa-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -7.1215981,
+      "lon": -34.882028
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "joaopessoa",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6f0f1bbafcbe3312a5e90fbd90c15490de7dbc58",
+    "name": "queretaro",
+    "slug": "queretaro-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.5927744,
+      "lon": -100.3902245
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "queretaro",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6ba017529c25c8694b335acb58633b2719f6f7e9",
+    "name": "dhanbad",
+    "slug": "dhanbad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.7952809,
+      "lon": 86.4309638
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "dhanbad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2df574b014938a067cb02cd20876064438bf0240",
+    "name": "dallas",
+    "slug": "dallas-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.7762719,
+      "lon": -96.7968559
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "dallas",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e3ab65c27644810407e119f96cc699dfce3631c9",
+    "name": "adelaide",
+    "slug": "adelaide-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -34.9281805,
+      "lon": 138.5999312
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "adelaide",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "fa1191b9025caa08a51e8f750163f9b445e3568d",
+    "name": "maceio",
+    "slug": "maceio-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -9.6476843,
+      "lon": -35.7339264
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "maceio",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "274bd90c6b6672f27e61089b1963fa87680b9c6b",
+    "name": "samutprakan",
+    "slug": "samutprakan-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.6531651,
+      "lon": 100.8182578
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "samutprakan",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "99bd1dc86ff42f4071c76675d0a381b15532fc65",
+    "name": "joinville",
+    "slug": "joinville-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": 48.4433253,
+      "lon": 5.1377537
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "joinville",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c8e0b9af604a753a4fef90034dc7773833976815",
+    "name": "bareilly",
+    "slug": "bareilly-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.457876,
+      "lon": 79.4055709
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bareilly",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "57ea4df2f4c70eecb5d1c13d4aac8fa0c39e7810",
+    "name": "portelizabeth",
+    "slug": "portelizabeth-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -33.9617051,
+      "lon": 25.6207519
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "portelizabeth",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "33b48c94fda40bba7039df9cc18913a3f190fb2c",
+    "name": "florianopolis",
+    "slug": "florianopolis-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -27.5973002,
+      "lon": -48.5496098
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "florianopolis",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "afe894cbb33b5fa0f4ca2d0a9abc45df4ebf7753",
+    "name": "aligarh",
+    "slug": "aligarh-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 27.8769897,
+      "lon": 78.1372903
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "aligarh",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c9c4d6ba73b0d5c85e1b083821875d00b9a6ec81",
+    "name": "sanluispotosi",
+    "slug": "sanluispotosi-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.5000001,
+      "lon": -100.4949145
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sanluispotosi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f9195fa034f8645929e783618b13e2638f10f759",
+    "name": "mysore",
+    "slug": "mysore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 12.3051828,
+      "lon": 76.6553609
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mysore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c2f83ccdad92f18461cf070ba8f6e39e5b0753c5",
+    "name": "moradabad",
+    "slug": "moradabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.8638424,
+      "lon": 78.8057783
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "moradabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "cd293f484ad0f136aad5ab3807336f80480f0df3",
+    "name": "durgbhilai",
+    "slug": "durgbhilai-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.19,
+      "lon": 81.28
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "durgbhilai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ad3fc90a59bcc7d546bad120750f3521eae416fd",
+    "name": "bhubaneswar",
+    "slug": "bhubaneswar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.2667774,
+      "lon": 85.8435592
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bhubaneswar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "424e0abff0111c576531728d2073c979747e1636",
+    "name": "chiangmai",
+    "slug": "chiangmai-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 18.7882778,
+      "lon": 98.9858802
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chiangmai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ad97ac40d65ee0e20a3459c1a4cb51e276920abd",
+    "name": "tiruchirappalli",
+    "slug": "tiruchirappalli-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 10.804973,
+      "lon": 78.6870296
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tiruchirappalli",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a5401c353d9bf26037e962e19eeb800c14968710",
+    "name": "merida",
+    "slug": "merida-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 38.9174665,
+      "lon": -6.3443977
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "merida",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "dedb5ef8314eff54dadf3c3aba8052d56076d006",
+    "name": "chandigarh",
+    "slug": "chandigarh-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.7334421,
+      "lon": 76.7797143
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chandigarh",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "44f534a2c17ff64a02ebe52e704387cf8230e3f4",
+    "name": "mexicali",
+    "slug": "mexicali-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.6248622,
+      "lon": -115.448325
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mexicali",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e006f6424307173e323b13b29955687e5842b7d0",
+    "name": "hublidharwad",
+    "slug": "hublidharwad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 15.3518378,
+      "lon": 75.1379848
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "hublidharwad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b7583cf87b745c4ab2d4b5d42dbd3f042887825d",
+    "name": "guwahati",
+    "slug": "guwahati-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.1805978,
+      "lon": 91.753943
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "guwahati",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "69ae612fea7b8ec7dbed9bd6cf7dfa991b100cc8",
+    "name": "aguascalientes",
+    "slug": "aguascalientes-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.0000001,
+      "lon": -102.5000001
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "aguascalientes",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "84efc656839a4928a604f21d6d0046cad995d733",
+    "name": "salem",
+    "slug": "salem-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 44.9391565,
+      "lon": -123.033121
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "salem",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b86f378958abcc0ba6bed9bf9afa38e1241496fa",
+    "name": "saharanpur",
+    "slug": "saharanpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.9880774,
+      "lon": 77.5081299
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "saharanpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9b53c527e0eeebd501dbbb466aebca535ad56d5e",
+    "name": "cuernavaca",
+    "slug": "cuernavaca-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 18.9218274,
+      "lon": -99.2342282
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cuernavaca",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d42fd60bd1452e69614b6003712a30b1761775cc",
+    "name": "chihuahua",
+    "slug": "chihuahua-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.5000001,
+      "lon": -106.0000001
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "chihuahua",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4803747a8511b26d9ab14cf09c34d916bb29eefa",
+    "name": "jalandhar",
+    "slug": "jalandhar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.2920107,
+      "lon": 75.5680577
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jalandhar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "528eb255cdc74b5ec668d7fa2bcb118c9169b83f",
+    "name": "lille",
+    "slug": "lille-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 50.6365654,
+      "lon": 3.0635282
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "lille",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a515aa292141f3944c5c13cfd1a3b06d53bb8dce",
+    "name": "siliguri",
+    "slug": "siliguri-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.7164127,
+      "lon": 88.4309916
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "siliguri",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2ef0fab3a7edf5fc6b4c75dee907dd6e4bc13024",
+    "name": "solapur",
+    "slug": "solapur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.8499067,
+      "lon": 75.2763203
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "solapur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "df44dfd2a3ef8c898e232b2de8b5faac9f90e606",
+    "name": "toulouse",
+    "slug": "toulouse-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.6044622,
+      "lon": 1.4442469
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "toulouse",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "fb834d2c0fd8f5ba088e0522ac2b5152db78c656",
+    "name": "teresina",
+    "slug": "teresina-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -5.0896403,
+      "lon": -42.809588
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "teresina",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1f24ba5c6ca4e6e39f5ded2f64e4a37e700d2cb7",
+    "name": "aracaju",
+    "slug": "aracaju-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -10.9162061,
+      "lon": -37.0774655
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "aracaju",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4f123dfd0f4261a9664bd0043d94ae1f6a9b881c",
+    "name": "tampico",
+    "slug": "tampico-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.2329889,
+      "lon": -97.8614802
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tampico",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2ec323f4bedcb1dc52cd3db33f51bb761721dd15",
+    "name": "austin",
+    "slug": "austin-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.2711286,
+      "lon": -97.7436995
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "austin",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7775649d3d405a7dc3e8dc8c7f5d022979dfd0fc",
+    "name": "sanjose",
+    "slug": "sanjose-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 37.3361905,
+      "lon": -121.890583
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sanjose",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "13a4f6a7ee6d88b5c69e62d2e99194956f88bd80",
+    "name": "saltillo",
+    "slug": "saltillo-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.4230425,
+      "lon": -100.9927509
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "saltillo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8ec8c6f924d0a1d4d2850de7534bd694e27ed8cb",
+    "name": "acapulcodejuarez",
+    "slug": "acapulcodejuarez-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.8680495,
+      "lon": -99.8940182
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "acapulcodejuarez",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d91bde539e8df8eeb74a1f87a45524b7c5377bac",
+    "name": "warangal",
+    "slug": "warangal-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.9819448,
+      "lon": 79.5969982
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "warangal",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6c550ecb695339185aecc123a8932700e655ab17",
+    "name": "bordeaux",
+    "slug": "bordeaux-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 44.841225,
+      "lon": -0.5800364
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bordeaux",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6cbdf3558ef645a99c74d84bb03bde856906c5a2",
+    "name": "songkhla",
+    "slug": "songkhla-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 6.8790221,
+      "lon": 100.5498542
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "songkhla",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "eda157403145cbc5eeee1feb6a509f83c9f6a545",
+    "name": "nonthaburi",
+    "slug": "nonthaburi-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.8610918,
+      "lon": 100.3456772
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nonthaburi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1af78b6c729e8dc3cf63d8cd4e4596cce1b4a381",
+    "name": "cancun",
+    "slug": "cancun-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.1617854,
+      "lon": -86.8510468
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cancun",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c44c6b8ba70df2043a50572f1e70fe4ec7784c0e",
+    "name": "morelia",
+    "slug": "morelia-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.7027116,
+      "lon": -101.1923818
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "morelia",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "5017295c9b5021cdc6f1b4fe414496d56af62556",
+    "name": "nice",
+    "slug": "nice-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.7009358,
+      "lon": 7.2683912
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nice",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9ba4edc8dc39a9209ed35df8ebf1e90eb330108b",
+    "name": "dehradun",
+    "slug": "dehradun-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.3255646,
+      "lon": 78.0436813
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "dehradun",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9511235afdb2cfcb9246f38400d3664b5b752f4d",
+    "name": "fortworth",
+    "slug": "fortworth-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.753177,
+      "lon": -97.3327459
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "fortworth",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bb7cf731762b945ed4221208697ba1645f15050f",
+    "name": "veracruz",
+    "slug": "veracruz-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.333333,
+      "lon": -96.666667
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "veracruz",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b260cc1e0858f38d3de3754bb0017ae2c22091e7",
+    "name": "jacksonville",
+    "slug": "jacksonville-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.3321838,
+      "lon": -81.655651
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jacksonville",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b57cb725153035bf8b043eabff77958185fe46ed",
+    "name": "pathumthani",
+    "slug": "pathumthani-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 14.048667,
+      "lon": 100.5640405
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "pathumthani",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8abdf85a622080e0d433a5e565e1322cc933775c",
+    "name": "reynosa",
+    "slug": "reynosa-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.0704018,
+      "lon": -98.2963932
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "reynosa",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "aeb48d4608252f5d9f71e169f0207b5e5e835040",
+    "name": "columbus",
+    "slug": "columbus-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 39.9622601,
+      "lon": -83.0007065
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "columbus",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "49f3bf78ade3d03f1754382884e5804181570cf1",
+    "name": "villahermosa",
+    "slug": "villahermosa-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 18.0018152,
+      "lon": -92.9330401
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "villahermosa",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8c129bd52360111aa87c5c45e73c1172553f0067",
+    "name": "charlotte",
+    "slug": "charlotte-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 35.2272086,
+      "lon": -80.8430827
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "charlotte",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e6a3c1016886e4e953cb7dc5e1b170412c4e3127",
+    "name": "westrand",
+    "slug": "westrand-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.3545179,
+      "lon": 42.4311796
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "westrand",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8d43f6d47f3fcd3e6dc178d0eb4584155046c904",
+    "name": "campogrande",
+    "slug": "campogrande-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -20.4640173,
+      "lon": -54.6162947
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "campogrande",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f0e52731829bef16dfa7f70e2a717726db4a8719",
+    "name": "londrina",
+    "slug": "londrina-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -23.3112878,
+      "lon": -51.1595023
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "londrina",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c49dfd54a3667fba7eb51ee4f6b4e56b34c57a37",
+    "name": "indianapolis",
+    "slug": "indianapolis-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 39.7683331,
+      "lon": -86.1583502
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "indianapolis",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d6fec73e9def4cd6bee9e313dd007c6860ab1859",
+    "name": "hermosillo",
+    "slug": "hermosillo-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.0948207,
+      "lon": -110.9692202
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "hermosillo",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e6995eefb01115fc654b9ab3305193ccb7ad64d6",
+    "name": "sanfrancisco",
+    "slug": "sanfrancisco-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 37.7790262,
+      "lon": -122.419906
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sanfrancisco",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "097522e0b65d04b812b7a866598c2ee69c6fc488",
+    "name": "guntur",
+    "slug": "guntur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.2915189,
+      "lon": 80.4541588
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "guntur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ab28bdc96dc4284faad5f91a6eecb7bf75f3aa30",
+    "name": "bhiwandi",
+    "slug": "bhiwandi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.3625308,
+      "lon": 73.0784747
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bhiwandi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2fc9ff4db8d617b1c365cb56b2583b280ab825e1",
+    "name": "soshanguve",
+    "slug": "soshanguve-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -25.5263889,
+      "lon": 28.0994444
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "soshanguve",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c93a9edabb946f322e40840a063a1765d37dd2fd",
+    "name": "tuxtlagutierrez",
+    "slug": "tuxtlagutierrez-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.753801,
+      "lon": -93.115959
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tuxtlagutierrez",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "3d3b17f4d3e4c18540bec9e484555f63c4450521",
+    "name": "puducherry",
+    "slug": "puducherry-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.9340568,
+      "lon": 79.8306447
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "puducherry",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "28bf61b0229f32d440a858d0092112f762c8fc31",
+    "name": "culiacan",
+    "slug": "culiacan-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 24.7978965,
+      "lon": -107.393395
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "culiacan",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a9b5026f8cdab48f8669ca92961b562be73c870a",
+    "name": "firozabad",
+    "slug": "firozabad-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 27.1773663,
+      "lon": 78.389912
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "firozabad",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "966f452ac51910969200a1403a7b67f2b29ddb2d",
+    "name": "niigata",
+    "slug": "niigata-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 37.6452283,
+      "lon": 138.7669125
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "niigata",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ba36b3592d824cdee3b2edafb8a8fc39404d2eb2",
+    "name": "cherthala",
+    "slug": "cherthala-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 9.740204,
+      "lon": 76.3324672
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cherthala",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ce3817603034708688593e9e3a988edf7e4e7710",
+    "name": "sorocaba",
+    "slug": "sorocaba-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -23.5003451,
+      "lon": -47.4582864
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sorocaba",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7ed0a4fde35c88dd259ef7a2b64dadf14bd04810",
+    "name": "xalapa",
+    "slug": "xalapa-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.5408338,
+      "lon": -96.9146374
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "xalapa",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e5fedb92d0539f12ff40efe9ad8f6c905656491f",
+    "name": "bikaner",
+    "slug": "bikaner-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.0159286,
+      "lon": 73.3171367
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bikaner",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "faeb26f90ff170acf01610d8e93fefde575c2c27",
+    "name": "nakhonratchasima",
+    "slug": "nakhonratchasima-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 15.2241917,
+      "lon": 101.9313754
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nakhonratchasima",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "078daf087b610d050adc64b4d917947d0c9be711",
+    "name": "vereeniging",
+    "slug": "vereeniging-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -26.6747222,
+      "lon": 27.9261111
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "vereeniging",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "359472dc459fc4806822dbe9cb19f0459fae1e36",
+    "name": "seattle",
+    "slug": "seattle-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 47.6038321,
+      "lon": -122.3300624
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "seattle",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "01e0fe4e1080d997f22547a0f1ef8f6d9111a814",
+    "name": "nellore",
+    "slug": "nellore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 14.4493717,
+      "lon": 79.9873763
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nellore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b1bce1b7cdd90938f9fb609af3500cc0d7266d79",
+    "name": "gorakhpur",
+    "slug": "gorakhpur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.6711433,
+      "lon": 83.3645724
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "gorakhpur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "f99d3bc4376bc2840961907a9c1bbb862cb13f2c",
+    "name": "amravati",
+    "slug": "amravati-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.1545412,
+      "lon": 77.6442962
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "amravati",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "3789d65ae20d9193d02b346670cc806c8a8e713b",
+    "name": "cuttack",
+    "slug": "cuttack-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.4686,
+      "lon": 85.8792
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cuttack",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "421ed9edde45805d383f88e61e459d425f56473b",
+    "name": "bursaid",
+    "slug": "bursaid-egypt",
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.263235,
+      "lon": 32.305505
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bursaid",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "334853cb0600e8f1f837fe97501b4841987a89f9",
+    "name": "denver",
+    "slug": "denver-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 39.7392364,
+      "lon": -104.9848623
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "denver",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "524a28384b7ce0d164782aad91ce2252fbc3a72e",
+    "name": "muzaffarnagar",
+    "slug": "muzaffarnagar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 29.4480063,
+      "lon": 77.740685
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "muzaffarnagar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "30958938c98e80f7473726e6ac8c73374b612dd9",
+    "name": "kumamoto",
+    "slug": "kumamoto-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.6450475,
+      "lon": 130.6341345
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kumamoto",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8ab31b2cc838d722c70cb11e1e19badf88bdad8d",
+    "name": "kottayam",
+    "slug": "kottayam-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 9.6287383,
+      "lon": 76.6455326
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kottayam",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "5128394f98082a497d5b584c8fb588069e03d83a",
+    "name": "belgaum",
+    "slug": "belgaum-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 15.8572666,
+      "lon": 74.5069343
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "belgaum",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b8f1517d4723ed465989b5df44df106981c16fd2",
+    "name": "malegaon",
+    "slug": "malegaon-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.5902502,
+      "lon": 74.5714979
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "malegaon",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a2d9689aba68885681c66d6d169ebb177be7c62a",
+    "name": "saojosedoscampos",
+    "slug": "saojosedoscampos-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -23.1860383,
+      "lon": -45.8866816
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "saojosedoscampos",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8aecf2837e90dd33b0c404040fa5efbb806ebf9a",
+    "name": "kayamkulam",
+    "slug": "kayamkulam-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 9.172188,
+      "lon": 76.5008685
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kayamkulam",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bf772bcac7ff5c190d63ef867223a1f1c5be47d4",
+    "name": "mangalore",
+    "slug": "mangalore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 12.8698101,
+      "lon": 74.8430082
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mangalore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8739392c6af703b8fbe9e2f8d7f8b801c711d584",
+    "name": "okayama",
+    "slug": "okayama-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 34.6553944,
+      "lon": 133.9194595
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "okayama",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8b1d2e64b16df448d9735a3c8d48e50e7d012da2",
+    "name": "ribeiraopreto",
+    "slug": "ribeiraopreto-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -21.178333,
+      "lon": -47.8066671
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ribeiraopreto",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d0863302243d2d872ab0446483d490a9b02f9c45",
+    "name": "buffalocity",
+    "slug": "buffalocity-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": 44.23052,
+      "lon": -91.864325
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "buffalocity",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9f2ed6938790016e46c93405a4559cb2b29cb708",
+    "name": "oaxacadejuarez",
+    "slug": "oaxacadejuarez-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.0604663,
+      "lon": -96.7253575
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "oaxacadejuarez",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "94337a05b133e3d77a14537ac255d09e8a7f7b76",
+    "name": "washington",
+    "slug": "washington-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 38.8950368,
+      "lon": -77.0365427
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "washington",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "47352c52ec4eb4833c7613318d9426867ee4e173",
+    "name": "bhavnagar",
+    "slug": "bhavnagar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 21.7718836,
+      "lon": 72.1416449
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bhavnagar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "d107743f3e0959a4491a8f986399ab92fb74c597",
+    "name": "goldcoast",
+    "slug": "goldcoast-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": {
+      "lat": -28.0023731,
+      "lon": 153.4145987
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "goldcoast",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4a9ffc9b6734245c2017ec76b25cc255413b0752",
+    "name": "jammu",
+    "slug": "jammu-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 32.7185614,
+      "lon": 74.8580917
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jammu",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0770be7f6990379d6fecb599e8b3315ecc727950",
+    "name": "nandedwaghala",
+    "slug": "nandedwaghala-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.169335,
+      "lon": 77.311013
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nandedwaghala",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "53651273a2d87b827c638dfb3a6f5a7fe2aac35d",
+    "name": "tirupati",
+    "slug": "tirupati-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.6316368,
+      "lon": 79.4231711
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tirupati",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "40f7caf191007b16e86e9a5c5bffb25bcae85480",
+    "name": "boston",
+    "slug": "boston-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 42.3602534,
+      "lon": -71.0582912
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "boston",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "67faa88f0a9ec1ca32a9af77bf66b55f9c18370a",
+    "name": "uberlandia",
+    "slug": "uberlandia-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -18.9188041,
+      "lon": -48.2767837
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "uberlandia",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "7d036bfe91c1e55001e3773c54599eb1a0ff7703",
+    "name": "celaya",
+    "slug": "celaya-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.5218445,
+      "lon": -100.8139609
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "celaya",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e507e76b647e4739b48ba2e12e90fed36d3205b6",
+    "name": "jundiai",
+    "slug": "jundiai-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -23.1887668,
+      "lon": -46.884506
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jundiai",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "71a70b09c9cad7eaad755fd797372b160f29e2f2",
+    "name": "gulbarga",
+    "slug": "gulbarga-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 17.166667,
+      "lon": 77.083333
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "gulbarga",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "96363b85e263b392674c41023e2afc123d43f587",
+    "name": "durgapur",
+    "slug": "durgapur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.5350475,
+      "lon": 87.3380425
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "durgapur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "079d42431e59b5a40f6eb11ba402a642d466e2cf",
+    "name": "kurnool",
+    "slug": "kurnool-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 15.8309251,
+      "lon": 78.0425373
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kurnool",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "5f1e7206f4e9af560c1278c88bf543fda9e18ffd",
+    "name": "elpaso",
+    "slug": "elpaso-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.7754152,
+      "lon": -106.464634
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "elpaso",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6a9983142e7e478918cec3dc18ad2bac8a3b1d1e",
+    "name": "nantes",
+    "slug": "nantes-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 47.2186371,
+      "lon": -1.5541362
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nantes",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6c6253d03cd48e471f3c116f184bda7672e9785f",
+    "name": "nashville",
+    "slug": "nashville-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 36.1622767,
+      "lon": -86.7742984
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "nashville",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6e9b8f987439d789394b3e1b2bbd7ba6e5486a63",
+    "name": "oklahomacity",
+    "slug": "oklahomacity-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 35.4729886,
+      "lon": -97.5170536
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "oklahomacity",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e80881720615c1b83b8374ae2e2ac41641c5a877",
+    "name": "lasvegas",
+    "slug": "lasvegas-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 36.1672559,
+      "lon": -115.148516
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "lasvegas",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b7064e42aa74e6e080d32c745bb13c1166449874",
+    "name": "detroit",
+    "slug": "detroit-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 42.3315509,
+      "lon": -83.0466403
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "detroit",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "62df1489e6246b99ae529f7c5791c94370a7b826",
+    "name": "portland",
+    "slug": "portland-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 45.5202471,
+      "lon": -122.6741949
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "portland",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "68619f64e9ad67f2125c2bf824f34727b3499295",
+    "name": "jhansi",
+    "slug": "jhansi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 25.5310311,
+      "lon": 78.652689
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jhansi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8a7d9f56aefb72ccda874be412f2fdc209b80c90",
+    "name": "memphis",
+    "slug": "memphis-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 35.1490215,
+      "lon": -90.0516285
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "memphis",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8e1deccec26ecbcd2d546a017ae72521bb1793d4",
+    "name": "jamnagar",
+    "slug": "jamnagar-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.4732415,
+      "lon": 70.0552102
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "jamnagar",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "54e5c8a8b6bb3b274682ea0bc82f61418924ffe0",
+    "name": "assuways",
+    "slug": "assuways-egypt",
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.322312,
+      "lon": 43.252987
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "assuways",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "450d7c96394154dbcedaaf6ae62ce82cb1b11a65",
+    "name": "erode",
+    "slug": "erode-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 11.3692044,
+      "lon": 77.6766269
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "erode",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2592639f3601add77196af7526e9ae93be504df9",
+    "name": "pachucadesoto",
+    "slug": "pachucadesoto-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 20.1165413,
+      "lon": -98.7413535
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "pachucadesoto",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "02fbb8402d96081c0561756044223a92ab271854",
+    "name": "durango",
+    "slug": "durango-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 24.833333,
+      "lon": -104.833333
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "durango",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "8c2ec8a225a6cfd13013d2fcefa8d80f32d28651",
+    "name": "bokarosteelcity",
+    "slug": "bokarosteelcity-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.6579595,
+      "lon": 86.0839161
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bokarosteelcity",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "4f3072e2f497c8fd8d55db4d589daeb6d6023592",
+    "name": "raurkela",
+    "slug": "raurkela-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 22.2142849,
+      "lon": 84.8724369
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "raurkela",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "e8349fd9e7449b9454d70d74ebeb2e5cbc09f05e",
+    "name": "kolhapur",
+    "slug": "kolhapur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.7028412,
+      "lon": 74.2405329
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kolhapur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2e2cb13717a0ab9fdce3c88c1c2c9981107a0143",
+    "name": "ajmer",
+    "slug": "ajmer-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 26.4691,
+      "lon": 74.639
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ajmer",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "21abb9324819ecb915ad2b7637bc0040b65599ad",
+    "name": "ujjain",
+    "slug": "ujjain-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.1885131,
+      "lon": 75.7716562
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "ujjain",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "62145bdf028364425c80a6ae360f092a18a3a260",
+    "name": "patiala",
+    "slug": "patiala-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 30.2090874,
+      "lon": 76.3398721
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "patiala",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1e1a191628fb2a694b296c919054414832ae9ceb",
+    "name": "bilaspur",
+    "slug": "bilaspur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 28.8680526,
+      "lon": 79.298385
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bilaspur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "2fb0036aa335f1fae9c235dcc3cbc204299c1d22",
+    "name": "louisville",
+    "slug": "louisville-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 38.2542376,
+      "lon": -85.759407
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "louisville",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ddaf10793a8dcf8424a00245035ad8c093772e57",
+    "name": "feiradesantana",
+    "slug": "feiradesantana-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -12.2578934,
+      "lon": -38.9598047
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "feiradesantana",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "de1571f2953ec1a653d8f56eca24a89d6a45b087",
+    "name": "tlaxcala",
+    "slug": "tlaxcala-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": {
+      "lat": 19.416667,
+      "lon": -98.166667
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "tlaxcala",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "508fa2d24f65209159193f14b17526a9e6346178",
+    "name": "mathura",
+    "slug": "mathura-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 27.633333,
+      "lon": 77.583333
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "mathura",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "0fd7c02267a671f4b28f606052d50ab7878d2a81",
+    "name": "agartala",
+    "slug": "agartala-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 23.8312377,
+      "lon": 91.2823821
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "agartala",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1a74a2267de404ca809856ba875647bd180d3c8a",
+    "name": "imphal",
+    "slug": "imphal-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 24.7991162,
+      "lon": 93.9364419
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "imphal",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b49d959eef3d9418f29028585818b0daf85d97b7",
+    "name": "sangli",
+    "slug": "sangli-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 16.8502534,
+      "lon": 74.5948885
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "sangli",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "9f52232c2b78bdc3e58599bf1f8b6c6280ffb38c",
+    "name": "cuiaba",
+    "slug": "cuiaba-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -15.5986686,
+      "lon": -56.0991301
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "cuiaba",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "6a8586c80c611b3f5bef19217927ad71185998f5",
+    "name": "kagoshima",
+    "slug": "kagoshima-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": {
+      "lat": 31.521587,
+      "lon": 130.5474077
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "kagoshima",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "c55504f5336459ef3bc94db80104f2c6c9a3f5af",
+    "name": "milwaukee",
+    "slug": "milwaukee-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.0349931,
+      "lon": -87.922497
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "milwaukee",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "b0766c51af8c496ef78175953591dd342b112675",
+    "name": "samutsakhon",
+    "slug": "samutsakhon-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": {
+      "lat": 13.5708192,
+      "lon": 100.2585874
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "samutsakhon",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "1849d08bd1e6b599fcacefc6e99c3b838ac04090",
+    "name": "toulon",
+    "slug": "toulon-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": {
+      "lat": 43.1257311,
+      "lon": 5.9304919
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "toulon",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "a026e82dbce6d2eaafc1a9475eeaadf9785af077",
+    "name": "juizdefora",
+    "slug": "juizdefora-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": {
+      "lat": -21.7609533,
+      "lon": -43.3501129
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "juizdefora",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ebcb3faac15bebfc80c949ef0df6268a7ae0db9c",
+    "name": "udaipur",
+    "slug": "udaipur-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 24.578721,
+      "lon": 73.6862571
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "udaipur",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "47ce95f5423d945773d009f094ab1cb4eea7c1d2",
+    "name": "vellore",
+    "slug": "vellore-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 12.7948109,
+      "lon": 79.0006411
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "vellore",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "85bb4d43339b71d56926c74e7402b1ec0b18d6bc",
+    "name": "thoothukkudi",
+    "slug": "thoothukkudi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": {
+      "lat": 8.7567452,
+      "lon": 78.0797527
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "thoothukkudi",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "bce4e651ff5b30b2c825ab50694d9a5c71fb4190",
+    "name": "bloemfontein",
+    "slug": "bloemfontein-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": {
+      "lat": -29.116395,
+      "lon": 26.215496
+    },
+    "knowledge_status": "geographic_only",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cities-json",
+        "source_identifier": "bloemfontein",
+        "confidence": "high",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.723Z"
+      }
+    ],
+    "confidence": "high",
+    "date_added": "2026-09-13T21:17:47.723Z",
+    "last_verified": null
+  },
+  {
+    "city_id": "ddc31c0873268fc80fd5447176723efb152ba2f8",
+    "name": "Tokyo",
+    "slug": "tokyo-japan",
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-tokyojapan-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.747Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.746Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Tokyo, a city where tradition meets innovation in an electrifying collision of ancient temples and futuristic skyscrapers. Get lost in the bustling streets of Shinjuku, where neon lights beckon you to explore hidden izakayas and quirky themed cafes. Indulge in a sensory overload at the iconic Tsukiji Fish Market, sampling fresh sushi that melts in your mouth. Take a moment of serenity amidst the cherry blossoms in Ueno Park, before diving back into the energetic chaos of Shibuya Crossing. Embrace the harmonious blend of old and new in this vibrant metropolis, where every corner offers an unforgettable experience waiting to be discovered.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "2f572b1ae5e6d0a78a67d651441480edcd539544",
+    "name": "Paris",
+    "slug": "paris-france",
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-parisfrance-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.757Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.757Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Ah, Paris! The city of love, baguettes, and effortlessly chic style. From the iconic Eiffel Tower to the charming Montmartre neighborhood, every corner of this vibrant city oozes with history and culture. Indulge in decadent pastries at a local boulangerie, sip on rich espresso in a bustling café, and wander through the picturesque cobblestone streets lined with elegant Haussmannian buildings. Whether you're exploring world-class art at the Louvre, people-watching in a sun-dappled park, or simply soaking in the romantic ambiance along the Seine River, Paris will capture your heart and leave you yearning for more.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "9a8ce10071cc0813f8ccdfb4ad63f6d0eb049bf3",
+    "name": "New York City",
+    "slug": "new-york-city-unitedstates",
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-newyorkcityunitedstates-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.763Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.762Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "New York City, the city that never sleeps, is a vibrant metropolis that offers something for everyone. From the bright lights of Times Square to the tranquility of Central Park, you can experience the hustle and bustle of city life or find a peaceful escape in the midst of it all. Indulge in world-class dining, shop until you drop on Fifth Avenue, or explore the diverse neighborhoods that make up this iconic city. Whether you're a foodie, fashionista, art lover, or history buff, New York City will capture your heart and leave you longing for more. Lively, loud, and endlessly exciting, the Big Apple is a place where dreams are made and memories are created.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "e8b2bcf1a1451de004456d34017c28d079dd1bd3",
+    "name": "Rio de Janeiro",
+    "slug": "rio-de-janeiro-brazil",
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-riodejaneirobrazil-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.766Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.765Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Rio de Janeiro is a vibrant tapestry of samba rhythms, white sandy beaches, and lush green mountains, delivering a sensory overload like no other. From the iconic Christ the Redeemer statue standing sentinel atop Corcovado Mountain to the pulsating energy of Copacabana Beach, every corner of the cidade maravilhosa (marvelous city) invites you to embrace life with open arms. Indulge in savory feijoada and caipirinhas at local botecos, sway your hips to the infectious beats of street musicians, and soak in the breathtaking sunset views from Sugarloaf Mountain. Rio is a city that captivates with its beauty, but it's the warmth and joy of its people that truly make it an unforgettable destination.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "7b782199de5c4cd5528e00ece175f1dea628a4bf",
+    "name": "Cairo",
+    "slug": "cairo-egypt",
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-cairoegypt-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.771Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.771Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Discover the mesmerizing chaos and charm of Cairo, Egypt's vibrant capital that effortlessly blends ancient wonders with modern energy. Dive into the swirling streets of Khan el-Khalili market, where the scent of spices and the sound of bargaining fill the air. Marvel at the timeless majesty of the Pyramids of Giza, standing stoically against the backdrop of the bustling city. Indulge in delectable Egyptian cuisine, from sizzling kebabs to flaky baklava, and sip on sweet mint tea while watching the Nile flow lazily by. Embrace the bustling intensity of Cairo, where every corner holds a story waiting to be discovered.",
+    "tourscore": 85
+  },
+  {
+    "city_id": "697ea26b2d73079653f3a558bb885cfd9a570063",
+    "name": "Sydney",
+    "slug": "sydney-australia",
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-sydneyaustralia-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.774Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.774Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Sydney, Australia boasts a vibrant fusion of urban sophistication and laid-back beach vibes. From the iconic Sydney Opera House gracing the harbor to the golden sands of Bondi Beach, this city offers an irresistible mix of culture, adventure, and relaxation. Indulge in world-class dining along the waterfront, surf the waves at sunrise, or embark on a scenic harbor cruise to soak in the stunning city skyline. With its sunny weather, friendly locals, and diverse neighborhoods waiting to be explored, Sydney is a must-visit destination for any traveler seeking a perfect blend of excitement and relaxation on their adventures down under.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "64e7bf2d9b45a381b909e9d79021537a696c3d0e",
+    "name": "Delhi",
+    "slug": "delhi-india",
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-delhiindia-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.778Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.778Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Delhi, the bustling capital of India, is a fascinating concoction of old-world charm and modernity. From the chaotic streets of Old Delhi and its vibrant markets to the majestic architecture of New Delhi, this city offers a sensory overload like no other. Indulge in mouth-watering street food, immerse yourself in the rich history at the impressive monuments such as the Red Fort and Qutub Minar, and get lost in the vibrant colors and sounds of this dynamic city. Be prepared for the intense energy, the hospitality of its people, and the unforgettable experiences that Delhi has in store for you.",
+    "tourscore": 85
+  },
+  {
+    "city_id": "fbee1787b31d7006a5e56c6d04eb589fbe1c8caa",
+    "name": "Mexico City",
+    "slug": "mexico-city-mexico",
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-mexicocitymexico-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.780Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.780Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Mexico City is a vibrant mosaic of history, culture, and flavors that will enchant even the most seasoned traveler. From the majestic Chapultepec Castle to the lively markets of Coyoacán, every corner of this metropolis tells a compelling story. Indulge in mouthwatering tacos al pastor, explore ancient Aztec ruins at Teotihuacán, or simply lose yourself in the colorful murals of Diego Rivera. With its eclectic mix of old-world charm and modern sophistication, Mexico City is a destination that will leave you craving more.",
+    "tourscore": 90
+  },
+  {
+    "city_id": "64782cc78162387a634ab4df8ca2ca6bedb6f81c",
+    "name": "Bangkok",
+    "slug": "bangkok-thailand",
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-bangkokthailand-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.784Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.783Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Experience the vibrant chaos of Bangkok, where centuries-old temples stand gracefully beside towering skyscrapers, and bustling markets offer an explosion of colors, scents, and flavors. Immerse yourself in the energetic street life, from tuk-tuks weaving through traffic to sizzling street food stalls serving up spicy delights. Discover the city's rich history at the Grand Palace and Wat Pho, home to the magnificent reclining Buddha. Indulge in a traditional Thai massage, explore the maze-like Chatuchak Weekend Market, and witness the glittering nightlife along Khao San Road. In Bangkok, every corner holds a new adventure waiting to be uncovered.",
+    "tourscore": 85
+  },
+  {
+    "city_id": "cdb0aee76a86c11994fbaa42710c307484316693",
+    "name": "Cape Town",
+    "slug": "cape-town-southafrica",
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "aliases": [],
+    "coordinates": null,
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-capetownsouthafrica-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "date_added": "2026-09-13T21:17:47.795Z",
+    "last_verified": null,
+    "confidence": "medium",
+    "knowledge_status": "legacy_content",
+    "overview": "Nestled between the majestic Table Mountain and the sparkling waters of the Atlantic Ocean, Cape Town effortlessly blends urban sophistication with breathtaking natural beauty. From the vibrant neighborhoods of Bo-Kaap and Woodstock to the pristine beaches of Camps Bay and Clifton, this diverse city offers something for every traveler. Indulge in world-class dining, sip on award-winning wines in the nearby Winelands, or embark on an unforgettable adventure to Cape Point where the Indian and Atlantic Oceans meet. Whether you're surfing at Muizenberg, exploring Robben Island, or simply soaking in the stunning views from Signal Hill, Cape Town is a vibrant tapestry of culture, history, and adventure waiting to be explored.",
+    "tourscore": 95
+  }
+]

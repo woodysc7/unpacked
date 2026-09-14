@@ -1,0 +1,192 @@
+[
+  {
+    "country_id": "ea94cb7c6529e9b7f28c3131e7438921dfe7fc5a",
+    "name": "Japan",
+    "slug": "japan",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-japan-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "23e591e8c36dda987970603ad0fdd031b7dff9f9",
+    "name": "France",
+    "slug": "france",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-france-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "10abb5ed259ce882363d98c828789da725de3ae7",
+    "name": "Unitedstates",
+    "slug": "unitedstates",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-unitedstates-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "90d014520eed41efb06dc1736acb362a613988ee",
+    "name": "Brazil",
+    "slug": "brazil",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-brazil-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "f5fe877187a35ec38219024998f94a44ea4c4562",
+    "name": "Egypt",
+    "slug": "egypt",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-egypt-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "75b298a477a72f770adf10f64676986a04bfcd91",
+    "name": "Australia",
+    "slug": "australia",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-australia-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "e074138d45b0494966b85ab2e31fa7ba0684f43b",
+    "name": "India",
+    "slug": "india",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-india-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "7ce8277c35ac7d51701decad652c060741bd7e48",
+    "name": "Mexico",
+    "slug": "mexico",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-mexico-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "6cbfbc47d7db5fff87d4397e0c2070b74b104a40",
+    "name": "Thailand",
+    "slug": "thailand",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-thailand-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  },
+  {
+    "country_id": "d525cce3cf8e883981c41bf0b2916ba15440375e",
+    "name": "Southafrica",
+    "slug": "southafrica",
+    "aliases": [],
+    "knowledge_status": "legacy_content",
+    "sources": [
+      {
+        "source_type": "legacy_unpacked",
+        "source_id": "unpacked-southafrica-home-html",
+        "confidence": "medium",
+        "last_verified": null,
+        "date_added": "2026-09-13T21:17:47.796Z"
+      }
+    ],
+    "confidence": "medium",
+    "date_added": "2026-09-13T21:17:47.796Z",
+    "last_verified": null
+  }
+]

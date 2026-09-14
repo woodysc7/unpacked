@@ -1,0 +1,61 @@
+{
+  "passed": 11,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Schema Validation: Countries",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Schema Validation: Cities",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Unique Country IDs",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Unique City IDs",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "No Duplicate City Names within a Country",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Slug and Canonical ID Separation",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Provenance and Knowledge Status",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Source Identifier Correctness",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Relationship Integrity",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Problematic Records Preservation",
+      "passed": true,
+      "message": "OK"
+    },
+    {
+      "name": "Deterministic Repeated Extraction",
+      "passed": true,
+      "message": "OK"
+    }
+  ]
+}

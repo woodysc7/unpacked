@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "build": "echo 'No build step required'",
-    "test": "echo 'No tests specified'"
+    "test": "echo 'No tests specified'",
+    "extract:mvp": "node scripts/extract_mvp.js",
+    "test:mvp": "node tests/test_mvp.js"
   },
   "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "cheerio": "^1.0.0-rc.12",
     "firebase-admin": "^12.0.0",
     "stripe": "^14.0.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/woodysc7/unpacked.git"
