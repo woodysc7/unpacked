@@ -104,9 +104,17 @@ async function main() {
     const displayName = normalizeCityName(cityData.name);
     const canonicalId = generateCanonicalId(`${displayName}|${countryName}`);
 
-    const existingCity = existingCities.get(canonicalId);
+    const existingCity = cities.get(canonicalId);
       if (existingCity) {
-        cities.set(canonicalId, existingCity);
+        // This is a duplicate within the geographic source file itself.
+        problematicRecords.unresolved_duplicates.push({
+          type: "geographic",
+          id: canonicalId,
+          name: displayName,
+          country: countryName,
+          existing: cities.get(canonicalId),
+          new: cityData,
+        });
       } else {
         const now = getCurrentTimestamp();
         cities.set(canonicalId, {
@@ -131,16 +139,6 @@ async function main() {
           date_added: now,
           last_verified: null,
         });
-      } else {
-      // This is a duplicate within the geographic source file itself.
-      problematicRecords.unresolved_duplicates.push({
-        type: "geographic",
-        id: canonicalId,
-        name: displayName,
-        country: countryName,
-        existing: cities.get(canonicalId),
-        new: cityData,
-      });
     }
   }
 

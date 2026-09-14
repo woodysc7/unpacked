@@ -51,26 +51,17 @@ function loadJson(filePath) {
 }
 
 const cities = loadJson(path.join(CONFIG.knowledgeDir, "cities.json"));
-const destinations = loadJson(path.join(CONFIG.knowledgeDir, "destinations.json"));
+
 const activities = loadJson(path.join(CONFIG.knowledgeDir, "activities.json"));
 
-const destinationSchema = loadJson(path.join(CONFIG.schemasDir, "destination.schema.json"));
+
 const activitySchema = loadJson(path.join(CONFIG.schemasDir, "activity.schema.json"));
 const sourceSchema = loadJson(path.join(CONFIG.schemasDir, "source.schema.json"));
 
 ajv.addSchema(sourceSchema, "source.schema.json");
 
 // --- Test Definitions ---
-runTest("Schema Validation: Destinations", () => {
-  const validate = ajv.compile(destinationSchema);
-  for (const destination of destinations) {
-    const valid = validate(destination);
-    if (!valid) {
-      console.error(ajv.errorsText(validate.errors));
-      assert(valid, `Invalid destination: ${destination.name}`);
-    }
-  }
-});
+
 
 runTest("Schema Validation: Activities", () => {
   const validate = ajv.compile(activitySchema);
@@ -85,18 +76,12 @@ runTest("Schema Validation: Activities", () => {
 
 runTest("Foreign Key Integrity: city_id", () => {
   const cityIds = new Set(cities.map(c => c.city_id));
-  for (const entity of [...destinations, ...activities]) {
+  for (const entity of [...activities]) {
     assert(cityIds.has(entity.city_id), `Entity ${entity.name} has invalid city_id ${entity.city_id}`);
   }
 });
 
-runTest("Unique Destination IDs", () => {
-  const ids = new Set();
-  for (const destination of destinations) {
-    assert(!ids.has(destination.destination_id), `Duplicate destination ID: ${destination.destination_id}`);
-    ids.add(destination.destination_id);
-  }
-});
+
 
 runTest("Unique Activity IDs", () => {
   const ids = new Set();

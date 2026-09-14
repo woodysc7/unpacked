@@ -163,22 +163,11 @@ if (!fs.existsSync(reviewDir)) {
     JSON.stringify([...uniqueActivities.values()], null, 2)
   );
 
-  const problematicRecordsPath = path.join(reviewDir, "problematic_records.json");
-  let existingProblematicRecords = { unmatched_entities: [], malformed_entities: [] };
-  if (fs.existsSync(problematicRecordsPath)) {
-    existingProblematicRecords = JSON.parse(fs.readFileSync(problematicRecordsPath, "utf-8"));
-  }
-
-  const combinedProblematicRecords = {
-    ...existingProblematicRecords,
-    unmatched_entities: [...(existingProblematicRecords.unmatched_entities || []), ...problematicRecords.unmatched_entities],
-    malformed_entities: [...(existingProblematicRecords.malformed_entities || []), ...problematicRecords.malformed_entities],
-  };
-
   fs.writeFileSync(
-    problematicRecordsPath,
-    JSON.stringify(combinedProblematicRecords, null, 2)
+    path.join(reviewDir, "problematic_records.json"),
+    JSON.stringify(problematicRecords, null, 2)
   );
+
 
   console.log("\n🎉 Phase 2B Extraction Complete!");
 }
