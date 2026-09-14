@@ -1039,11 +1039,11 @@ get_restaurants("paris-fr", {include_live_hours: true})
 5. Travel tips - From atlas content
 
 **Phase 2D: Personal Knowledge (Sam's Data)**
-1. User authentication system
+
 2. Personal experience schema
 3. Travel history tracking
-4. Personal recommendations
-5. Privacy controls
+2. Personal recommendations
+3. Privacy controls
 
 **Phase 2E: Query Interface (Juan)**
 1. Core query functions implementation
@@ -1087,18 +1087,12 @@ get_restaurants("paris-fr", {include_live_hours: true})
 
 ### 10.1 Explicit Exclusions
 
-**Authentication & Payment Systems:**
-- Firebase authentication configuration
-- Stripe payment processing
-- User subscription management
-- Payment webhook handlers
-- Access control functions
-- Whitelist management systems
+
 
 **Admin & Debug Tools:**
 - Admin HTML interfaces (`admin-*.html`)
 - Debug HTML pages (`debug-*.html`)
-- Debug Netlify functions
+
 - User management scripts
 - Whitelist management scripts
 
@@ -1107,8 +1101,7 @@ get_restaurants("paris-fr", {include_live_hours: true})
 - Netlify redirect configuration
 - Website theming and styling
 - Responsive design breakpoints
-- Client-side authentication scripts
-- Firebase SDK integration
+
 
 **Temporary Development Artifacts:**
 - Fix scripts (`fix_*.sh`, `fix_*.py`)
@@ -1120,8 +1113,7 @@ get_restaurants("paris-fr", {include_live_hours: true})
 **Obsolete Content:**
 - Duplicate atlas versions
 - Outdated HTML templates
-- Unused Netlify functions
-- Legacy authentication flows
+
 - Old redirect patterns
 
 **Generated/Mechanical Content:**
