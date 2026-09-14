@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Activity",
+  "description": "An activity or attraction within a city.",
+  "type": "object",
+  "properties": {
+    "activity_id": {
+      "description": "The unique identifier for the activity.",
+      "type": "string"
+    },
+    "name": {
+      "description": "The name of the activity.",
+      "type": "string"
+    },
+    "city_id": {
+      "description": "The ID of the city this activity belongs to.",
+      "type": "string"
+    },
+    "category": {
+      "description": "The category of the activity.",
+      "type": "string"
+    },
+    "provenance": {
+      "description": "The provenance of the data.",
+      "type": "array",
+      "items": {
+        "$ref": "source.schema.json"
+      }
+    },
+    "freshness_tier": {
+      "description": "The freshness tier of the data.",
+      "type": "string",
+      "enum": ["legacy_unverified", "Tier 1: Verified", "Tier 2: Stable"]
+    },
+    "description": {
+      "description": "A description of the activity.",
+      "type": "string"
+    },
+    "knowledge_status": {
+      "description": "The verification status of the knowledge.",
+      "type": "string",
+      "enum": ["legacy_content", "verified", "partially_verified"]
+    }
+  },
+  "required": ["activity_id", "name", "city_id", "category", "provenance", "freshness_tier", "knowledge_status"]
+}

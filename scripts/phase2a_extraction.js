@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * UNPACKED Knowledge Foundation Phase 2A Extraction Script
  *
@@ -63,8 +61,15 @@ function generateAliases(name) {
 }
 
 function getCurrentTimestamp() {
-  return new Date().toISOString();
+  return process.env.UNPACKED_DETERMINISTIC_DATE || new Date().toISOString();
 }
+function loadJson(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return [];
+  }
+  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
+}
+
 
 // --- Main Extraction Logic ---
 
@@ -74,11 +79,19 @@ async function main() {
   // In-memory data stores
   const countries = new Map();
   const cities = new Map();
+
+  // Load existing data to preserve timestamps
   const problematicRecords = {
     unresolved_duplicates: [],
     normalization_issues: [],
     missing_source_identifiers: [],
   };
+  try {
+    loadJson(path.join(CONFIG.outputDir, "cities.json")).forEach(c => cities.set(c.city_id, c));
+    loadJson(path.join(CONFIG.outputDir, "countries.json")).forEach(c => countries.set(c.country_id, c));
+  } catch (e) {
+    // Ignore if files don't exist yet
+  }
 
   // --- 1. Extract and Merge Geographic Cities ---
   console.log("\n🏙️  Extracting and merging cities from geographic database...");
@@ -91,7 +104,34 @@ async function main() {
     const displayName = normalizeCityName(cityData.name);
     const canonicalId = generateCanonicalId(`${displayName}|${countryName}`);
 
-    if (cities.has(canonicalId)) {
+    const existingCity = existingCities.get(canonicalId);
+      if (existingCity) {
+        cities.set(canonicalId, existingCity);
+      } else {
+        const now = getCurrentTimestamp();
+        cities.set(canonicalId, {
+          city_id: canonicalId,
+          name: displayName,
+          slug: generateSlug(`${displayName} ${countryName}`),
+          country_id: generateCanonicalId(countryName),
+          aliases: generateAliases(displayName),
+          coordinates: { lat: cityData.lat, lon: cityData.lon },
+          knowledge_status: "geographic_only",
+          sources: [
+            {
+              source_type: "legacy_unpacked",
+              source_id: "unpacked-cities-json",
+              source_identifier: cityData.slug,
+              confidence: "high",
+              last_verified: null,
+              date_added: now,
+            },
+          ],
+          confidence: "high",
+          date_added: now,
+          last_verified: null,
+        });
+      } else {
       // This is a duplicate within the geographic source file itself.
       problematicRecords.unresolved_duplicates.push({
         type: "geographic",
@@ -102,29 +142,6 @@ async function main() {
         new: cityData,
       });
     }
-
-    cities.set(canonicalId, {
-      city_id: canonicalId,
-      name: displayName,
-      slug: generateSlug(`${displayName} ${countryName}`),
-      country_id: generateCanonicalId(countryName),
-      aliases: generateAliases(displayName),
-      coordinates: { lat: cityData.lat, lon: cityData.lon },
-      knowledge_status: "geographic_only",
-      sources: [
-        {
-          source_type: "legacy_unpacked",
-          source_id: "unpacked-cities-json",
-          source_identifier: cityData.slug,
-          confidence: "high",
-          last_verified: null,
-          date_added: getCurrentTimestamp(),
-        },
-      ],
-      confidence: "high",
-      date_added: getCurrentTimestamp(),
-      last_verified: null,
-    });
   }
 
   // --- 2. Extract and Merge Detailed City Content ---
@@ -145,70 +162,79 @@ async function main() {
     const displayName = normalizeCityName(title);
     const canonicalId = generateCanonicalId(`${displayName}|${countryName}`);
 
-    const city = cities.get(canonicalId) || {
-      city_id: canonicalId,
-      name: displayName,
-      slug: generateSlug(`${displayName} ${countryName}`),
-      country_id: generateCanonicalId(countryName),
-      aliases: generateAliases(displayName),
-      coordinates: null,
-      sources: [],
-      date_added: getCurrentTimestamp(),
-      last_verified: null,
-      confidence: "medium",
-    };
+    const city = cities.get(canonicalId);
+    if (city) {
+      city.knowledge_status = "legacy_content";
+      city.overview = $("h3:contains('About')").next("p").text().trim();
+      city.tourscore = parseInt($(".tourscore-value").text().match(/([\d.]+)/)?.[1]) || null;
 
-    city.knowledge_status = "legacy_content";
-    city.overview = $("h3:contains(\"About\")").next("p").text().trim();
-    city.tourscore = parseInt($(".tourscore-value").text().match(/([\d.]+)/)?.[1]) || null;
-    city.sources.push({
-      source_type: "legacy_unpacked",
-      source_id: `unpacked-${cityFilename}-html`,
-      confidence: "medium",
-      last_verified: null,
-      date_added: getCurrentTimestamp(),
-    });
+      // Add new source but preserve original date_added for the main record
+      const newSource = {
+        source_type: "legacy_unpacked",
+        source_id: `unpacked-${cityFilename}-html`,
+        confidence: "medium",
+        last_verified: null,
+        date_added: getCurrentTimestamp(),
+      };
 
-    cities.set(canonicalId, city);
+      if (!city.sources) city.sources = [];
+      // Avoid adding duplicate sources
+      if (!city.sources.some(s => s.source_id === newSource.source_id)) {
+          city.sources.push(newSource);
+      }
+    } else {
+      // This case should ideally not be hit if the geo DB is comprehensive
+      problematicRecords.normalization_issues.push({ file: cityFilename, reason: "City found in HTML but not in geographic DB." });
+    }
   }
 
   // --- 3. Extract Country Information ---
   console.log("\n🌍 Extracting countries...");
   for (const countryName of CONFIG.sampleCountries) {
     const canonicalId = generateCanonicalId(countryName);
-    countries.set(canonicalId, {
-      country_id: canonicalId,
-      name: normalizeCityName(countryName.charAt(0).toUpperCase() + countryName.slice(1)),
-      slug: generateSlug(countryName),
-      aliases: generateAliases(countryName),
-      knowledge_status: "legacy_content",
-      sources: [
-        {
-          source_type: "legacy_unpacked",
-          source_id: `unpacked-${countryName}-home-html`,
-          confidence: "medium",
-          last_verified: null,
-          date_added: getCurrentTimestamp(),
-        },
-      ],
-      confidence: "medium",
-      date_added: getCurrentTimestamp(),
-      last_verified: null,
-    });
+    if (!countries.has(canonicalId)) {
+      const now = getCurrentTimestamp();
+      countries.set(canonicalId, {
+        country_id: canonicalId,
+        name: normalizeCityName(countryName.charAt(0).toUpperCase() + countryName.slice(1)),
+        slug: generateSlug(countryName),
+        aliases: generateAliases(countryName),
+        knowledge_status: "legacy_content",
+        sources: [
+          {
+            source_type: "legacy_unpacked",
+            source_id: `unpacked-${countryName}-home-html`,
+            confidence: "medium",
+            last_verified: null,
+            date_added: now,
+          },
+        ],
+        confidence: "medium",
+        date_added: now,
+        last_verified: null,
+      });
+    }
   }
 
   // --- 4. Write Output Files ---
   console.log("\n💾 Writing output files...");
+const outputDir = process.env.UNPACKED_KNOWLEDGE_DIR || CONFIG.outputDir;
+  const reviewDir = process.env.UNPACKED_KNOWLEDGE_DIR ? path.join(process.env.UNPACKED_KNOWLEDGE_DIR, 'review') : CONFIG.reviewDir;
+
+  if (!fs.existsSync(reviewDir)) {
+    fs.mkdirSync(reviewDir, { recursive: true });
+  }
+
   fs.writeFileSync(
-    path.join(CONFIG.outputDir, "countries.json"),
+    path.join(outputDir, "countries.json"),
     JSON.stringify([...countries.values()], null, 2)
   );
   fs.writeFileSync(
-    path.join(CONFIG.outputDir, "cities.json"),
+    path.join(outputDir, "cities.json"),
     JSON.stringify([...cities.values()], null, 2)
   );
   fs.writeFileSync(
-    path.join(CONFIG.reviewDir, "problematic_records.json"),
+    path.join(reviewDir, "problematic_records.json"),
     JSON.stringify(problematicRecords, null, 2)
   );
 

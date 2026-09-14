@@ -10,6 +10,7 @@ const fs = require("fs");
 const path = require("path");
 const assert = require("assert");
 const { execSync } = require("child_process");
+const os = require("os");
 
 const CONFIG = {
   knowledgeDir: path.join(__dirname, "..", "knowledge"),
@@ -141,14 +142,28 @@ runTest("Relationship Integrity", () => {
 runTest("Problematic Records Preservation", () => {
     assert(problematicRecords.unresolved_duplicates.length === 0, "No duplicates should be present in the final data");
 });
+const deterministiExtractionTest = () => {
+  const tempKnowledgeDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase2a-test-'));
+  try {
+    const command = `UNPACKED_KNOWLEDGE_DIR=${tempKnowledgeDir} node ${CONFIG.extractionScript}`;
+    execSync(command);
+    const tempCities = loadJson(path.join(tempKnowledgeDir, 'cities.json'));
+    const tempCountries = loadJson(path.join(tempKnowledgeDir, 'countries.json'));
 
-runTest("Deterministic Repeated Extraction", () => {
-    console.log("  Running extraction script a second time...");
-    execSync(`node ${CONFIG.extractionScript}`);
-    const firstRunCities = cities.map(c => ({...c, date_added: null, sources: c.sources.map(s => ({...s, date_added: null}))}));
-    const secondRunCities = loadJson(path.join(CONFIG.knowledgeDir, "cities.json")).map(c => ({...c, date_added: null, sources: c.sources.map(s => ({...s, date_added: null}))}));
-    assert.deepStrictEqual(firstRunCities, secondRunCities, "Repeated extraction is not deterministic");
-});
+    const citiesWithNullDates = cities.map(c => ({ ...c, date_added: null, sources: c.sources.map(s => ({ ...s, date_added: null })) }));
+    const tempCitiesWithNullDates = tempCities.map(c => ({ ...c, date_added: null, sources: c.sources.map(s => ({ ...s, date_added: null })) }));
+
+    const countriesWithNullDates = countries.map(c => ({ ...c, date_added: null, sources: c.sources.map(s => ({ ...s, date_added: null })) }));
+    const tempCountriesWithNullDates = tempCountries.map(c => ({ ...c, date_added: null, sources: c.sources.map(s => ({ ...s, date_added: null })) }));
+
+    assert.deepStrictEqual(citiesWithNullDates, tempCitiesWithNullDates, "Repeated city extraction is not deterministic");
+    assert.deepStrictEqual(countriesWithNullDates, tempCountriesWithNullDates, "Repeated country extraction is not deterministic");
+  } finally {
+    fs.rmSync(tempKnowledgeDir, { recursive: true, force: true });
+  }
+};
+
+runTest("Deterministic Repeated Extraction", deterministiExtractionTest);
 
 
 // --- Test Summary ---
